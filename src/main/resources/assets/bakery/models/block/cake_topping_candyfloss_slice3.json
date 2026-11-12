@@ -1,0 +1,79 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"format_version": "26.3",
+	"textures": {
+		"fluff": "bakery:block/fruit_fluff",
+		"particle": "bakery:block/fruit_fluff"
+	},
+	"elements": [
+		{
+			"name": "puff",
+			"from": [
+				11.25,
+				8.5,
+				3
+			],
+			"to": [
+				13,
+				10.5,
+				6
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3,
+						5.5,
+						4.75,
+						7.5
+					],
+					"texture": "#fluff"
+				},
+				"east": {
+					"uv": [
+						10,
+						5.5,
+						13,
+						7.5
+					],
+					"texture": "#fluff"
+				},
+				"south": {
+					"uv": [
+						11.25,
+						5.5,
+						13,
+						7.5
+					],
+					"texture": "#fluff"
+				},
+				"west": {
+					"uv": [
+						3,
+						5.5,
+						6,
+						7.5
+					],
+					"texture": "#fluff"
+				},
+				"up": {
+					"uv": [
+						11.25,
+						3,
+						13,
+						6
+					],
+					"texture": "#fluff"
+				}
+			}
+		}
+	]
+}

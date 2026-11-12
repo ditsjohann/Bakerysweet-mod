@@ -1,0 +1,24 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		" I ",
+		"GGG",
+		"TTT"
+	],
+	"key": {
+		"I": {
+			"item": "minecraft:iron_ingot"
+		},
+		"G": {
+			"item": "minecraft:glass_pane"
+		},
+		"T": {
+			"item": "minecraft:white_terracotta"
+		}
+	},
+	"result": {
+		"id": "bakery:juicer",
+		"count": 1
+	}
+}

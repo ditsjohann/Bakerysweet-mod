@@ -1,0 +1,12 @@
+{
+	"replace": false,
+	"values": [
+		"bakery:palm_leaves",
+		"bakery:citrus_leaves",
+		"bakery:blossom_leaves",
+		"bakery:orangewood_leaves",
+		"bakery:peachwood_leaves",
+		"bakery:mangowood_leaves",
+		"bakery:plumwood_leaves"
+	]
+}

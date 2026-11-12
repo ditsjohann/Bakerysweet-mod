@@ -1,0 +1,93 @@
+{
+	"type": "minecraft:block",
+	"pools": [
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:alternatives",
+					"children": [
+						{
+							"type": "minecraft:item",
+							"name": "minecraft:bricks",
+							"conditions": [
+								{
+									"condition": "minecraft:block_state_property",
+									"block": "bakery:multiblock_part",
+									"properties": {
+										"kind": "brick"
+									}
+								}
+							]
+						},
+						{
+							"type": "minecraft:item",
+							"name": "bakery:oven_heart",
+							"conditions": [
+								{
+									"condition": "minecraft:block_state_property",
+									"block": "bakery:multiblock_part",
+									"properties": {
+										"kind": "oven_heart"
+									}
+								}
+							]
+						},
+						{
+							"type": "minecraft:item",
+							"name": "minecraft:stone_bricks",
+							"conditions": [
+								{
+									"condition": "minecraft:block_state_property",
+									"block": "bakery:multiblock_part",
+									"properties": {
+										"kind": "stone"
+									}
+								}
+							]
+						},
+						{
+							"type": "minecraft:item",
+							"name": "minecraft:cobblestone_wall",
+							"conditions": [
+								{
+									"condition": "minecraft:block_state_property",
+									"block": "bakery:multiblock_part",
+									"properties": {
+										"kind": "wall"
+									}
+								}
+							]
+						},
+						{
+							"type": "minecraft:item",
+							"name": "minecraft:white_terracotta",
+							"conditions": [
+								{
+									"condition": "minecraft:block_state_property",
+									"block": "bakery:multiblock_part",
+									"properties": {
+										"kind": "terracotta"
+									}
+								}
+							]
+						},
+						{
+							"type": "minecraft:item",
+							"name": "minecraft:gold_block",
+							"conditions": [
+								{
+									"condition": "minecraft:block_state_property",
+									"block": "bakery:multiblock_part",
+									"properties": {
+										"kind": "gold"
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

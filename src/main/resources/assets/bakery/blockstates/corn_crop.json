@@ -1,0 +1,40 @@
+{
+	"variants": {
+		"age=0,segment=0": {
+			"model": "bakery:block/corn_stage0"
+		},
+		"age=0,segment=1": {
+			"model": "bakery:block/corn_middle"
+		},
+		"age=0,segment=2": {
+			"model": "bakery:block/corn_top"
+		},
+		"age=1,segment=0": {
+			"model": "bakery:block/corn_stage1"
+		},
+		"age=1,segment=1": {
+			"model": "bakery:block/corn_middle"
+		},
+		"age=1,segment=2": {
+			"model": "bakery:block/corn_top"
+		},
+		"age=2,segment=0": {
+			"model": "bakery:block/corn_bottom"
+		},
+		"age=2,segment=1": {
+			"model": "bakery:block/corn_middle"
+		},
+		"age=2,segment=2": {
+			"model": "bakery:block/corn_top"
+		},
+		"age=3,segment=0": {
+			"model": "bakery:block/corn_bottom"
+		},
+		"age=3,segment=1": {
+			"model": "bakery:block/corn_middle_ripe"
+		},
+		"age=3,segment=2": {
+			"model": "bakery:block/corn_top"
+		}
+	}
+}

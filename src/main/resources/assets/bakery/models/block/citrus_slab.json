@@ -1,0 +1,8 @@
+{
+	"parent": "minecraft:block/slab",
+	"textures": {
+		"bottom": "bakery:block/citrus_planks",
+		"top": "bakery:block/citrus_planks",
+		"side": "bakery:block/citrus_planks"
+	}
+}

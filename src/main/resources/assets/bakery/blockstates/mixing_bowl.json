@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"filled=false": {
+			"model": "bakery:block/mixing_bowl"
+		},
+		"filled=true": {
+			"model": "bakery:block/mixing_bowl"
+		}
+	}
+}

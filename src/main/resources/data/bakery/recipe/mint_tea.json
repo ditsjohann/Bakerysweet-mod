@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:mug"
+		},
+		{
+			"item": "bakery:mint_leaves"
+		},
+		{
+			"item": "bakery:mint_leaves"
+		},
+		{
+			"item": "minecraft:water_bucket"
+		}
+	],
+	"result": {
+		"id": "bakery:mint_tea",
+		"count": 1
+	}
+}

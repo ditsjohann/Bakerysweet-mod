@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"TTT",
+		" T ",
+		" T "
+	],
+	"key": {
+		"T": {
+			"item": "minecraft:white_terracotta"
+		}
+	},
+	"result": {
+		"id": "bakery:cake_stand",
+		"count": 1
+	}
+}

@@ -1,0 +1,8 @@
+{
+	"parent": "minecraft:block/slab_top",
+	"textures": {
+		"bottom": "bakery:block/mangowood_planks",
+		"top": "bakery:block/mangowood_planks",
+		"side": "bakery:block/mangowood_planks"
+	}
+}

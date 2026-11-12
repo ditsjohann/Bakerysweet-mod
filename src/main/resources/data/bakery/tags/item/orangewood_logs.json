@@ -1,0 +1,9 @@
+{
+	"replace": false,
+	"values": [
+		"bakery:orangewood_log",
+		"bakery:orangewood_wood",
+		"bakery:stripped_orangewood_log",
+		"bakery:stripped_orangewood_wood"
+	]
+}

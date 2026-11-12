@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"W W",
+		"WCW"
+	],
+	"key": {
+		"W": {
+			"item": "minecraft:wheat"
+		},
+		"C": {
+			"item": "minecraft:white_carpet"
+		}
+	},
+	"result": {
+		"id": "bakery:proofing_basket",
+		"count": 1
+	}
+}

@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "minecraft:book"
+		},
+		{
+			"item": "minecraft:pink_dye"
+		},
+		{
+			"tag": "minecraft:planks"
+		}
+	],
+	"result": {
+		"id": "bakery:bakery_catalog",
+		"count": 1
+	}
+}

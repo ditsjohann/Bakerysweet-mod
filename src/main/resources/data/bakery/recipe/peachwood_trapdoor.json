@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"PPP",
+		"PPP"
+	],
+	"key": {
+		"P": {
+			"item": "bakery:peachwood_planks"
+		}
+	},
+	"result": {
+		"id": "bakery:peachwood_trapdoor",
+		"count": 2
+	}
+}

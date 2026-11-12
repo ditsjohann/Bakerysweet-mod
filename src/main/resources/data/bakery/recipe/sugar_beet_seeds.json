@@ -1,0 +1,13 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:sugar_beet"
+		}
+	],
+	"result": {
+		"id": "bakery:sugar_beet_seeds",
+		"count": 2
+	}
+}

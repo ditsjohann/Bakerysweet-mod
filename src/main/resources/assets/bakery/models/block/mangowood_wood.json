@@ -1,0 +1,7 @@
+{
+	"parent": "minecraft:block/cube_column",
+	"textures": {
+		"end": "bakery:block/mangowood_log",
+		"side": "bakery:block/mangowood_log"
+	}
+}

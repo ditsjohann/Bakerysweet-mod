@@ -1,0 +1,16 @@
+{
+	"variants": {
+		"axis=x": {
+			"model": "bakery:block/stripped_peachwood_wood",
+			"x": 90,
+			"y": 90
+		},
+		"axis=y": {
+			"model": "bakery:block/stripped_peachwood_wood"
+		},
+		"axis=z": {
+			"model": "bakery:block/stripped_peachwood_wood",
+			"x": 90
+		}
+	}
+}

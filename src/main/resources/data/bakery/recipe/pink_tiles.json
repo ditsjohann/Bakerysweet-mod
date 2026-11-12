@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"WD",
+		"DW"
+	],
+	"key": {
+		"W": {
+			"item": "minecraft:white_terracotta"
+		},
+		"D": {
+			"item": "minecraft:pink_dye"
+		}
+	},
+	"result": {
+		"id": "bakery:pink_tiles",
+		"count": 4
+	}
+}

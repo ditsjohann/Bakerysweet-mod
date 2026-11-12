@@ -1,0 +1,12 @@
+{
+	"replace": false,
+	"values": [
+		"bakery:palm_stairs",
+		"bakery:citrus_stairs",
+		"bakery:blossom_stairs",
+		"bakery:orangewood_stairs",
+		"bakery:peachwood_stairs",
+		"bakery:mangowood_stairs",
+		"bakery:plumwood_stairs"
+	]
+}

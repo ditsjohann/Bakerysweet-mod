@@ -1,0 +1,215 @@
+{
+	"parent": "minecraft:block/block",
+	"ambientocclusion": true,
+	"textures": {
+		"board": "bakery:block/donut_wall",
+		"wood": "bakery:block/wood_mint",
+		"particle": "bakery:block/donut_wall"
+	},
+	"elements": [
+		{
+			"from": [
+				1,
+				1,
+				15
+			],
+			"to": [
+				15,
+				15,
+				16
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#board"
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#board"
+				},
+				"east": {
+					"uv": [
+						0,
+						1,
+						1,
+						15
+					],
+					"texture": "#board"
+				},
+				"west": {
+					"uv": [
+						15,
+						1,
+						16,
+						15
+					],
+					"texture": "#board"
+				},
+				"up": {
+					"uv": [
+						1,
+						15,
+						15,
+						16
+					],
+					"texture": "#board"
+				},
+				"down": {
+					"uv": [
+						1,
+						0,
+						15,
+						1
+					],
+					"texture": "#board"
+				}
+			}
+		},
+		{
+			"from": [
+				0.5,
+				0.5,
+				14.6
+			],
+			"to": [
+				15.5,
+				1.5,
+				16
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						0.5,
+						14.5,
+						15.5,
+						15.5
+					],
+					"texture": "#wood"
+				},
+				"south": {
+					"uv": [
+						0.5,
+						14.5,
+						15.5,
+						15.5
+					],
+					"texture": "#wood"
+				},
+				"east": {
+					"uv": [
+						0,
+						14.5,
+						1.4000000000000004,
+						15.5
+					],
+					"texture": "#wood"
+				},
+				"west": {
+					"uv": [
+						14.6,
+						14.5,
+						16,
+						15.5
+					],
+					"texture": "#wood"
+				},
+				"up": {
+					"uv": [
+						0.5,
+						14.6,
+						15.5,
+						16
+					],
+					"texture": "#wood"
+				},
+				"down": {
+					"uv": [
+						0.5,
+						0,
+						15.5,
+						1.4000000000000004
+					],
+					"texture": "#wood"
+				}
+			}
+		},
+		{
+			"from": [
+				0.5,
+				14.5,
+				14.6
+			],
+			"to": [
+				15.5,
+				15.5,
+				16
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						0.5,
+						0.5,
+						15.5,
+						1.5
+					],
+					"texture": "#wood"
+				},
+				"south": {
+					"uv": [
+						0.5,
+						0.5,
+						15.5,
+						1.5
+					],
+					"texture": "#wood"
+				},
+				"east": {
+					"uv": [
+						0,
+						0.5,
+						1.4000000000000004,
+						1.5
+					],
+					"texture": "#wood"
+				},
+				"west": {
+					"uv": [
+						14.6,
+						0.5,
+						16,
+						1.5
+					],
+					"texture": "#wood"
+				},
+				"up": {
+					"uv": [
+						0.5,
+						14.6,
+						15.5,
+						16
+					],
+					"texture": "#wood"
+				},
+				"down": {
+					"uv": [
+						0.5,
+						0,
+						15.5,
+						1.4000000000000004
+					],
+					"texture": "#wood"
+				}
+			}
+		}
+	]
+}

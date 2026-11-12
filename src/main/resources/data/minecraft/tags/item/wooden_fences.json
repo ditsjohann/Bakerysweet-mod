@@ -1,0 +1,13 @@
+{
+	"replace": false,
+	"values": [
+		"bakery:palm_fence",
+		"bakery:citrus_fence",
+		"bakery:blossom_fence",
+		"bakery:orangewood_fence",
+		"bakery:peachwood_fence",
+		"bakery:mangowood_fence",
+		"bakery:plumwood_fence",
+		"bakery:pink_picket_fence"
+	]
+}

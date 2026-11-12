@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:tea_leaves"
+		},
+		{
+			"item": "bakery:tea_leaves"
+		}
+	],
+	"result": {
+		"id": "bakery:tea_seeds",
+		"count": 1
+	}
+}

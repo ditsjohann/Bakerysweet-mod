@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:mug"
+		},
+		{
+			"item": "bakery:matcha_powder"
+		},
+		{
+			"item": "minecraft:milk_bucket"
+		},
+		{
+			"item": "minecraft:sugar"
+		}
+	],
+	"result": {
+		"id": "bakery:matcha_latte",
+		"count": 1
+	}
+}

@@ -1,0 +1,7 @@
+{
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "bakery:item/cookie_flower",
+		"layer1": "bakery:item/cookie_flower_icing"
+	}
+}

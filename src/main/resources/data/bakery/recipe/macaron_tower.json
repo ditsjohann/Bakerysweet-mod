@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:macarons"
+		},
+		{
+			"item": "bakery:macarons"
+		},
+		{
+			"item": "bakery:macarons"
+		},
+		{
+			"item": "bakery:cake_stand"
+		}
+	],
+	"result": {
+		"id": "bakery:macaron_tower",
+		"count": 1
+	}
+}

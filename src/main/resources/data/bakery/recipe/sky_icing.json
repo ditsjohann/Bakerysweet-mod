@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "minecraft:paper"
+		},
+		{
+			"item": "minecraft:sugar"
+		},
+		{
+			"item": "minecraft:sugar"
+		},
+		{
+			"item": "minecraft:light_blue_dye"
+		}
+	],
+	"result": {
+		"id": "bakery:sky_icing",
+		"count": 1
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"schemaVersion": 1,
+	"id": "bakery_gametest",
+	"version": "1.0.0",
+	"name": "Sweetheart Bakery Game Tests",
+	"description": "Automated in-game tests for Sweetheart Bakery. Not shipped with the mod.",
+	"environment": "*",
+	"entrypoints": {
+		"fabric-gametest": ["com.bakery.test.BakeryGameTests"]
+	},
+	"depends": {
+		"bakery": "*",
+		"fabric-gametest-api-v1": "*"
+	}
+}

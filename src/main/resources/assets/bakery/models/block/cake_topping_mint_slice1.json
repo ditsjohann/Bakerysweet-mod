@@ -1,0 +1,424 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"format_version": "26.3",
+	"textures": {
+		"mint": "bakery:block/topping_mint",
+		"particle": "bakery:block/topping_mint"
+	},
+	"elements": [
+		{
+			"name": "leaf",
+			"from": [
+				11.7,
+				8.5,
+				7.5
+			],
+			"to": [
+				13.5,
+				8.9,
+				8.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						2.5,
+						7.1,
+						4.3,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"east": {
+					"uv": [
+						7.5,
+						7.1,
+						8.5,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"south": {
+					"uv": [
+						11.7,
+						7.1,
+						13.5,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"west": {
+					"uv": [
+						7.5,
+						7.1,
+						8.5,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"up": {
+					"uv": [
+						11.7,
+						7.5,
+						13.5,
+						8.5
+					],
+					"texture": "#mint"
+				}
+			}
+		},
+		{
+			"name": "leaf",
+			"from": [
+				9.4,
+				8.5,
+				11.48372
+			],
+			"to": [
+				11.2,
+				8.9,
+				12.48372
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						4.8,
+						7.1,
+						6.6,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"east": {
+					"uv": [
+						3.51628,
+						7.1,
+						4.51628,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"south": {
+					"uv": [
+						9.4,
+						7.1,
+						11.2,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"west": {
+					"uv": [
+						11.48372,
+						7.1,
+						12.48372,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"up": {
+					"uv": [
+						9.4,
+						11.48372,
+						11.2,
+						12.48372
+					],
+					"texture": "#mint"
+				}
+			}
+		},
+		{
+			"name": "leaf",
+			"from": [
+				4.8,
+				8.5,
+				11.48372
+			],
+			"to": [
+				6.6,
+				8.9,
+				12.48372
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						9.4,
+						7.1,
+						11.2,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"east": {
+					"uv": [
+						3.51628,
+						7.1,
+						4.51628,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"south": {
+					"uv": [
+						4.8,
+						7.1,
+						6.6,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"west": {
+					"uv": [
+						11.48372,
+						7.1,
+						12.48372,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"up": {
+					"uv": [
+						4.8,
+						11.48372,
+						6.6,
+						12.48372
+					],
+					"texture": "#mint"
+				}
+			}
+		},
+		{
+			"name": "leaf",
+			"from": [
+				4.8,
+				8.5,
+				3.51628
+			],
+			"to": [
+				6.6,
+				8.9,
+				4.51628
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						9.4,
+						7.1,
+						11.2,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"east": {
+					"uv": [
+						11.48372,
+						7.1,
+						12.48372,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"south": {
+					"uv": [
+						4.8,
+						7.1,
+						6.6,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"west": {
+					"uv": [
+						3.51628,
+						7.1,
+						4.51628,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"up": {
+					"uv": [
+						4.8,
+						3.51628,
+						6.6,
+						4.51628
+					],
+					"texture": "#mint"
+				}
+			}
+		},
+		{
+			"name": "leaf",
+			"from": [
+				9.4,
+				8.5,
+				3.51628
+			],
+			"to": [
+				11.2,
+				8.9,
+				4.51628
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						4.8,
+						7.1,
+						6.6,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"east": {
+					"uv": [
+						11.48372,
+						7.1,
+						12.48372,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"south": {
+					"uv": [
+						9.4,
+						7.1,
+						11.2,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"west": {
+					"uv": [
+						3.51628,
+						7.1,
+						4.51628,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"up": {
+					"uv": [
+						9.4,
+						3.51628,
+						11.2,
+						4.51628
+					],
+					"texture": "#mint"
+				}
+			}
+		},
+		{
+			"name": "sprig",
+			"from": [
+				7,
+				8.5,
+				7.2
+			],
+			"to": [
+				9,
+				9.1,
+				8.8
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						7,
+						6.9,
+						9,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"east": {
+					"uv": [
+						7.2,
+						6.9,
+						8.8,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"south": {
+					"uv": [
+						7,
+						6.9,
+						9,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"west": {
+					"uv": [
+						7.2,
+						6.9,
+						8.8,
+						7.5
+					],
+					"texture": "#mint"
+				},
+				"up": {
+					"uv": [
+						7,
+						7.2,
+						9,
+						8.8
+					],
+					"texture": "#mint"
+				}
+			}
+		}
+	]
+}

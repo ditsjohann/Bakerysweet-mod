@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"PPP"
+	],
+	"key": {
+		"P": {
+			"item": "bakery:citrus_planks"
+		}
+	},
+	"result": {
+		"id": "bakery:citrus_slab",
+		"count": 6
+	}
+}

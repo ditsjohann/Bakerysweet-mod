@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"LL",
+		"LL"
+	],
+	"key": {
+		"L": {
+			"item": "bakery:plumwood_log"
+		}
+	},
+	"result": {
+		"id": "bakery:plumwood_wood",
+		"count": 3
+	}
+}

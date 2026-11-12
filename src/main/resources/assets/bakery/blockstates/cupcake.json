@@ -1,0 +1,164 @@
+{
+	"multipart": [
+		{
+			"when": {
+				"facing": "north",
+				"count": "1"
+			},
+			"apply": {
+				"model": "bakery:block/cupcake_1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"count": "2"
+			},
+			"apply": {
+				"model": "bakery:block/cupcake_2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"count": "3"
+			},
+			"apply": {
+				"model": "bakery:block/cupcake_3",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"count": "4"
+			},
+			"apply": {
+				"model": "bakery:block/cupcake_4",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"count": "1"
+			},
+			"apply": {
+				"model": "bakery:block/cupcake_1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"count": "2"
+			},
+			"apply": {
+				"model": "bakery:block/cupcake_2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"count": "3"
+			},
+			"apply": {
+				"model": "bakery:block/cupcake_3",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"count": "4"
+			},
+			"apply": {
+				"model": "bakery:block/cupcake_4",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"count": "1"
+			},
+			"apply": {
+				"model": "bakery:block/cupcake_1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"count": "2"
+			},
+			"apply": {
+				"model": "bakery:block/cupcake_2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"count": "3"
+			},
+			"apply": {
+				"model": "bakery:block/cupcake_3",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"count": "4"
+			},
+			"apply": {
+				"model": "bakery:block/cupcake_4",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"count": "1"
+			},
+			"apply": {
+				"model": "bakery:block/cupcake_1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"count": "2"
+			},
+			"apply": {
+				"model": "bakery:block/cupcake_2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"count": "3"
+			},
+			"apply": {
+				"model": "bakery:block/cupcake_3",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"count": "4"
+			},
+			"apply": {
+				"model": "bakery:block/cupcake_4",
+				"y": 270
+			}
+		}
+	]
+}

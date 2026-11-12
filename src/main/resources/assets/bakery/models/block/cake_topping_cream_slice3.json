@@ -1,0 +1,424 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"format_version": "26.3",
+	"textures": {
+		"cream": "bakery:block/topping_cream",
+		"particle": "bakery:block/topping_cream"
+	},
+	"elements": [
+		{
+			"name": "dollop",
+			"from": [
+				11.8,
+				8.5,
+				7
+			],
+			"to": [
+				13.8,
+				10,
+				9
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						2.2,
+						6,
+						4.2,
+						7.5
+					],
+					"texture": "#cream"
+				},
+				"east": {
+					"uv": [
+						7,
+						6,
+						9,
+						7.5
+					],
+					"texture": "#cream"
+				},
+				"south": {
+					"uv": [
+						11.8,
+						6,
+						13.8,
+						7.5
+					],
+					"texture": "#cream"
+				},
+				"west": {
+					"uv": [
+						7,
+						6,
+						9,
+						7.5
+					],
+					"texture": "#cream"
+				},
+				"up": {
+					"uv": [
+						11.8,
+						7,
+						13.8,
+						9
+					],
+					"texture": "#cream"
+				}
+			}
+		},
+		{
+			"name": "tip",
+			"from": [
+				12.3,
+				10,
+				7.5
+			],
+			"to": [
+				13.3,
+				10.7,
+				8.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						2.7,
+						5.3,
+						3.7,
+						6
+					],
+					"texture": "#cream"
+				},
+				"east": {
+					"uv": [
+						7.5,
+						5.3,
+						8.5,
+						6
+					],
+					"texture": "#cream"
+				},
+				"south": {
+					"uv": [
+						12.3,
+						5.3,
+						13.3,
+						6
+					],
+					"texture": "#cream"
+				},
+				"west": {
+					"uv": [
+						7.5,
+						5.3,
+						8.5,
+						6
+					],
+					"texture": "#cream"
+				},
+				"up": {
+					"uv": [
+						12.3,
+						7.5,
+						13.3,
+						8.5
+					],
+					"texture": "#cream"
+				}
+			}
+		},
+		{
+			"name": "dollop",
+			"from": [
+				11.25,
+				8.5,
+				10.39411
+			],
+			"to": [
+				12.39411,
+				10,
+				12.39411
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3.60589,
+						6,
+						4.75,
+						7.5
+					],
+					"texture": "#cream"
+				},
+				"east": {
+					"uv": [
+						3.60589,
+						6,
+						5.60589,
+						7.5
+					],
+					"texture": "#cream"
+				},
+				"south": {
+					"uv": [
+						11.25,
+						6,
+						12.39411,
+						7.5
+					],
+					"texture": "#cream"
+				},
+				"west": {
+					"uv": [
+						10.39411,
+						6,
+						12.39411,
+						7.5
+					],
+					"texture": "#cream"
+				},
+				"up": {
+					"uv": [
+						11.25,
+						10.39411,
+						12.39411,
+						12.39411
+					],
+					"texture": "#cream"
+				}
+			}
+		},
+		{
+			"name": "tip",
+			"from": [
+				11.25,
+				10,
+				10.89411
+			],
+			"to": [
+				11.89411,
+				10.7,
+				11.89411
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						4.10589,
+						5.3,
+						4.75,
+						6
+					],
+					"texture": "#cream"
+				},
+				"east": {
+					"uv": [
+						4.10589,
+						5.3,
+						5.10589,
+						6
+					],
+					"texture": "#cream"
+				},
+				"south": {
+					"uv": [
+						11.25,
+						5.3,
+						11.89411,
+						6
+					],
+					"texture": "#cream"
+				},
+				"west": {
+					"uv": [
+						10.89411,
+						5.3,
+						11.89411,
+						6
+					],
+					"texture": "#cream"
+				},
+				"up": {
+					"uv": [
+						11.25,
+						10.89411,
+						11.89411,
+						11.89411
+					],
+					"texture": "#cream"
+				}
+			}
+		},
+		{
+			"name": "dollop",
+			"from": [
+				11.25,
+				8.5,
+				3.60589
+			],
+			"to": [
+				12.39411,
+				10,
+				5.60589
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3.60589,
+						6,
+						4.75,
+						7.5
+					],
+					"texture": "#cream"
+				},
+				"east": {
+					"uv": [
+						10.39411,
+						6,
+						12.39411,
+						7.5
+					],
+					"texture": "#cream"
+				},
+				"south": {
+					"uv": [
+						11.25,
+						6,
+						12.39411,
+						7.5
+					],
+					"texture": "#cream"
+				},
+				"west": {
+					"uv": [
+						3.60589,
+						6,
+						5.60589,
+						7.5
+					],
+					"texture": "#cream"
+				},
+				"up": {
+					"uv": [
+						11.25,
+						3.60589,
+						12.39411,
+						5.60589
+					],
+					"texture": "#cream"
+				}
+			}
+		},
+		{
+			"name": "tip",
+			"from": [
+				11.25,
+				10,
+				4.10589
+			],
+			"to": [
+				11.89411,
+				10.7,
+				5.10589
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						4.10589,
+						5.3,
+						4.75,
+						6
+					],
+					"texture": "#cream"
+				},
+				"east": {
+					"uv": [
+						10.89411,
+						5.3,
+						11.89411,
+						6
+					],
+					"texture": "#cream"
+				},
+				"south": {
+					"uv": [
+						11.25,
+						5.3,
+						11.89411,
+						6
+					],
+					"texture": "#cream"
+				},
+				"west": {
+					"uv": [
+						4.10589,
+						5.3,
+						5.10589,
+						6
+					],
+					"texture": "#cream"
+				},
+				"up": {
+					"uv": [
+						11.25,
+						4.10589,
+						11.89411,
+						5.10589
+					],
+					"texture": "#cream"
+				}
+			}
+		}
+	]
+}

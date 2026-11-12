@@ -1,0 +1,365 @@
+{
+	"parent": "minecraft:block/block",
+	"textures": {
+		"pearl": "bakery:block/ceramic_white",
+		"particle": "bakery:block/ceramic_white"
+	},
+	"elements": [
+		{
+			"from": [
+				3,
+				0,
+				3
+			],
+			"to": [
+				7,
+				4,
+				7
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						9,
+						12,
+						13,
+						16
+					],
+					"texture": "#pearl"
+				},
+				"south": {
+					"uv": [
+						3,
+						12,
+						7,
+						16
+					],
+					"texture": "#pearl"
+				},
+				"east": {
+					"uv": [
+						9,
+						12,
+						13,
+						16
+					],
+					"texture": "#pearl"
+				},
+				"west": {
+					"uv": [
+						3,
+						12,
+						7,
+						16
+					],
+					"texture": "#pearl"
+				},
+				"up": {
+					"uv": [
+						3,
+						3,
+						7,
+						7
+					],
+					"texture": "#pearl"
+				},
+				"down": {
+					"uv": [
+						3,
+						9,
+						7,
+						13
+					],
+					"texture": "#pearl"
+				}
+			}
+		},
+		{
+			"from": [
+				9,
+				0,
+				4
+			],
+			"to": [
+				13,
+				4,
+				8
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						3,
+						12,
+						7,
+						16
+					],
+					"texture": "#pearl"
+				},
+				"south": {
+					"uv": [
+						9,
+						12,
+						13,
+						16
+					],
+					"texture": "#pearl"
+				},
+				"east": {
+					"uv": [
+						8,
+						12,
+						12,
+						16
+					],
+					"texture": "#pearl"
+				},
+				"west": {
+					"uv": [
+						4,
+						12,
+						8,
+						16
+					],
+					"texture": "#pearl"
+				},
+				"up": {
+					"uv": [
+						9,
+						4,
+						13,
+						8
+					],
+					"texture": "#pearl"
+				},
+				"down": {
+					"uv": [
+						9,
+						8,
+						13,
+						12
+					],
+					"texture": "#pearl"
+				}
+			}
+		},
+		{
+			"from": [
+				5,
+				0,
+				9
+			],
+			"to": [
+				9,
+				4,
+				13
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						7,
+						12,
+						11,
+						16
+					],
+					"texture": "#pearl"
+				},
+				"south": {
+					"uv": [
+						5,
+						12,
+						9,
+						16
+					],
+					"texture": "#pearl"
+				},
+				"east": {
+					"uv": [
+						3,
+						12,
+						7,
+						16
+					],
+					"texture": "#pearl"
+				},
+				"west": {
+					"uv": [
+						9,
+						12,
+						13,
+						16
+					],
+					"texture": "#pearl"
+				},
+				"up": {
+					"uv": [
+						5,
+						9,
+						9,
+						13
+					],
+					"texture": "#pearl"
+				},
+				"down": {
+					"uv": [
+						5,
+						3,
+						9,
+						7
+					],
+					"texture": "#pearl"
+				}
+			}
+		},
+		{
+			"from": [
+				7,
+				3.5,
+				6
+			],
+			"to": [
+				11,
+				7.5,
+				10
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						5,
+						8.5,
+						9,
+						12.5
+					],
+					"texture": "#pearl"
+				},
+				"south": {
+					"uv": [
+						7,
+						8.5,
+						11,
+						12.5
+					],
+					"texture": "#pearl"
+				},
+				"east": {
+					"uv": [
+						6,
+						8.5,
+						10,
+						12.5
+					],
+					"texture": "#pearl"
+				},
+				"west": {
+					"uv": [
+						6,
+						8.5,
+						10,
+						12.5
+					],
+					"texture": "#pearl"
+				},
+				"up": {
+					"uv": [
+						7,
+						6,
+						11,
+						10
+					],
+					"texture": "#pearl"
+				},
+				"down": {
+					"uv": [
+						7,
+						6,
+						11,
+						10
+					],
+					"texture": "#pearl"
+				}
+			}
+		}
+	],
+	"display": {
+		"gui": {
+			"rotation": [
+				20,
+				200,
+				0
+			],
+			"translation": [
+				0,
+				0,
+				0
+			],
+			"scale": [
+				0.9,
+				0.9,
+				0.9
+			]
+		},
+		"ground": {
+			"scale": [
+				0.5,
+				0.5,
+				0.5
+			]
+		},
+		"fixed": {
+			"scale": [
+				1,
+				1,
+				1
+			]
+		},
+		"thirdperson_righthand": {
+			"rotation": [
+				0,
+				0,
+				0
+			],
+			"translation": [
+				0,
+				1,
+				1
+			],
+			"scale": [
+				0.5,
+				0.5,
+				0.5
+			]
+		},
+		"firstperson_righthand": {
+			"rotation": [
+				0,
+				-30,
+				0
+			],
+			"translation": [
+				0,
+				2,
+				0
+			],
+			"scale": [
+				0.6,
+				0.6,
+				0.6
+			]
+		},
+		"firstperson_lefthand": {
+			"rotation": [
+				0,
+				150,
+				0
+			],
+			"translation": [
+				0,
+				2,
+				0
+			],
+			"scale": [
+				0.6,
+				0.6,
+				0.6
+			]
+		}
+	}
+}

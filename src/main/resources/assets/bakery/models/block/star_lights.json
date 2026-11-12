@@ -1,0 +1,43 @@
+{
+	"parent": "minecraft:block/block",
+	"ambientocclusion": false,
+	"textures": {
+		"lights": "bakery:block/star_lights",
+		"particle": "bakery:block/star_lights"
+	},
+	"elements": [
+		{
+			"from": [
+				0,
+				0,
+				15.5
+			],
+			"to": [
+				16,
+				16,
+				15.5
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#lights"
+				},
+				"south": {
+					"uv": [
+						16,
+						0,
+						0,
+						16
+					],
+					"texture": "#lights"
+				}
+			},
+			"shade": false
+		}
+	]
+}

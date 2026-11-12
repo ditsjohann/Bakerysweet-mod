@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:glass_jar"
+		},
+		{
+			"item": "bakery:blueberry"
+		},
+		{
+			"item": "bakery:blueberry"
+		},
+		{
+			"item": "bakery:blueberry"
+		},
+		{
+			"item": "minecraft:sugar"
+		}
+	],
+	"result": {
+		"id": "bakery:blueberry_jam",
+		"count": 1
+	}
+}

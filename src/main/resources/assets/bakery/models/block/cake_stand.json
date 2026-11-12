@@ -1,0 +1,484 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"parent": "block/block",
+	"ambientocclusion": false,
+	"format_version": "26.3",
+	"textures": {
+		"stand": "bakery:block/mug",
+		"board": "bakery:block/cake_board",
+		"side": "bakery:block/cake_side",
+		"top": "bakery:block/cake_frosting",
+		"cherry": "bakery:block/cherry",
+		"particle": "bakery:block/mug"
+	},
+	"elements": [
+		{
+			"name": "foot",
+			"from": [
+				5,
+				0,
+				5
+			],
+			"to": [
+				11,
+				1,
+				11
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						5,
+						15,
+						11,
+						16
+					],
+					"texture": "#stand"
+				},
+				"east": {
+					"uv": [
+						5,
+						15,
+						11,
+						16
+					],
+					"texture": "#stand"
+				},
+				"south": {
+					"uv": [
+						5,
+						15,
+						11,
+						16
+					],
+					"texture": "#stand"
+				},
+				"west": {
+					"uv": [
+						5,
+						15,
+						11,
+						16
+					],
+					"texture": "#stand"
+				},
+				"up": {
+					"uv": [
+						5,
+						5,
+						11,
+						11
+					],
+					"texture": "#stand"
+				},
+				"down": {
+					"uv": [
+						5,
+						5,
+						11,
+						11
+					],
+					"texture": "#stand"
+				}
+			}
+		},
+		{
+			"name": "stem",
+			"from": [
+				7,
+				1,
+				7
+			],
+			"to": [
+				9,
+				6,
+				9
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						7,
+						10,
+						9,
+						15
+					],
+					"texture": "#stand"
+				},
+				"east": {
+					"uv": [
+						7,
+						10,
+						9,
+						15
+					],
+					"texture": "#stand"
+				},
+				"south": {
+					"uv": [
+						7,
+						10,
+						9,
+						15
+					],
+					"texture": "#stand"
+				},
+				"west": {
+					"uv": [
+						7,
+						10,
+						9,
+						15
+					],
+					"texture": "#stand"
+				},
+				"up": {
+					"uv": [
+						7,
+						7,
+						9,
+						9
+					],
+					"texture": "#stand"
+				},
+				"down": {
+					"uv": [
+						7,
+						7,
+						9,
+						9
+					],
+					"texture": "#stand"
+				}
+			}
+		},
+		{
+			"name": "plate",
+			"from": [
+				1,
+				6,
+				1
+			],
+			"to": [
+				15,
+				7,
+				15
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						1,
+						9,
+						15,
+						10
+					],
+					"texture": "#stand"
+				},
+				"east": {
+					"uv": [
+						1,
+						9,
+						15,
+						10
+					],
+					"texture": "#stand"
+				},
+				"south": {
+					"uv": [
+						1,
+						9,
+						15,
+						10
+					],
+					"texture": "#stand"
+				},
+				"west": {
+					"uv": [
+						1,
+						9,
+						15,
+						10
+					],
+					"texture": "#stand"
+				},
+				"up": {
+					"uv": [
+						1,
+						1,
+						15,
+						15
+					],
+					"texture": "#board"
+				},
+				"down": {
+					"uv": [
+						1,
+						1,
+						15,
+						15
+					],
+					"texture": "#stand"
+				}
+			}
+		},
+		{
+			"name": "cake",
+			"from": [
+				3,
+				7,
+				3
+			],
+			"to": [
+				13,
+				12,
+				13
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3,
+						4,
+						13,
+						9
+					],
+					"texture": "#side"
+				},
+				"east": {
+					"uv": [
+						3,
+						4,
+						13,
+						9
+					],
+					"texture": "#side"
+				},
+				"south": {
+					"uv": [
+						3,
+						4,
+						13,
+						9
+					],
+					"texture": "#side"
+				},
+				"west": {
+					"uv": [
+						3,
+						4,
+						13,
+						9
+					],
+					"texture": "#side"
+				},
+				"up": {
+					"uv": [
+						3,
+						3,
+						13,
+						13
+					],
+					"texture": "#top"
+				},
+				"down": {
+					"uv": [
+						3,
+						3,
+						13,
+						13
+					],
+					"texture": "#side"
+				}
+			}
+		},
+		{
+			"name": "icing",
+			"from": [
+				3,
+				12,
+				3
+			],
+			"to": [
+				13,
+				13,
+				13
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3,
+						3,
+						13,
+						4
+					],
+					"texture": "#top"
+				},
+				"east": {
+					"uv": [
+						3,
+						3,
+						13,
+						4
+					],
+					"texture": "#top"
+				},
+				"south": {
+					"uv": [
+						3,
+						3,
+						13,
+						4
+					],
+					"texture": "#top"
+				},
+				"west": {
+					"uv": [
+						3,
+						3,
+						13,
+						4
+					],
+					"texture": "#top"
+				},
+				"up": {
+					"uv": [
+						3,
+						3,
+						13,
+						13
+					],
+					"texture": "#top"
+				},
+				"down": {
+					"uv": [
+						3,
+						3,
+						13,
+						13
+					],
+					"texture": "#top"
+				}
+			}
+		},
+		{
+			"name": "cherry",
+			"from": [
+				7.5,
+				13,
+				7.5
+			],
+			"to": [
+				8.5,
+				14,
+				8.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						7.5,
+						2,
+						8.5,
+						3
+					],
+					"texture": "#cherry"
+				},
+				"east": {
+					"uv": [
+						7.5,
+						2,
+						8.5,
+						3
+					],
+					"texture": "#cherry"
+				},
+				"south": {
+					"uv": [
+						7.5,
+						2,
+						8.5,
+						3
+					],
+					"texture": "#cherry"
+				},
+				"west": {
+					"uv": [
+						7.5,
+						2,
+						8.5,
+						3
+					],
+					"texture": "#cherry"
+				},
+				"up": {
+					"uv": [
+						7.5,
+						7.5,
+						8.5,
+						8.5
+					],
+					"texture": "#cherry"
+				},
+				"down": {
+					"uv": [
+						7.5,
+						7.5,
+						8.5,
+						8.5
+					],
+					"texture": "#cherry"
+				}
+			}
+		}
+	]
+}

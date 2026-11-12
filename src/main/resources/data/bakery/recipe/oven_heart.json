@@ -1,0 +1,24 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"BPB",
+		"BFB",
+		"BBB"
+	],
+	"key": {
+		"B": {
+			"item": "minecraft:brick"
+		},
+		"P": {
+			"item": "minecraft:pink_dye"
+		},
+		"F": {
+			"item": "minecraft:furnace"
+		}
+	},
+	"result": {
+		"id": "bakery:oven_heart",
+		"count": 1
+	}
+}

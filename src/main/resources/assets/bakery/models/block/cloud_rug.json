@@ -1,0 +1,6 @@
+{
+	"parent": "minecraft:block/carpet",
+	"textures": {
+		"wool": "bakery:block/cloud_rug"
+	}
+}

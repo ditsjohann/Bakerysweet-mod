@@ -1,0 +1,26 @@
+{
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "bakery:item/raw_cookie_heart"
+	},
+	"overrides": [
+		{
+			"predicate": {
+				"bakery:shape": 0.25
+			},
+			"model": "bakery:item/raw_sugar_cookie_star"
+		},
+		{
+			"predicate": {
+				"bakery:shape": 0.5
+			},
+			"model": "bakery:item/raw_sugar_cookie_bunny"
+		},
+		{
+			"predicate": {
+				"bakery:shape": 0.75
+			},
+			"model": "bakery:item/raw_sugar_cookie_flower"
+		}
+	]
+}

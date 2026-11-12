@@ -1,0 +1,7 @@
+{
+	"parent": "minecraft:block/stem_fruit",
+	"textures": {
+		"stem": "bakery:block/zucchini_stem",
+		"upperstem": "bakery:block/zucchini_stem_attached"
+	}
+}

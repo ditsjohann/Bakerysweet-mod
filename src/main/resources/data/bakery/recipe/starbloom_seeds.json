@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:star_petals"
+		},
+		{
+			"item": "bakery:star_petals"
+		}
+	],
+	"result": {
+		"id": "bakery:starbloom_seeds",
+		"count": 1
+	}
+}

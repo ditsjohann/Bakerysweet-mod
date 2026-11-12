@@ -1,0 +1,13 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:raspberry"
+		}
+	],
+	"result": {
+		"id": "bakery:raspberry_seeds",
+		"count": 2
+	}
+}

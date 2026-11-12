@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "minecraft:paper"
+		},
+		{
+			"item": "minecraft:paper"
+		},
+		{
+			"item": "minecraft:white_wool"
+		},
+		{
+			"item": "bakery:strawberry"
+		}
+	],
+	"result": {
+		"id": "bakery:strawberry_wallpaper",
+		"count": 4
+	}
+}

@@ -1,0 +1,79 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"format_version": "26.3",
+	"textures": {
+		"choc": "bakery:block/chocolate",
+		"particle": "bakery:block/chocolate"
+	},
+	"elements": [
+		{
+			"name": "chunk",
+			"from": [
+				11.25,
+				8.5,
+				3.5
+			],
+			"to": [
+				12.5,
+				9.3,
+				5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3.5,
+						6.7,
+						4.75,
+						7.5
+					],
+					"texture": "#choc"
+				},
+				"east": {
+					"uv": [
+						11,
+						6.7,
+						12.5,
+						7.5
+					],
+					"texture": "#choc"
+				},
+				"south": {
+					"uv": [
+						11.25,
+						6.7,
+						12.5,
+						7.5
+					],
+					"texture": "#choc"
+				},
+				"west": {
+					"uv": [
+						3.5,
+						6.7,
+						5,
+						7.5
+					],
+					"texture": "#choc"
+				},
+				"up": {
+					"uv": [
+						11.25,
+						3.5,
+						12.5,
+						5
+					],
+					"texture": "#choc"
+				}
+			}
+		}
+	]
+}

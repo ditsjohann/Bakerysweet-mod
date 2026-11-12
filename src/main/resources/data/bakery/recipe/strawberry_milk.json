@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:mug"
+		},
+		{
+			"item": "bakery:strawberry"
+		},
+		{
+			"item": "bakery:strawberry"
+		},
+		{
+			"item": "minecraft:milk_bucket"
+		}
+	],
+	"result": {
+		"id": "bakery:strawberry_milk",
+		"count": 1
+	}
+}

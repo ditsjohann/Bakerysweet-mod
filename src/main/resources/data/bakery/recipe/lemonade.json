@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:mug"
+		},
+		{
+			"item": "bakery:lemon"
+		},
+		{
+			"item": "bakery:lemon"
+		},
+		{
+			"item": "minecraft:sugar"
+		},
+		{
+			"item": "minecraft:water_bucket"
+		}
+	],
+	"result": {
+		"id": "bakery:lemonade",
+		"count": 1
+	}
+}

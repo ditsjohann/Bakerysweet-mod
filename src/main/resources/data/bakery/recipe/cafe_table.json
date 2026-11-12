@@ -1,0 +1,21 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"CCC",
+		" S ",
+		" S "
+	],
+	"key": {
+		"C": {
+			"item": "minecraft:pink_carpet"
+		},
+		"S": {
+			"item": "minecraft:stick"
+		}
+	},
+	"result": {
+		"id": "bakery:cafe_table",
+		"count": 1
+	}
+}

@@ -1,0 +1,33 @@
+{
+	"type": "minecraft:block",
+	"pools": [
+		{
+			"rolls": 1,
+			"conditions": [
+				{
+					"condition": "minecraft:block_state_property",
+					"block": "bakery:lemon",
+					"properties": {
+						"age": "2"
+					}
+				}
+			],
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"name": "bakery:lemon",
+					"functions": [
+						{
+							"function": "minecraft:set_count",
+							"count": {
+								"type": "minecraft:uniform",
+								"min": 1,
+								"max": 2
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

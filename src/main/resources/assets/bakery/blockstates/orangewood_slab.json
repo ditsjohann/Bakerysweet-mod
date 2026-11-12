@@ -1,0 +1,13 @@
+{
+	"variants": {
+		"type=bottom": {
+			"model": "bakery:block/orangewood_slab"
+		},
+		"type=top": {
+			"model": "bakery:block/orangewood_slab_top"
+		},
+		"type=double": {
+			"model": "bakery:block/orangewood_planks"
+		}
+	}
+}

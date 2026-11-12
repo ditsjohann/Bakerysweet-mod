@@ -1,0 +1,149 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"format_version": "26.3",
+	"textures": {
+		"bud": "bakery:block/topping_lavender",
+		"stem": "bakery:block/leaf",
+		"particle": "bakery:block/topping_lavender"
+	},
+	"elements": [
+		{
+			"name": "stem",
+			"from": [
+				12.15,
+				8.5,
+				7.75
+			],
+			"to": [
+				12.65,
+				10,
+				8.25
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3.35,
+						6,
+						3.85,
+						7.5
+					],
+					"texture": "#stem"
+				},
+				"east": {
+					"uv": [
+						7.75,
+						6,
+						8.25,
+						7.5
+					],
+					"texture": "#stem"
+				},
+				"south": {
+					"uv": [
+						12.15,
+						6,
+						12.65,
+						7.5
+					],
+					"texture": "#stem"
+				},
+				"west": {
+					"uv": [
+						7.75,
+						6,
+						8.25,
+						7.5
+					],
+					"texture": "#stem"
+				},
+				"up": {
+					"uv": [
+						12.15,
+						7.75,
+						12.65,
+						8.25
+					],
+					"texture": "#stem"
+				}
+			}
+		},
+		{
+			"name": "bud",
+			"from": [
+				11.9,
+				10,
+				7.5
+			],
+			"to": [
+				12.9,
+				11.9,
+				8.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3.1,
+						4.1,
+						4.1,
+						6
+					],
+					"texture": "#bud"
+				},
+				"east": {
+					"uv": [
+						7.5,
+						4.1,
+						8.5,
+						6
+					],
+					"texture": "#bud"
+				},
+				"south": {
+					"uv": [
+						11.9,
+						4.1,
+						12.9,
+						6
+					],
+					"texture": "#bud"
+				},
+				"west": {
+					"uv": [
+						7.5,
+						4.1,
+						8.5,
+						6
+					],
+					"texture": "#bud"
+				},
+				"up": {
+					"uv": [
+						11.9,
+						7.5,
+						12.9,
+						8.5
+					],
+					"texture": "#bud"
+				}
+			}
+		}
+	]
+}

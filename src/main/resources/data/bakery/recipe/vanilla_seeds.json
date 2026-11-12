@@ -1,0 +1,13 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:vanilla_pod"
+		}
+	],
+	"result": {
+		"id": "bakery:vanilla_seeds",
+		"count": 2
+	}
+}

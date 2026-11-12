@@ -1,0 +1,239 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"parent": "block/block",
+	"ambientocclusion": false,
+	"format_version": "26.3",
+	"textures": {
+		"skin": "bakery:block/zucchini_skin",
+		"end": "bakery:block/zucchini_end",
+		"flower": "bakery:block/fruit_star",
+		"particle": "bakery:block/zucchini_skin"
+	},
+	"elements": [
+		{
+			"name": "body",
+			"from": [
+				2,
+				0,
+				5
+			],
+			"to": [
+				14,
+				4.5,
+				11
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						2,
+						11.5,
+						14,
+						16
+					],
+					"texture": "#skin"
+				},
+				"east": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#end"
+				},
+				"south": {
+					"uv": [
+						2,
+						11.5,
+						14,
+						16
+					],
+					"texture": "#skin"
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#end"
+				},
+				"up": {
+					"uv": [
+						2,
+						5,
+						14,
+						11
+					],
+					"texture": "#skin"
+				},
+				"down": {
+					"uv": [
+						2,
+						5,
+						14,
+						11
+					],
+					"texture": "#skin"
+				}
+			}
+		},
+		{
+			"name": "top",
+			"from": [
+				3,
+				4.5,
+				6
+			],
+			"to": [
+				13,
+				5.5,
+				10
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3,
+						10.5,
+						13,
+						11.5
+					],
+					"texture": "#skin"
+				},
+				"east": {
+					"uv": [
+						6,
+						10.5,
+						10,
+						11.5
+					],
+					"texture": "#skin"
+				},
+				"south": {
+					"uv": [
+						3,
+						10.5,
+						13,
+						11.5
+					],
+					"texture": "#skin"
+				},
+				"west": {
+					"uv": [
+						6,
+						10.5,
+						10,
+						11.5
+					],
+					"texture": "#skin"
+				},
+				"up": {
+					"uv": [
+						3,
+						6,
+						13,
+						10
+					],
+					"texture": "#skin"
+				}
+			}
+		},
+		{
+			"name": "flower",
+			"from": [
+				13.5,
+				1,
+				6.5
+			],
+			"to": [
+				15.5,
+				4,
+				9.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0.5,
+						12,
+						2.5,
+						15
+					],
+					"texture": "#flower"
+				},
+				"east": {
+					"uv": [
+						6.5,
+						12,
+						9.5,
+						15
+					],
+					"texture": "#flower"
+				},
+				"south": {
+					"uv": [
+						13.5,
+						12,
+						15.5,
+						15
+					],
+					"texture": "#flower"
+				},
+				"west": {
+					"uv": [
+						6.5,
+						12,
+						9.5,
+						15
+					],
+					"texture": "#flower"
+				},
+				"up": {
+					"uv": [
+						13.5,
+						6.5,
+						15.5,
+						9.5
+					],
+					"texture": "#flower"
+				},
+				"down": {
+					"uv": [
+						13.5,
+						6.5,
+						15.5,
+						9.5
+					],
+					"texture": "#flower"
+				}
+			}
+		}
+	]
+}

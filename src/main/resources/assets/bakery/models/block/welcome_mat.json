@@ -1,0 +1,78 @@
+{
+	"parent": "minecraft:block/block",
+	"ambientocclusion": true,
+	"textures": {
+		"mat": "bakery:block/welcome_mat",
+		"particle": "bakery:block/welcome_mat"
+	},
+	"elements": [
+		{
+			"from": [
+				0,
+				0,
+				1
+			],
+			"to": [
+				16,
+				0.8,
+				15
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						15.2,
+						16,
+						16
+					],
+					"texture": "#mat"
+				},
+				"south": {
+					"uv": [
+						0,
+						15.2,
+						16,
+						16
+					],
+					"texture": "#mat"
+				},
+				"east": {
+					"uv": [
+						1,
+						15.2,
+						15,
+						16
+					],
+					"texture": "#mat"
+				},
+				"west": {
+					"uv": [
+						1,
+						15.2,
+						15,
+						16
+					],
+					"texture": "#mat"
+				},
+				"up": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#mat"
+				},
+				"down": {
+					"uv": [
+						0,
+						1,
+						16,
+						15
+					],
+					"texture": "#mat"
+				}
+			}
+		}
+	]
+}

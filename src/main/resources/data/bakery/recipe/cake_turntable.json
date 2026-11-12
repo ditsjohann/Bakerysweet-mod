@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"TTT",
+		" I "
+	],
+	"key": {
+		"T": {
+			"item": "minecraft:white_terracotta"
+		},
+		"I": {
+			"item": "minecraft:iron_ingot"
+		}
+	},
+	"result": {
+		"id": "bakery:cake_turntable",
+		"count": 1
+	}
+}

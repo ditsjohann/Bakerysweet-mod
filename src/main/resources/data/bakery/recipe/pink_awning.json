@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"PWP"
+	],
+	"key": {
+		"P": {
+			"item": "minecraft:pink_wool"
+		},
+		"W": {
+			"item": "minecraft:white_wool"
+		}
+	},
+	"result": {
+		"id": "bakery:pink_awning",
+		"count": 3
+	}
+}

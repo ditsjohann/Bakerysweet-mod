@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:plum"
+		},
+		{
+			"item": "bakery:plum"
+		},
+		{
+			"item": "minecraft:bone_meal"
+		}
+	],
+	"result": {
+		"id": "bakery:plumwood_sapling",
+		"count": 1
+	}
+}

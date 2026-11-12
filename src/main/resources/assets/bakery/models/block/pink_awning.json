@@ -1,0 +1,136 @@
+{
+	"parent": "minecraft:block/block",
+	"textures": {
+		"cloth": "bakery:block/pink_awning",
+		"particle": "bakery:block/pink_awning"
+	},
+	"elements": [
+		{
+			"from": [
+				0,
+				12.5,
+				4
+			],
+			"to": [
+				16,
+				13.5,
+				16
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						2.5,
+						16,
+						3.5
+					],
+					"texture": "#cloth"
+				},
+				"south": {
+					"uv": [
+						0,
+						2.5,
+						16,
+						3.5
+					],
+					"texture": "#cloth"
+				},
+				"east": {
+					"uv": [
+						4,
+						2.5,
+						16,
+						3.5
+					],
+					"texture": "#cloth"
+				},
+				"west": {
+					"uv": [
+						4,
+						2.5,
+						16,
+						3.5
+					],
+					"texture": "#cloth"
+				},
+				"up": {
+					"uv": [
+						0,
+						0,
+						16,
+						12
+					],
+					"texture": "#cloth"
+				},
+				"down": {
+					"uv": [
+						0,
+						0,
+						16,
+						12
+					],
+					"texture": "#cloth"
+				}
+			},
+			"rotation": {
+				"axis": "x",
+				"angle": -22.5,
+				"origin": [
+					8,
+					13,
+					16
+				]
+			}
+		},
+		{
+			"from": [
+				0,
+				8.5,
+				3.8
+			],
+			"to": [
+				16,
+				12.5,
+				4
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						12,
+						16,
+						16
+					],
+					"texture": "#cloth"
+				},
+				"south": {
+					"uv": [
+						0,
+						12,
+						16,
+						16
+					],
+					"texture": "#cloth"
+				},
+				"east": {
+					"uv": [
+						3.8,
+						3.5,
+						4,
+						7.5
+					],
+					"texture": "#cloth"
+				},
+				"west": {
+					"uv": [
+						3.8,
+						3.5,
+						4,
+						7.5
+					],
+					"texture": "#cloth"
+				}
+			}
+		}
+	]
+}

@@ -1,0 +1,13 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"tag": "bakery:plumwood_logs"
+		}
+	],
+	"result": {
+		"id": "bakery:plumwood_planks",
+		"count": 4
+	}
+}

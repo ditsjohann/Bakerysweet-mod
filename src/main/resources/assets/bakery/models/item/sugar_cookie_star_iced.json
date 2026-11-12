@@ -1,0 +1,7 @@
+{
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "bakery:item/cookie_star",
+		"layer1": "bakery:item/cookie_star_icing"
+	}
+}

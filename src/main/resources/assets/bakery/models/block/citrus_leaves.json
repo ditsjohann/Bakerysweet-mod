@@ -1,0 +1,6 @@
+{
+	"parent": "minecraft:block/leaves",
+	"textures": {
+		"all": "bakery:block/citrus_leaves"
+	}
+}

@@ -1,0 +1,24 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"QQQ",
+		"WPW",
+		"WWW"
+	],
+	"key": {
+		"Q": {
+			"item": "minecraft:quartz_slab"
+		},
+		"W": {
+			"tag": "minecraft:planks"
+		},
+		"P": {
+			"item": "minecraft:pink_dye"
+		}
+	},
+	"result": {
+		"id": "bakery:bakery_counter",
+		"count": 1
+	}
+}

@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "minecraft:string"
+		},
+		{
+			"item": "minecraft:paper"
+		},
+		{
+			"item": "minecraft:pink_dye"
+		}
+	],
+	"result": {
+		"id": "bakery:pink_heart_balloon",
+		"count": 1
+	}
+}

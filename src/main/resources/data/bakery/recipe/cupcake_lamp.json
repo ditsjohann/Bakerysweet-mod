@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:cupcake"
+		},
+		{
+			"item": "minecraft:torch"
+		},
+		{
+			"item": "minecraft:pink_dye"
+		}
+	],
+	"result": {
+		"id": "bakery:cupcake_lamp",
+		"count": 1
+	}
+}

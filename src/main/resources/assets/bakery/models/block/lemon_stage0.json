@@ -1,0 +1,169 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"parent": "block/block",
+	"ambientocclusion": false,
+	"format_version": "26.3",
+	"textures": {
+		"fruit": "bakery:block/lemon_young",
+		"stem": "bakery:block/fruit_stem",
+		"particle": "bakery:block/lemon_young"
+	},
+	"elements": [
+		{
+			"name": "stem",
+			"from": [
+				7.6,
+				15,
+				7.6
+			],
+			"to": [
+				8.4,
+				16,
+				8.4
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						7.6,
+						0,
+						8.4,
+						1
+					],
+					"texture": "#stem"
+				},
+				"east": {
+					"uv": [
+						7.6,
+						0,
+						8.4,
+						1
+					],
+					"texture": "#stem"
+				},
+				"south": {
+					"uv": [
+						7.6,
+						0,
+						8.4,
+						1
+					],
+					"texture": "#stem"
+				},
+				"west": {
+					"uv": [
+						7.6,
+						0,
+						8.4,
+						1
+					],
+					"texture": "#stem"
+				},
+				"up": {
+					"uv": [
+						7.6,
+						7.6,
+						8.4,
+						8.4
+					],
+					"texture": "#stem"
+				},
+				"down": {
+					"uv": [
+						7.6,
+						7.6,
+						8.4,
+						8.4
+					],
+					"texture": "#stem"
+				}
+			}
+		},
+		{
+			"name": "fruit",
+			"from": [
+				7,
+				12,
+				7
+			],
+			"to": [
+				9,
+				15,
+				9
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						7,
+						1,
+						9,
+						4
+					],
+					"texture": "#fruit"
+				},
+				"east": {
+					"uv": [
+						7,
+						1,
+						9,
+						4
+					],
+					"texture": "#fruit"
+				},
+				"south": {
+					"uv": [
+						7,
+						1,
+						9,
+						4
+					],
+					"texture": "#fruit"
+				},
+				"west": {
+					"uv": [
+						7,
+						1,
+						9,
+						4
+					],
+					"texture": "#fruit"
+				},
+				"up": {
+					"uv": [
+						7,
+						7,
+						9,
+						9
+					],
+					"texture": "#fruit"
+				},
+				"down": {
+					"uv": [
+						7,
+						7,
+						9,
+						9
+					],
+					"texture": "#fruit"
+				}
+			}
+		}
+	]
+}

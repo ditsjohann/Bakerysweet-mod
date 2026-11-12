@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "minecraft:white_carpet"
+		},
+		{
+			"item": "minecraft:white_carpet"
+		},
+		{
+			"item": "minecraft:light_blue_dye"
+		}
+	],
+	"result": {
+		"id": "bakery:cloud_rug",
+		"count": 2
+	}
+}

@@ -1,0 +1,268 @@
+package com.bakery.sweet;
+
+import com.bakery.cafe.CafeLevel;
+import com.bakery.registry.BakeryBlocks;
+import com.bakery.registry.BakeryItems;
+import com.bakery.review.BakeryReputation;
+import com.bakery.tree.WoodSet;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * The Bakery Catalog: where every baker starts. A little mail-order shop that takes Sweet Coins - kitchen tools,
+ * pantry basics, seeds and saplings, decor and outfits. Fancier things unlock as the bakery grows
+ * ({@link CafeLevel}). One item a day is the Daily Special at a quarter off.
+ */
+public final class Catalog {
+	public enum Category {
+		KITCHEN, PANTRY, GARDEN, DECOR, OUTDOOR, WARDROBE;
+
+		public Text displayName() {
+			return Text.translatable("catalog.bakery." + name().toLowerCase());
+		}
+	}
+
+	public record Entry(Category category, Item item, int count, int price, CafeLevel level) {
+		public ItemStack stack() {
+			return new ItemStack(item, count);
+		}
+	}
+
+	private static List<Entry> entries;
+
+	private Catalog() {
+	}
+
+	public static List<Entry> entries() {
+		if (entries == null) {
+			List<Entry> list = new ArrayList<>();
+			CafeLevel l1 = CafeLevel.STALL, l2 = CafeLevel.CORNER, l3 = CafeLevel.CAFE, l4 = CafeLevel.PATISSERIE, l5 = CafeLevel.GRAND;
+
+			Category c = Category.KITCHEN;
+			add(list, c, BakeryItems.BAKERY_COUNTER, 1, 6, l1);
+			add(list, c, BakeryItems.MIXING_BOWL, 1, 4, l1);
+			add(list, c, BakeryItems.PASTRY_BOARD, 1, 4, l1);
+			add(list, c, BakeryItems.ROLLING_PIN, 1, 3, l1);
+			add(list, c, BakeryItems.WHISK, 1, 3, l1);
+			add(list, c, BakeryItems.OVEN_HEART, 1, 8, l1);
+			add(list, c, Items.BRICKS, 21, 7, l1);
+			add(list, c, BakeryItems.BELLOWS, 1, 4, l1);
+			add(list, c, BakeryItems.SPATULA, 1, 2, l1);
+			add(list, c, BakeryItems.MILLSTONE_CORE, 1, 8, l1);
+			add(list, c, Items.STONE_BRICKS, 9, 3, l1);
+			add(list, c, Items.COBBLESTONE_WALL, 4, 2, l1);
+			add(list, c, BakeryItems.SERVICE_BELL, 1, 5, l1);
+			add(list, c, BakeryItems.JUICER, 1, 10, l2);
+			add(list, c, BakeryItems.DISPLAY_CASE, 1, 14, l2);
+			add(list, c, BakeryItems.HEART_CUTTER, 1, 6, l2);
+			add(list, c, BakeryItems.STAR_CUTTER, 1, 6, l2);
+			add(list, c, BakeryItems.BUNNY_CUTTER, 1, 6, l2);
+			add(list, c, BakeryItems.FLOWER_CUTTER, 1, 6, l2);
+			for (Icing icing : Icing.values()) add(list, c, icing.bag(), 1, 5, l2);
+			add(list, c, BakeryItems.GIFT_BOX, 3, 4, l2);
+			add(list, c, BakeryItems.MUG, 4, 3, l2);
+			add(list, c, BakeryItems.PROOFING_BASKET, 1, 10, l3);
+			add(list, c, BakeryItems.JAM_POT, 1, 12, l3);
+			add(list, c, BakeryItems.GLASS_JAR, 4, 3, l3);
+			add(list, c, BakeryItems.WAX_PAPER, 8, 4, l3);
+			add(list, c, BakeryItems.ICE_CREAM_CHURN, 1, 16, l4);
+			add(list, c, BakeryItems.FOUNTAIN_CORE, 1, 18, l4);
+			add(list, c, Items.WHITE_TERRACOTTA, 9, 5, l4);
+			add(list, c, BakeryItems.FROST_WRAP, 8, 6, l4);
+			add(list, c, BakeryItems.CAKE_TURNTABLE, 1, 15, l4);
+			add(list, c, BakeryItems.ROUND_CAKE_MOLD, 1, 6, l4);
+			add(list, c, BakeryItems.SQUARE_CAKE_MOLD, 1, 8, l4);
+			add(list, c, BakeryItems.HEART_CAKE_MOLD, 1, 12, l5);
+
+			c = Category.PANTRY;
+			add(list, c, BakeryItems.FLOUR, 4, 2, l1);
+			add(list, c, Items.WHEAT, 6, 2, l1);
+			add(list, c, Items.SUGAR, 4, 2, l1);
+			add(list, c, BakeryItems.BUTTER, 2, 3, l1);
+			add(list, c, Items.EGG, 4, 2, l1);
+			add(list, c, Items.MILK_BUCKET, 1, 2, l1);
+			add(list, c, Items.WATER_BUCKET, 1, 1, l1);
+			add(list, c, Items.CHARCOAL, 8, 2, l1);
+			add(list, c, BakeryItems.STRAWBERRY, 4, 3, l1);
+			add(list, c, BakeryItems.BLUEBERRY, 4, 3, l2);
+			add(list, c, BakeryItems.LEMON, 3, 3, l2);
+			add(list, c, BakeryItems.VANILLA_POD, 2, 4, l2);
+			add(list, c, BakeryItems.CHOCOLATE_BAR, 2, 4, l2);
+			add(list, c, BakeryItems.WHIPPED_CREAM, 2, 4, l3);
+			add(list, c, BakeryItems.MATCHA_POWDER, 2, 5, l3);
+			add(list, c, BakeryItems.SPRINKLES, 4, 4, l3);
+			add(list, c, Items.ICE, 4, 3, l4);
+			add(list, c, BakeryItems.STAR_PETALS, 1, 8, l5);
+
+			c = Category.GARDEN;
+			add(list, c, Items.WHEAT_SEEDS, 8, 1, l1);
+			add(list, c, Items.SUGAR_CANE, 4, 2, l1);
+			add(list, c, BakeryItems.STRAWBERRY_SEEDS, 4, 3, l1);
+			add(list, c, BakeryItems.BLUEBERRY_SEEDS, 4, 3, l1);
+			add(list, c, BakeryItems.RASPBERRY_SEEDS, 4, 3, l2);
+			add(list, c, BakeryItems.SUGAR_BEET_SEEDS, 4, 3, l2);
+			add(list, c, BakeryItems.TEA_SEEDS, 4, 4, l2);
+			add(list, c, BakeryItems.MINT_SEEDS, 4, 4, l2);
+			add(list, c, BakeryItems.ROSE_SEEDS, 4, 4, l2);
+			add(list, c, BakeryItems.LAVENDER_SEEDS, 4, 4, l2);
+			add(list, c, BakeryItems.CORN_SEEDS, 4, 3, l2);
+			add(list, c, BakeryItems.PEA_SEEDS, 4, 3, l2);
+			add(list, c, BakeryItems.SWEET_POTATO_SEEDS, 3, 4, l3);
+			add(list, c, BakeryItems.ZUCCHINI_SEEDS, 3, 4, l3);
+			add(list, c, BakeryItems.RHUBARB_SEEDS, 3, 4, l3);
+			add(list, c, BakeryItems.PEANUT_SEEDS, 3, 4, l3);
+			add(list, c, BakeryItems.VANILLA_SEEDS, 2, 6, l3);
+			add(list, c, BakeryItems.HIBISCUS_SEEDS, 2, 6, l3);
+			add(list, c, BakeryItems.CRANBERRY_SEEDS, 2, 6, l3);
+			add(list, c, BakeryItems.PINEAPPLE_SEEDS, 2, 7, l4);
+			add(list, c, BakeryItems.CANDYFLOSS_SEEDS, 1, 12, l4);
+			add(list, c, BakeryItems.STARBLOOM_SEEDS, 1, 15, l5);
+			int sapling = 0;
+			for (WoodSet set : BakeryBlocks.WOODS) add(list, c, set.sapling.asItem(), 1, 10, sapling++ < 3 ? l2 : l3);
+			add(list, c, Items.BONE_MEAL, 8, 3, l1);
+
+			c = Category.DECOR;
+			add(list, c, BakeryItems.CAFE_TABLE, 1, 5, l1);
+			add(list, c, BakeryItems.CAFE_CHAIR, 2, 5, l1);
+			add(list, c, BakeryItems.MENU_BOARD, 1, 4, l1);
+			add(list, c, BakeryItems.BUNTING, 4, 4, l1);
+			add(list, c, BakeryItems.PINK_CHECKER_TILES, 8, 5, l1);
+			add(list, c, BakeryItems.MINT_CHECKER_TILES, 8, 5, l1);
+			add(list, c, BakeryItems.LILAC_CHECKER_TILES, 8, 5, l1);
+			add(list, c, BakeryItems.BUTTER_CHECKER_TILES, 8, 5, l1);
+			add(list, c, BakeryItems.GINGHAM_WALLPAPER, 8, 5, l1);
+			add(list, c, BakeryItems.STRAWBERRY_WALLPAPER, 8, 5, l2);
+			add(list, c, BakeryItems.HEART_WALLPAPER, 8, 5, l2);
+			add(list, c, BakeryItems.POLKA_DOT_WALLPAPER, 8, 5, l2);
+			add(list, c, BakeryItems.BOW_WALLPAPER, 8, 6, l3);
+			add(list, c, BakeryItems.TULIP_VASE, 1, 4, l1);
+			add(list, c, BakeryItems.CASH_REGISTER, 1, 8, l1);
+			add(list, c, BakeryItems.TIP_JAR, 1, 3, l1);
+			add(list, c, BakeryItems.OPEN_SIGN, 1, 3, l1);
+			add(list, c, BakeryItems.HEART_RUG, 4, 5, l2);
+			add(list, c, BakeryItems.CLOUD_RUG, 4, 5, l2);
+			add(list, c, BakeryItems.FAIRY_LIGHTS, 4, 6, l2);
+			add(list, c, BakeryItems.STAR_LIGHTS, 4, 6, l2);
+			add(list, c, BakeryItems.LACE_CURTAINS, 2, 5, l2);
+			add(list, c, BakeryItems.MACARON_POUF, 1, 7, l2);
+			add(list, c, BakeryItems.BUNNY_PLUSH, 1, 8, l2);
+			add(list, c, BakeryItems.BEAR_PLUSH, 1, 8, l2);
+			add(list, c, BakeryItems.TEA_SET, 1, 7, l2);
+			add(list, c, BakeryItems.COOKIE_JAR, 1, 6, l2);
+			add(list, c, BakeryItems.CUPCAKE_LAMP, 1, 8, l3);
+			add(list, c, BakeryItems.PINK_LOVESEAT, 1, 14, l3);
+			add(list, c, BakeryItems.HEART_MIRROR, 1, 10, l3);
+			add(list, c, BakeryItems.DONUT_WALL, 1, 10, l3);
+			add(list, c, BakeryItems.CAKE_SHELF, 1, 12, l3);
+			add(list, c, BakeryItems.PINK_HEART_BALLOON, 1, 4, l3);
+			add(list, c, BakeryItems.LILAC_HEART_BALLOON, 1, 4, l3);
+			add(list, c, BakeryItems.MINT_HEART_BALLOON, 1, 4, l3);
+			add(list, c, BakeryItems.MACARON_TOWER, 1, 10, l4);
+			add(list, c, BakeryItems.NEON_HEART_SIGN, 1, 16, l4);
+
+			c = Category.OUTDOOR;
+			add(list, c, BakeryItems.WELCOME_MAT, 1, 3, l1);
+			add(list, c, BakeryItems.CHALKBOARD_SIGN, 1, 4, l1);
+			add(list, c, BakeryItems.PINK_PICKET_FENCE, 8, 5, l1);
+			add(list, c, BakeryItems.FLOWER_BOX, 2, 5, l1);
+			add(list, c, BakeryItems.TULIP_POT, 1, 4, l1);
+			add(list, c, BakeryItems.PINK_AWNING, 4, 5, l2);
+			add(list, c, BakeryItems.MINT_AWNING, 4, 5, l2);
+			add(list, c, BakeryItems.PASTEL_BENCH, 1, 8, l2);
+			add(list, c, BakeryItems.HANGING_FLOWERS, 2, 6, l2);
+			add(list, c, BakeryItems.PARASOL_TABLE, 1, 12, l3);
+			add(list, c, BakeryItems.PINK_MAILBOX, 1, 8, l3);
+			add(list, c, BakeryItems.HEART_LAMP_POST, 1, 10, l3);
+			add(list, c, BakeryItems.BUNNY_STATUE, 1, 12, l4);
+			add(list, c, BakeryItems.PASTRY_CART, 1, 18, l4);
+			add(list, c, BakeryItems.STRAWBERRY_CRATE, 1, 5, l2);
+			add(list, c, BakeryItems.LEMON_CRATE, 1, 5, l2);
+			add(list, c, BakeryItems.COCONUT_CRATE, 1, 5, l3);
+
+			c = Category.WARDROBE;
+			add(list, c, BakeryItems.RIBBON_BOW, 1, 12, l1);
+			add(list, c, BakeryItems.CHEF_HAT, 1, 16, l1);
+			add(list, c, BakeryItems.FRILLY_APRON, 1, 25, l2);
+			add(list, c, BakeryItems.STRAWBERRY_BERET, 1, 25, l2);
+			add(list, c, BakeryItems.BUNNY_EARS, 1, 30, l3);
+			add(list, c, BakeryItems.CAT_EARS, 1, 30, l3);
+			add(list, c, BakeryItems.BAKERY_GUIDE, 1, 2, l1);
+
+			// Fancy cake toppers live with the cake things in the kitchen.
+			int i = 0;
+			for (Item topper : BakeryItems.TOPPERS) {
+				add(list, Category.KITCHEN, topper, 4, 4 + i / 3, i < 4 ? l4 : l5);
+				i++;
+			}
+			entries = List.copyOf(list);
+		}
+		return entries;
+	}
+
+	private static void add(List<Entry> list, Category category, ItemConvertible item, int count, int price, CafeLevel level) {
+		list.add(new Entry(category, item.asItem(), count, price, level));
+	}
+
+	public static long day(World world) {
+		return world.getTimeOfDay() / 24000L;
+	}
+
+	/** Today's Daily Special (always something a new bakery can buy). */
+	public static int featured(long day) {
+		List<Entry> all = entries();
+		int start = (int) Math.floorMod(day * 7919L + 13, all.size());
+		for (int i = 0; i < all.size(); i++) {
+			int index = (start + i) % all.size();
+			if (all.get(index).level() == CafeLevel.STALL && all.get(index).price() > 2) return index;
+		}
+		return start;
+	}
+
+	public static int price(int index, long day) {
+		int price = entries().get(index).price();
+		return index == featured(day) ? Math.max(1, price * 3 / 4) : price;
+	}
+
+	/** Buys entry {@code index} from the catalog at {@code pos}. */
+	public static boolean buy(ServerPlayerEntity player, BlockPos pos, int index) {
+		ServerWorld world = player.getServerWorld();
+		if (index < 0 || index >= entries().size() || player.squaredDistanceTo(Vec3d.ofCenter(pos)) > 64
+				|| !world.getBlockState(pos).isOf(BakeryBlocks.BAKERY_CATALOG)) {
+			return false;
+		}
+		Entry entry = entries().get(index);
+		CafeLevel level = CafeLevel.of(BakeryReputation.get(player.getServer()).of(player.getUuid()).served);
+		if (entry.level().ordinal() > level.ordinal() && !player.getAbilities().creativeMode) {
+			player.sendMessage(Text.translatable("message.bakery.catalog.locked", entry.level().displayName()).formatted(Formatting.GOLD), true);
+			world.playSound(null, pos, SoundEvents.ENTITY_VILLAGER_NO, SoundCategory.BLOCKS, 0.6f, 1.3f);
+			return false;
+		}
+		int price = price(index, day(world));
+		if (!Coins.take(player, price)) {
+			player.sendMessage(Text.translatable("message.bakery.catalog.poor", price).formatted(Formatting.RED), true);
+			world.playSound(null, pos, SoundEvents.ENTITY_VILLAGER_NO, SoundCategory.BLOCKS, 0.6f, 1.3f);
+			return false;
+		}
+		player.getInventory().offerOrDrop(entry.stack());
+		player.currentScreenHandler.sendContentUpdates();
+		world.playSound(null, pos, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 0.7f, 1.5f);
+		world.playSound(null, pos, SoundEvents.ITEM_BOOK_PAGE_TURN, SoundCategory.BLOCKS, 1f, 1.2f);
+		player.sendMessage(Text.translatable("message.bakery.catalog.bought", entry.stack().getName(), price).formatted(Formatting.LIGHT_PURPLE), true);
+		Stickers.award(player, Sticker.SHOPPER);
+		return true;
+	}
+}

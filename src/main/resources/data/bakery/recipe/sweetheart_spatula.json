@@ -1,0 +1,24 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"G",
+		"P",
+		"S"
+	],
+	"key": {
+		"G": {
+			"item": "minecraft:gold_ingot"
+		},
+		"P": {
+			"item": "minecraft:pink_dye"
+		},
+		"S": {
+			"item": "minecraft:stick"
+		}
+	},
+	"result": {
+		"id": "bakery:sweetheart_spatula",
+		"count": 1
+	}
+}

@@ -1,0 +1,245 @@
+{
+	"parent": "minecraft:block/block",
+	"textures": {
+		"wood": "bakery:block/churn_wood",
+		"metal": "bakery:block/metal",
+		"cream": "bakery:block/ice_cream_block",
+		"particle": "bakery:block/churn_wood"
+	},
+	"elements": [
+		{
+			"name": "axle",
+			"from": [
+				13,
+				8,
+				7.55385
+			],
+			"to": [
+				15,
+				9,
+				8.44615
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						1,
+						7,
+						3,
+						8
+					],
+					"texture": "#metal"
+				},
+				"east": {
+					"uv": [
+						7.55385,
+						7,
+						8.44615,
+						8
+					],
+					"texture": "#metal"
+				},
+				"south": {
+					"uv": [
+						13,
+						7,
+						15,
+						8
+					],
+					"texture": "#metal"
+				},
+				"west": {
+					"uv": [
+						7.55385,
+						7,
+						8.44615,
+						8
+					],
+					"texture": "#metal"
+				},
+				"up": {
+					"uv": [
+						13,
+						7.55385,
+						15,
+						8.44615
+					],
+					"texture": "#metal"
+				},
+				"down": {
+					"uv": [
+						13,
+						7.55385,
+						15,
+						8.44615
+					],
+					"texture": "#metal"
+				}
+			}
+		},
+		{
+			"name": "arm",
+			"from": [
+				14.5,
+				8.0594,
+				7.5
+			],
+			"to": [
+				15.5,
+				13,
+				8.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0.5,
+						3,
+						1.5,
+						7.9406
+					],
+					"texture": "#wood"
+				},
+				"east": {
+					"uv": [
+						7.5,
+						3,
+						8.5,
+						7.9406
+					],
+					"texture": "#wood"
+				},
+				"south": {
+					"uv": [
+						14.5,
+						3,
+						15.5,
+						7.9406
+					],
+					"texture": "#wood"
+				},
+				"west": {
+					"uv": [
+						7.5,
+						3,
+						8.5,
+						7.9406
+					],
+					"texture": "#wood"
+				},
+				"up": {
+					"uv": [
+						14.5,
+						7.5,
+						15.5,
+						8.5
+					],
+					"texture": "#wood"
+				},
+				"down": {
+					"uv": [
+						14.5,
+						7.5,
+						15.5,
+						8.5
+					],
+					"texture": "#wood"
+				}
+			}
+		},
+		{
+			"name": "knob",
+			"from": [
+				13.5,
+				12,
+				7
+			],
+			"to": [
+				15.485,
+				13.5,
+				9
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0.515,
+						2.5,
+						2.5,
+						4
+					],
+					"texture": "#wood"
+				},
+				"east": {
+					"uv": [
+						7,
+						2.5,
+						9,
+						4
+					],
+					"texture": "#wood"
+				},
+				"south": {
+					"uv": [
+						13.5,
+						2.5,
+						15.485,
+						4
+					],
+					"texture": "#wood"
+				},
+				"west": {
+					"uv": [
+						7,
+						2.5,
+						9,
+						4
+					],
+					"texture": "#wood"
+				},
+				"up": {
+					"uv": [
+						13.5,
+						7,
+						15.485,
+						9
+					],
+					"texture": "#wood"
+				},
+				"down": {
+					"uv": [
+						13.5,
+						7,
+						15.485,
+						9
+					],
+					"texture": "#wood"
+				}
+			}
+		}
+	]
+}

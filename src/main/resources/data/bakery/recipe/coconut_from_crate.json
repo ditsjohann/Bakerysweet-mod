@@ -1,0 +1,13 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:coconut_crate"
+		}
+	],
+	"result": {
+		"id": "bakery:coconut",
+		"count": 9
+	}
+}

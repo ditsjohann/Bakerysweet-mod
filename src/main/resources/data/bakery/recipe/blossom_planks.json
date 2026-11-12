@@ -1,0 +1,13 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"tag": "bakery:blossom_logs"
+		}
+	],
+	"result": {
+		"id": "bakery:blossom_planks",
+		"count": 4
+	}
+}

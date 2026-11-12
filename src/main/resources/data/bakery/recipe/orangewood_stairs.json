@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"P  ",
+		"PP ",
+		"PPP"
+	],
+	"key": {
+		"P": {
+			"item": "bakery:orangewood_planks"
+		}
+	},
+	"result": {
+		"id": "bakery:orangewood_stairs",
+		"count": 4
+	}
+}

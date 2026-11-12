@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "minecraft:pink_wool"
+		},
+		{
+			"item": "minecraft:string"
+		}
+	],
+	"result": {
+		"id": "bakery:ribbon_bow",
+		"count": 1
+	}
+}

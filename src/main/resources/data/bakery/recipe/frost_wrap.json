@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "minecraft:paper"
+		},
+		{
+			"item": "minecraft:snowball"
+		},
+		{
+			"item": "minecraft:snowball"
+		}
+	],
+	"result": {
+		"id": "bakery:frost_wrap",
+		"count": 2
+	}
+}

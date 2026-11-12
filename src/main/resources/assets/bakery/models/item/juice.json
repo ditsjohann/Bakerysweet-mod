@@ -1,0 +1,7 @@
+{
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "bakery:item/juice",
+		"layer1": "bakery:item/juice_liquid"
+	}
+}

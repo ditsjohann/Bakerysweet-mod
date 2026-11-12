@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"PWP"
+	],
+	"key": {
+		"P": {
+			"item": "minecraft:lime_wool"
+		},
+		"W": {
+			"item": "minecraft:white_wool"
+		}
+	},
+	"result": {
+		"id": "bakery:mint_awning",
+		"count": 3
+	}
+}

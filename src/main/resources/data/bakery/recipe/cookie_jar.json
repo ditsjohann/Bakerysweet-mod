@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "minecraft:glass"
+		},
+		{
+			"item": "bakery:cookies"
+		},
+		{
+			"item": "minecraft:pink_dye"
+		}
+	],
+	"result": {
+		"id": "bakery:cookie_jar",
+		"count": 1
+	}
+}

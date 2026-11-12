@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:mint_leaves"
+		},
+		{
+			"item": "bakery:mint_leaves"
+		}
+	],
+	"result": {
+		"id": "bakery:mint_seeds",
+		"count": 1
+	}
+}

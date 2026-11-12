@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"LL",
+		"LL"
+	],
+	"key": {
+		"L": {
+			"item": "bakery:blossom_log"
+		}
+	},
+	"result": {
+		"id": "bakery:blossom_wood",
+		"count": 3
+	}
+}

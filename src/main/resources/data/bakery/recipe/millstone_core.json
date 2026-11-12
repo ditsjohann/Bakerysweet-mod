@@ -1,0 +1,21 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"SSS",
+		"SGS",
+		"SSS"
+	],
+	"key": {
+		"S": {
+			"item": "minecraft:smooth_stone"
+		},
+		"G": {
+			"item": "minecraft:grindstone"
+		}
+	},
+	"result": {
+		"id": "bakery:millstone_core",
+		"count": 1
+	}
+}

@@ -1,0 +1,36 @@
+{
+	"variants": {
+		"facing=north,has_dough=false": {
+			"model": "bakery:block/pastry_board",
+			"y": 0
+		},
+		"facing=north,has_dough=true": {
+			"model": "bakery:block/pastry_board_dough",
+			"y": 0
+		},
+		"facing=east,has_dough=false": {
+			"model": "bakery:block/pastry_board",
+			"y": 90
+		},
+		"facing=east,has_dough=true": {
+			"model": "bakery:block/pastry_board_dough",
+			"y": 90
+		},
+		"facing=south,has_dough=false": {
+			"model": "bakery:block/pastry_board",
+			"y": 180
+		},
+		"facing=south,has_dough=true": {
+			"model": "bakery:block/pastry_board_dough",
+			"y": 180
+		},
+		"facing=west,has_dough=false": {
+			"model": "bakery:block/pastry_board",
+			"y": 270
+		},
+		"facing=west,has_dough=true": {
+			"model": "bakery:block/pastry_board_dough",
+			"y": 270
+		}
+	}
+}

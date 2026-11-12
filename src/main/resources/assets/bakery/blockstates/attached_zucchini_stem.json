@@ -1,0 +1,19 @@
+{
+	"variants": {
+		"facing=west": {
+			"model": "bakery:block/attached_zucchini_stem"
+		},
+		"facing=east": {
+			"model": "bakery:block/attached_zucchini_stem",
+			"y": 180
+		},
+		"facing=north": {
+			"model": "bakery:block/attached_zucchini_stem",
+			"y": 90
+		},
+		"facing=south": {
+			"model": "bakery:block/attached_zucchini_stem",
+			"y": 270
+		}
+	}
+}

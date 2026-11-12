@@ -1,0 +1,20 @@
+{
+	"variants": {
+		"facing=north": {
+			"model": "bakery:block/flower_box",
+			"y": 0
+		},
+		"facing=east": {
+			"model": "bakery:block/flower_box",
+			"y": 90
+		},
+		"facing=south": {
+			"model": "bakery:block/flower_box",
+			"y": 180
+		},
+		"facing=west": {
+			"model": "bakery:block/flower_box",
+			"y": 270
+		}
+	}
+}

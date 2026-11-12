@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "minecraft:pink_carpet"
+		},
+		{
+			"item": "minecraft:pink_carpet"
+		},
+		{
+			"item": "minecraft:red_dye"
+		}
+	],
+	"result": {
+		"id": "bakery:heart_rug",
+		"count": 2
+	}
+}

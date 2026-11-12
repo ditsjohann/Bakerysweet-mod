@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"PPP"
+	],
+	"key": {
+		"P": {
+			"item": "bakery:mangowood_planks"
+		}
+	},
+	"result": {
+		"id": "bakery:mangowood_slab",
+		"count": 6
+	}
+}

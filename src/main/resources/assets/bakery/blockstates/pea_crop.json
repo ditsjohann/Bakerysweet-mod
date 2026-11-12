@@ -1,0 +1,40 @@
+{
+	"variants": {
+		"age=0,segment=0": {
+			"model": "bakery:block/pea_stage0"
+		},
+		"age=0,segment=1": {
+			"model": "bakery:block/pea_top"
+		},
+		"age=0,segment=2": {
+			"model": "bakery:block/pea_top"
+		},
+		"age=1,segment=0": {
+			"model": "bakery:block/pea_stage1"
+		},
+		"age=1,segment=1": {
+			"model": "bakery:block/pea_top"
+		},
+		"age=1,segment=2": {
+			"model": "bakery:block/pea_top"
+		},
+		"age=2,segment=0": {
+			"model": "bakery:block/pea_bottom"
+		},
+		"age=2,segment=1": {
+			"model": "bakery:block/pea_top"
+		},
+		"age=2,segment=2": {
+			"model": "bakery:block/pea_top"
+		},
+		"age=3,segment=0": {
+			"model": "bakery:block/pea_bottom_ripe"
+		},
+		"age=3,segment=1": {
+			"model": "bakery:block/pea_top_ripe"
+		},
+		"age=3,segment=2": {
+			"model": "bakery:block/pea_top_ripe"
+		}
+	}
+}

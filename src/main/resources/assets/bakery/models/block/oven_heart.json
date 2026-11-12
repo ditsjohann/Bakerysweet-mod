@@ -1,0 +1,169 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"parent": "block/block",
+	"format_version": "26.3",
+	"textures": {
+		"bricks": "bakery:block/oven_bricks",
+		"front": "bakery:block/oven_heart_front",
+		"heart": "bakery:block/oven/heart_plaque",
+		"particle": "bakery:block/oven_bricks"
+	},
+	"elements": [
+		{
+			"name": "block",
+			"from": [
+				0,
+				0,
+				0
+			],
+			"to": [
+				16,
+				16,
+				16
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#front"
+				},
+				"east": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#bricks"
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#bricks"
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#bricks"
+				},
+				"up": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#bricks"
+				},
+				"down": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#bricks"
+				}
+			}
+		},
+		{
+			"name": "plaque",
+			"from": [
+				6,
+				12,
+				-0.5
+			],
+			"to": [
+				10,
+				15.5,
+				0
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#heart"
+				},
+				"east": {
+					"uv": [
+						0,
+						0.5,
+						0.5,
+						4
+					],
+					"texture": "#bricks"
+				},
+				"south": {
+					"uv": [
+						6,
+						0.5,
+						10,
+						4
+					],
+					"texture": "#bricks"
+				},
+				"west": {
+					"uv": [
+						15.5,
+						0.5,
+						16,
+						4
+					],
+					"texture": "#bricks"
+				},
+				"up": {
+					"uv": [
+						6,
+						15.5,
+						10,
+						16
+					],
+					"texture": "#bricks"
+				},
+				"down": {
+					"uv": [
+						6,
+						0,
+						10,
+						0.5
+					],
+					"texture": "#bricks"
+				}
+			}
+		}
+	]
+}

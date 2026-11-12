@@ -1,0 +1,13 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:lavender"
+		}
+	],
+	"result": {
+		"id": "bakery:lavender_seeds",
+		"count": 2
+	}
+}

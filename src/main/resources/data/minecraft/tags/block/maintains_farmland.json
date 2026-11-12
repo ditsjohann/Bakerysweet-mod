@@ -1,0 +1,9 @@
+{
+	"replace": false,
+	"values": [
+		"bakery:corn_crop",
+		"bakery:pea_crop",
+		"bakery:zucchini_stem",
+		"bakery:attached_zucchini_stem"
+	]
+}

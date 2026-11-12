@@ -1,0 +1,54 @@
+{
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "bakery:item/cookie_heart"
+	},
+	"overrides": [
+		{
+			"predicate": {
+				"bakery:shape": 0,
+				"bakery:iced": 1
+			},
+			"model": "bakery:item/sugar_cookie_heart_iced"
+		},
+		{
+			"predicate": {
+				"bakery:shape": 0.25
+			},
+			"model": "bakery:item/sugar_cookie_star"
+		},
+		{
+			"predicate": {
+				"bakery:shape": 0.25,
+				"bakery:iced": 1
+			},
+			"model": "bakery:item/sugar_cookie_star_iced"
+		},
+		{
+			"predicate": {
+				"bakery:shape": 0.5
+			},
+			"model": "bakery:item/sugar_cookie_bunny"
+		},
+		{
+			"predicate": {
+				"bakery:shape": 0.5,
+				"bakery:iced": 1
+			},
+			"model": "bakery:item/sugar_cookie_bunny_iced"
+		},
+		{
+			"predicate": {
+				"bakery:shape": 0.75
+			},
+			"model": "bakery:item/sugar_cookie_flower"
+		},
+		{
+			"predicate": {
+				"bakery:shape": 0.75,
+				"bakery:iced": 1
+			},
+			"model": "bakery:item/sugar_cookie_flower_iced"
+		}
+	]
+}

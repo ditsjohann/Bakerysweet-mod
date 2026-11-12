@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:rose_petals"
+		},
+		{
+			"item": "bakery:rose_petals"
+		}
+	],
+	"result": {
+		"id": "bakery:rose_seeds",
+		"count": 1
+	}
+}

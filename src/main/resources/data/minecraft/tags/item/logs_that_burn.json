@@ -1,0 +1,12 @@
+{
+	"replace": false,
+	"values": [
+		"#bakery:palm_logs",
+		"#bakery:citrus_logs",
+		"#bakery:blossom_logs",
+		"#bakery:orangewood_logs",
+		"#bakery:peachwood_logs",
+		"#bakery:mangowood_logs",
+		"#bakery:plumwood_logs"
+	]
+}

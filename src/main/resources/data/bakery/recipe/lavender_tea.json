@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:mug"
+		},
+		{
+			"item": "bakery:lavender"
+		},
+		{
+			"item": "bakery:lavender"
+		},
+		{
+			"item": "minecraft:water_bucket"
+		}
+	],
+	"result": {
+		"id": "bakery:lavender_tea",
+		"count": 1
+	}
+}

@@ -1,0 +1,7 @@
+{
+	"variants": {
+		"": {
+			"model": "bakery:block/mint_checker_tiles"
+		}
+	}
+}

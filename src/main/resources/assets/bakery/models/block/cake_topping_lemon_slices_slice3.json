@@ -1,0 +1,79 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"format_version": "26.3",
+	"textures": {
+		"lemon": "bakery:block/topping_lemon",
+		"particle": "bakery:block/topping_lemon"
+	},
+	"elements": [
+		{
+			"name": "slice",
+			"from": [
+				11.25,
+				8.5,
+				6.8
+			],
+			"to": [
+				13.6,
+				9,
+				9.2
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						2.4,
+						7,
+						4.75,
+						7.5
+					],
+					"texture": "#lemon"
+				},
+				"east": {
+					"uv": [
+						6.8,
+						7,
+						9.2,
+						7.5
+					],
+					"texture": "#lemon"
+				},
+				"south": {
+					"uv": [
+						11.25,
+						7,
+						13.6,
+						7.5
+					],
+					"texture": "#lemon"
+				},
+				"west": {
+					"uv": [
+						6.8,
+						7,
+						9.2,
+						7.5
+					],
+					"texture": "#lemon"
+				},
+				"up": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#lemon"
+				}
+			}
+		}
+	]
+}

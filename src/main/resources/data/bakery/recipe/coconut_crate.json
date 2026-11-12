@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"FFF",
+		"FFF",
+		"FFF"
+	],
+	"key": {
+		"F": {
+			"item": "bakery:coconut"
+		}
+	},
+	"result": {
+		"id": "bakery:coconut_crate",
+		"count": 1
+	}
+}

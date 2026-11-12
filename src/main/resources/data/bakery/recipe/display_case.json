@@ -1,0 +1,21 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"GGG",
+		"G G",
+		"WWW"
+	],
+	"key": {
+		"G": {
+			"item": "minecraft:glass_pane"
+		},
+		"W": {
+			"tag": "minecraft:planks"
+		}
+	},
+	"result": {
+		"id": "bakery:display_case",
+		"count": 1
+	}
+}

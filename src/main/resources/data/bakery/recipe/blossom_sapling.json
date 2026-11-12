@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:cherries"
+		},
+		{
+			"item": "bakery:cherries"
+		},
+		{
+			"item": "minecraft:bone_meal"
+		}
+	],
+	"result": {
+		"id": "bakery:blossom_sapling",
+		"count": 1
+	}
+}

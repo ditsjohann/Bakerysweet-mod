@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"PSP",
+		"PSP"
+	],
+	"key": {
+		"P": {
+			"item": "bakery:plumwood_planks"
+		},
+		"S": {
+			"item": "minecraft:stick"
+		}
+	},
+	"result": {
+		"id": "bakery:plumwood_fence",
+		"count": 3
+	}
+}

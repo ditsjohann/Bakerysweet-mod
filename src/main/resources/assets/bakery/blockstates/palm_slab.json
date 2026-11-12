@@ -1,0 +1,13 @@
+{
+	"variants": {
+		"type=bottom": {
+			"model": "bakery:block/palm_slab"
+		},
+		"type=top": {
+			"model": "bakery:block/palm_slab_top"
+		},
+		"type=double": {
+			"model": "bakery:block/palm_planks"
+		}
+	}
+}

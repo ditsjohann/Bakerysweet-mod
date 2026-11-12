@@ -1,0 +1,850 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"parent": "block/block",
+	"ambientocclusion": false,
+	"format_version": "26.3",
+	"textures": {
+		"pot": "bakery:block/copper_pot",
+		"jam": "bakery:block/jam_surface",
+		"wood": "bakery:block/churn_wood",
+		"particle": "bakery:block/copper_pot"
+	},
+	"elements": [
+		{
+			"name": "bottom",
+			"from": [
+				3.5,
+				0,
+				3.5
+			],
+			"to": [
+				12.5,
+				1,
+				12.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3.5,
+						15,
+						12.5,
+						16
+					],
+					"texture": "#pot"
+				},
+				"east": {
+					"uv": [
+						3.5,
+						15,
+						12.5,
+						16
+					],
+					"texture": "#pot"
+				},
+				"south": {
+					"uv": [
+						3.5,
+						15,
+						12.5,
+						16
+					],
+					"texture": "#pot"
+				},
+				"west": {
+					"uv": [
+						3.5,
+						15,
+						12.5,
+						16
+					],
+					"texture": "#pot"
+				},
+				"up": {
+					"uv": [
+						3.5,
+						3.5,
+						12.5,
+						12.5
+					],
+					"texture": "#pot"
+				},
+				"down": {
+					"uv": [
+						3.5,
+						3.5,
+						12.5,
+						12.5
+					],
+					"texture": "#pot"
+				}
+			}
+		},
+		{
+			"name": "wall_n",
+			"from": [
+				3,
+				0.02055,
+				3
+			],
+			"to": [
+				13,
+				8,
+				4
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3,
+						8,
+						13,
+						15.97945
+					],
+					"texture": "#pot"
+				},
+				"east": {
+					"uv": [
+						12,
+						8,
+						13,
+						15.97945
+					],
+					"texture": "#pot"
+				},
+				"south": {
+					"uv": [
+						3,
+						8,
+						13,
+						15.97945
+					],
+					"texture": "#pot"
+				},
+				"west": {
+					"uv": [
+						3,
+						8,
+						4,
+						15.97945
+					],
+					"texture": "#pot"
+				},
+				"up": {
+					"uv": [
+						3,
+						3,
+						13,
+						4
+					],
+					"texture": "#pot"
+				},
+				"down": {
+					"uv": [
+						3,
+						12,
+						13,
+						13
+					],
+					"texture": "#pot"
+				}
+			}
+		},
+		{
+			"name": "wall_s",
+			"from": [
+				3,
+				0.0261,
+				12
+			],
+			"to": [
+				13,
+				8,
+				13
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3,
+						8,
+						13,
+						15.9739
+					],
+					"texture": "#pot"
+				},
+				"east": {
+					"uv": [
+						3,
+						8,
+						4,
+						15.9739
+					],
+					"texture": "#pot"
+				},
+				"south": {
+					"uv": [
+						3,
+						8,
+						13,
+						15.9739
+					],
+					"texture": "#pot"
+				},
+				"west": {
+					"uv": [
+						12,
+						8,
+						13,
+						15.9739
+					],
+					"texture": "#pot"
+				},
+				"up": {
+					"uv": [
+						3,
+						12,
+						13,
+						13
+					],
+					"texture": "#pot"
+				},
+				"down": {
+					"uv": [
+						3,
+						3,
+						13,
+						4
+					],
+					"texture": "#pot"
+				}
+			}
+		},
+		{
+			"name": "wall_w",
+			"from": [
+				3,
+				0.03165,
+				4
+			],
+			"to": [
+				4,
+				8,
+				12
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						12,
+						8,
+						13,
+						15.96835
+					],
+					"texture": "#pot"
+				},
+				"east": {
+					"uv": [
+						4,
+						8,
+						12,
+						15.96835
+					],
+					"texture": "#pot"
+				},
+				"south": {
+					"uv": [
+						3,
+						8,
+						4,
+						15.96835
+					],
+					"texture": "#pot"
+				},
+				"west": {
+					"uv": [
+						4,
+						8,
+						12,
+						15.96835
+					],
+					"texture": "#pot"
+				},
+				"up": {
+					"uv": [
+						3,
+						4,
+						4,
+						12
+					],
+					"texture": "#pot"
+				},
+				"down": {
+					"uv": [
+						3,
+						4,
+						4,
+						12
+					],
+					"texture": "#pot"
+				}
+			}
+		},
+		{
+			"name": "wall_e",
+			"from": [
+				12,
+				0.0372,
+				4
+			],
+			"to": [
+				13,
+				8,
+				12
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3,
+						8,
+						4,
+						15.9628
+					],
+					"texture": "#pot"
+				},
+				"east": {
+					"uv": [
+						4,
+						8,
+						12,
+						15.9628
+					],
+					"texture": "#pot"
+				},
+				"south": {
+					"uv": [
+						12,
+						8,
+						13,
+						15.9628
+					],
+					"texture": "#pot"
+				},
+				"west": {
+					"uv": [
+						4,
+						8,
+						12,
+						15.9628
+					],
+					"texture": "#pot"
+				},
+				"up": {
+					"uv": [
+						12,
+						4,
+						13,
+						12
+					],
+					"texture": "#pot"
+				},
+				"down": {
+					"uv": [
+						12,
+						4,
+						13,
+						12
+					],
+					"texture": "#pot"
+				}
+			}
+		},
+		{
+			"name": "handle_w",
+			"from": [
+				1.5,
+				6,
+				7
+			],
+			"to": [
+				3,
+				7,
+				9
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						13,
+						9,
+						14.5,
+						10
+					],
+					"texture": "#pot"
+				},
+				"east": {
+					"uv": [
+						7,
+						9,
+						9,
+						10
+					],
+					"texture": "#pot"
+				},
+				"south": {
+					"uv": [
+						1.5,
+						9,
+						3,
+						10
+					],
+					"texture": "#pot"
+				},
+				"west": {
+					"uv": [
+						7,
+						9,
+						9,
+						10
+					],
+					"texture": "#pot"
+				},
+				"up": {
+					"uv": [
+						1.5,
+						7,
+						3,
+						9
+					],
+					"texture": "#pot"
+				},
+				"down": {
+					"uv": [
+						1.5,
+						7,
+						3,
+						9
+					],
+					"texture": "#pot"
+				}
+			}
+		},
+		{
+			"name": "handle_e",
+			"from": [
+				13,
+				6,
+				7
+			],
+			"to": [
+				14.5,
+				7,
+				9
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						1.5,
+						9,
+						3,
+						10
+					],
+					"texture": "#pot"
+				},
+				"east": {
+					"uv": [
+						7,
+						9,
+						9,
+						10
+					],
+					"texture": "#pot"
+				},
+				"south": {
+					"uv": [
+						13,
+						9,
+						14.5,
+						10
+					],
+					"texture": "#pot"
+				},
+				"west": {
+					"uv": [
+						7,
+						9,
+						9,
+						10
+					],
+					"texture": "#pot"
+				},
+				"up": {
+					"uv": [
+						13,
+						7,
+						14.5,
+						9
+					],
+					"texture": "#pot"
+				},
+				"down": {
+					"uv": [
+						13,
+						7,
+						14.5,
+						9
+					],
+					"texture": "#pot"
+				}
+			}
+		},
+		{
+			"name": "rim",
+			"from": [
+				2.7,
+				7.5,
+				2.7
+			],
+			"to": [
+				13.3,
+				8.2,
+				13.3
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						2.7,
+						7.8,
+						13.3,
+						8.5
+					],
+					"texture": "#pot"
+				},
+				"east": {
+					"uv": [
+						2.7,
+						7.8,
+						13.3,
+						8.5
+					],
+					"texture": "#pot"
+				},
+				"south": {
+					"uv": [
+						2.7,
+						7.8,
+						13.3,
+						8.5
+					],
+					"texture": "#pot"
+				},
+				"west": {
+					"uv": [
+						2.7,
+						7.8,
+						13.3,
+						8.5
+					],
+					"texture": "#pot"
+				}
+			}
+		},
+		{
+			"name": "jam",
+			"from": [
+				4,
+				1,
+				4
+			],
+			"to": [
+				12,
+				6.5,
+				12
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						4,
+						9.5,
+						12,
+						15
+					],
+					"texture": "#jam",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						4,
+						9.5,
+						12,
+						15
+					],
+					"texture": "#jam",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						4,
+						9.5,
+						12,
+						15
+					],
+					"texture": "#jam",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						4,
+						9.5,
+						12,
+						15
+					],
+					"texture": "#jam",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						4,
+						4,
+						12,
+						12
+					],
+					"texture": "#jam",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "spoon",
+			"from": [
+				9,
+				3,
+				7.5
+			],
+			"to": [
+				10,
+				13,
+				8.5
+			],
+			"rotation": {
+				"angle": -22.5,
+				"axis": "z",
+				"origin": [
+					9.5,
+					5,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						6,
+						3,
+						7,
+						13
+					],
+					"texture": "#wood"
+				},
+				"east": {
+					"uv": [
+						7.5,
+						3,
+						8.5,
+						13
+					],
+					"texture": "#wood"
+				},
+				"south": {
+					"uv": [
+						9,
+						3,
+						10,
+						13
+					],
+					"texture": "#wood"
+				},
+				"west": {
+					"uv": [
+						7.5,
+						3,
+						8.5,
+						13
+					],
+					"texture": "#wood"
+				},
+				"up": {
+					"uv": [
+						9,
+						7.5,
+						10,
+						8.5
+					],
+					"texture": "#wood"
+				},
+				"down": {
+					"uv": [
+						9,
+						7.5,
+						10,
+						8.5
+					],
+					"texture": "#wood"
+				}
+			}
+		},
+		{
+			"name": "spoon_head",
+			"from": [
+				8.5,
+				2,
+				7
+			],
+			"to": [
+				10.5,
+				3.5,
+				9
+			],
+			"rotation": {
+				"angle": -22.5,
+				"axis": "z",
+				"origin": [
+					9.5,
+					5,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						5.5,
+						12.5,
+						7.5,
+						14
+					],
+					"texture": "#wood"
+				},
+				"east": {
+					"uv": [
+						7,
+						12.5,
+						9,
+						14
+					],
+					"texture": "#wood"
+				},
+				"south": {
+					"uv": [
+						8.5,
+						12.5,
+						10.5,
+						14
+					],
+					"texture": "#wood"
+				},
+				"west": {
+					"uv": [
+						7,
+						12.5,
+						9,
+						14
+					],
+					"texture": "#wood"
+				},
+				"up": {
+					"uv": [
+						8.5,
+						7,
+						10.5,
+						9
+					],
+					"texture": "#wood"
+				},
+				"down": {
+					"uv": [
+						8.5,
+						7,
+						10.5,
+						9
+					],
+					"texture": "#wood"
+				}
+			}
+		}
+	]
+}

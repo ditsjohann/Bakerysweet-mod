@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:mango"
+		},
+		{
+			"item": "bakery:mango"
+		},
+		{
+			"item": "minecraft:bone_meal"
+		}
+	],
+	"result": {
+		"id": "bakery:mangowood_sapling",
+		"count": 1
+	}
+}

@@ -1,0 +1,13 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"tag": "bakery:citrus_logs"
+		}
+	],
+	"result": {
+		"id": "bakery:citrus_planks",
+		"count": 4
+	}
+}

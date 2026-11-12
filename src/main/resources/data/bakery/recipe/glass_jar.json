@@ -1,0 +1,21 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"W",
+		"G",
+		"G"
+	],
+	"key": {
+		"W": {
+			"tag": "minecraft:wooden_slabs"
+		},
+		"G": {
+			"item": "minecraft:glass"
+		}
+	},
+	"result": {
+		"id": "bakery:glass_jar",
+		"count": 2
+	}
+}

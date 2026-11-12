@@ -1,0 +1,1498 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"parent": "block/block",
+	"ambientocclusion": false,
+	"format_version": "26.3",
+	"textures": {
+		"board": "bakery:block/cake_board",
+		"side": "bakery:block/cake_side",
+		"frosting": "bakery:block/cake_frosting",
+		"inside": "bakery:block/cake_inside",
+		"particle": "bakery:block/cake_board"
+	},
+	"elements": [
+		{
+			"name": "board",
+			"from": [
+				8,
+				0,
+				0.5
+			],
+			"to": [
+				15.5,
+				0.5,
+				15.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0.5,
+						15.5,
+						8,
+						16
+					],
+					"texture": "#board"
+				},
+				"east": {
+					"uv": [
+						0.5,
+						15.5,
+						15.5,
+						16
+					],
+					"texture": "#board"
+				},
+				"south": {
+					"uv": [
+						8,
+						15.5,
+						15.5,
+						16
+					],
+					"texture": "#board"
+				},
+				"west": {
+					"uv": [
+						0.5,
+						15.5,
+						15.5,
+						16
+					],
+					"texture": "#board"
+				},
+				"up": {
+					"uv": [
+						8,
+						0.5,
+						15.5,
+						15.5
+					],
+					"texture": "#board"
+				},
+				"down": {
+					"uv": [
+						8,
+						0.5,
+						15.5,
+						15.5
+					],
+					"texture": "#board"
+				}
+			}
+		},
+		{
+			"name": "sponge",
+			"from": [
+				8,
+				0.5,
+				1.5
+			],
+			"to": [
+				14.5,
+				7,
+				14.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						1.5,
+						9,
+						8,
+						15.5
+					],
+					"texture": "#side"
+				},
+				"east": {
+					"uv": [
+						1.5,
+						9,
+						14.5,
+						15.5
+					],
+					"texture": "#side"
+				},
+				"south": {
+					"uv": [
+						8,
+						9,
+						14.5,
+						15.5
+					],
+					"texture": "#side"
+				},
+				"west": {
+					"uv": [
+						1.5,
+						9,
+						14.5,
+						15.5
+					],
+					"texture": "#inside"
+				}
+			}
+		},
+		{
+			"name": "frosting",
+			"from": [
+				8,
+				7,
+				1.5
+			],
+			"to": [
+				14.5,
+				8.5,
+				14.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						1.5,
+						7.5,
+						8,
+						9
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						1.5,
+						7.5,
+						14.5,
+						9
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						8,
+						7.5,
+						14.5,
+						9
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						1.5,
+						7.5,
+						14.5,
+						9
+					],
+					"texture": "#inside"
+				},
+				"up": {
+					"uv": [
+						8,
+						1.5,
+						14.5,
+						14.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "pipe",
+			"from": [
+				13.2,
+				8.5,
+				2.5
+			],
+			"to": [
+				14.2,
+				9.3,
+				3.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						1.8,
+						6.7,
+						2.8,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						12.5,
+						6.7,
+						13.5,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						13.2,
+						6.7,
+						14.2,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						2.5,
+						6.7,
+						3.5,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						13.2,
+						2.5,
+						14.2,
+						3.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "pipe",
+			"from": [
+				13.2,
+				8.5,
+				4.7
+			],
+			"to": [
+				14.2,
+				9.3,
+				5.7
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						1.8,
+						6.7,
+						2.8,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						10.3,
+						6.7,
+						11.3,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						13.2,
+						6.7,
+						14.2,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						4.7,
+						6.7,
+						5.7,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						13.2,
+						4.7,
+						14.2,
+						5.7
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "pipe",
+			"from": [
+				13.2,
+				8.5,
+				6.9
+			],
+			"to": [
+				14.2,
+				9.3,
+				7.9
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						1.8,
+						6.7,
+						2.8,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						8.1,
+						6.7,
+						9.1,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						13.2,
+						6.7,
+						14.2,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						6.9,
+						6.7,
+						7.9,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						13.2,
+						6.9,
+						14.2,
+						7.9
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "pipe",
+			"from": [
+				9.1,
+				8.5,
+				1.8
+			],
+			"to": [
+				10.1,
+				9.3,
+				2.8
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						5.9,
+						6.7,
+						6.9,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						13.2,
+						6.7,
+						14.2,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						9.1,
+						6.7,
+						10.1,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						1.8,
+						6.7,
+						2.8,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						9.1,
+						1.8,
+						10.1,
+						2.8
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "pipe",
+			"from": [
+				9.1,
+				8.5,
+				13.2
+			],
+			"to": [
+				10.1,
+				9.3,
+				14.2
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						5.9,
+						6.7,
+						6.9,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						1.8,
+						6.7,
+						2.8,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						9.1,
+						6.7,
+						10.1,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						13.2,
+						6.7,
+						14.2,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						9.1,
+						13.2,
+						10.1,
+						14.2
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "pipe",
+			"from": [
+				13.2,
+				8.5,
+				9.1
+			],
+			"to": [
+				14.2,
+				9.3,
+				10.1
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						1.8,
+						6.7,
+						2.8,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						5.9,
+						6.7,
+						6.9,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						13.2,
+						6.7,
+						14.2,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						9.1,
+						6.7,
+						10.1,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						13.2,
+						9.1,
+						14.2,
+						10.1
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "pipe",
+			"from": [
+				11.3,
+				8.5,
+				1.8
+			],
+			"to": [
+				12.3,
+				9.3,
+				2.8
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3.7,
+						6.7,
+						4.7,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						13.2,
+						6.7,
+						14.2,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						11.3,
+						6.7,
+						12.3,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						1.8,
+						6.7,
+						2.8,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						11.3,
+						1.8,
+						12.3,
+						2.8
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "pipe",
+			"from": [
+				11.3,
+				8.5,
+				13.2
+			],
+			"to": [
+				12.3,
+				9.3,
+				14.2
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3.7,
+						6.7,
+						4.7,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						1.8,
+						6.7,
+						2.8,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						11.3,
+						6.7,
+						12.3,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						13.2,
+						6.7,
+						14.2,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						11.3,
+						13.2,
+						12.3,
+						14.2
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "pipe",
+			"from": [
+				13.2,
+				8.5,
+				11.3
+			],
+			"to": [
+				14.2,
+				9.3,
+				12.3
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						1.8,
+						6.7,
+						2.8,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						3.7,
+						6.7,
+						4.7,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						13.2,
+						6.7,
+						14.2,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						11.3,
+						6.7,
+						12.3,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						13.2,
+						11.3,
+						14.2,
+						12.3
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "pipe",
+			"from": [
+				13.5,
+				8.5,
+				1.8
+			],
+			"to": [
+				14.5,
+				9.26835,
+				2.8
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						1.5,
+						6.73165,
+						2.5,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						13.2,
+						6.73165,
+						14.2,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						13.5,
+						6.73165,
+						14.5,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						1.8,
+						6.73165,
+						2.8,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						13.5,
+						1.8,
+						14.5,
+						2.8
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "pipe",
+			"from": [
+				13.5,
+				8.5,
+				13.2
+			],
+			"to": [
+				14.5,
+				9.3,
+				14.2
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						1.5,
+						6.7,
+						2.5,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						1.8,
+						6.7,
+						2.8,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						13.5,
+						6.7,
+						14.5,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						13.2,
+						6.7,
+						14.2,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						13.5,
+						13.2,
+						14.5,
+						14.2
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "pipe",
+			"from": [
+				13.2,
+				8.5,
+				13.5
+			],
+			"to": [
+				14.2,
+				9.25725,
+				14.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						1.8,
+						6.74275,
+						2.8,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						1.5,
+						6.74275,
+						2.5,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						13.2,
+						6.74275,
+						14.2,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						13.5,
+						6.74275,
+						14.5,
+						7.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						13.2,
+						13.5,
+						14.2,
+						14.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "drip",
+			"from": [
+				14.5,
+				5,
+				4
+			],
+			"to": [
+				14.75,
+				7,
+				5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						1.25,
+						9,
+						1.5,
+						11
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						11,
+						9,
+						12,
+						11
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						14.5,
+						9,
+						14.75,
+						11
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						4,
+						9,
+						5,
+						11
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "drip",
+			"from": [
+				8.5,
+				4.5,
+				14.5
+			],
+			"to": [
+				9.5,
+				7,
+				14.75
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						6.5,
+						9,
+						7.5,
+						11.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						1.25,
+						9,
+						1.5,
+						11.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						8.5,
+						9,
+						9.5,
+						11.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						14.5,
+						9,
+						14.75,
+						11.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "drip",
+			"from": [
+				14.5,
+				4.5,
+				8
+			],
+			"to": [
+				14.75,
+				7,
+				9
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						1.25,
+						9,
+						1.5,
+						11.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						7,
+						9,
+						8,
+						11.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						14.5,
+						9,
+						14.75,
+						11.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						8,
+						9,
+						9,
+						11.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "drip",
+			"from": [
+				11,
+				5.5,
+				1.25
+			],
+			"to": [
+				12,
+				7,
+				1.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						4,
+						9,
+						5,
+						10.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						14.5,
+						9,
+						14.75,
+						10.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						11,
+						9,
+						12,
+						10.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						1.25,
+						9,
+						1.5,
+						10.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "drip",
+			"from": [
+				12.5,
+				5.5,
+				14.5
+			],
+			"to": [
+				13.5,
+				7,
+				14.75
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						2.5,
+						9,
+						3.5,
+						10.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						1.25,
+						9,
+						1.5,
+						10.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						12.5,
+						9,
+						13.5,
+						10.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						14.5,
+						9,
+						14.75,
+						10.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "drip",
+			"from": [
+				14.5,
+				5.5,
+				12
+			],
+			"to": [
+				14.75,
+				7,
+				13
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						1.25,
+						9,
+						1.5,
+						10.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						3,
+						9,
+						4,
+						10.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						14.5,
+						9,
+						14.75,
+						10.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						12,
+						9,
+						13,
+						10.5
+					],
+					"texture": "#frosting",
+					"tintindex": 0
+				}
+			}
+		}
+	]
+}

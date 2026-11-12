@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "minecraft:paper"
+		},
+		{
+			"item": "minecraft:sugar"
+		},
+		{
+			"item": "minecraft:sugar"
+		},
+		{
+			"item": "minecraft:pink_dye"
+		}
+	],
+	"result": {
+		"id": "bakery:pink_icing",
+		"count": 1
+	}
+}

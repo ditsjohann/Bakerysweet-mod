@@ -1,0 +1,299 @@
+{
+	"parent": "minecraft:block/block",
+	"ambientocclusion": true,
+	"textures": {
+		"vase": "bakery:block/ceramic_pink",
+		"flowers": "bakery:block/tulips",
+		"particle": "bakery:block/ceramic_pink"
+	},
+	"elements": [
+		{
+			"from": [
+				6,
+				0,
+				6
+			],
+			"to": [
+				10,
+				5,
+				10
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						6,
+						11,
+						10,
+						16
+					],
+					"texture": "#vase"
+				},
+				"south": {
+					"uv": [
+						6,
+						11,
+						10,
+						16
+					],
+					"texture": "#vase"
+				},
+				"east": {
+					"uv": [
+						6,
+						11,
+						10,
+						16
+					],
+					"texture": "#vase"
+				},
+				"west": {
+					"uv": [
+						6,
+						11,
+						10,
+						16
+					],
+					"texture": "#vase"
+				},
+				"up": {
+					"uv": [
+						6,
+						6,
+						10,
+						10
+					],
+					"texture": "#vase"
+				},
+				"down": {
+					"uv": [
+						6,
+						6,
+						10,
+						10
+					],
+					"texture": "#vase"
+				}
+			}
+		},
+		{
+			"from": [
+				6.5,
+				5,
+				6.5
+			],
+			"to": [
+				9.5,
+				6,
+				9.5
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						6.5,
+						10,
+						9.5,
+						11
+					],
+					"texture": "#vase"
+				},
+				"south": {
+					"uv": [
+						6.5,
+						10,
+						9.5,
+						11
+					],
+					"texture": "#vase"
+				},
+				"east": {
+					"uv": [
+						6.5,
+						10,
+						9.5,
+						11
+					],
+					"texture": "#vase"
+				},
+				"west": {
+					"uv": [
+						6.5,
+						10,
+						9.5,
+						11
+					],
+					"texture": "#vase"
+				},
+				"up": {
+					"uv": [
+						6.5,
+						6.5,
+						9.5,
+						9.5
+					],
+					"texture": "#vase"
+				},
+				"down": {
+					"uv": [
+						6.5,
+						6.5,
+						9.5,
+						9.5
+					],
+					"texture": "#vase"
+				}
+			}
+		},
+		{
+			"from": [
+				5.8,
+				6,
+				5.8
+			],
+			"to": [
+				10.2,
+				6.8,
+				10.2
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						5.800000000000001,
+						9.2,
+						10.2,
+						10
+					],
+					"texture": "#vase"
+				},
+				"south": {
+					"uv": [
+						5.8,
+						9.2,
+						10.2,
+						10
+					],
+					"texture": "#vase"
+				},
+				"east": {
+					"uv": [
+						5.800000000000001,
+						9.2,
+						10.2,
+						10
+					],
+					"texture": "#vase"
+				},
+				"west": {
+					"uv": [
+						5.8,
+						9.2,
+						10.2,
+						10
+					],
+					"texture": "#vase"
+				},
+				"up": {
+					"uv": [
+						5.8,
+						5.8,
+						10.2,
+						10.2
+					],
+					"texture": "#vase"
+				},
+				"down": {
+					"uv": [
+						5.8,
+						5.800000000000001,
+						10.2,
+						10.2
+					],
+					"texture": "#vase"
+				}
+			}
+		},
+		{
+			"from": [
+				2,
+				5,
+				8
+			],
+			"to": [
+				14,
+				16,
+				8
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						16,
+						0,
+						0,
+						16
+					],
+					"texture": "#flowers"
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#flowers"
+				}
+			},
+			"rotation": {
+				"axis": "y",
+				"angle": 45,
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"shade": false
+		},
+		{
+			"from": [
+				8,
+				5,
+				2
+			],
+			"to": [
+				8,
+				16,
+				14
+			],
+			"faces": {
+				"east": {
+					"uv": [
+						16,
+						0,
+						0,
+						16
+					],
+					"texture": "#flowers"
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#flowers"
+				}
+			},
+			"rotation": {
+				"axis": "y",
+				"angle": 45,
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"shade": false
+		}
+	]
+}

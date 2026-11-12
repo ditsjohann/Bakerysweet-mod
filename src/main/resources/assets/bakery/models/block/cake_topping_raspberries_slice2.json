@@ -1,0 +1,356 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"format_version": "26.3",
+	"textures": {
+		"berry": "bakery:block/topping_raspberry",
+		"leaf": "bakery:block/leaf",
+		"particle": "bakery:block/topping_raspberry"
+	},
+	"elements": [
+		{
+			"name": "berry",
+			"from": [
+				11.7,
+				8.5,
+				7.2
+			],
+			"to": [
+				13.3,
+				10.1,
+				8.8
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						2.7,
+						5.9,
+						4.3,
+						7.5
+					],
+					"texture": "#berry"
+				},
+				"east": {
+					"uv": [
+						7.2,
+						5.9,
+						8.8,
+						7.5
+					],
+					"texture": "#berry"
+				},
+				"south": {
+					"uv": [
+						11.7,
+						5.9,
+						13.3,
+						7.5
+					],
+					"texture": "#berry"
+				},
+				"west": {
+					"uv": [
+						7.2,
+						5.9,
+						8.8,
+						7.5
+					],
+					"texture": "#berry"
+				},
+				"up": {
+					"uv": [
+						11.7,
+						7.2,
+						13.3,
+						8.8
+					],
+					"texture": "#berry"
+				}
+			}
+		},
+		{
+			"name": "berry",
+			"from": [
+				10.0057,
+				8.5,
+				10.71824
+			],
+			"to": [
+				11.6057,
+				10.1,
+				12.31824
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						4.3943,
+						5.9,
+						5.9943,
+						7.5
+					],
+					"texture": "#berry"
+				},
+				"east": {
+					"uv": [
+						3.68176,
+						5.9,
+						5.28176,
+						7.5
+					],
+					"texture": "#berry"
+				},
+				"south": {
+					"uv": [
+						10.0057,
+						5.9,
+						11.6057,
+						7.5
+					],
+					"texture": "#berry"
+				},
+				"west": {
+					"uv": [
+						10.71824,
+						5.9,
+						12.31824,
+						7.5
+					],
+					"texture": "#berry"
+				},
+				"up": {
+					"uv": [
+						10.0057,
+						10.71824,
+						11.6057,
+						12.31824
+					],
+					"texture": "#berry"
+				}
+			}
+		},
+		{
+			"name": "berry",
+			"from": [
+				10.0057,
+				8.5,
+				3.68176
+			],
+			"to": [
+				11.6057,
+				10.1,
+				5.28176
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						4.3943,
+						5.9,
+						5.9943,
+						7.5
+					],
+					"texture": "#berry"
+				},
+				"east": {
+					"uv": [
+						10.71824,
+						5.9,
+						12.31824,
+						7.5
+					],
+					"texture": "#berry"
+				},
+				"south": {
+					"uv": [
+						10.0057,
+						5.9,
+						11.6057,
+						7.5
+					],
+					"texture": "#berry"
+				},
+				"west": {
+					"uv": [
+						3.68176,
+						5.9,
+						5.28176,
+						7.5
+					],
+					"texture": "#berry"
+				},
+				"up": {
+					"uv": [
+						10.0057,
+						3.68176,
+						11.6057,
+						5.28176
+					],
+					"texture": "#berry"
+				}
+			}
+		},
+		{
+			"name": "berry",
+			"from": [
+				8,
+				8.5,
+				7
+			],
+			"to": [
+				9,
+				10.5,
+				9
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						7,
+						5.5,
+						8,
+						7.5
+					],
+					"texture": "#berry"
+				},
+				"east": {
+					"uv": [
+						7,
+						5.5,
+						9,
+						7.5
+					],
+					"texture": "#berry"
+				},
+				"south": {
+					"uv": [
+						8,
+						5.5,
+						9,
+						7.5
+					],
+					"texture": "#berry"
+				},
+				"west": {
+					"uv": [
+						7,
+						5.5,
+						9,
+						7.5
+					],
+					"texture": "#berry"
+				},
+				"up": {
+					"uv": [
+						8,
+						7,
+						9,
+						9
+					],
+					"texture": "#berry"
+				}
+			}
+		},
+		{
+			"name": "leaf",
+			"from": [
+				8,
+				10.5,
+				7.3
+			],
+			"to": [
+				8.7,
+				10.9,
+				8.7
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						7.3,
+						5.1,
+						8,
+						5.5
+					],
+					"texture": "#leaf"
+				},
+				"east": {
+					"uv": [
+						7.3,
+						5.1,
+						8.7,
+						5.5
+					],
+					"texture": "#leaf"
+				},
+				"south": {
+					"uv": [
+						8,
+						5.1,
+						8.7,
+						5.5
+					],
+					"texture": "#leaf"
+				},
+				"west": {
+					"uv": [
+						7.3,
+						5.1,
+						8.7,
+						5.5
+					],
+					"texture": "#leaf"
+				},
+				"up": {
+					"uv": [
+						8,
+						7.3,
+						8.7,
+						8.7
+					],
+					"texture": "#leaf"
+				}
+			}
+		}
+	]
+}

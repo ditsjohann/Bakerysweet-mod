@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"PPP",
+		"PPP"
+	],
+	"key": {
+		"P": {
+			"item": "bakery:mangowood_planks"
+		}
+	},
+	"result": {
+		"id": "bakery:mangowood_trapdoor",
+		"count": 2
+	}
+}

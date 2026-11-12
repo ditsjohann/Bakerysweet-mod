@@ -1,0 +1,24 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"S S",
+		"PPP",
+		"PWP"
+	],
+	"key": {
+		"S": {
+			"item": "minecraft:string"
+		},
+		"P": {
+			"item": "minecraft:pink_wool"
+		},
+		"W": {
+			"item": "minecraft:white_wool"
+		}
+	},
+	"result": {
+		"id": "bakery:frilly_apron",
+		"count": 1
+	}
+}

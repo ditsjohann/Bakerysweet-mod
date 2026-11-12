@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"PSP",
+		"PSP"
+	],
+	"key": {
+		"P": {
+			"item": "bakery:peachwood_planks"
+		},
+		"S": {
+			"item": "minecraft:stick"
+		}
+	},
+	"result": {
+		"id": "bakery:peachwood_fence",
+		"count": 3
+	}
+}

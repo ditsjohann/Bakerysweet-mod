@@ -1,0 +1,13 @@
+{
+	"variants": {
+		"type=bottom": {
+			"model": "bakery:block/peachwood_slab"
+		},
+		"type=top": {
+			"model": "bakery:block/peachwood_slab_top"
+		},
+		"type=double": {
+			"model": "bakery:block/peachwood_planks"
+		}
+	}
+}

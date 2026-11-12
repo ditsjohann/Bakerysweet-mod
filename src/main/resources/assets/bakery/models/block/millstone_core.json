@@ -1,0 +1,89 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"parent": "block/block",
+	"format_version": "26.3",
+	"textures": {
+		"front": "bakery:block/millstone_core",
+		"particle": "bakery:block/millstone_core"
+	},
+	"elements": [
+		{
+			"name": "block",
+			"from": [
+				0,
+				0,
+				0
+			],
+			"to": [
+				16,
+				16,
+				16
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#front"
+				},
+				"east": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#front"
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#front"
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#front"
+				},
+				"up": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#front"
+				},
+				"down": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#front"
+				}
+			}
+		}
+	]
+}

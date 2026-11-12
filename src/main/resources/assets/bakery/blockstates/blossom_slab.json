@@ -1,0 +1,13 @@
+{
+	"variants": {
+		"type=bottom": {
+			"model": "bakery:block/blossom_slab"
+		},
+		"type=top": {
+			"model": "bakery:block/blossom_slab_top"
+		},
+		"type=double": {
+			"model": "bakery:block/blossom_planks"
+		}
+	}
+}

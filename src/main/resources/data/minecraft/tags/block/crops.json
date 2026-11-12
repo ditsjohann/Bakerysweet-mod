@@ -1,0 +1,22 @@
+{
+	"replace": false,
+	"values": [
+		"bakery:strawberry_crop",
+		"bakery:blueberry_crop",
+		"bakery:raspberry_crop",
+		"bakery:tea_crop",
+		"bakery:mint_crop",
+		"bakery:vanilla_crop",
+		"bakery:lavender_crop",
+		"bakery:rose_crop",
+		"bakery:pineapple_crop",
+		"bakery:starbloom_crop",
+		"bakery:sweet_potato_crop",
+		"bakery:peanut_crop",
+		"bakery:rhubarb_crop",
+		"bakery:hibiscus_crop",
+		"bakery:cranberry_crop",
+		"bakery:candyfloss_crop",
+		"bakery:sugar_beet_crop"
+	]
+}

@@ -1,0 +1,1004 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"parent": "block/block",
+	"ambientocclusion": false,
+	"format_version": "26.3",
+	"textures": {
+		"plate": "bakery:block/plate",
+		"shell": "bakery:block/macaron_shell",
+		"filling": "bakery:block/macaron_filling",
+		"particle": "bakery:block/plate"
+	},
+	"elements": [
+		{
+			"name": "plate",
+			"from": [
+				2.5,
+				0,
+				2.5
+			],
+			"to": [
+				13.5,
+				0.5,
+				13.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						2.5,
+						15.5,
+						13.5,
+						16
+					],
+					"texture": "#plate"
+				},
+				"east": {
+					"uv": [
+						2.5,
+						15.5,
+						13.5,
+						16
+					],
+					"texture": "#plate"
+				},
+				"south": {
+					"uv": [
+						2.5,
+						15.5,
+						13.5,
+						16
+					],
+					"texture": "#plate"
+				},
+				"west": {
+					"uv": [
+						2.5,
+						15.5,
+						13.5,
+						16
+					],
+					"texture": "#plate"
+				},
+				"up": {
+					"uv": [
+						2.5,
+						2.5,
+						13.5,
+						13.5
+					],
+					"texture": "#plate"
+				},
+				"down": {
+					"uv": [
+						2.5,
+						2.5,
+						13.5,
+						13.5
+					],
+					"texture": "#plate"
+				}
+			}
+		},
+		{
+			"name": "shell_bottom",
+			"from": [
+				5.25,
+				0.5,
+				5.5
+			],
+			"to": [
+				10.25,
+				1.8,
+				10.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						5.75,
+						14.2,
+						10.75,
+						15.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						5.5,
+						14.2,
+						10.5,
+						15.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						5.25,
+						14.2,
+						10.25,
+						15.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						5.5,
+						14.2,
+						10.5,
+						15.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						5.25,
+						5.5,
+						10.25,
+						10.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"down": {
+					"uv": [
+						5.25,
+						5.5,
+						10.25,
+						10.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "filling",
+			"from": [
+				5.65,
+				1.8,
+				5.9
+			],
+			"to": [
+				9.85,
+				2.6,
+				10.1
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						6.15,
+						13.4,
+						10.35,
+						14.2
+					],
+					"texture": "#filling"
+				},
+				"east": {
+					"uv": [
+						5.9,
+						13.4,
+						10.1,
+						14.2
+					],
+					"texture": "#filling"
+				},
+				"south": {
+					"uv": [
+						5.65,
+						13.4,
+						9.85,
+						14.2
+					],
+					"texture": "#filling"
+				},
+				"west": {
+					"uv": [
+						5.9,
+						13.4,
+						10.1,
+						14.2
+					],
+					"texture": "#filling"
+				}
+			}
+		},
+		{
+			"name": "shell_top",
+			"from": [
+				5.25,
+				2.6,
+				5.5
+			],
+			"to": [
+				10.25,
+				3.9,
+				10.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						5.75,
+						12.1,
+						10.75,
+						13.4
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						5.5,
+						12.1,
+						10.5,
+						13.4
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						5.25,
+						12.1,
+						10.25,
+						13.4
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						5.5,
+						12.1,
+						10.5,
+						13.4
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						5.25,
+						5.5,
+						10.25,
+						10.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"down": {
+					"uv": [
+						5.25,
+						5.5,
+						10.25,
+						10.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "shell_bottom",
+			"from": [
+				6,
+				3.9,
+				5.5
+			],
+			"to": [
+				11,
+				5.2,
+				10.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						5,
+						10.8,
+						10,
+						12.1
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						5.5,
+						10.8,
+						10.5,
+						12.1
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						6,
+						10.8,
+						11,
+						12.1
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						5.5,
+						10.8,
+						10.5,
+						12.1
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						6,
+						5.5,
+						11,
+						10.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"down": {
+					"uv": [
+						6,
+						5.5,
+						11,
+						10.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "filling",
+			"from": [
+				6.4,
+				5.2,
+				5.9
+			],
+			"to": [
+				10.6,
+				6,
+				10.1
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						5.4,
+						10,
+						9.6,
+						10.8
+					],
+					"texture": "#filling"
+				},
+				"east": {
+					"uv": [
+						5.9,
+						10,
+						10.1,
+						10.8
+					],
+					"texture": "#filling"
+				},
+				"south": {
+					"uv": [
+						6.4,
+						10,
+						10.6,
+						10.8
+					],
+					"texture": "#filling"
+				},
+				"west": {
+					"uv": [
+						5.9,
+						10,
+						10.1,
+						10.8
+					],
+					"texture": "#filling"
+				}
+			}
+		},
+		{
+			"name": "shell_top",
+			"from": [
+				6,
+				6,
+				5.5
+			],
+			"to": [
+				11,
+				7.3,
+				10.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						5,
+						8.7,
+						10,
+						10
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						5.5,
+						8.7,
+						10.5,
+						10
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						6,
+						8.7,
+						11,
+						10
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						5.5,
+						8.7,
+						10.5,
+						10
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						6,
+						5.5,
+						11,
+						10.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"down": {
+					"uv": [
+						6,
+						5.5,
+						11,
+						10.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "shell_bottom",
+			"from": [
+				5.25,
+				7.3,
+				5.5
+			],
+			"to": [
+				10.25,
+				8.6,
+				10.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						5.75,
+						7.4,
+						10.75,
+						8.7
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						5.5,
+						7.4,
+						10.5,
+						8.7
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						5.25,
+						7.4,
+						10.25,
+						8.7
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						5.5,
+						7.4,
+						10.5,
+						8.7
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						5.25,
+						5.5,
+						10.25,
+						10.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"down": {
+					"uv": [
+						5.25,
+						5.5,
+						10.25,
+						10.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "filling",
+			"from": [
+				5.65,
+				8.6,
+				5.9
+			],
+			"to": [
+				9.85,
+				9.4,
+				10.1
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						6.15,
+						6.6,
+						10.35,
+						7.4
+					],
+					"texture": "#filling"
+				},
+				"east": {
+					"uv": [
+						5.9,
+						6.6,
+						10.1,
+						7.4
+					],
+					"texture": "#filling"
+				},
+				"south": {
+					"uv": [
+						5.65,
+						6.6,
+						9.85,
+						7.4
+					],
+					"texture": "#filling"
+				},
+				"west": {
+					"uv": [
+						5.9,
+						6.6,
+						10.1,
+						7.4
+					],
+					"texture": "#filling"
+				}
+			}
+		},
+		{
+			"name": "shell_top",
+			"from": [
+				5.25,
+				9.4,
+				5.5
+			],
+			"to": [
+				10.25,
+				10.7,
+				10.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						5.75,
+						5.3,
+						10.75,
+						6.6
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						5.5,
+						5.3,
+						10.5,
+						6.6
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						5.25,
+						5.3,
+						10.25,
+						6.6
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						5.5,
+						5.3,
+						10.5,
+						6.6
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						5.25,
+						5.5,
+						10.25,
+						10.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"down": {
+					"uv": [
+						5.25,
+						5.5,
+						10.25,
+						10.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "mac_side_bottom",
+			"from": [
+				10.5,
+				0.5,
+				9.5
+			],
+			"to": [
+				13.5,
+				1.3,
+				12.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						2.5,
+						14.7,
+						5.5,
+						15.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						3.5,
+						14.7,
+						6.5,
+						15.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						10.5,
+						14.7,
+						13.5,
+						15.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						9.5,
+						14.7,
+						12.5,
+						15.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						10.5,
+						9.5,
+						13.5,
+						12.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"down": {
+					"uv": [
+						10.5,
+						3.5,
+						13.5,
+						6.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "mac_side_top",
+			"from": [
+				10.5,
+				1.8,
+				9.5
+			],
+			"to": [
+				13.5,
+				2.6,
+				12.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						2.5,
+						13.4,
+						5.5,
+						14.2
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						3.5,
+						13.4,
+						6.5,
+						14.2
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						10.5,
+						13.4,
+						13.5,
+						14.2
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						9.5,
+						13.4,
+						12.5,
+						14.2
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						10.5,
+						9.5,
+						13.5,
+						12.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				},
+				"down": {
+					"uv": [
+						10.5,
+						3.5,
+						13.5,
+						6.5
+					],
+					"texture": "#shell",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"name": "mac_side_fill",
+			"from": [
+				10.8,
+				1.3,
+				9.8
+			],
+			"to": [
+				13.2,
+				1.8,
+				12.2
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						2.8,
+						14.2,
+						5.2,
+						14.7
+					],
+					"texture": "#filling"
+				},
+				"east": {
+					"uv": [
+						3.8,
+						14.2,
+						6.2,
+						14.7
+					],
+					"texture": "#filling"
+				},
+				"south": {
+					"uv": [
+						10.8,
+						14.2,
+						13.2,
+						14.7
+					],
+					"texture": "#filling"
+				},
+				"west": {
+					"uv": [
+						9.8,
+						14.2,
+						12.2,
+						14.7
+					],
+					"texture": "#filling"
+				}
+			}
+		}
+	]
+}

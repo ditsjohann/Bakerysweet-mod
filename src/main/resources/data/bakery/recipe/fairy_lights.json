@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"SGS"
+	],
+	"key": {
+		"S": {
+			"item": "minecraft:string"
+		},
+		"G": {
+			"item": "minecraft:glowstone_dust"
+		}
+	},
+	"result": {
+		"id": "bakery:fairy_lights",
+		"count": 3
+	}
+}

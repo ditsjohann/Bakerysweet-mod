@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:flour"
+		},
+		{
+			"item": "bakery:flour"
+		},
+		{
+			"item": "bakery:flour"
+		},
+		{
+			"item": "bakery:flour"
+		},
+		{
+			"item": "minecraft:string"
+		}
+	],
+	"result": {
+		"id": "bakery:flour_sack",
+		"count": 1
+	}
+}

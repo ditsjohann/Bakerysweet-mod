@@ -1,0 +1,13 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:peanut"
+		}
+	],
+	"result": {
+		"id": "bakery:peanut_seeds",
+		"count": 2
+	}
+}

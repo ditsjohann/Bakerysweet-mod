@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"LL",
+		"LL"
+	],
+	"key": {
+		"L": {
+			"item": "bakery:stripped_citrus_log"
+		}
+	},
+	"result": {
+		"id": "bakery:stripped_citrus_wood",
+		"count": 3
+	}
+}

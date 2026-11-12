@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:peach"
+		},
+		{
+			"item": "bakery:peach"
+		},
+		{
+			"item": "minecraft:bone_meal"
+		}
+	],
+	"result": {
+		"id": "bakery:peachwood_sapling",
+		"count": 1
+	}
+}

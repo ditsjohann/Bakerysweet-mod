@@ -1,0 +1,415 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"parent": "block/block",
+	"ambientocclusion": false,
+	"format_version": "26.3",
+	"textures": {
+		"plant": "bakery:block/candyfloss_crop_stage3",
+		"fruit": "bakery:block/fruit_fluff",
+		"particle": "bakery:block/candyfloss_crop_stage3"
+	},
+	"elements": [
+		{
+			"name": "p1",
+			"from": [
+				4,
+				-1,
+				0
+			],
+			"to": [
+				4,
+				15,
+				16
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"east": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#plant"
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#plant"
+				}
+			}
+		},
+		{
+			"name": "p2",
+			"from": [
+				12,
+				-1,
+				0
+			],
+			"to": [
+				12,
+				15,
+				16
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"east": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#plant"
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#plant"
+				}
+			}
+		},
+		{
+			"name": "p3",
+			"from": [
+				0,
+				-1,
+				4
+			],
+			"to": [
+				16,
+				15,
+				4
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#plant"
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#plant"
+				}
+			}
+		},
+		{
+			"name": "p4",
+			"from": [
+				0,
+				-1,
+				12
+			],
+			"to": [
+				16,
+				15,
+				12
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#plant"
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#plant"
+				}
+			}
+		},
+		{
+			"name": "bit",
+			"from": [
+				3,
+				8,
+				3
+			],
+			"to": [
+				7,
+				10.8,
+				7
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						9,
+						5.2,
+						13,
+						8
+					],
+					"texture": "#fruit"
+				},
+				"east": {
+					"uv": [
+						9,
+						5.2,
+						13,
+						8
+					],
+					"texture": "#fruit"
+				},
+				"south": {
+					"uv": [
+						3,
+						5.2,
+						7,
+						8
+					],
+					"texture": "#fruit"
+				},
+				"west": {
+					"uv": [
+						3,
+						5.2,
+						7,
+						8
+					],
+					"texture": "#fruit"
+				},
+				"up": {
+					"uv": [
+						3,
+						3,
+						7,
+						7
+					],
+					"texture": "#fruit"
+				},
+				"down": {
+					"uv": [
+						3,
+						9,
+						7,
+						13
+					],
+					"texture": "#fruit"
+				}
+			}
+		},
+		{
+			"name": "bit",
+			"from": [
+				8.8,
+				10,
+				3.8
+			],
+			"to": [
+				13.2,
+				13.08,
+				8.2
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						2.8,
+						2.92,
+						7.2,
+						6
+					],
+					"texture": "#fruit"
+				},
+				"east": {
+					"uv": [
+						7.8,
+						2.92,
+						12.2,
+						6
+					],
+					"texture": "#fruit"
+				},
+				"south": {
+					"uv": [
+						8.8,
+						2.92,
+						13.2,
+						6
+					],
+					"texture": "#fruit"
+				},
+				"west": {
+					"uv": [
+						3.8,
+						2.92,
+						8.2,
+						6
+					],
+					"texture": "#fruit"
+				},
+				"up": {
+					"uv": [
+						8.8,
+						3.8,
+						13.2,
+						8.2
+					],
+					"texture": "#fruit"
+				},
+				"down": {
+					"uv": [
+						8.8,
+						7.8,
+						13.2,
+						12.2
+					],
+					"texture": "#fruit"
+				}
+			}
+		},
+		{
+			"name": "bit",
+			"from": [
+				5.6,
+				12,
+				8.6
+			],
+			"to": [
+				10.4,
+				15.36,
+				13.4
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						5.6,
+						0.64,
+						10.4,
+						4
+					],
+					"texture": "#fruit"
+				},
+				"east": {
+					"uv": [
+						2.6,
+						0.64,
+						7.4,
+						4
+					],
+					"texture": "#fruit"
+				},
+				"south": {
+					"uv": [
+						5.6,
+						0.64,
+						10.4,
+						4
+					],
+					"texture": "#fruit"
+				},
+				"west": {
+					"uv": [
+						8.6,
+						0.64,
+						13.4,
+						4
+					],
+					"texture": "#fruit"
+				},
+				"up": {
+					"uv": [
+						5.6,
+						8.6,
+						10.4,
+						13.4
+					],
+					"texture": "#fruit"
+				},
+				"down": {
+					"uv": [
+						5.6,
+						2.6,
+						10.4,
+						7.4
+					],
+					"texture": "#fruit"
+				}
+			}
+		}
+	]
+}

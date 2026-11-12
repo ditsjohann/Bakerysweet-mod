@@ -1,0 +1,300 @@
+{
+	"parent": "minecraft:block/block",
+	"ambientocclusion": true,
+	"textures": {
+		"pot": "bakery:block/flower_pot_peach",
+		"soil": "bakery:block/soil",
+		"flowers": "bakery:block/tulips",
+		"particle": "bakery:block/flower_pot_peach"
+	},
+	"elements": [
+		{
+			"from": [
+				4,
+				0,
+				4
+			],
+			"to": [
+				12,
+				6,
+				12
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#pot"
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#pot"
+				},
+				"east": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#pot"
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#pot"
+				},
+				"up": {
+					"uv": [
+						4,
+						4,
+						12,
+						12
+					],
+					"texture": "#pot"
+				},
+				"down": {
+					"uv": [
+						4,
+						4,
+						12,
+						12
+					],
+					"texture": "#pot"
+				}
+			}
+		},
+		{
+			"from": [
+				3.5,
+				6,
+				3.5
+			],
+			"to": [
+				12.5,
+				7.2,
+				12.5
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						3.5,
+						8.8,
+						12.5,
+						10
+					],
+					"texture": "#pot"
+				},
+				"south": {
+					"uv": [
+						3.5,
+						8.8,
+						12.5,
+						10
+					],
+					"texture": "#pot"
+				},
+				"east": {
+					"uv": [
+						3.5,
+						8.8,
+						12.5,
+						10
+					],
+					"texture": "#pot"
+				},
+				"west": {
+					"uv": [
+						3.5,
+						8.8,
+						12.5,
+						10
+					],
+					"texture": "#pot"
+				},
+				"up": {
+					"uv": [
+						3.5,
+						3.5,
+						12.5,
+						12.5
+					],
+					"texture": "#pot"
+				},
+				"down": {
+					"uv": [
+						3.5,
+						3.5,
+						12.5,
+						12.5
+					],
+					"texture": "#pot"
+				}
+			}
+		},
+		{
+			"from": [
+				4.5,
+				6,
+				4.5
+			],
+			"to": [
+				11.5,
+				6.6,
+				11.5
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						4.5,
+						9.4,
+						11.5,
+						10
+					],
+					"texture": "#soil"
+				},
+				"south": {
+					"uv": [
+						4.5,
+						9.4,
+						11.5,
+						10
+					],
+					"texture": "#soil"
+				},
+				"east": {
+					"uv": [
+						4.5,
+						9.4,
+						11.5,
+						10
+					],
+					"texture": "#soil"
+				},
+				"west": {
+					"uv": [
+						4.5,
+						9.4,
+						11.5,
+						10
+					],
+					"texture": "#soil"
+				},
+				"up": {
+					"uv": [
+						4.5,
+						4.5,
+						11.5,
+						11.5
+					],
+					"texture": "#soil"
+				},
+				"down": {
+					"uv": [
+						4.5,
+						4.5,
+						11.5,
+						11.5
+					],
+					"texture": "#soil"
+				}
+			}
+		},
+		{
+			"from": [
+				1.5,
+				6,
+				8
+			],
+			"to": [
+				14.5,
+				16,
+				8
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						16,
+						0,
+						0,
+						16
+					],
+					"texture": "#flowers"
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#flowers"
+				}
+			},
+			"rotation": {
+				"axis": "y",
+				"angle": 45,
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"shade": false
+		},
+		{
+			"from": [
+				8,
+				6,
+				1.5
+			],
+			"to": [
+				8,
+				16,
+				14.5
+			],
+			"faces": {
+				"east": {
+					"uv": [
+						16,
+						0,
+						0,
+						16
+					],
+					"texture": "#flowers"
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#flowers"
+				}
+			},
+			"rotation": {
+				"axis": "y",
+				"angle": 45,
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"shade": false
+		}
+	]
+}

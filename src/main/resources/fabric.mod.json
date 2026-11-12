@@ -1,0 +1,22 @@
+{
+	"schemaVersion": 1,
+	"id": "bakery",
+	"version": "${version}",
+	"name": "Sweetheart Bakery",
+	"description": "A cozy bakery. Farm strawberries, matcha, lavender and starbloom flowers, mix dough, roll it out, bake it to perfection, decorate cakes and get star reviews from villagers. Everything stays fresh only for so long - wrap, jar or chill it to make it last.",
+	"authors": ["ditsj"],
+	"contact": {},
+	"license": "MIT",
+	"icon": "assets/bakery/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": ["com.bakery.Bakery"],
+		"client": ["com.bakery.client.BakeryClient"]
+	},
+	"depends": {
+		"fabricloader": ">=0.16.0",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

@@ -1,0 +1,12 @@
+{
+	"replace": false,
+	"values": [
+		"bakery:palm_door",
+		"bakery:citrus_door",
+		"bakery:blossom_door",
+		"bakery:orangewood_door",
+		"bakery:peachwood_door",
+		"bakery:mangowood_door",
+		"bakery:plumwood_door"
+	]
+}

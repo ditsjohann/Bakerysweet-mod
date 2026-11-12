@@ -1,0 +1,251 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"format_version": "26.3",
+	"textures": {
+		"drizzle": "bakery:block/topping_chocolate",
+		"choc": "bakery:block/chocolate",
+		"particle": "bakery:block/topping_chocolate"
+	},
+	"elements": [
+		{
+			"name": "overlay",
+			"from": [
+				1.6,
+				8.52,
+				1.6
+			],
+			"to": [
+				14.4,
+				8.52,
+				14.4
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"up": {
+					"uv": [
+						1.6,
+						1.6,
+						14.4,
+						14.4
+					],
+					"texture": "#drizzle"
+				}
+			}
+		},
+		{
+			"name": "chunk",
+			"from": [
+				6.5,
+				8.5,
+				6.5
+			],
+			"to": [
+				9.5,
+				9.5,
+				8.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						6.5,
+						6.5,
+						9.5,
+						7.5
+					],
+					"texture": "#choc"
+				},
+				"east": {
+					"uv": [
+						7.5,
+						6.5,
+						9.5,
+						7.5
+					],
+					"texture": "#choc"
+				},
+				"south": {
+					"uv": [
+						6.5,
+						6.5,
+						9.5,
+						7.5
+					],
+					"texture": "#choc"
+				},
+				"west": {
+					"uv": [
+						6.5,
+						6.5,
+						8.5,
+						7.5
+					],
+					"texture": "#choc"
+				},
+				"up": {
+					"uv": [
+						6.5,
+						6.5,
+						9.5,
+						8.5
+					],
+					"texture": "#choc"
+				}
+			}
+		},
+		{
+			"name": "chunk",
+			"from": [
+				3.5,
+				8.5,
+				10.5
+			],
+			"to": [
+				5.5,
+				9.3,
+				12
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						10.5,
+						6.7,
+						12.5,
+						7.5
+					],
+					"texture": "#choc"
+				},
+				"east": {
+					"uv": [
+						4,
+						6.7,
+						5.5,
+						7.5
+					],
+					"texture": "#choc"
+				},
+				"south": {
+					"uv": [
+						3.5,
+						6.7,
+						5.5,
+						7.5
+					],
+					"texture": "#choc"
+				},
+				"west": {
+					"uv": [
+						10.5,
+						6.7,
+						12,
+						7.5
+					],
+					"texture": "#choc"
+				},
+				"up": {
+					"uv": [
+						3.5,
+						10.5,
+						5.5,
+						12
+					],
+					"texture": "#choc"
+				}
+			}
+		},
+		{
+			"name": "chunk",
+			"from": [
+				10.5,
+				8.5,
+				3.5
+			],
+			"to": [
+				12.5,
+				9.3,
+				5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3.5,
+						6.7,
+						5.5,
+						7.5
+					],
+					"texture": "#choc"
+				},
+				"east": {
+					"uv": [
+						11,
+						6.7,
+						12.5,
+						7.5
+					],
+					"texture": "#choc"
+				},
+				"south": {
+					"uv": [
+						10.5,
+						6.7,
+						12.5,
+						7.5
+					],
+					"texture": "#choc"
+				},
+				"west": {
+					"uv": [
+						3.5,
+						6.7,
+						5,
+						7.5
+					],
+					"texture": "#choc"
+				},
+				"up": {
+					"uv": [
+						10.5,
+						3.5,
+						12.5,
+						5
+					],
+					"texture": "#choc"
+				}
+			}
+		}
+	]
+}

@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:rose_petals"
+		},
+		{
+			"item": "bakery:lavender"
+		},
+		{
+			"item": "minecraft:sugar"
+		}
+	],
+	"result": {
+		"id": "bakery:candied_petals",
+		"count": 2
+	}
+}

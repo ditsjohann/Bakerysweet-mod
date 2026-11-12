@@ -1,0 +1,21 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"SSS",
+		"SCS",
+		"SSS"
+	],
+	"key": {
+		"S": {
+			"item": "minecraft:stick"
+		},
+		"C": {
+			"item": "minecraft:coal"
+		}
+	},
+	"result": {
+		"id": "bakery:menu_board",
+		"count": 1
+	}
+}

@@ -1,0 +1,24 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"TCT",
+		"TGT",
+		"TTT"
+	],
+	"key": {
+		"T": {
+			"item": "minecraft:white_terracotta"
+		},
+		"C": {
+			"item": "bakery:chocolate_bar"
+		},
+		"G": {
+			"item": "minecraft:gold_ingot"
+		}
+	},
+	"result": {
+		"id": "bakery:fountain_core",
+		"count": 1
+	}
+}

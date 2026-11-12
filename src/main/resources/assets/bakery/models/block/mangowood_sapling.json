@@ -1,0 +1,6 @@
+{
+	"parent": "minecraft:block/cross",
+	"textures": {
+		"cross": "bakery:block/mangowood_sapling"
+	}
+}

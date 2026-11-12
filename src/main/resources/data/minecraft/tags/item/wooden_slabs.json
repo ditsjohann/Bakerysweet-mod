@@ -1,0 +1,12 @@
+{
+	"replace": false,
+	"values": [
+		"bakery:palm_slab",
+		"bakery:citrus_slab",
+		"bakery:blossom_slab",
+		"bakery:orangewood_slab",
+		"bakery:peachwood_slab",
+		"bakery:mangowood_slab",
+		"bakery:plumwood_slab"
+	]
+}

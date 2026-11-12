@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"CW",
+		"WC"
+	],
+	"key": {
+		"C": {
+			"item": "minecraft:lime_terracotta"
+		},
+		"W": {
+			"item": "minecraft:white_terracotta"
+		}
+	},
+	"result": {
+		"id": "bakery:mint_checker_tiles",
+		"count": 4
+	}
+}

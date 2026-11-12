@@ -1,0 +1,13 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:hibiscus"
+		}
+	],
+	"result": {
+		"id": "bakery:hibiscus_seeds",
+		"count": 1
+	}
+}

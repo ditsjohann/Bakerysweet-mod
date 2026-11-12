@@ -1,0 +1,164 @@
+{
+	"multipart": [
+		{
+			"when": {
+				"facing": "north",
+				"bites": "0"
+			},
+			"apply": {
+				"model": "bakery:block/pie_slice0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "1"
+			},
+			"apply": {
+				"model": "bakery:block/pie_slice1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "2"
+			},
+			"apply": {
+				"model": "bakery:block/pie_slice2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "3"
+			},
+			"apply": {
+				"model": "bakery:block/pie_slice3",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "0"
+			},
+			"apply": {
+				"model": "bakery:block/pie_slice0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "1"
+			},
+			"apply": {
+				"model": "bakery:block/pie_slice1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "2"
+			},
+			"apply": {
+				"model": "bakery:block/pie_slice2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "3"
+			},
+			"apply": {
+				"model": "bakery:block/pie_slice3",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "0"
+			},
+			"apply": {
+				"model": "bakery:block/pie_slice0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "1"
+			},
+			"apply": {
+				"model": "bakery:block/pie_slice1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "2"
+			},
+			"apply": {
+				"model": "bakery:block/pie_slice2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "3"
+			},
+			"apply": {
+				"model": "bakery:block/pie_slice3",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "0"
+			},
+			"apply": {
+				"model": "bakery:block/pie_slice0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "1"
+			},
+			"apply": {
+				"model": "bakery:block/pie_slice1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "2"
+			},
+			"apply": {
+				"model": "bakery:block/pie_slice2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "3"
+			},
+			"apply": {
+				"model": "bakery:block/pie_slice3",
+				"y": 270
+			}
+		}
+	]
+}

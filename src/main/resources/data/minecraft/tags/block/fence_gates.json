@@ -1,0 +1,12 @@
+{
+	"replace": false,
+	"values": [
+		"bakery:palm_fence_gate",
+		"bakery:citrus_fence_gate",
+		"bakery:blossom_fence_gate",
+		"bakery:orangewood_fence_gate",
+		"bakery:peachwood_fence_gate",
+		"bakery:mangowood_fence_gate",
+		"bakery:plumwood_fence_gate"
+	]
+}

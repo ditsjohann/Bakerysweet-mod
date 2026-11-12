@@ -1,0 +1,13 @@
+{
+	"variants": {
+		"type=bottom": {
+			"model": "bakery:block/plumwood_slab"
+		},
+		"type=top": {
+			"model": "bakery:block/plumwood_slab_top"
+		},
+		"type=double": {
+			"model": "bakery:block/plumwood_planks"
+		}
+	}
+}

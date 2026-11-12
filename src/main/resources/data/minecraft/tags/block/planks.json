@@ -1,0 +1,12 @@
+{
+	"replace": false,
+	"values": [
+		"bakery:palm_planks",
+		"bakery:citrus_planks",
+		"bakery:blossom_planks",
+		"bakery:orangewood_planks",
+		"bakery:peachwood_planks",
+		"bakery:mangowood_planks",
+		"bakery:plumwood_planks"
+	]
+}

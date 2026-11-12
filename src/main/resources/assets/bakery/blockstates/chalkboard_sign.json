@@ -1,0 +1,20 @@
+{
+	"variants": {
+		"facing=north": {
+			"model": "bakery:block/chalkboard_sign",
+			"y": 0
+		},
+		"facing=east": {
+			"model": "bakery:block/chalkboard_sign",
+			"y": 90
+		},
+		"facing=south": {
+			"model": "bakery:block/chalkboard_sign",
+			"y": 180
+		},
+		"facing=west": {
+			"model": "bakery:block/chalkboard_sign",
+			"y": 270
+		}
+	}
+}

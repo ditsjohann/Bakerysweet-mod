@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:lemon"
+		},
+		{
+			"item": "bakery:lemon"
+		},
+		{
+			"item": "minecraft:bone_meal"
+		}
+	],
+	"result": {
+		"id": "bakery:citrus_sapling",
+		"count": 1
+	}
+}

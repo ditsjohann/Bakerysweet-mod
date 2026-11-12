@@ -1,0 +1,7 @@
+{
+	"parent": "minecraft:block/cube_column",
+	"textures": {
+		"end": "bakery:block/stripped_palm_log",
+		"side": "bakery:block/stripped_palm_log"
+	}
+}

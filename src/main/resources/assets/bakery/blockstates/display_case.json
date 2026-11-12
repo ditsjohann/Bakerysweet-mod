@@ -1,0 +1,20 @@
+{
+	"variants": {
+		"facing=north": {
+			"model": "bakery:block/display_case",
+			"y": 0
+		},
+		"facing=east": {
+			"model": "bakery:block/display_case",
+			"y": 90
+		},
+		"facing=south": {
+			"model": "bakery:block/display_case",
+			"y": 180
+		},
+		"facing=west": {
+			"model": "bakery:block/display_case",
+			"y": 270
+		}
+	}
+}

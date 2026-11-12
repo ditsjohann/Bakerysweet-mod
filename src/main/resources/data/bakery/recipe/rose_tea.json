@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:mug"
+		},
+		{
+			"item": "bakery:rose_petals"
+		},
+		{
+			"item": "bakery:rose_petals"
+		},
+		{
+			"item": "minecraft:water_bucket"
+		},
+		{
+			"item": "minecraft:sugar"
+		}
+	],
+	"result": {
+		"id": "bakery:rose_tea",
+		"count": 1
+	}
+}

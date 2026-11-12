@@ -1,0 +1,40 @@
+{
+	"multipart": [
+		{
+			"when": {
+				"facing": "north"
+			},
+			"apply": {
+				"model": "bakery:block/macarons",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "east"
+			},
+			"apply": {
+				"model": "bakery:block/macarons",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "south"
+			},
+			"apply": {
+				"model": "bakery:block/macarons",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "west"
+			},
+			"apply": {
+				"model": "bakery:block/macarons",
+				"y": 270
+			}
+		}
+	]
+}

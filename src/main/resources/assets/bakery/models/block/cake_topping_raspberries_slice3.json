@@ -1,0 +1,79 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"format_version": "26.3",
+	"textures": {
+		"berry": "bakery:block/topping_raspberry",
+		"particle": "bakery:block/topping_raspberry"
+	},
+	"elements": [
+		{
+			"name": "berry",
+			"from": [
+				11.7,
+				8.5,
+				7.2
+			],
+			"to": [
+				13.3,
+				10.1,
+				8.8
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						2.7,
+						5.9,
+						4.3,
+						7.5
+					],
+					"texture": "#berry"
+				},
+				"east": {
+					"uv": [
+						7.2,
+						5.9,
+						8.8,
+						7.5
+					],
+					"texture": "#berry"
+				},
+				"south": {
+					"uv": [
+						11.7,
+						5.9,
+						13.3,
+						7.5
+					],
+					"texture": "#berry"
+				},
+				"west": {
+					"uv": [
+						7.2,
+						5.9,
+						8.8,
+						7.5
+					],
+					"texture": "#berry"
+				},
+				"up": {
+					"uv": [
+						11.7,
+						7.2,
+						13.3,
+						8.8
+					],
+					"texture": "#berry"
+				}
+			}
+		}
+	]
+}

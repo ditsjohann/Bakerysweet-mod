@@ -1,0 +1,13 @@
+{
+	"variants": {
+		"type=bottom": {
+			"model": "bakery:block/citrus_slab"
+		},
+		"type=top": {
+			"model": "bakery:block/citrus_slab_top"
+		},
+		"type=double": {
+			"model": "bakery:block/citrus_planks"
+		}
+	}
+}

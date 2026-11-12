@@ -1,0 +1,231 @@
+{
+	"parent": "minecraft:block/block",
+	"ambientocclusion": true,
+	"textures": {
+		"glass": "bakery:block/jar_glass",
+		"coins": "bakery:block/coin_pile",
+		"label": "bakery:block/tip_label",
+		"lid": "bakery:block/metal_gold",
+		"particle": "bakery:block/jar_glass"
+	},
+	"elements": [
+		{
+			"from": [
+				5.5,
+				0.2,
+				5.5
+			],
+			"to": [
+				10.5,
+				4,
+				10.5
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						5.5,
+						12,
+						10.5,
+						15.8
+					],
+					"texture": "#coins"
+				},
+				"south": {
+					"uv": [
+						5.5,
+						12,
+						10.5,
+						15.8
+					],
+					"texture": "#coins"
+				},
+				"east": {
+					"uv": [
+						5.5,
+						12,
+						10.5,
+						15.8
+					],
+					"texture": "#coins"
+				},
+				"west": {
+					"uv": [
+						5.5,
+						12,
+						10.5,
+						15.8
+					],
+					"texture": "#coins"
+				},
+				"up": {
+					"uv": [
+						5.5,
+						5.5,
+						10.5,
+						10.5
+					],
+					"texture": "#coins"
+				},
+				"down": {
+					"uv": [
+						5.5,
+						5.5,
+						10.5,
+						10.5
+					],
+					"texture": "#coins"
+				}
+			}
+		},
+		{
+			"from": [
+				5,
+				0,
+				5
+			],
+			"to": [
+				11,
+				8,
+				11
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						5,
+						8,
+						11,
+						16
+					],
+					"texture": "#glass"
+				},
+				"south": {
+					"uv": [
+						5,
+						8,
+						11,
+						16
+					],
+					"texture": "#glass"
+				},
+				"east": {
+					"uv": [
+						5,
+						8,
+						11,
+						16
+					],
+					"texture": "#glass"
+				},
+				"west": {
+					"uv": [
+						5,
+						8,
+						11,
+						16
+					],
+					"texture": "#glass"
+				},
+				"down": {
+					"uv": [
+						5,
+						5,
+						11,
+						11
+					],
+					"texture": "#glass"
+				}
+			}
+		},
+		{
+			"from": [
+				6,
+				2,
+				4.9
+			],
+			"to": [
+				10,
+				6,
+				4.9
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						2,
+						4,
+						14,
+						12
+					],
+					"texture": "#label"
+				}
+			}
+		},
+		{
+			"from": [
+				4.6,
+				8,
+				4.6
+			],
+			"to": [
+				11.4,
+				9,
+				11.4
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						4.6,
+						7,
+						11.4,
+						8
+					],
+					"texture": "#lid"
+				},
+				"south": {
+					"uv": [
+						4.6,
+						7,
+						11.4,
+						8
+					],
+					"texture": "#lid"
+				},
+				"east": {
+					"uv": [
+						4.6,
+						7,
+						11.4,
+						8
+					],
+					"texture": "#lid"
+				},
+				"west": {
+					"uv": [
+						4.6,
+						7,
+						11.4,
+						8
+					],
+					"texture": "#lid"
+				},
+				"up": {
+					"uv": [
+						4.6,
+						4.6,
+						11.4,
+						11.4
+					],
+					"texture": "#lid"
+				},
+				"down": {
+					"uv": [
+						4.6,
+						4.6,
+						11.4,
+						11.4
+					],
+					"texture": "#lid"
+				}
+			}
+		}
+	]
+}

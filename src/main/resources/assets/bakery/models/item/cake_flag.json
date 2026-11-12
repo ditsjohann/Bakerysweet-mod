@@ -1,0 +1,298 @@
+{
+	"parent": "minecraft:block/block",
+	"textures": {
+		"stick": "bakery:block/wood_cream",
+		"flag": "bakery:block/velvet_pink",
+		"particle": "bakery:block/wood_cream"
+	},
+	"elements": [
+		{
+			"from": [
+				7.5,
+				0,
+				7.5
+			],
+			"to": [
+				8.5,
+				15,
+				8.5
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						7.5,
+						1,
+						8.5,
+						16
+					],
+					"texture": "#stick"
+				},
+				"south": {
+					"uv": [
+						7.5,
+						1,
+						8.5,
+						16
+					],
+					"texture": "#stick"
+				},
+				"east": {
+					"uv": [
+						7.5,
+						1,
+						8.5,
+						16
+					],
+					"texture": "#stick"
+				},
+				"west": {
+					"uv": [
+						7.5,
+						1,
+						8.5,
+						16
+					],
+					"texture": "#stick"
+				},
+				"up": {
+					"uv": [
+						7.5,
+						7.5,
+						8.5,
+						8.5
+					],
+					"texture": "#stick"
+				},
+				"down": {
+					"uv": [
+						7.5,
+						7.5,
+						8.5,
+						8.5
+					],
+					"texture": "#stick"
+				}
+			}
+		},
+		{
+			"from": [
+				8.5,
+				9.5,
+				7.8
+			],
+			"to": [
+				14,
+				14,
+				8.2
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						2,
+						2,
+						7.5,
+						6.5
+					],
+					"texture": "#flag"
+				},
+				"south": {
+					"uv": [
+						8.5,
+						2,
+						14,
+						6.5
+					],
+					"texture": "#flag"
+				},
+				"east": {
+					"uv": [
+						7.800000000000001,
+						2,
+						8.2,
+						6.5
+					],
+					"texture": "#flag"
+				},
+				"west": {
+					"uv": [
+						7.8,
+						2,
+						8.2,
+						6.5
+					],
+					"texture": "#flag"
+				},
+				"up": {
+					"uv": [
+						8.5,
+						7.8,
+						14,
+						8.2
+					],
+					"texture": "#flag"
+				},
+				"down": {
+					"uv": [
+						8.5,
+						7.800000000000001,
+						14,
+						8.2
+					],
+					"texture": "#flag"
+				}
+			}
+		},
+		{
+			"from": [
+				8.5,
+				10.5,
+				7.7
+			],
+			"to": [
+				12.5,
+				13,
+				8.3
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						3.5,
+						3,
+						7.5,
+						5.5
+					],
+					"texture": "#flag"
+				},
+				"south": {
+					"uv": [
+						8.5,
+						3,
+						12.5,
+						5.5
+					],
+					"texture": "#flag"
+				},
+				"east": {
+					"uv": [
+						7.699999999999999,
+						3,
+						8.3,
+						5.5
+					],
+					"texture": "#flag"
+				},
+				"west": {
+					"uv": [
+						7.7,
+						3,
+						8.3,
+						5.5
+					],
+					"texture": "#flag"
+				},
+				"up": {
+					"uv": [
+						8.5,
+						7.7,
+						12.5,
+						8.3
+					],
+					"texture": "#flag"
+				},
+				"down": {
+					"uv": [
+						8.5,
+						7.699999999999999,
+						12.5,
+						8.3
+					],
+					"texture": "#flag"
+				}
+			}
+		}
+	],
+	"display": {
+		"gui": {
+			"rotation": [
+				20,
+				200,
+				0
+			],
+			"translation": [
+				0,
+				0,
+				0
+			],
+			"scale": [
+				0.9,
+				0.9,
+				0.9
+			]
+		},
+		"ground": {
+			"scale": [
+				0.5,
+				0.5,
+				0.5
+			]
+		},
+		"fixed": {
+			"scale": [
+				1,
+				1,
+				1
+			]
+		},
+		"thirdperson_righthand": {
+			"rotation": [
+				0,
+				0,
+				0
+			],
+			"translation": [
+				0,
+				1,
+				1
+			],
+			"scale": [
+				0.5,
+				0.5,
+				0.5
+			]
+		},
+		"firstperson_righthand": {
+			"rotation": [
+				0,
+				-30,
+				0
+			],
+			"translation": [
+				0,
+				2,
+				0
+			],
+			"scale": [
+				0.6,
+				0.6,
+				0.6
+			]
+		},
+		"firstperson_lefthand": {
+			"rotation": [
+				0,
+				150,
+				0
+			],
+			"translation": [
+				0,
+				2,
+				0
+			],
+			"scale": [
+				0.6,
+				0.6,
+				0.6
+			]
+		}
+	}
+}

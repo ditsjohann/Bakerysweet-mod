@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "minecraft:paper"
+		},
+		{
+			"item": "minecraft:paper"
+		},
+		{
+			"item": "minecraft:white_wool"
+		},
+		{
+			"item": "minecraft:pink_wool"
+		}
+	],
+	"result": {
+		"id": "bakery:gingham_wallpaper",
+		"count": 4
+	}
+}

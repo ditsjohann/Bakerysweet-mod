@@ -1,0 +1,20 @@
+{
+	"variants": {
+		"facing=north": {
+			"model": "bakery:block/cupcake_lamp",
+			"y": 0
+		},
+		"facing=east": {
+			"model": "bakery:block/cupcake_lamp",
+			"y": 90
+		},
+		"facing=south": {
+			"model": "bakery:block/cupcake_lamp",
+			"y": 180
+		},
+		"facing=west": {
+			"model": "bakery:block/cupcake_lamp",
+			"y": 270
+		}
+	}
+}

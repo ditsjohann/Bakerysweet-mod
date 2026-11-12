@@ -1,0 +1,7 @@
+{
+	"parent": "minecraft:block/cube_column",
+	"textures": {
+		"end": "bakery:block/peachwood_log_top",
+		"side": "bakery:block/peachwood_log"
+	}
+}

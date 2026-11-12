@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:mug"
+		},
+		{
+			"item": "bakery:coconut"
+		}
+	],
+	"result": {
+		"id": "bakery:coconut_milk",
+		"count": 1
+	}
+}

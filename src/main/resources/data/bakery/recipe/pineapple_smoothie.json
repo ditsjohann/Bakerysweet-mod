@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:mug"
+		},
+		{
+			"item": "bakery:pineapple"
+		},
+		{
+			"item": "bakery:coconut_flakes"
+		},
+		{
+			"item": "minecraft:milk_bucket"
+		}
+	],
+	"result": {
+		"id": "bakery:pineapple_smoothie",
+		"count": 1
+	}
+}

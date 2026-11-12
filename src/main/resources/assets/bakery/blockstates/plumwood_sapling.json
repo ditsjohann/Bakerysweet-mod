@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"stage=0": {
+			"model": "bakery:block/plumwood_sapling"
+		},
+		"stage=1": {
+			"model": "bakery:block/plumwood_sapling"
+		}
+	}
+}

@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"SPS",
+		"SPS"
+	],
+	"key": {
+		"P": {
+			"item": "bakery:orangewood_planks"
+		},
+		"S": {
+			"item": "minecraft:stick"
+		}
+	},
+	"result": {
+		"id": "bakery:orangewood_fence_gate",
+		"count": 1
+	}
+}

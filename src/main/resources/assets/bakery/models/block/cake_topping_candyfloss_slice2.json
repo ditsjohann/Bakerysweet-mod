@@ -1,0 +1,217 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"format_version": "26.3",
+	"textures": {
+		"fluff": "bakery:block/fruit_fluff",
+		"particle": "bakery:block/fruit_fluff"
+	},
+	"elements": [
+		{
+			"name": "cloud",
+			"from": [
+				8,
+				8.5,
+				4
+			],
+			"to": [
+				12,
+				11.5,
+				12
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						4,
+						4.5,
+						8,
+						7.5
+					],
+					"texture": "#fluff"
+				},
+				"east": {
+					"uv": [
+						4,
+						4.5,
+						12,
+						7.5
+					],
+					"texture": "#fluff"
+				},
+				"south": {
+					"uv": [
+						8,
+						4.5,
+						12,
+						7.5
+					],
+					"texture": "#fluff"
+				},
+				"west": {
+					"uv": [
+						4,
+						4.5,
+						12,
+						7.5
+					],
+					"texture": "#fluff"
+				},
+				"up": {
+					"uv": [
+						8,
+						4,
+						12,
+						12
+					],
+					"texture": "#fluff"
+				}
+			}
+		},
+		{
+			"name": "cloud_top",
+			"from": [
+				8,
+				11.5,
+				5.5
+			],
+			"to": [
+				10.5,
+				13,
+				10.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						5.5,
+						3,
+						8,
+						4.5
+					],
+					"texture": "#fluff"
+				},
+				"east": {
+					"uv": [
+						5.5,
+						3,
+						10.5,
+						4.5
+					],
+					"texture": "#fluff"
+				},
+				"south": {
+					"uv": [
+						8,
+						3,
+						10.5,
+						4.5
+					],
+					"texture": "#fluff"
+				},
+				"west": {
+					"uv": [
+						5.5,
+						3,
+						10.5,
+						4.5
+					],
+					"texture": "#fluff"
+				},
+				"up": {
+					"uv": [
+						8,
+						5.5,
+						10.5,
+						10.5
+					],
+					"texture": "#fluff"
+				}
+			}
+		},
+		{
+			"name": "puff",
+			"from": [
+				10,
+				8.5,
+				3
+			],
+			"to": [
+				13,
+				10.5,
+				6
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3,
+						5.5,
+						6,
+						7.5
+					],
+					"texture": "#fluff"
+				},
+				"east": {
+					"uv": [
+						10,
+						5.5,
+						13,
+						7.5
+					],
+					"texture": "#fluff"
+				},
+				"south": {
+					"uv": [
+						10,
+						5.5,
+						13,
+						7.5
+					],
+					"texture": "#fluff"
+				},
+				"west": {
+					"uv": [
+						3,
+						5.5,
+						6,
+						7.5
+					],
+					"texture": "#fluff"
+				},
+				"up": {
+					"uv": [
+						10,
+						3,
+						13,
+						6
+					],
+					"texture": "#fluff"
+				}
+			}
+		}
+	]
+}

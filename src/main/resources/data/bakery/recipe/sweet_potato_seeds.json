@@ -1,0 +1,13 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:sweet_potato"
+		}
+	],
+	"result": {
+		"id": "bakery:sweet_potato_seeds",
+		"count": 1
+	}
+}

@@ -1,0 +1,530 @@
+{
+	"parent": "minecraft:block/block",
+	"textures": {
+		"stone": "bakery:block/mill/stone_bricks",
+		"mill": "bakery:block/mill/millstone",
+		"wood": "bakery:block/mill/wood",
+		"particle": "bakery:block/mill/stone_bricks"
+	},
+	"elements": [
+		{
+			"name": "runner_a",
+			"from": [
+				-5,
+				5,
+				-5
+			],
+			"to": [
+				21,
+				10,
+				21
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						2.75,
+						5.5,
+						9.25,
+						6.75
+					],
+					"texture": "#mill"
+				},
+				"east": {
+					"uv": [
+						2.75,
+						5.5,
+						9.25,
+						6.75
+					],
+					"texture": "#mill"
+				},
+				"south": {
+					"uv": [
+						2.75,
+						5.5,
+						9.25,
+						6.75
+					],
+					"texture": "#mill"
+				},
+				"west": {
+					"uv": [
+						2.75,
+						5.5,
+						9.25,
+						6.75
+					],
+					"texture": "#mill"
+				},
+				"up": {
+					"uv": [
+						2.75,
+						2.75,
+						9.25,
+						9.25
+					],
+					"texture": "#mill"
+				}
+			}
+		},
+		{
+			"name": "runner_b",
+			"from": [
+				-3,
+				5,
+				-7
+			],
+			"to": [
+				19,
+				9.95725,
+				23
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3.25,
+						5.51069,
+						8.75,
+						6.75
+					],
+					"texture": "#mill"
+				},
+				"east": {
+					"uv": [
+						2.25,
+						5.51069,
+						9.75,
+						6.75
+					],
+					"texture": "#mill"
+				},
+				"south": {
+					"uv": [
+						3.25,
+						5.51069,
+						8.75,
+						6.75
+					],
+					"texture": "#mill"
+				},
+				"west": {
+					"uv": [
+						2.25,
+						5.51069,
+						9.75,
+						6.75
+					],
+					"texture": "#mill"
+				},
+				"up": {
+					"uv": [
+						3.25,
+						2.25,
+						8.75,
+						9.75
+					],
+					"texture": "#mill"
+				}
+			}
+		},
+		{
+			"name": "runner_c",
+			"from": [
+				-7,
+				5,
+				-3
+			],
+			"to": [
+				23,
+				9.9517,
+				19
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						2.25,
+						5.51207,
+						9.75,
+						6.75
+					],
+					"texture": "#mill"
+				},
+				"east": {
+					"uv": [
+						3.25,
+						5.51207,
+						8.75,
+						6.75
+					],
+					"texture": "#mill"
+				},
+				"south": {
+					"uv": [
+						2.25,
+						5.51207,
+						9.75,
+						6.75
+					],
+					"texture": "#mill"
+				},
+				"west": {
+					"uv": [
+						3.25,
+						5.51207,
+						8.75,
+						6.75
+					],
+					"texture": "#mill"
+				},
+				"up": {
+					"uv": [
+						2.25,
+						3.25,
+						9.75,
+						8.75
+					],
+					"texture": "#mill"
+				}
+			}
+		},
+		{
+			"name": "axle",
+			"from": [
+				6,
+				10,
+				6.05385
+			],
+			"to": [
+				10,
+				22,
+				9.94615
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						5.5,
+						2.5,
+						6.5,
+						5.5
+					],
+					"texture": "#wood"
+				},
+				"east": {
+					"uv": [
+						5.51346,
+						2.5,
+						6.48654,
+						5.5
+					],
+					"texture": "#wood"
+				},
+				"south": {
+					"uv": [
+						5.5,
+						2.5,
+						6.5,
+						5.5
+					],
+					"texture": "#wood"
+				},
+				"west": {
+					"uv": [
+						5.51346,
+						2.5,
+						6.48654,
+						5.5
+					],
+					"texture": "#wood"
+				},
+				"up": {
+					"uv": [
+						5.5,
+						5.51346,
+						6.5,
+						6.48654
+					],
+					"texture": "#wood"
+				},
+				"down": {
+					"uv": [
+						5.5,
+						5.51346,
+						6.5,
+						6.48654
+					],
+					"texture": "#wood"
+				}
+			}
+		},
+		{
+			"name": "crossbar",
+			"from": [
+				-12,
+				19,
+				6
+			],
+			"to": [
+				28,
+				21,
+				10
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						1,
+						2.75,
+						11,
+						3.25
+					],
+					"texture": "#wood"
+				},
+				"east": {
+					"uv": [
+						5.5,
+						2.75,
+						6.5,
+						3.25
+					],
+					"texture": "#wood"
+				},
+				"south": {
+					"uv": [
+						1,
+						2.75,
+						11,
+						3.25
+					],
+					"texture": "#wood"
+				},
+				"west": {
+					"uv": [
+						5.5,
+						2.75,
+						6.5,
+						3.25
+					],
+					"texture": "#wood"
+				},
+				"up": {
+					"uv": [
+						1,
+						5.5,
+						11,
+						6.5
+					],
+					"texture": "#wood"
+				},
+				"down": {
+					"uv": [
+						1,
+						5.5,
+						11,
+						6.5
+					],
+					"texture": "#wood"
+				}
+			}
+		},
+		{
+			"name": "handle_w",
+			"from": [
+				-12,
+				12,
+				6.5
+			],
+			"to": [
+				-10.015,
+				19,
+				9.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						10.50375,
+						3.25,
+						11,
+						5
+					],
+					"texture": "#wood"
+				},
+				"east": {
+					"uv": [
+						5.625,
+						3.25,
+						6.375,
+						5
+					],
+					"texture": "#wood"
+				},
+				"south": {
+					"uv": [
+						1,
+						3.25,
+						1.49625,
+						5
+					],
+					"texture": "#wood"
+				},
+				"west": {
+					"uv": [
+						5.625,
+						3.25,
+						6.375,
+						5
+					],
+					"texture": "#wood"
+				},
+				"up": {
+					"uv": [
+						1,
+						5.625,
+						1.49625,
+						6.375
+					],
+					"texture": "#wood"
+				},
+				"down": {
+					"uv": [
+						1,
+						5.625,
+						1.49625,
+						6.375
+					],
+					"texture": "#wood"
+				}
+			}
+		},
+		{
+			"name": "handle_e",
+			"from": [
+				26.02055,
+				12,
+				6.5
+			],
+			"to": [
+				28,
+				19,
+				9.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						1,
+						3.25,
+						1.49486,
+						5
+					],
+					"texture": "#wood"
+				},
+				"east": {
+					"uv": [
+						5.625,
+						3.25,
+						6.375,
+						5
+					],
+					"texture": "#wood"
+				},
+				"south": {
+					"uv": [
+						10.50514,
+						3.25,
+						11,
+						5
+					],
+					"texture": "#wood"
+				},
+				"west": {
+					"uv": [
+						5.625,
+						3.25,
+						6.375,
+						5
+					],
+					"texture": "#wood"
+				},
+				"up": {
+					"uv": [
+						10.50514,
+						5.625,
+						11,
+						6.375
+					],
+					"texture": "#wood"
+				},
+				"down": {
+					"uv": [
+						10.50514,
+						5.625,
+						11,
+						6.375
+					],
+					"texture": "#wood"
+				}
+			}
+		}
+	]
+}

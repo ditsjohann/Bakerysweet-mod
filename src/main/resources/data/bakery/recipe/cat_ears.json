@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "minecraft:purple_wool"
+		},
+		{
+			"item": "minecraft:pink_dye"
+		},
+		{
+			"item": "minecraft:string"
+		}
+	],
+	"result": {
+		"id": "bakery:cat_ears",
+		"count": 1
+	}
+}

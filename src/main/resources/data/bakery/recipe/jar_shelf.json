@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"JJJ",
+		"SSS"
+	],
+	"key": {
+		"J": {
+			"item": "bakery:glass_jar"
+		},
+		"S": {
+			"tag": "minecraft:wooden_slabs"
+		}
+	},
+	"result": {
+		"id": "bakery:jar_shelf",
+		"count": 1
+	}
+}

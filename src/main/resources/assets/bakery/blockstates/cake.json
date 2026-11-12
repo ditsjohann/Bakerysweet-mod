@@ -1,0 +1,2764 @@
+{
+	"multipart": [
+		{
+			"when": {
+				"facing": "north",
+				"bites": "0",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_slice0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "0",
+				"topping": "strawberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_strawberries_slice0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "0",
+				"topping": "blueberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_blueberries_slice0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "0",
+				"topping": "cream",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cream_slice0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "0",
+				"topping": "sprinkles",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_sprinkles_slice0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "0",
+				"topping": "chocolate",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_chocolate_slice0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "0",
+				"topping": "rose_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_rose_petals_slice0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "0",
+				"topping": "lavender",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lavender_slice0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "0",
+				"topping": "star_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_star_petals_slice0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "0",
+				"topping": "raspberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_raspberries_slice0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "0",
+				"topping": "coconut_flakes",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_coconut_flakes_slice0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "0",
+				"topping": "mint",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_mint_slice0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "0",
+				"topping": "lemon_slices",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lemon_slices_slice0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "0",
+				"topping": "cherries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cherries_slice0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "0",
+				"topping": "candyfloss",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_candyfloss_slice0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "1",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_slice1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "1",
+				"topping": "strawberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_strawberries_slice1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "1",
+				"topping": "blueberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_blueberries_slice1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "1",
+				"topping": "cream",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cream_slice1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "1",
+				"topping": "sprinkles",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_sprinkles_slice1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "1",
+				"topping": "chocolate",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_chocolate_slice1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "1",
+				"topping": "rose_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_rose_petals_slice1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "1",
+				"topping": "lavender",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lavender_slice1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "1",
+				"topping": "star_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_star_petals_slice1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "1",
+				"topping": "raspberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_raspberries_slice1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "1",
+				"topping": "coconut_flakes",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_coconut_flakes_slice1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "1",
+				"topping": "mint",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_mint_slice1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "1",
+				"topping": "lemon_slices",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lemon_slices_slice1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "1",
+				"topping": "cherries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cherries_slice1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "1",
+				"topping": "candyfloss",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_candyfloss_slice1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "2",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_slice2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "2",
+				"topping": "strawberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_strawberries_slice2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "2",
+				"topping": "blueberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_blueberries_slice2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "2",
+				"topping": "cream",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cream_slice2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "2",
+				"topping": "sprinkles",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_sprinkles_slice2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "2",
+				"topping": "chocolate",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_chocolate_slice2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "2",
+				"topping": "rose_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_rose_petals_slice2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "2",
+				"topping": "lavender",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lavender_slice2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "2",
+				"topping": "star_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_star_petals_slice2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "2",
+				"topping": "raspberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_raspberries_slice2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "2",
+				"topping": "coconut_flakes",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_coconut_flakes_slice2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "2",
+				"topping": "mint",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_mint_slice2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "2",
+				"topping": "lemon_slices",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lemon_slices_slice2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "2",
+				"topping": "cherries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cherries_slice2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "2",
+				"topping": "candyfloss",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_candyfloss_slice2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "3",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_slice3",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "3",
+				"topping": "strawberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_strawberries_slice3",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "3",
+				"topping": "blueberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_blueberries_slice3",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "3",
+				"topping": "cream",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cream_slice3",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "3",
+				"topping": "chocolate",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_chocolate_slice3",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "3",
+				"topping": "lavender",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lavender_slice3",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "3",
+				"topping": "star_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_star_petals_slice3",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "3",
+				"topping": "raspberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_raspberries_slice3",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "3",
+				"topping": "mint",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_mint_slice3",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "3",
+				"topping": "lemon_slices",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lemon_slices_slice3",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "3",
+				"topping": "cherries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cherries_slice3",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"bites": "3",
+				"topping": "candyfloss",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_candyfloss_slice3",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "0",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_slice0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "0",
+				"topping": "strawberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_strawberries_slice0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "0",
+				"topping": "blueberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_blueberries_slice0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "0",
+				"topping": "cream",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cream_slice0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "0",
+				"topping": "sprinkles",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_sprinkles_slice0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "0",
+				"topping": "chocolate",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_chocolate_slice0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "0",
+				"topping": "rose_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_rose_petals_slice0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "0",
+				"topping": "lavender",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lavender_slice0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "0",
+				"topping": "star_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_star_petals_slice0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "0",
+				"topping": "raspberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_raspberries_slice0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "0",
+				"topping": "coconut_flakes",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_coconut_flakes_slice0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "0",
+				"topping": "mint",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_mint_slice0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "0",
+				"topping": "lemon_slices",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lemon_slices_slice0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "0",
+				"topping": "cherries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cherries_slice0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "0",
+				"topping": "candyfloss",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_candyfloss_slice0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "1",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_slice1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "1",
+				"topping": "strawberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_strawberries_slice1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "1",
+				"topping": "blueberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_blueberries_slice1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "1",
+				"topping": "cream",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cream_slice1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "1",
+				"topping": "sprinkles",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_sprinkles_slice1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "1",
+				"topping": "chocolate",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_chocolate_slice1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "1",
+				"topping": "rose_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_rose_petals_slice1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "1",
+				"topping": "lavender",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lavender_slice1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "1",
+				"topping": "star_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_star_petals_slice1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "1",
+				"topping": "raspberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_raspberries_slice1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "1",
+				"topping": "coconut_flakes",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_coconut_flakes_slice1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "1",
+				"topping": "mint",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_mint_slice1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "1",
+				"topping": "lemon_slices",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lemon_slices_slice1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "1",
+				"topping": "cherries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cherries_slice1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "1",
+				"topping": "candyfloss",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_candyfloss_slice1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "2",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_slice2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "2",
+				"topping": "strawberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_strawberries_slice2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "2",
+				"topping": "blueberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_blueberries_slice2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "2",
+				"topping": "cream",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cream_slice2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "2",
+				"topping": "sprinkles",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_sprinkles_slice2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "2",
+				"topping": "chocolate",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_chocolate_slice2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "2",
+				"topping": "rose_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_rose_petals_slice2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "2",
+				"topping": "lavender",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lavender_slice2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "2",
+				"topping": "star_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_star_petals_slice2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "2",
+				"topping": "raspberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_raspberries_slice2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "2",
+				"topping": "coconut_flakes",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_coconut_flakes_slice2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "2",
+				"topping": "mint",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_mint_slice2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "2",
+				"topping": "lemon_slices",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lemon_slices_slice2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "2",
+				"topping": "cherries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cherries_slice2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "2",
+				"topping": "candyfloss",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_candyfloss_slice2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "3",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_slice3",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "3",
+				"topping": "strawberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_strawberries_slice3",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "3",
+				"topping": "blueberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_blueberries_slice3",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "3",
+				"topping": "cream",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cream_slice3",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "3",
+				"topping": "chocolate",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_chocolate_slice3",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "3",
+				"topping": "lavender",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lavender_slice3",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "3",
+				"topping": "star_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_star_petals_slice3",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "3",
+				"topping": "raspberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_raspberries_slice3",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "3",
+				"topping": "mint",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_mint_slice3",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "3",
+				"topping": "lemon_slices",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lemon_slices_slice3",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "3",
+				"topping": "cherries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cherries_slice3",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"bites": "3",
+				"topping": "candyfloss",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_candyfloss_slice3",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "0",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_slice0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "0",
+				"topping": "strawberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_strawberries_slice0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "0",
+				"topping": "blueberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_blueberries_slice0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "0",
+				"topping": "cream",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cream_slice0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "0",
+				"topping": "sprinkles",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_sprinkles_slice0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "0",
+				"topping": "chocolate",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_chocolate_slice0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "0",
+				"topping": "rose_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_rose_petals_slice0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "0",
+				"topping": "lavender",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lavender_slice0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "0",
+				"topping": "star_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_star_petals_slice0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "0",
+				"topping": "raspberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_raspberries_slice0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "0",
+				"topping": "coconut_flakes",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_coconut_flakes_slice0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "0",
+				"topping": "mint",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_mint_slice0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "0",
+				"topping": "lemon_slices",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lemon_slices_slice0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "0",
+				"topping": "cherries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cherries_slice0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "0",
+				"topping": "candyfloss",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_candyfloss_slice0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "1",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_slice1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "1",
+				"topping": "strawberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_strawberries_slice1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "1",
+				"topping": "blueberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_blueberries_slice1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "1",
+				"topping": "cream",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cream_slice1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "1",
+				"topping": "sprinkles",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_sprinkles_slice1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "1",
+				"topping": "chocolate",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_chocolate_slice1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "1",
+				"topping": "rose_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_rose_petals_slice1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "1",
+				"topping": "lavender",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lavender_slice1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "1",
+				"topping": "star_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_star_petals_slice1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "1",
+				"topping": "raspberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_raspberries_slice1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "1",
+				"topping": "coconut_flakes",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_coconut_flakes_slice1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "1",
+				"topping": "mint",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_mint_slice1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "1",
+				"topping": "lemon_slices",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lemon_slices_slice1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "1",
+				"topping": "cherries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cherries_slice1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "1",
+				"topping": "candyfloss",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_candyfloss_slice1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "2",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_slice2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "2",
+				"topping": "strawberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_strawberries_slice2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "2",
+				"topping": "blueberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_blueberries_slice2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "2",
+				"topping": "cream",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cream_slice2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "2",
+				"topping": "sprinkles",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_sprinkles_slice2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "2",
+				"topping": "chocolate",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_chocolate_slice2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "2",
+				"topping": "rose_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_rose_petals_slice2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "2",
+				"topping": "lavender",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lavender_slice2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "2",
+				"topping": "star_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_star_petals_slice2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "2",
+				"topping": "raspberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_raspberries_slice2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "2",
+				"topping": "coconut_flakes",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_coconut_flakes_slice2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "2",
+				"topping": "mint",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_mint_slice2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "2",
+				"topping": "lemon_slices",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lemon_slices_slice2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "2",
+				"topping": "cherries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cherries_slice2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "2",
+				"topping": "candyfloss",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_candyfloss_slice2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "3",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_slice3",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "3",
+				"topping": "strawberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_strawberries_slice3",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "3",
+				"topping": "blueberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_blueberries_slice3",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "3",
+				"topping": "cream",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cream_slice3",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "3",
+				"topping": "chocolate",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_chocolate_slice3",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "3",
+				"topping": "lavender",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lavender_slice3",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "3",
+				"topping": "star_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_star_petals_slice3",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "3",
+				"topping": "raspberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_raspberries_slice3",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "3",
+				"topping": "mint",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_mint_slice3",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "3",
+				"topping": "lemon_slices",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lemon_slices_slice3",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "3",
+				"topping": "cherries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cherries_slice3",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"bites": "3",
+				"topping": "candyfloss",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_candyfloss_slice3",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "0",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_slice0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "0",
+				"topping": "strawberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_strawberries_slice0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "0",
+				"topping": "blueberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_blueberries_slice0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "0",
+				"topping": "cream",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cream_slice0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "0",
+				"topping": "sprinkles",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_sprinkles_slice0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "0",
+				"topping": "chocolate",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_chocolate_slice0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "0",
+				"topping": "rose_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_rose_petals_slice0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "0",
+				"topping": "lavender",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lavender_slice0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "0",
+				"topping": "star_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_star_petals_slice0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "0",
+				"topping": "raspberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_raspberries_slice0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "0",
+				"topping": "coconut_flakes",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_coconut_flakes_slice0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "0",
+				"topping": "mint",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_mint_slice0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "0",
+				"topping": "lemon_slices",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lemon_slices_slice0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "0",
+				"topping": "cherries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cherries_slice0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "0",
+				"topping": "candyfloss",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_candyfloss_slice0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "1",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_slice1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "1",
+				"topping": "strawberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_strawberries_slice1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "1",
+				"topping": "blueberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_blueberries_slice1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "1",
+				"topping": "cream",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cream_slice1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "1",
+				"topping": "sprinkles",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_sprinkles_slice1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "1",
+				"topping": "chocolate",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_chocolate_slice1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "1",
+				"topping": "rose_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_rose_petals_slice1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "1",
+				"topping": "lavender",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lavender_slice1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "1",
+				"topping": "star_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_star_petals_slice1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "1",
+				"topping": "raspberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_raspberries_slice1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "1",
+				"topping": "coconut_flakes",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_coconut_flakes_slice1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "1",
+				"topping": "mint",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_mint_slice1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "1",
+				"topping": "lemon_slices",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lemon_slices_slice1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "1",
+				"topping": "cherries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cherries_slice1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "1",
+				"topping": "candyfloss",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_candyfloss_slice1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "2",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_slice2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "2",
+				"topping": "strawberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_strawberries_slice2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "2",
+				"topping": "blueberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_blueberries_slice2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "2",
+				"topping": "cream",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cream_slice2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "2",
+				"topping": "sprinkles",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_sprinkles_slice2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "2",
+				"topping": "chocolate",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_chocolate_slice2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "2",
+				"topping": "rose_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_rose_petals_slice2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "2",
+				"topping": "lavender",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lavender_slice2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "2",
+				"topping": "star_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_star_petals_slice2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "2",
+				"topping": "raspberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_raspberries_slice2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "2",
+				"topping": "coconut_flakes",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_coconut_flakes_slice2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "2",
+				"topping": "mint",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_mint_slice2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "2",
+				"topping": "lemon_slices",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lemon_slices_slice2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "2",
+				"topping": "cherries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cherries_slice2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "2",
+				"topping": "candyfloss",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_candyfloss_slice2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "3",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_slice3",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "3",
+				"topping": "strawberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_strawberries_slice3",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "3",
+				"topping": "blueberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_blueberries_slice3",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "3",
+				"topping": "cream",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cream_slice3",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "3",
+				"topping": "chocolate",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_chocolate_slice3",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "3",
+				"topping": "lavender",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lavender_slice3",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "3",
+				"topping": "star_petals",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_star_petals_slice3",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "3",
+				"topping": "raspberries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_raspberries_slice3",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "3",
+				"topping": "mint",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_mint_slice3",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "3",
+				"topping": "lemon_slices",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_lemon_slices_slice3",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "3",
+				"topping": "cherries",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_cherries_slice3",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"bites": "3",
+				"topping": "candyfloss",
+				"custom": "false"
+			},
+			"apply": {
+				"model": "bakery:block/cake_topping_candyfloss_slice3",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"custom": "true",
+				"facing": "north"
+			},
+			"apply": {
+				"model": "bakery:block/cake_plate",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"custom": "true",
+				"facing": "east"
+			},
+			"apply": {
+				"model": "bakery:block/cake_plate",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"custom": "true",
+				"facing": "south"
+			},
+			"apply": {
+				"model": "bakery:block/cake_plate",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"custom": "true",
+				"facing": "west"
+			},
+			"apply": {
+				"model": "bakery:block/cake_plate",
+				"y": 270
+			}
+		}
+	]
+}

@@ -1,0 +1,13 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"tag": "bakery:orangewood_logs"
+		}
+	],
+	"result": {
+		"id": "bakery:orangewood_planks",
+		"count": 4
+	}
+}

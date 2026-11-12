@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"PPP",
+		"PPP"
+	],
+	"key": {
+		"P": {
+			"item": "bakery:blossom_planks"
+		}
+	},
+	"result": {
+		"id": "bakery:blossom_trapdoor",
+		"count": 2
+	}
+}

@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:mug"
+		},
+		{
+			"item": "bakery:chocolate_bar"
+		},
+		{
+			"item": "minecraft:milk_bucket"
+		}
+	],
+	"result": {
+		"id": "bakery:hot_chocolate",
+		"count": 1
+	}
+}

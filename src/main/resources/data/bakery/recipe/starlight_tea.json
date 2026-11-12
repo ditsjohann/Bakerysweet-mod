@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "bakery:mug"
+		},
+		{
+			"item": "bakery:star_petals"
+		},
+		{
+			"item": "minecraft:water_bucket"
+		},
+		{
+			"item": "minecraft:honey_bottle"
+		}
+	],
+	"result": {
+		"id": "bakery:starlight_tea",
+		"count": 1
+	}
+}

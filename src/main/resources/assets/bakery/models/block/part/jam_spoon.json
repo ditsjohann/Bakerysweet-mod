@@ -1,0 +1,167 @@
+{
+	"parent": "minecraft:block/block",
+	"textures": {
+		"pot": "bakery:block/copper_pot",
+		"jam": "bakery:block/jam_surface",
+		"wood": "bakery:block/churn_wood",
+		"particle": "bakery:block/copper_pot"
+	},
+	"elements": [
+		{
+			"name": "spoon",
+			"from": [
+				9,
+				3,
+				7.5
+			],
+			"to": [
+				10,
+				13,
+				8.5
+			],
+			"rotation": {
+				"angle": -22.5,
+				"axis": "z",
+				"origin": [
+					9.5,
+					5,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						6,
+						3,
+						7,
+						13
+					],
+					"texture": "#wood"
+				},
+				"east": {
+					"uv": [
+						7.5,
+						3,
+						8.5,
+						13
+					],
+					"texture": "#wood"
+				},
+				"south": {
+					"uv": [
+						9,
+						3,
+						10,
+						13
+					],
+					"texture": "#wood"
+				},
+				"west": {
+					"uv": [
+						7.5,
+						3,
+						8.5,
+						13
+					],
+					"texture": "#wood"
+				},
+				"up": {
+					"uv": [
+						9,
+						7.5,
+						10,
+						8.5
+					],
+					"texture": "#wood"
+				},
+				"down": {
+					"uv": [
+						9,
+						7.5,
+						10,
+						8.5
+					],
+					"texture": "#wood"
+				}
+			}
+		},
+		{
+			"name": "spoon_head",
+			"from": [
+				8.5,
+				2,
+				7
+			],
+			"to": [
+				10.5,
+				3.5,
+				9
+			],
+			"rotation": {
+				"angle": -22.5,
+				"axis": "z",
+				"origin": [
+					9.5,
+					5,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						5.5,
+						12.5,
+						7.5,
+						14
+					],
+					"texture": "#wood"
+				},
+				"east": {
+					"uv": [
+						7,
+						12.5,
+						9,
+						14
+					],
+					"texture": "#wood"
+				},
+				"south": {
+					"uv": [
+						8.5,
+						12.5,
+						10.5,
+						14
+					],
+					"texture": "#wood"
+				},
+				"west": {
+					"uv": [
+						7,
+						12.5,
+						9,
+						14
+					],
+					"texture": "#wood"
+				},
+				"up": {
+					"uv": [
+						8.5,
+						7,
+						10.5,
+						9
+					],
+					"texture": "#wood"
+				},
+				"down": {
+					"uv": [
+						8.5,
+						7,
+						10.5,
+						9
+					],
+					"texture": "#wood"
+				}
+			}
+		}
+	]
+}

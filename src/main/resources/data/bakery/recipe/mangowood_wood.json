@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"LL",
+		"LL"
+	],
+	"key": {
+		"L": {
+			"item": "bakery:mangowood_log"
+		}
+	},
+	"result": {
+		"id": "bakery:mangowood_wood",
+		"count": 3
+	}
+}

@@ -1,0 +1,22 @@
+{
+	"variants": {
+		"kind=brick": {
+			"model": "bakery:block/multiblock_part"
+		},
+		"kind=oven_heart": {
+			"model": "bakery:block/multiblock_part"
+		},
+		"kind=stone": {
+			"model": "bakery:block/multiblock_part"
+		},
+		"kind=wall": {
+			"model": "bakery:block/multiblock_part"
+		},
+		"kind=terracotta": {
+			"model": "bakery:block/multiblock_part"
+		},
+		"kind=gold": {
+			"model": "bakery:block/multiblock_part"
+		}
+	}
+}

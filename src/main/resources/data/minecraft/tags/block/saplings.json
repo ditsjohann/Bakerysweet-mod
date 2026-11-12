@@ -1,0 +1,12 @@
+{
+	"replace": false,
+	"values": [
+		"bakery:palm_sapling",
+		"bakery:citrus_sapling",
+		"bakery:blossom_sapling",
+		"bakery:orangewood_sapling",
+		"bakery:peachwood_sapling",
+		"bakery:mangowood_sapling",
+		"bakery:plumwood_sapling"
+	]
+}

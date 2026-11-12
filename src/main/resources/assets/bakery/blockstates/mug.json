@@ -1,0 +1,48 @@
+{
+	"multipart": [
+		{
+			"when": {
+				"facing": "north"
+			},
+			"apply": {
+				"model": "bakery:block/mug",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "east"
+			},
+			"apply": {
+				"model": "bakery:block/mug",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "south"
+			},
+			"apply": {
+				"model": "bakery:block/mug",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "west"
+			},
+			"apply": {
+				"model": "bakery:block/mug",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"drink": "matcha_latte|hot_chocolate|strawberry_milk|lavender_tea|rose_tea|starlight_tea|lemonade|coconut_milk|mint_tea|pineapple_smoothie"
+			},
+			"apply": {
+				"model": "bakery:block/mug_liquid"
+			}
+		}
+	]
+}

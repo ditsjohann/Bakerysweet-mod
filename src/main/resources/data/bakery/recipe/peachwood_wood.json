@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"LL",
+		"LL"
+	],
+	"key": {
+		"L": {
+			"item": "bakery:peachwood_log"
+		}
+	},
+	"result": {
+		"id": "bakery:peachwood_wood",
+		"count": 3
+	}
+}

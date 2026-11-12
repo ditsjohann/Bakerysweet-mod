@@ -1,0 +1,716 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"parent": "block/block",
+	"ambientocclusion": false,
+	"format_version": "26.3",
+	"textures": {
+		"mug": "bakery:block/mug",
+		"inner": "bakery:block/mug_inner",
+		"plate": "bakery:block/plate",
+		"particle": "bakery:block/mug"
+	},
+	"elements": [
+		{
+			"name": "saucer",
+			"from": [
+				3.5,
+				0,
+				3.5
+			],
+			"to": [
+				12.5,
+				0.5,
+				12.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3.5,
+						15.5,
+						12.5,
+						16
+					],
+					"texture": "#plate"
+				},
+				"east": {
+					"uv": [
+						3.5,
+						15.5,
+						12.5,
+						16
+					],
+					"texture": "#plate"
+				},
+				"south": {
+					"uv": [
+						3.5,
+						15.5,
+						12.5,
+						16
+					],
+					"texture": "#plate"
+				},
+				"west": {
+					"uv": [
+						3.5,
+						15.5,
+						12.5,
+						16
+					],
+					"texture": "#plate"
+				},
+				"up": {
+					"uv": [
+						3.5,
+						3.5,
+						12.5,
+						12.5
+					],
+					"texture": "#plate"
+				},
+				"down": {
+					"uv": [
+						3.5,
+						3.5,
+						12.5,
+						12.5
+					],
+					"texture": "#plate"
+				}
+			}
+		},
+		{
+			"name": "bottom",
+			"from": [
+				5.02055,
+				0.5,
+				5.02055
+			],
+			"to": [
+				10.97945,
+				1,
+				10.97945
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						5.02055,
+						15,
+						10.97945,
+						15.5
+					],
+					"texture": "#mug"
+				},
+				"east": {
+					"uv": [
+						5.02055,
+						15,
+						10.97945,
+						15.5
+					],
+					"texture": "#mug"
+				},
+				"south": {
+					"uv": [
+						5.02055,
+						15,
+						10.97945,
+						15.5
+					],
+					"texture": "#mug"
+				},
+				"west": {
+					"uv": [
+						5.02055,
+						15,
+						10.97945,
+						15.5
+					],
+					"texture": "#mug"
+				},
+				"up": {
+					"uv": [
+						5.02055,
+						5.02055,
+						10.97945,
+						10.97945
+					],
+					"texture": "#inner"
+				},
+				"down": {
+					"uv": [
+						5.02055,
+						5.02055,
+						10.97945,
+						10.97945
+					],
+					"texture": "#mug"
+				}
+			}
+		},
+		{
+			"name": "wall_n",
+			"from": [
+				5,
+				0.5261,
+				5
+			],
+			"to": [
+				11,
+				6.5,
+				6
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						5,
+						9.5,
+						11,
+						15.4739
+					],
+					"texture": "#mug"
+				},
+				"east": {
+					"uv": [
+						10,
+						9.5,
+						11,
+						15.4739
+					],
+					"texture": "#mug"
+				},
+				"south": {
+					"uv": [
+						5,
+						9.5,
+						11,
+						15.4739
+					],
+					"texture": "#inner"
+				},
+				"west": {
+					"uv": [
+						5,
+						9.5,
+						6,
+						15.4739
+					],
+					"texture": "#mug"
+				},
+				"up": {
+					"uv": [
+						5,
+						5,
+						11,
+						6
+					],
+					"texture": "#mug"
+				},
+				"down": {
+					"uv": [
+						5,
+						10,
+						11,
+						11
+					],
+					"texture": "#mug"
+				}
+			}
+		},
+		{
+			"name": "wall_s",
+			"from": [
+				5,
+				0.53165,
+				10
+			],
+			"to": [
+				11,
+				6.5,
+				11
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						5,
+						9.5,
+						11,
+						15.46835
+					],
+					"texture": "#inner"
+				},
+				"east": {
+					"uv": [
+						5,
+						9.5,
+						6,
+						15.46835
+					],
+					"texture": "#mug"
+				},
+				"south": {
+					"uv": [
+						5,
+						9.5,
+						11,
+						15.46835
+					],
+					"texture": "#mug"
+				},
+				"west": {
+					"uv": [
+						10,
+						9.5,
+						11,
+						15.46835
+					],
+					"texture": "#mug"
+				},
+				"up": {
+					"uv": [
+						5,
+						10,
+						11,
+						11
+					],
+					"texture": "#mug"
+				},
+				"down": {
+					"uv": [
+						5,
+						5,
+						11,
+						6
+					],
+					"texture": "#mug"
+				}
+			}
+		},
+		{
+			"name": "wall_w",
+			"from": [
+				5,
+				0.5372,
+				6
+			],
+			"to": [
+				6,
+				6.5,
+				10
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						10,
+						9.5,
+						11,
+						15.4628
+					],
+					"texture": "#mug"
+				},
+				"east": {
+					"uv": [
+						6,
+						9.5,
+						10,
+						15.4628
+					],
+					"texture": "#inner"
+				},
+				"south": {
+					"uv": [
+						5,
+						9.5,
+						6,
+						15.4628
+					],
+					"texture": "#mug"
+				},
+				"west": {
+					"uv": [
+						6,
+						9.5,
+						10,
+						15.4628
+					],
+					"texture": "#mug"
+				},
+				"up": {
+					"uv": [
+						5,
+						6,
+						6,
+						10
+					],
+					"texture": "#mug"
+				},
+				"down": {
+					"uv": [
+						5,
+						6,
+						6,
+						10
+					],
+					"texture": "#mug"
+				}
+			}
+		},
+		{
+			"name": "wall_e",
+			"from": [
+				10,
+				0.54275,
+				6
+			],
+			"to": [
+				11,
+				6.5,
+				10
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						5,
+						9.5,
+						6,
+						15.45725
+					],
+					"texture": "#mug"
+				},
+				"east": {
+					"uv": [
+						6,
+						9.5,
+						10,
+						15.45725
+					],
+					"texture": "#mug"
+				},
+				"south": {
+					"uv": [
+						10,
+						9.5,
+						11,
+						15.45725
+					],
+					"texture": "#mug"
+				},
+				"west": {
+					"uv": [
+						6,
+						9.5,
+						10,
+						15.45725
+					],
+					"texture": "#inner"
+				},
+				"up": {
+					"uv": [
+						10,
+						6,
+						11,
+						10
+					],
+					"texture": "#mug"
+				},
+				"down": {
+					"uv": [
+						10,
+						6,
+						11,
+						10
+					],
+					"texture": "#mug"
+				}
+			}
+		},
+		{
+			"name": "handle_low",
+			"from": [
+				11,
+				2,
+				7.5
+			],
+			"to": [
+				12.5,
+				3,
+				8.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3.5,
+						13,
+						5,
+						14
+					],
+					"texture": "#mug"
+				},
+				"east": {
+					"uv": [
+						7.5,
+						13,
+						8.5,
+						14
+					],
+					"texture": "#mug"
+				},
+				"south": {
+					"uv": [
+						11,
+						13,
+						12.5,
+						14
+					],
+					"texture": "#mug"
+				},
+				"west": {
+					"uv": [
+						7.5,
+						13,
+						8.5,
+						14
+					],
+					"texture": "#mug"
+				},
+				"up": {
+					"uv": [
+						11,
+						7.5,
+						12.5,
+						8.5
+					],
+					"texture": "#mug"
+				},
+				"down": {
+					"uv": [
+						11,
+						7.5,
+						12.5,
+						8.5
+					],
+					"texture": "#mug"
+				}
+			}
+		},
+		{
+			"name": "handle",
+			"from": [
+				12,
+				3,
+				7.5
+			],
+			"to": [
+				13,
+				5,
+				8.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3,
+						11,
+						4,
+						13
+					],
+					"texture": "#mug"
+				},
+				"east": {
+					"uv": [
+						7.5,
+						11,
+						8.5,
+						13
+					],
+					"texture": "#mug"
+				},
+				"south": {
+					"uv": [
+						12,
+						11,
+						13,
+						13
+					],
+					"texture": "#mug"
+				},
+				"west": {
+					"uv": [
+						7.5,
+						11,
+						8.5,
+						13
+					],
+					"texture": "#mug"
+				},
+				"up": {
+					"uv": [
+						12,
+						7.5,
+						13,
+						8.5
+					],
+					"texture": "#mug"
+				},
+				"down": {
+					"uv": [
+						12,
+						7.5,
+						13,
+						8.5
+					],
+					"texture": "#mug"
+				}
+			}
+		},
+		{
+			"name": "handle_high",
+			"from": [
+				11,
+				5,
+				7.5
+			],
+			"to": [
+				12.5,
+				6,
+				8.5
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						3.5,
+						10,
+						5,
+						11
+					],
+					"texture": "#mug"
+				},
+				"east": {
+					"uv": [
+						7.5,
+						10,
+						8.5,
+						11
+					],
+					"texture": "#mug"
+				},
+				"south": {
+					"uv": [
+						11,
+						10,
+						12.5,
+						11
+					],
+					"texture": "#mug"
+				},
+				"west": {
+					"uv": [
+						7.5,
+						10,
+						8.5,
+						11
+					],
+					"texture": "#mug"
+				},
+				"up": {
+					"uv": [
+						11,
+						7.5,
+						12.5,
+						8.5
+					],
+					"texture": "#mug"
+				},
+				"down": {
+					"uv": [
+						11,
+						7.5,
+						12.5,
+						8.5
+					],
+					"texture": "#mug"
+				}
+			}
+		}
+	]
+}

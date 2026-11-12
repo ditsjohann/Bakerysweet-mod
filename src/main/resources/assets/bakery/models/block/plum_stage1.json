@@ -1,0 +1,169 @@
+{
+	"credit": "Made with Blockbench - Sweetheart Bakery",
+	"parent": "block/block",
+	"ambientocclusion": false,
+	"format_version": "26.3",
+	"textures": {
+		"fruit": "bakery:block/fruit_plum",
+		"stem": "bakery:block/fruit_stem",
+		"particle": "bakery:block/fruit_plum"
+	},
+	"elements": [
+		{
+			"name": "stem",
+			"from": [
+				7.6,
+				15,
+				7.6
+			],
+			"to": [
+				8.4,
+				16,
+				8.4
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						7.6,
+						0,
+						8.4,
+						1
+					],
+					"texture": "#stem"
+				},
+				"east": {
+					"uv": [
+						7.6,
+						0,
+						8.4,
+						1
+					],
+					"texture": "#stem"
+				},
+				"south": {
+					"uv": [
+						7.6,
+						0,
+						8.4,
+						1
+					],
+					"texture": "#stem"
+				},
+				"west": {
+					"uv": [
+						7.6,
+						0,
+						8.4,
+						1
+					],
+					"texture": "#stem"
+				},
+				"up": {
+					"uv": [
+						7.6,
+						7.6,
+						8.4,
+						8.4
+					],
+					"texture": "#stem"
+				},
+				"down": {
+					"uv": [
+						7.6,
+						7.6,
+						8.4,
+						8.4
+					],
+					"texture": "#stem"
+				}
+			}
+		},
+		{
+			"name": "fruit",
+			"from": [
+				6.25,
+				11.5,
+				6.25
+			],
+			"to": [
+				9.75,
+				15,
+				9.75
+			],
+			"rotation": {
+				"angle": 0,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						6.25,
+						1,
+						9.75,
+						4.5
+					],
+					"texture": "#fruit"
+				},
+				"east": {
+					"uv": [
+						6.25,
+						1,
+						9.75,
+						4.5
+					],
+					"texture": "#fruit"
+				},
+				"south": {
+					"uv": [
+						6.25,
+						1,
+						9.75,
+						4.5
+					],
+					"texture": "#fruit"
+				},
+				"west": {
+					"uv": [
+						6.25,
+						1,
+						9.75,
+						4.5
+					],
+					"texture": "#fruit"
+				},
+				"up": {
+					"uv": [
+						6.25,
+						6.25,
+						9.75,
+						9.75
+					],
+					"texture": "#fruit"
+				},
+				"down": {
+					"uv": [
+						6.25,
+						6.25,
+						9.75,
+						9.75
+					],
+					"texture": "#fruit"
+				}
+			}
+		}
+	]
+}

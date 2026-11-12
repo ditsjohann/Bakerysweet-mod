@@ -1,0 +1,205 @@
+{
+	"parent": "minecraft:block/block",
+	"ambientocclusion": true,
+	"textures": {
+		"wood": "bakery:block/wood_pink",
+		"soil": "bakery:block/soil",
+		"flowers": "bakery:block/box_flowers",
+		"particle": "bakery:block/wood_pink"
+	},
+	"elements": [
+		{
+			"from": [
+				0,
+				0,
+				10
+			],
+			"to": [
+				16,
+				5,
+				16
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						11,
+						16,
+						16
+					],
+					"texture": "#wood"
+				},
+				"south": {
+					"uv": [
+						0,
+						11,
+						16,
+						16
+					],
+					"texture": "#wood"
+				},
+				"east": {
+					"uv": [
+						0,
+						11,
+						6,
+						16
+					],
+					"texture": "#wood"
+				},
+				"west": {
+					"uv": [
+						10,
+						11,
+						16,
+						16
+					],
+					"texture": "#wood"
+				},
+				"down": {
+					"uv": [
+						0,
+						0,
+						16,
+						6
+					],
+					"texture": "#wood"
+				}
+			}
+		},
+		{
+			"from": [
+				0.5,
+				4,
+				10.5
+			],
+			"to": [
+				15.5,
+				4.5,
+				15.5
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						0.5,
+						11.5,
+						15.5,
+						12
+					],
+					"texture": "#soil"
+				},
+				"south": {
+					"uv": [
+						0.5,
+						11.5,
+						15.5,
+						12
+					],
+					"texture": "#soil"
+				},
+				"east": {
+					"uv": [
+						0.5,
+						11.5,
+						5.5,
+						12
+					],
+					"texture": "#soil"
+				},
+				"west": {
+					"uv": [
+						10.5,
+						11.5,
+						15.5,
+						12
+					],
+					"texture": "#soil"
+				},
+				"up": {
+					"uv": [
+						0.5,
+						10.5,
+						15.5,
+						15.5
+					],
+					"texture": "#soil"
+				},
+				"down": {
+					"uv": [
+						0.5,
+						0.5,
+						15.5,
+						5.5
+					],
+					"texture": "#soil"
+				}
+			}
+		},
+		{
+			"from": [
+				0,
+				4,
+				13
+			],
+			"to": [
+				16,
+				14,
+				13
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						16,
+						4,
+						0,
+						14
+					],
+					"texture": "#flowers"
+				},
+				"south": {
+					"uv": [
+						0,
+						4,
+						16,
+						14
+					],
+					"texture": "#flowers"
+				}
+			},
+			"shade": false
+		},
+		{
+			"from": [
+				0,
+				4,
+				11.5
+			],
+			"to": [
+				16,
+				13,
+				11.5
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						4,
+						16,
+						13
+					],
+					"texture": "#flowers"
+				},
+				"south": {
+					"uv": [
+						16,
+						4,
+						0,
+						13
+					],
+					"texture": "#flowers"
+				}
+			},
+			"shade": false
+		}
+	]
+}

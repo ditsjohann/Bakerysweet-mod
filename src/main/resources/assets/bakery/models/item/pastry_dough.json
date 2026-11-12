@@ -1,0 +1,7 @@
+{
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "bakery:item/pastry_dough",
+		"layer1": "bakery:item/dough_flavor"
+	}
+}

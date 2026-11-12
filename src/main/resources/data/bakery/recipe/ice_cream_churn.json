@@ -1,0 +1,24 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"S S",
+		"PIP",
+		"PPP"
+	],
+	"key": {
+		"S": {
+			"item": "minecraft:stick"
+		},
+		"P": {
+			"tag": "minecraft:planks"
+		},
+		"I": {
+			"item": "minecraft:iron_ingot"
+		}
+	},
+	"result": {
+		"id": "bakery:ice_cream_churn",
+		"count": 1
+	}
+}

@@ -106,86 +106,117 @@ def knot(cv, x, y, b, heart=False):
                 cv.set(x + dx, y + dy, b[1] if d == 3 else b[4] if d == 0 else b[2])
 
 
+def deep(c, n=6):
+    """A ramp with real depth: dark, slightly cool shadows up to warm, light highlights."""
+    return shades(c, n, 0.46, 0.04)
+
+
 def bark(w, seed):
-    """Soft chibi bark: wide rounded bands in two gentle tones, each with a light edge, plus one or two cute knots."""
-    b = ramp(bark_color(w), 5, 0.28)
+    """Chibi bark with volume: chunky rounded plates, each lit from the upper left and shading into its edges,
+    with dark crevices between. Pastel colours, but real light and shadow."""
+    b = deep(bark_color(w), 6)
     rnd = random.Random(seed)
-    cv = Canvas(S, fill=b[2])
+    cv = Canvas(S)
     style = w["bark_style"]
     if style == "rings":
-        # Palm: a stack of plump rings, like soft pillows.
+        # Palm: plump stacked rings, each a rounded roll lit from above.
         for y in range(S):
-            band = y % 8
-            k = [4, 3, 3, 3, 2, 2, 2, 1][band]
+            t = (y % 8) / 7
+            k = 5 if t < 0.15 else 4 if t < 0.35 else 3 if t < 0.6 else 2 if t < 0.85 else 0
             for x in range(S):
-                cv.set(x, y, b[k])
+                kk = k
+                if (x + (y // 8) * 5) % 16 in (0, 1) and k > 1:
+                    kk -= 1  # little notches so it isn't too regular
+                cv.set(x, y, b[kk])
         return cv
-    band_w = 8
-    for x in range(S):
-        for y in range(S):
-            wob = int(round(math.sin(y * 0.12 + (x // band_w) * 1.7) * 0.6))
-            u = (x + wob) % band_w
-            k = 3 if (x // band_w) % 2 == 0 else 2
-            if u == 0:
-                k = 1
-            elif u == 1:
-                k = min(4, k + 1)
+    # Plate centres on a staggered grid (wrapping), stretched tall.
+    cells = []
+    for row in range(2):
+        for col in range(4):
+            cx = col * 8 + (row % 2) * 4 + rnd.uniform(-0.8, 0.8)
+            cy = row * 16 + rnd.uniform(-2, 2)
+            cells.append((cx, cy))
+    def metric(x, y, c):
+        dx = (x - c[0] + S / 2) % S - S / 2
+        dy = (y - c[1] + S / 2) % S - S / 2
+        return math.hypot(dx, dy * 0.18), dx, dy
+    for y in range(S):
+        for x in range(S):
+            ds = sorted((metric(x + 0.5, y + 0.5, c) for c in cells), key=lambda t: t[0])
+            d1, dx, dy = ds[0]
+            gap = ds[1][0] - d1
+            if gap < 0.9:
+                k = 0  # crevice
+            else:
+                lit = -(dx * 0.9 + dy * 0.18 * 0.5) / 3.8
+                k = 3 + (1 if lit > 0.35 else 0) + (1 if lit > 0.8 else 0) - (1 if lit < -0.45 else 0)
+                if gap < 1.8:
+                    k = min(k, 2)  # plates darken into their edges
+                k = max(1, min(5, k))
             cv.set(x, y, b[k])
     if style == "lenticels":
-        for _ in range(9):
-            x, y = rnd.randrange(2, S - 4), rnd.randrange(S)
-            for i in range(3):
-                cv.set(x + i, y, b[4])
+        for _ in range(10):
+            x, y = rnd.randrange(S), rnd.randrange(S)
+            if cv.get(x, y)[:3] != b[0]:
+                cv.set(x, y, b[5]); cv.set(x + 1, y, b[4])
     if style == "mossy":
-        moss = ramp(soft("#7aa84a", 0.2), 4, 0.2)
+        moss = deep(soft("#7aa84a", 0.15), 5)
         for (mx, my) in ((6, 24), (22, 8)):
             for dy in range(-2, 3):
                 for dx in range(-3, 4):
                     if dx * dx / 9 + dy * dy / 4 <= 1:
-                        cv.set(mx + dx, my + dy, moss[3 if dy < 0 else 2])
-    knot(cv, 11, 10, b, heart=(seed % 2 == 0))
-    if style != "mossy":
-        knot(cv, 24, 23, b)
+                        cv.set(mx + dx, my + dy, moss[3 if dy < 0 else 2 if dy == 0 else 1])
+    if seed % 2 == 0:
+        knot(cv, 16, 16, b, heart=True)
     return cv
 
 
 def log_top(w, seed, stripped=False):
-    """Log end: a soft bark rim with rounded corners, two smooth rings, and a little heart in the middle."""
-    p = ramp(soft(w["planks"], 0.15), 5, 0.18)
-    b = ramp(bark_color(w), 5, 0.28)
+    """Log end with depth: a bark rim of rounded plates, rings that dip and rise, a shadow under the rim."""
+    p = deep(soft(w["planks"], 0.1), 6)
+    b = deep(bark_color(w), 6)
     cv = Canvas(S)
     for y in range(S):
         for x in range(S):
             edge = min(x, y, S - 1 - x, S - 1 - y)
             corner = min(x, S - 1 - x) + min(y, S - 1 - y)
             d = math.hypot(x + 0.5 - 16, y + 0.5 - 16)
-            c = p[3]
-            if 4.5 < d < 6 or 10 < d < 11.5:
-                c = p[2]
-            if not stripped and (edge < 3 or corner < 5):
-                c = b[3] if edge >= 1 and corner >= 3 else b[1]
-            elif stripped and edge == 0:
-                c = p[1]
+            ring = (d % 5.5) / 5.5
+            k = 4 if ring < 0.45 else 3 if ring < 0.8 else 2
+            if (x + y) < 26 and ring < 0.3:
+                k = 5
+            c = p[k]
+            if not stripped:
+                if edge < 3 or corner < 5:
+                    lit = (x + y) < S
+                    c = b[4 if lit else 2] if edge >= 1 and corner >= 3 else b[1]
+                elif edge == 3:
+                    c = p[1]  # shadow just inside the bark
+            else:
+                if edge == 0:
+                    c = p[1]
+                elif edge == 1:
+                    c = p[2] if (x + y) > S else p[5]
             cv.set(x, y, c)
     for j, row in enumerate(HEART_KNOT):
         for i, ch in enumerate(row):
             if ch == "1":
-                cv.set(13 + i, 13 + j, p[1] if j > 3 else p[2])
+                cv.set(13 + i, 13 + j, p[1] if j > 3 or i in (0, 6) else p[2])
     return cv
 
 
 def stripped(w, seed):
-    """Stripped log: smooth pastel wood with a few gentle vertical bands."""
-    p = ramp(soft(w["planks"], 0.15), 5, 0.16)
+    """Stripped log: smooth pastel wood in rounded vertical bands, each lit on its left side."""
+    p = deep(soft(w["planks"], 0.1), 6)
     cv = Canvas(S)
     for x in range(S):
-        k = 3 if (x // 8) % 2 == 0 else 2
-        if x % 8 == 0:
-            k = 1
-        elif x % 8 == 1:
-            k = 4
+        u = x % 8
+        k = [2, 4, 4, 3, 3, 3, 3, 2][u]
         for y in range(S):
-            cv.set(x, y, p[k])
+            kk = k
+            if (y * 5 + x * 3) % 37 == 0 and k > 2:
+                kk = k - 1
+            cv.set(x, y, p[kk])
     return cv
 
 
@@ -205,50 +236,47 @@ def leaf_blob(cv, x, y, angle, length, ramp_, rnd):
 
 
 def leaves(w, seed):
-    """Soft chibi leaves: chunky round puffs, each lit from the upper left, with darker gaps between and a few
-    cute flowers on top. Wraps at the edges so the block tiles."""
-    lr = ramp(soft(w["leaf"], 0.12), 5, 0.26)
+    """Chibi leaves with volume: chunky round puffs with a dark outline, a lit upper left, a shaded lower right
+    and a highlight; deep shadow between puffs and a few cute flowers. Wraps so the block tiles."""
+    lr = deep(soft(w["leaf"], 0.08), 6)
     rnd = random.Random(seed)
     cv = Canvas(S, fill=lr[0])
 
     def put(x, y, c):
-        cv.set(int(x) % S, int(y) % S, c)
+        cv.set(int(math.floor(x)) % S, int(math.floor(y)) % S, c)
 
-    style = w["leaf_style"]
     puffs = [(x + rnd.uniform(-1.5, 1.5), y + rnd.uniform(-1.5, 1.5)) for y in range(0, S, 8) for x in range((y // 8) % 2 * 4, S, 8)]
     rnd.shuffle(puffs)
     for (cx, cy) in puffs:
         rad = rnd.uniform(4.6, 5.6)
-        for dy in range(-6, 7):
-            for dx in range(-6, 7):
-                d = math.hypot(dx, dy)
+        for dy in range(-7, 8):
+            for dx in range(-7, 8):
+                d = math.hypot(dx + 0.5, dy + 0.5)
                 if d > rad:
                     continue
-                lit = -(dx + dy) / (rad * 1.4)
-                k = 3 if lit > 0.25 else 2 if lit > -0.35 else 1
                 if d > rad - 1:
-                    k = 1
+                    put(cx + dx, cy + dy, lr[1])  # outline
+                    continue
+                lit = -((dx + 0.5) + (dy + 0.5)) / (rad * 1.3)
+                k = 5 if lit > 0.8 else 4 if lit > 0.2 else 3 if lit > -0.35 else 2
                 put(cx + dx, cy + dy, lr[k])
-        put(cx - rad * 0.4, cy - rad * 0.45, lr[4])
-        put(cx - rad * 0.4 + 1, cy - rad * 0.45, lr[4])
-    if style == "fronds":
+    if w["leaf_style"] == "fronds":
         for f in range(4):
             y0 = f * 8 + 3
             for x in range(S):
-                put(x, y0 + math.sin(x * 0.3 + f) * 1.5, lr[4] if x % 3 else lr[3])
-    # a few see-through gaps where the puffs meet
+                put(x, y0 + math.sin(x * 0.3 + f) * 1.5, lr[5] if x % 3 else lr[4])
     for _ in range(8):
         x, y = rnd.randrange(S), rnd.randrange(S)
         if cv.get(x, y)[:3] == lr[0]:
             cv.set(x, y, (0, 0, 0), 0)
     if w["bloom"]:
-        br = ramp(w["bloom"], 4, 0.2)
-        count = {"blossom": 14, "dotted": 6, "glossy": 6}.get(style, 5)
+        br = deep(w["bloom"], 5)
+        count = {"blossom": 14, "dotted": 6, "glossy": 6}.get(w["leaf_style"], 5)
         for _ in range(count):
             x, y = rnd.randrange(S), rnd.randrange(S)
             for (dx, dy) in ((0, -1), (-1, 0), (1, 0), (0, 1)):
-                put(x + dx, y + dy, br[3] if dy < 0 or dx < 0 else br[2])
-            put(x, y, rgb("#f6d65a"))
+                put(x + dx, y + dy, br[4] if dy < 0 or dx < 0 else br[2])
+            put(x, y, rgb("#f6c84a"))
     return cv
 
 

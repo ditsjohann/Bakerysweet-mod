@@ -74,115 +74,120 @@ def planks(w, seed):
 
 # ---------------------------------------------------------------- bark
 
+def soft(c, amount=0.18):
+    """Pushes a colour toward a pastel: a little lighter and gentler, for the soft chibi look."""
+    rr, gg, bb = rgb(c)
+    return "#%02x%02x%02x" % tuple(int(v + (255 - v) * amount) for v in (rr, gg, bb))
+
+
+def bark_color(w):
+    """The bark, warmed toward the wood's own pastel and lightened: friendly instead of realistic."""
+    br, bg, bb = rgb(w["bark"])
+    pr, pg, pb = rgb(w["planks"])
+    mixed = "#%02x%02x%02x" % (int(br * 0.7 + pr * 0.3), int(bg * 0.7 + pg * 0.3), int(bb * 0.7 + pb * 0.3))
+    return soft(mixed, 0.3)
+
+
+HEART_KNOT = ["0110110", "1111111", "1111111", "0111110", "0011100", "0001000"]
+
+
+def knot(cv, x, y, b, heart=False):
+    """A cute little knot: a soft ring with a lighter middle (or a heart)."""
+    if heart:
+        for j, row in enumerate(HEART_KNOT):
+            for i, ch in enumerate(row):
+                if ch == "1":
+                    cv.set(x + i - 3, y + j - 3, b[1] if (i in (0, 6) or j == 5) else b[4] if j < 2 else b[3])
+        return
+    for dy in range(-2, 3):
+        for dx in range(-2, 3):
+            d = abs(dx) + abs(dy)
+            if d <= 3:
+                cv.set(x + dx, y + dy, b[1] if d == 3 else b[4] if d == 0 else b[2])
+
+
 def bark(w, seed):
-    b = ramp(w["bark"], 6, 0.3)
+    """Soft chibi bark: wide rounded bands in two gentle tones, each with a light edge, plus one or two cute knots."""
+    b = ramp(bark_color(w), 5, 0.28)
     rnd = random.Random(seed)
-    cv = Canvas(S)
+    cv = Canvas(S, fill=b[2])
     style = w["bark_style"]
+    if style == "rings":
+        # Palm: a stack of plump rings, like soft pillows.
+        for y in range(S):
+            band = y % 8
+            k = [4, 3, 3, 3, 2, 2, 2, 1][band]
+            for x in range(S):
+                cv.set(x, y, b[k])
+        return cv
+    band_w = 8
     for x in range(S):
         for y in range(S):
-            cv.set(x, y, b[3])
-    if style == "rings":
-        # Palm trunk: stacked leaf-scar rings, each a bit offset, fibrous between.
-        for r in range(0, S, 6):
-            off = (r // 6) * 3
-            for x in range(S):
-                bump = int(1.5 * math.sin((x + off) * 0.4))
-                cv.set(x, r + bump % 6, b[1])
-                cv.set(x, (r + 1 + bump) % S, b[0])
-                cv.set(x, (r + 2 + bump) % S, b[4])
-                for y in range(r + 3, r + 6):
-                    if (x * 7 + y * 3 + off) % 5 == 0:
-                        cv.set(x, (y + bump) % S, b[2])
-        return cv
+            wob = int(round(math.sin(y * 0.12 + (x // band_w) * 1.7) * 0.6))
+            u = (x + wob) % band_w
+            k = 3 if (x // band_w) % 2 == 0 else 2
+            if u == 0:
+                k = 1
+            elif u == 1:
+                k = min(4, k + 1)
+            cv.set(x, y, b[k])
     if style == "lenticels":
-        # Cherry: smooth dark bark with horizontal pale streaks.
-        for x in range(S):
-            for y in range(S):
-                cv.set(x, y, b[2] if (x // 4 + y) % 9 else b[1])
-        for _ in range(26):
-            x, y, l = rnd.randrange(S), rnd.randrange(S), rnd.randint(3, 6)
-            for i in range(l):
-                cv.set((x + i) % S, y, b[4])
-                cv.set((x + i) % S, (y + 1) % S, b[1])
-        return cv
-    # Ridged / smooth / mossy: vertical ridges with furrows.
-    width = 4 if style != "smooth" else 6
-    x = 0
-    while x < S:
-        wdt = width + rnd.randint(-1, 1)
-        for y in range(S):
-            wob = int(round(math.sin(y * 0.35 + x) * 0.8))
-            for i in range(wdt):
-                xx = (x + i + wob) % S
-                k = 3
-                if i == 0:
-                    k = 0 if style != "smooth" else 2
-                elif i == 1:
-                    k = 4
-                elif i == wdt - 1:
-                    k = 2
-                cv.set(xx, y, b[k])
-        # breaks across the ridge
-        for _ in range(2):
-            by = rnd.randrange(S)
-            for i in range(1, wdt - 1):
-                cv.set((x + i) % S, by, b[1])
-        x += wdt
+        for _ in range(9):
+            x, y = rnd.randrange(2, S - 4), rnd.randrange(S)
+            for i in range(3):
+                cv.set(x + i, y, b[4])
     if style == "mossy":
-        moss = ramp("#6a9a3c", 4, 0.3)
-        for _ in range(60):
-            mx, my = rnd.randrange(S), rnd.randrange(S)
-            if (mx + my) % 3:
-                cv.set(mx, my, moss[rnd.randint(1, 3)])
+        moss = ramp(soft("#7aa84a", 0.2), 4, 0.2)
+        for (mx, my) in ((6, 24), (22, 8)):
+            for dy in range(-2, 3):
+                for dx in range(-3, 4):
+                    if dx * dx / 9 + dy * dy / 4 <= 1:
+                        cv.set(mx + dx, my + dy, moss[3 if dy < 0 else 2])
+    knot(cv, 11, 10, b, heart=(seed % 2 == 0))
+    if style != "mossy":
+        knot(cv, 24, 23, b)
     return cv
 
 
 def log_top(w, seed, stripped=False):
-    p = ramp(w["planks"], 6, 0.26)
-    b = ramp(w["bark"], 5, 0.3)
+    """Log end: a soft bark rim with rounded corners, two smooth rings, and a little heart in the middle."""
+    p = ramp(soft(w["planks"], 0.15), 5, 0.18)
+    b = ramp(bark_color(w), 5, 0.28)
     cv = Canvas(S)
-    cx, cy = 15.5 + random.Random(seed).uniform(-1, 1), 15.5
     for y in range(S):
         for x in range(S):
             edge = min(x, y, S - 1 - x, S - 1 - y)
-            d = math.hypot(x + 0.5 - cx, y + 0.5 - cy)
-            ring = int(d * 0.75 + math.sin(math.atan2(y - cy, x - cx) * 3) * 0.4)
-            k = 3 if ring % 2 == 0 else 2
-            if d < 2:
-                k = 1
-            if not stripped and edge < 2:
-                c = b[1] if edge == 0 else b[3]
+            corner = min(x, S - 1 - x) + min(y, S - 1 - y)
+            d = math.hypot(x + 0.5 - 16, y + 0.5 - 16)
+            c = p[3]
+            if 4.5 < d < 6 or 10 < d < 11.5:
+                c = p[2]
+            if not stripped and (edge < 3 or corner < 5):
+                c = b[3] if edge >= 1 and corner >= 3 else b[1]
             elif stripped and edge == 0:
                 c = p[1]
-            else:
-                c = p[k]
             cv.set(x, y, c)
-    # a few radial cracks
-    for a in (0.6, 2.4, 4.1):
-        for r in range(3, 9):
-            cv.set(cx + math.cos(a) * r, cy + math.sin(a) * r, p[1])
+    for j, row in enumerate(HEART_KNOT):
+        for i, ch in enumerate(row):
+            if ch == "1":
+                cv.set(13 + i, 13 + j, p[1] if j > 3 else p[2])
     return cv
 
 
 def stripped(w, seed):
-    p = ramp(w["planks"], 6, 0.24)
-    rnd = random.Random(seed)
+    """Stripped log: smooth pastel wood with a few gentle vertical bands."""
+    p = ramp(soft(w["planks"], 0.15), 5, 0.16)
     cv = Canvas(S)
     for x in range(S):
-        fiber = rnd.choice((2, 3, 3, 3, 4))
+        k = 3 if (x // 8) % 2 == 0 else 2
+        if x % 8 == 0:
+            k = 1
+        elif x % 8 == 1:
+            k = 4
         for y in range(S):
-            k = fiber
-            if (y * 3 + x * 7) % 23 == 0:
-                k = max(1, fiber - 1)
             cv.set(x, y, p[k])
-    for x in range(0, S, 8):
-        for y in range(S):
-            cv.set(x, y, p[2])
     return cv
 
-
-# ---------------------------------------------------------------- leaves and sapling
 
 def leaf_blob(cv, x, y, angle, length, ramp_, rnd):
     """One small leaf: an oval along `angle`, darker on its lower side, with a pale midrib."""
@@ -200,56 +205,50 @@ def leaf_blob(cv, x, y, angle, length, ramp_, rnd):
 
 
 def leaves(w, seed):
-    soft = w["leaf_style"] == "blossom"
-    lr = ramp(w["leaf"], 5, 0.2 if soft else 0.3)
+    """Soft chibi leaves: chunky round puffs, each lit from the upper left, with darker gaps between and a few
+    cute flowers on top. Wraps at the edges so the block tiles."""
+    lr = ramp(soft(w["leaf"], 0.12), 5, 0.26)
     rnd = random.Random(seed)
-    cv = Canvas(S, fill=lr[1])
-    # A darker underlayer in clumps, so the canopy has depth without going black.
-    for y in range(S):
-        for x in range(S):
-            if (math.sin(x * 0.45 + seed) + math.sin(y * 0.5 + seed * 0.3)) < -0.9:
-                cv.set(x, y, lr[0])
+    cv = Canvas(S, fill=lr[0])
+
+    def put(x, y, c):
+        cv.set(int(x) % S, int(y) % S, c)
+
     style = w["leaf_style"]
+    puffs = [(x + rnd.uniform(-1.5, 1.5), y + rnd.uniform(-1.5, 1.5)) for y in range(0, S, 8) for x in range((y // 8) % 2 * 4, S, 8)]
+    rnd.shuffle(puffs)
+    for (cx, cy) in puffs:
+        rad = rnd.uniform(4.6, 5.6)
+        for dy in range(-6, 7):
+            for dx in range(-6, 7):
+                d = math.hypot(dx, dy)
+                if d > rad:
+                    continue
+                lit = -(dx + dy) / (rad * 1.4)
+                k = 3 if lit > 0.25 else 2 if lit > -0.35 else 1
+                if d > rad - 1:
+                    k = 1
+                put(cx + dx, cy + dy, lr[k])
+        put(cx - rad * 0.4, cy - rad * 0.45, lr[4])
+        put(cx - rad * 0.4 + 1, cy - rad * 0.45, lr[4])
     if style == "fronds":
-        # Palm: fronds laid in a staggered grid (wrapping at the edges so the block tiles), each a curved
-        # midrib with paired leaflets slanting toward its tip.
-        def put(x, y, c):
-            cv.set(int(round(x)) % S, int(round(y)) % S, c)
-        for f in range(12):
-            ox, oy = (f % 4) * 8 + rnd.uniform(0, 4), (f // 4) * 11 + rnd.uniform(0, 4)
-            ang = rnd.uniform(0.3, 0.8) * (1 if f % 2 else -1)
-            for t in range(0, 18):
-                mx = ox + math.cos(ang) * t
-                my = oy + math.sin(ang) * t + t * t * 0.02
-                put(mx, my, lr[2])
-                if t % 2 == 0:
-                    for side in (-1, 1):
-                        la = ang + side * 1.2
-                        for k in range(1, 5 - t // 7):
-                            put(mx + math.cos(la) * k + math.cos(ang) * k * 0.5, my + math.sin(la) * k + math.sin(ang) * k * 0.5,
-                                lr[4] if k == 1 else lr[3])
-    else:
-        n = 130 if style in ("lush", "glossy") else 115
-        for _ in range(n):
-            leaf_blob(cv, rnd.uniform(-2, S + 2), rnd.uniform(-2, S + 2), rnd.uniform(0, 6.28), rnd.randint(3, 5), lr, rnd)
-    # Leaves are a little see-through: a few gaps.
-    for _ in range(14):
+        for f in range(4):
+            y0 = f * 8 + 3
+            for x in range(S):
+                put(x, y0 + math.sin(x * 0.3 + f) * 1.5, lr[4] if x % 3 else lr[3])
+    # a few see-through gaps where the puffs meet
+    for _ in range(8):
         x, y = rnd.randrange(S), rnd.randrange(S)
-        if cv.get(x, y)[:3] in (lr[0], lr[1]):
+        if cv.get(x, y)[:3] == lr[0]:
             cv.set(x, y, (0, 0, 0), 0)
     if w["bloom"]:
-        br = ramp(w["bloom"], 4, 0.25)
-        count = {"blossom": 34, "dotted": 12, "glossy": 9}.get(style, 8)
+        br = ramp(w["bloom"], 4, 0.2)
+        count = {"blossom": 14, "dotted": 6, "glossy": 6}.get(style, 5)
         for _ in range(count):
-            x, y = rnd.randrange(1, S - 1), rnd.randrange(1, S - 1)
-            if style == "blossom" or style == "glossy":
-                # five-petal flower with a yellow eye
-                for dx, dy in ((0, -1), (-1, 0), (1, 0), (0, 1)):
-                    cv.set(x + dx, y + dy, br[3] if dy < 0 or dx < 0 else br[2])
-                cv.set(x, y, rgb("#f6d65a"))
-            else:
-                cv.set(x, y, br[2])
-                cv.set(x + 1, y, br[3])
+            x, y = rnd.randrange(S), rnd.randrange(S)
+            for (dx, dy) in ((0, -1), (-1, 0), (1, 0), (0, 1)):
+                put(x + dx, y + dy, br[3] if dy < 0 or dx < 0 else br[2])
+            put(x, y, rgb("#f6d65a"))
     return cv
 
 

@@ -50,7 +50,7 @@ def planks(w, seed):
                 if ly == 0:
                     k = 0  # seam
                 elif ly == 1:
-                    k = min(5, tone + 1)  # top edge catches the light
+                    k = min(4, tone + 1)  # top edge catches the light
                 elif ly == board_h - 1:
                     k = max(1, tone - 1)
                 else:
@@ -58,12 +58,12 @@ def planks(w, seed):
                     g = math.sin(x * 0.22 + phase + ly * 0.9) + math.sin(x * 0.07 + phase * 2)
                     if abs(g) < 0.18:
                         k = max(1, tone - 1)
-                    elif g > 1.55:
-                        k = min(5, tone + 1)
+                    elif g > 1.7:
+                        k = min(4, tone + 1)
                 if x == joint and ly > 0:
                     k = 0
                 elif x == (joint + 1) % S and ly > 0:
-                    k = min(5, tone + 1)
+                    k = min(4, tone + 1)
                 cv.set(x, y, p[k])
         # nail heads beside the joint
         for nx in ((joint - 2) % S, (joint + 3) % S):

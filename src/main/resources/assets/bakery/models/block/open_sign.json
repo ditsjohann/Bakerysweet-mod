@@ -21,18 +21,18 @@
 			"faces": {
 				"north": {
 					"uv": [
-						16,
-						4,
 						0,
+						4,
+						16,
 						13
 					],
 					"texture": "#sign"
 				},
 				"south": {
 					"uv": [
-						0,
-						4,
 						16,
+						4,
+						0,
 						13
 					],
 					"texture": "#sign"

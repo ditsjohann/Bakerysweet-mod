@@ -2,9 +2,9 @@
 	"parent": "minecraft:block/block",
 	"ambientocclusion": true,
 	"textures": {
-		"shell": "bakery:block/macaron_shell",
+		"shell": "bakery:block/macaron_pouf_shell",
 		"cream": "bakery:block/macaron_cream",
-		"particle": "bakery:block/macaron_shell"
+		"particle": "bakery:block/macaron_pouf_shell"
 	},
 	"elements": [
 		{

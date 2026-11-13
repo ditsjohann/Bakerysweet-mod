@@ -522,41 +522,18 @@ def tulips():
 # ---------------------------------------------------------------- the list
 
 def build():
+    # Only the materials no later script redraws (see build_all.py for the full order).
     jobs = {
-        # painted woods
-        "wood_cream": wood("#f3e2c4", 1), "wood_pink": wood("#f2b0c4", 2), "wood_mint": wood("#a9dcc4", 3),
-        "wood_lilac": wood("#cbb4e6", 4), "table_wood": wood("#c89468", 5), "counter_wood": wood("#e9c9a0", 6),
-        "case_wood": wood("#f0c2d0", 7), "churn_wood": wood("#b98058", 8, planks=4, vertical=True), "crate": wood("#c9965e", 9, planks=3),
         "pastry_board": wood("#dcb184", 11, planks=2, nails=False),
-        # glazes
-        "ceramic_pink": ceramic("#f4a8c0", 1), "ceramic_white": ceramic("#f6f0ee", 2), "flower_pot_peach": ceramic("#f6b896", 3, band=(4, 7)),
-        "mixing_bowl": ceramic("#f8d0dc", 4, band=(22, 25)), "mixing_bowl_inner": ceramic("#fff6f2", 5, speckle=False),
-        "mug": ceramic("#fbe4ea", 6), "mug_inner": ceramic("#fff8f4", 7, speckle=False), "juicer_body": ceramic("#cfeee0", 8, band=(26, 29)),
-        "fountain/ceramic": ceramic("#fbf2ee", 9), "porcelain_floral": ceramic("#fdf6f4", 10), "plate": ceramic("#fffaf6", 11, speckle=False),
-        "cupcake_lamp_wrapper": ceramic("#f6a4c0", 12, band=None),
-        # metals
-        "metal": metal("#c8ccd6", 1), "metal_white": metal("#eceaf0", 2), "metal_pink": metal("#f0a8c0", 3),
-        "metal_gold": metal("#e8b84a", 4), "brass": metal("#d8a84a", 5), "fountain/gold": metal("#f0c050", 6),
-        "pie_tin": metal("#c0c4cc", 7), "copper_pot": copper(),
-        # fabrics
-        "velvet_pink": velvet("#f29ab8", 1), "velvet_mint": velvet("#9ad8c0", 2), "cushion": cushion("#ffd2e0"),
-        "linen": linen("#f6efe4", 1), "tablecloth": linen("#ffffff", 2, check="#f7a8c4") if False else linen("#fbe0ea", 2, check=True),
-        "sack": linen("#d8c09a", 3), "wicker": wicker("#d0a670"), "banneton": wicker("#c8955e", 5),
-        # tiles and stone
-        "pink_checker_tiles": tiles("#f8c4d4", "#fff4f6"), "mint_checker_tiles": tiles("#b4e4d0", "#f4fffa"),
-        "lilac_checker_tiles": tiles("#d4c0ee", "#faf6ff"), "butter_checker_tiles": tiles("#f8e2a0", "#fffcf0"),
-        "pink_tiles": tiles("#f6bccf", size=8), "mint_tiles": tiles("#b0e2cc", size=8), "lavender_tiles": tiles("#cdb8ea", size=8),
-        "cream_tiles": tiles("#f6ead6", size=16), "marble": marble("#f8f2f2"), "stone_cream": stone("#e6dccc"),
+        "porcelain_floral": ceramic("#fdf6f4", 10),
+        "marble": marble("#f8f2f2"),
         "oven_bricks": bricks("#c45e46", "#ead9c2", 2),
-        "mill/millstone": millstone_top(), "soil": soil(),
-        # cake
-        "cake_sponge": sponge(), "cake_side": sponge(30), "cake_frosting": frosting(), "frosting": frosting(31), "cake_piping": piping(),
-        "glaze": frosting(32),
-        # liquids & glass
-        "juicer_glass": glass("#e6f6fa", 90), "case_glass": glass("#eef8ff", 70), "jar_glass": glass("#e8f4f0", 90),
-        "juice_liquid": liquid("#dcd6cc"), "liquid": liquid("#dedede", 2),
-        # catalog, flowers
-        "catalog_cover": catalog_cover(), "catalog_pages": catalog_pages(), "tulips": tulips(),
+        "mill/millstone": millstone_top(),
+        "soil": soil(),
+        "juicer_glass": glass("#e6f6fa", 90),
+        "case_glass": glass("#eef8ff", 70),
+        "jar_glass": glass("#e8f4f0", 90),
+        "juice_liquid": liquid("#dcd6cc"),
     }
     for name, arr in jobs.items():
         save(name, arr)

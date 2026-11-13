@@ -197,9 +197,7 @@ def build():
         log_top(bd, bl, wd, wl, seed, stripped_top=True).save(os.path.join(TEX, f"stripped_{name}_log_top.png"))
         idx, pal = planks(wd, wl, seed)
         paint(idx, pal, os.path.join(TEX, f"{name}_planks.png"))
-        ld, ll, fl = LEAVES[name]
-        leaves(ld, ll, fl, seed).save(os.path.join(TEX, f"{name}_leaves.png"))
-        n += 6
+        n += 5
     return n
 
 

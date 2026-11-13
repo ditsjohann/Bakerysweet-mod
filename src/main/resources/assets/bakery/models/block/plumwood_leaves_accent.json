@@ -1,0 +1,6 @@
+{
+	"parent": "minecraft:block/leaves",
+	"textures": {
+		"all": "bakery:block/plumwood_leaves_accent"
+	}
+}

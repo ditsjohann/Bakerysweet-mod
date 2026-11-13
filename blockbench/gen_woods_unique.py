@@ -5,10 +5,10 @@ Inspired by the vibe of hand-made wood sets (framed mahogany planks, carved orna
 dots, concentric-square log ends, plated bark) - not copied: each of our woods gets its own design for bark, log end,
 planks, door, trapdoor and sapling, all in the same soft, low-contrast pixel style.
 
-    cherry blossom  soft horizontal bark   spiral end      narrow boards       heart-window door, flower trapdoor
-    citrus          pale, dark dash marks  square rings    boards + nail dots  slatted door with window, dotted slats
+    cherry blossom  soft horizontal bark   spiral end      calm long boards    heart-window door, flower trapdoor
+    citrus          pale, dark dash marks  square rings    calm upright boards slatted door with window, dotted slats
     orangewood      soft rounded plates    square rings    framed H-joints     long inset panel + knob, framed square
-    peachwood       soft vertical          spiral          herringbone         two panels + porthole, round window
+    peachwood       soft vertical          spiral          wide rounded boards two panels + porthole, round window
     mangowood       mossy                  square rings    wide grained boards lattice door, lattice trapdoor
     plumwood        dark violet bands      spiral          carved ornament     carved ornate door, ornament trapdoor
     palm            ringed trunk           fibrous dotted  woven strips        bamboo slat door, woven trapdoor
@@ -25,10 +25,10 @@ from gen_woods16 import WOODS, ramp, noise, quantize, hx, TEX, S
 from PIL import Image
 
 STYLE = {
-    "blossom": dict(bark="h", top="spiral", planks="vertical", door="heart", trap="flower", sapling="blossom"),
-    "citrus": dict(bark="eyes", top="squares", planks="nails", door="slats", trap="dots", sapling="lemon"),
+    "blossom": dict(bark="h", top="spiral", planks="soft_h", door="heart", trap="flower", sapling="blossom"),
+    "citrus": dict(bark="eyes", top="squares", planks="soft_v", door="slats", trap="dots", sapling="lemon"),
     "orangewood": dict(bark="plates", top="squares", planks="framed", door="panel", trap="framed", sapling="orange"),
-    "peachwood": dict(bark="v", top="spiral", planks="herring", door="porthole", trap="round", sapling="peach"),
+    "peachwood": dict(bark="v", top="spiral", planks="brick", door="porthole", trap="round", sapling="peach"),
     "mangowood": dict(bark="mossy", top="squares", planks="wide", door="lattice", trap="lattice", sapling="mango"),
     "plumwood": dict(bark="h", top="spiral", planks="diagonal", door="ornate", trap="ornament", sapling="plum"),
     "palm": dict(bark="rings", top="fibre", planks="bamboo", door="bamboo", trap="woven", sapling="palm"),
@@ -183,6 +183,32 @@ def planks(name, w):
     style = STYLE[name]["planks"]
     img = canvas()
     seed = sum(map(ord, name)) + 11
+    if style in ("soft_h", "soft_v", "brick"):
+        # Calm boards: two close tones inside each board, every board a shade apart, one soft seam, no details.
+        rnd = random.Random(seed)
+        fill = noise(seed, 6, 1, ((1.0, 1.0),)) if style != "soft_v" else noise(seed, 1, 6, ((1.0, 1.0),))
+        if style == "soft_h":      # cherry: 4 long boards, ends staggered
+            boards = [(0, y, S, 4, (3 + 9 * i) % S) for i, y in enumerate(range(0, S, 4))]
+        elif style == "soft_v":    # citrus: 4 upright boards, ends staggered
+            boards = [(x, 0, 4, S, (5 + 7 * i) % S) for i, x in enumerate(range(0, S, 4))]
+        else:                      # peach: three wide rounded boards (5, 6, 5 px), lit along the top edge
+            boards = [(0, 0, S, 5, 6), (0, 5, S, 6, 13), (0, 11, S, 5, 2)]
+        tone = [2, 3, 2, 3, 3, 2, 3, 2]
+        for i, (bx, by, bw, bh, joint) in enumerate(boards):
+            base = tone[i % len(tone)]
+            for yy in range(bh):
+                for xx in range(bw):
+                    x, y = (bx + xx) % S, (by + yy) % S
+                    k = min(3, base + (1 if fill[y][x] > 0.66 else 0))
+                    seam = (yy == bh - 1) if style != "soft_v" else (xx == bw - 1)
+                    if seam:
+                        k = 1
+                    elif style == "brick" and yy == 0:
+                        k = 4
+                    elif joint is not None and ((style in ("soft_h", "brick") and x == joint) or (style == "soft_v" and y == joint)):
+                        k = 1
+                    put(img, x, y, pal[min(5, k)])
+        return img
     if style == "vertical":
         # Tongue-and-groove boards standing upright, staggered ends, tiny flower-shaped nail heads.
         fill_noise(img, pal, 2, 4, seed, 1, 6)
@@ -425,104 +451,6 @@ def trapdoor(name, w):
     return img
 
 
-# ---------------------------------------------------------------- leaves
-
-LEAF = {
-    # leaf dark, leaf light, style, see-through share
-    "blossom": ("#a84e7c", "#ffd0e6", "blossoms", 0.16),
-    "citrus": ("#244e22", "#7ec24e", "glossy", 0.10),
-    "orangewood": ("#1e4220", "#5c9e3e", "dense", 0.06),
-    "peachwood": ("#3a6a2c", "#a6d46a", "narrow", 0.24),
-    "mangowood": ("#1f4a26", "#64a84a", "drooping", 0.14),
-    "plumwood": ("#3e2e56", "#b49ad6", "round", 0.15),
-    "palm": ("#245e24", "#8ccc5a", "fronds", 0.62),
-}
-
-
-def leaf_shape(img, x, y, angle, length, width, pal, wrap=True):
-    """One pointed leaf at 16px: lit upper side, shaded lower side, a pale midrib. Wraps so the block tiles."""
-    ca, sa = math.cos(angle), math.sin(angle)
-    for t in range(length + 1):
-        half = math.sin((t + 0.6) / (length + 1.2) * math.pi) * width
-        sx = -half
-        while sx <= half + 0.01:
-            px, py = x + ca * t - sa * sx, y + sa * t + ca * sx
-            k = 3 if sx < 0 else 1
-            if abs(sx) < 0.4 and 0 < t < length:
-                k = 4
-            if t == length or abs(sx) > half - 0.3:
-                k = 2 if sx < 0 else 0
-            put(img, int(math.floor(px)) % S, int(math.floor(py)) % S, pal[k])
-            sx += 0.5
-
-
-def leaves(name):
-    dark, light, style, gap = LEAF[name]
-    pal = ramp(dark, light, 5)
-    rnd = random.Random(sum(map(ord, name)) * 7)
-    img = canvas()
-    # A dark leafy underlayer in clumps; where it's missing (and no leaf lands) you can see through.
-    f = noise(sum(map(ord, name)), 3, 3, ((1.0, 1.0), (0.5, 0.6)))
-    flat = sorted(v for row in f for v in row)
-    cut = flat[int(len(flat) * (gap + 0.14))]
-    under = pal[1] if style in ("blossoms", "round") else pal[0]
-    for yy in range(S):
-        for xx in range(S):
-            if f[yy][xx] > cut:
-                put(img, xx, yy, under)
-    if style == "blossoms":
-        for _ in range(16):
-            leaf_shape(img, rnd.uniform(0, S), rnd.uniform(0, S), rnd.uniform(0, 6.28), 2, 0.9, ramp("#2e5a2a", "#78b04c", 5))
-        petal = ramp("#c8608e", "#fff0f6", 5)
-        for (cx, cy) in ((3, 3), (11, 2), (7, 8), (14, 10), (2, 12), (10, 14), (6, 0), (14, 6), (1, 7), (6, 13)):
-            for (dx, dy) in ((0, -1), (-1, 0), (1, 0), (0, 1)):
-                put(img, (cx + dx) % S, (cy + dy) % S, petal[4 if dy < 0 or dx < 0 else 3])
-            for (dx, dy) in ((-1, -1), (1, 1)):
-                put(img, (cx + dx) % S, (cy + dy) % S, petal[2])
-            put(img, cx, cy, hx("#f6c84a"))
-    elif style == "glossy":
-        for _ in range(14):
-            leaf_shape(img, rnd.uniform(0, S), rnd.uniform(0, S), rnd.uniform(0, 6.28), 3, 1.1, pal)
-        for (x, y) in ((4, 5), (12, 11)):
-            for (dx, dy) in ((0, -1), (-1, 0), (1, 0), (0, 1)):
-                put(img, x + dx, y + dy, (255, 252, 240))
-            put(img, x, y, hx("#f6d65a"))
-        put(img, 9, 3, hx("#f6dc4a")); put(img, 10, 3, hx("#e8c43a")); put(img, 9, 4, hx("#e8c43a"))
-    elif style == "dense":
-        for _ in range(22):
-            leaf_shape(img, rnd.uniform(0, S), rnd.uniform(0, S), rnd.uniform(0, 6.28), 3, 1.0, pal)
-        for (x, y) in ((5, 10), (12, 4)):
-            put(img, x, y, hx("#ffb04a")); put(img, x + 1, y, hx("#f2902a")); put(img, x, y + 1, hx("#e2801e")); put(img, x + 1, y + 1, hx("#c86a16"))
-    elif style == "narrow":
-        for _ in range(12):
-            leaf_shape(img, rnd.uniform(0, S), rnd.uniform(0, S), math.pi / 2 + rnd.uniform(-0.6, 0.6), 5, 0.6, pal)
-        for (x, y) in ((6, 4), (13, 12)):
-            put(img, x, y, hx("#ffc0d0")); put(img, x + 1, y, hx("#ff9ab4")); put(img, x, y + 1, hx("#ff9ab4"))
-    elif style == "drooping":
-        young = ramp("#7a2a2a", "#e88a6a", 5)
-        for i in range(12):
-            p = young if i in (3, 10) else pal
-            leaf_shape(img, rnd.uniform(0, S), rnd.uniform(0, S), math.pi / 2 + rnd.uniform(-0.35, 0.35), 6, 0.9, p)
-    elif style == "round":
-        for _ in range(48):
-            cx, cy = rnd.randrange(S), rnd.randrange(S)
-            put(img, cx, cy, pal[3]); put(img, (cx + 1) % S, cy, pal[2]); put(img, cx, (cy + 1) % S, pal[1]); put(img, (cx + 1) % S, (cy + 1) % S, pal[1])
-            put(img, cx, cy, pal[4] if rnd.random() < 0.3 else pal[3])
-        for (x, y) in ((4, 12), (11, 6)):
-            put(img, x, y, hx("#9a5ab4")); put(img, x + 1, y, hx("#7a3e96")); put(img, x, y + 1, hx("#7a3e96"))
-    elif style == "fronds":
-        # Three feathery fronds sweeping diagonally: a midrib with slanted leaflets on both sides, lots of air.
-        for (ox, oy, slope) in ((0, 2, 0.45), (5, 9, 0.35), (10, 13, 0.55)):
-            for t in range(16):
-                mx, my = (ox + t) % S, oy + t * slope
-                put(img, mx, int(my) % S, pal[2])
-                if t % 2 == 0:
-                    for k in range(1, 4):
-                        put(img, (mx - k // 2) % S, int(my - k) % S, pal[4 if k == 1 else 3])
-                        put(img, (mx - k // 2) % S, int(my + k) % S, pal[2 if k == 1 else 1])
-    return img
-
-
 # ---------------------------------------------------------------- saplings
 
 def sapling(name, w):
@@ -541,6 +469,22 @@ def sapling(name, w):
             for t in range(1, 6):
                 put(img, 8 + sgn * t, 6 - dx + (t * t) // 6, lf[3 if t < 3 else 2])
                 put(img, 8 + sgn * t, 7 - dx + (t * t) // 6, lf[1])
+        return img
+    if style == "peach":
+        # A slim young peach tree: a forked stem with long, slender leaves sprouting in pairs and one pink blossom.
+        from gen_leaves16 import clump, LEAF as LEAF16
+        lp = [hx(c) for c in LEAF16["peachwood"][0]]
+        img = canvas()
+        for y in range(10, 16):
+            put(img, 7, y, trunk[2])
+        put(img, 8, 15, trunk[1]); put(img, 8, 14, trunk[1])
+        for (x, y) in ((6, 9), (5, 8), (8, 9), (9, 8), (7, 9), (7, 8), (7, 7)):
+            put(img, x, y, trunk[2])
+        for (x, y, a) in ((3.6, 6.4, 0.5), (4.6, 4.6, -1.0), (10.8, 6.6, 2.6), (10.0, 4.4, -2.1), (7.4, 4.2, -1.55),
+                          (5.2, 10.2, 2.7), (9.8, 10.4, 0.45)):
+            clump(img, x, y, 2.4, 0.8, a, lp)
+        for (x, y, c) in ((8, 6, "#ffd2dc"), (9, 6, "#f6a8bc"), (8, 7, "#e88aa4")):
+            put(img, x, y, hx(c))
         return img
     if style == "mango":
         for y in range(5, 16):
@@ -576,8 +520,7 @@ def build():
         bottom.save(os.path.join(TEX, f"{name}_door_bottom.png"))
         trapdoor(name, w).save(os.path.join(TEX, f"{name}_trapdoor.png"))
         sapling(name, w).save(os.path.join(TEX, f"{name}_sapling.png"))
-        leaves(name).save(os.path.join(TEX, f"{name}_leaves.png"))
-        n += 8
+        n += 7
     return n
 
 

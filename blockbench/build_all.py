@@ -4,7 +4,7 @@ import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-STEPS = ["gen_textures.py", "gen_materials.py", "gen_food.py", "gen_deco.py", "gen_woods.py", "gen_woods16.py", "gen_crops.py",
+STEPS = ["gen_textures.py", "gen_materials.py", "gen_food.py", "gen_deco.py", "gen_woods.py", "gen_woods16.py", "gen_woods_unique.py", "gen_crops.py",
          "gen_catalog.py", "gen_fountain.py", "gen_couch.py", "gen_kitchen.py", "fix_zfight.py"]
 for step in STEPS:
     print("==", step)

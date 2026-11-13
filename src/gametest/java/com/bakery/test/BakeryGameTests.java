@@ -599,6 +599,31 @@ public class BakeryGameTests implements FabricGameTest {
 		});
 	}
 
+	@GameTest(templateName = EMPTY, tickLimit = 900)
+	public void dinersLingerAndChatAtTheirTable(TestContext ctx) {
+		ServerWorld world = ctx.getWorld();
+		fill(ctx, 0, 0, 0, 6, 0, 6, Blocks.STONE.getDefaultState());
+		BlockPos counterPos = ctx.getAbsolutePos(new BlockPos(1, 1, 1));
+		// Two chairs facing each other across a table.
+		ctx.setBlockState(new BlockPos(4, 1, 2), BakeryBlocks.CAFE_CHAIR.getDefaultState().with(com.bakery.deco.DecoBlock.FACING, Direction.SOUTH));
+		ctx.setBlockState(new BlockPos(4, 1, 3), BakeryBlocks.CAFE_TABLE.getDefaultState());
+		ctx.setBlockState(new BlockPos(4, 1, 4), BakeryBlocks.CAFE_CHAIR.getDefaultState().with(com.bakery.deco.DecoBlock.FACING, Direction.NORTH));
+		com.bakery.cafe.CustomerEntity a = com.bakery.cafe.CustomerEntity.create(world, counterPos, ctx.getAbsolutePos(new BlockPos(1, 1, 2)), com.bakery.cafe.Regular.get(0));
+		com.bakery.cafe.CustomerEntity b = com.bakery.cafe.CustomerEntity.create(world, counterPos, ctx.getAbsolutePos(new BlockPos(1, 1, 2)), com.bakery.cafe.Regular.get(1));
+		world.spawnEntity(a);
+		world.spawnEntity(b);
+		a.demoSit(world, ctx.getAbsolutePos(new BlockPos(4, 1, 2)), new ItemStack(BakeryItems.CUPCAKE));
+		b.demoSit(world, ctx.getAbsolutePos(new BlockPos(4, 1, 4)), new ItemStack(BakeryItems.HOT_CHOCOLATE));
+		a.chatWith(b, 200);
+		check(ctx, a.chatPartnerId() == b.getId() && b.chatPartnerId() == a.getId(), "diners at the same table chat with each other");
+		check(ctx, a.isTalking() != b.isTalking(), "they take turns talking");
+		ctx.runAtTick(800, () -> {
+			check(ctx, a.isEating() && a.hasVehicle() && b.isEating(), "they stay at the table for a good while, not just a few seconds");
+			check(ctx, a.getMainHandStack().isEmpty(), "the treat is long finished; they linger anyway");
+			ctx.complete();
+		});
+	}
+
 	@GameTest(templateName = EMPTY)
 	public void menuGrowsWithTheBakery(TestContext ctx) {
 		java.util.Set<String> none = java.util.Set.of();

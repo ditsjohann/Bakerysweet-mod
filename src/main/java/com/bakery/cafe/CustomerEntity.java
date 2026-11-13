@@ -62,6 +62,11 @@ public class CustomerEntity extends PathAwareEntity {
 	public static final int ARRIVING = 0, WAITING = 1, TO_SEAT = 2, EATING = 3, LEAVING = 4;
 	private static final TrackedData<Integer> REGULAR = DataTracker.registerData(CustomerEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	private static final TrackedData<Integer> STATE = DataTracker.registerData(CustomerEntity.class, TrackedDataHandlerRegistry.INTEGER);
+	/** Who this customer is chatting with (entity id, -1 for nobody) and what about (picks the little speech-bubble faces). */
+	private static final TrackedData<Integer> CHAT_WITH = DataTracker.registerData(CustomerEntity.class, TrackedDataHandlerRegistry.INTEGER);
+	private static final TrackedData<Integer> CHAT_TOPIC = DataTracker.registerData(CustomerEntity.class, TrackedDataHandlerRegistry.INTEGER);
+	/** How long a diner eats, and how long they stay at the table in all (random for each visit). */
+	private static final int EAT_MIN = 400, EAT_RANDOM = 500, STAY_MIN = 1800, STAY_RANDOM = 2400;
 	private static final double SPEED = 0.62;
 
 	private BlockPos counter;
@@ -78,6 +83,9 @@ public class CustomerEntity extends PathAwareEntity {
 	private int routeIndex;
 	private int exitIndex;
 	private int queueIndex = -1;
+	private int eatTicks;
+	private int stayTicks;
+	private int chatTicks;
 
 	public CustomerEntity(EntityType<? extends PathAwareEntity> type, World world) {
 		super(type, world);
@@ -97,6 +105,8 @@ public class CustomerEntity extends PathAwareEntity {
 		super.initDataTracker(builder);
 		builder.add(REGULAR, 0);
 		builder.add(STATE, ARRIVING);
+		builder.add(CHAT_WITH, -1);
+		builder.add(CHAT_TOPIC, 0);
 	}
 
 	@Override
@@ -122,8 +132,30 @@ public class CustomerEntity extends PathAwareEntity {
 		stuck = 0;
 	}
 
+	/** Sitting at a table (eating, or lingering afterwards). */
 	public boolean isEating() {
 		return state() == EATING;
+	}
+
+	/** Seated and still has food in hand: takes bites. */
+	public boolean isBiting() {
+		return state() == EATING && !getMainHandStack().isEmpty();
+	}
+
+	public int chatPartnerId() {
+		return dataTracker.get(CHAT_WITH);
+	}
+
+	public int chatTopic() {
+		return dataTracker.get(CHAT_TOPIC);
+	}
+
+	/** Chats go back and forth: whose turn it is to talk (the bubble shows over the talker). */
+	public boolean isTalking() {
+		int partner = chatPartnerId();
+		if (partner < 0) return false;
+		int turn = (age / 34) % 2;
+		return (getId() < partner) == (turn == 0);
 	}
 
 	public boolean atCounter() {
@@ -264,7 +296,8 @@ public class CustomerEntity extends PathAwareEntity {
 				// Shuffle up the line when someone ahead is served.
 				if (squaredDistanceTo(Vec3d.ofBottomCenter(spot)) > 0.7) walkTo(spot, false);
 				else getNavigation().stop();
-				getLookControl().lookAt(counter.getX() + 0.5, counter.getY() + 1.2, counter.getZ() + 0.5);
+				if (chatPartnerId() < 0) getLookControl().lookAt(counter.getX() + 0.5, counter.getY() + 1.2, counter.getZ() + 0.5);
+				socialize(world);
 			}
 			case TO_SEAT -> {
 				if (seat == null || !(world.getBlockState(seat).getBlock() instanceof ChairBlock) || timer > 900) {
@@ -290,10 +323,22 @@ public class CustomerEntity extends PathAwareEntity {
 						world.spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, food), mouth.x, mouth.y, mouth.z, 5, 0.05, 0.05, 0.05, 0.05);
 					}
 				}
-				if (timer % 120 == 60) {
+				if (!food.isEmpty() && timer % 120 == 60) {
 					world.spawnParticles(ParticleTypes.HEART, getX(), getY() + 1.9, getZ(), 1, 0.1, 0.05, 0.1, 0);
 				}
-				if (timer > 360) finishEating(world);
+				// Finished the treat: crumbs on the plate, then they linger a while before going home.
+				if (!food.isEmpty() && timer >= eatTicks) {
+					world.spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, food), getX(), getEyeY() - 0.3, getZ(), 6, 0.1, 0.05, 0.1, 0.03);
+					setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
+				}
+				if (food.isEmpty() && chatPartnerId() < 0 && timer % 100 == 0 && random.nextFloat() < 0.5f) {
+					// Look around the café.
+					PlayerEntity near = world.getClosestPlayer(this, 8);
+					if (near != null && random.nextBoolean()) getLookControl().lookAt(near, 30, 30);
+					else getLookControl().lookAt(getX() + random.nextGaussian() * 3, getEyeY() + random.nextGaussian() * 0.5, getZ() + random.nextGaussian() * 3);
+				}
+				socialize(world);
+				if (timer > stayTicks) finishEating(world);
 			}
 			case LEAVING -> {
 				if (exitIndex < exitRoute.size()) {
@@ -359,6 +404,7 @@ public class CustomerEntity extends PathAwareEntity {
 	/** Walks off home, unhappy or not. */
 	public void leave() {
 		if (state() == LEAVING) return;
+		stopChat();
 		stopRiding();
 		setState(LEAVING);
 		exitRoute.clear();
@@ -368,23 +414,101 @@ public class CustomerEntity extends PathAwareEntity {
 		}
 	}
 
+	/**
+	 * Picks a seat: free chairs and couches near the counter, preferring ones at a table, sometimes next to
+	 * someone already eating, with a little randomness so diners spread around the café.
+	 */
 	private BlockPos freeChair(ServerWorld world) {
 		if (counter == null) return null;
 		BlockPos best = null;
-		double bestDistance = Double.MAX_VALUE;
+		double bestScore = Double.MAX_VALUE;
+		List<CustomerEntity> others = world.getEntitiesByClass(CustomerEntity.class, new Box(counter).expand(16), c -> c != this);
+		boolean social = random.nextFloat() < 0.5f;
 		for (BlockPos p : BlockPos.iterate(counter.add(-10, -2, -10), counter.add(10, 2, 10))) {
 			if (!(world.getBlockState(p).getBlock() instanceof ChairBlock)) continue;
-			Box box = new Box(p);
-			if (!world.getEntitiesByClass(SeatEntity.class, box, s -> true).isEmpty()) continue;
+			if (!world.getEntitiesByClass(SeatEntity.class, new Box(p), s -> true).isEmpty()) continue;
 			BlockPos chair = p.toImmutable();
-			if (!world.getEntitiesByClass(CustomerEntity.class, new Box(counter).expand(16), c -> chair.equals(c.seat) && c != this).isEmpty()) continue;
-			double d = squaredDistanceTo(Vec3d.ofCenter(p));
-			if (d < bestDistance) {
-				bestDistance = d;
+			if (others.stream().anyMatch(c -> chair.equals(c.seat))) continue;
+			double score = Math.sqrt(squaredDistanceTo(Vec3d.ofCenter(p))) + random.nextDouble() * 3;
+			if (tableNextTo(world, chair) != null) score -= 6;
+			if (social && others.stream().anyMatch(c -> c.isEating() && c.squaredDistanceTo(Vec3d.ofCenter(chair)) < 6.5)) score -= 3;
+			if (score < bestScore) {
+				bestScore = score;
 				best = chair;
 			}
 		}
 		return best;
+	}
+
+	private static BlockPos tableNextTo(ServerWorld world, BlockPos seat) {
+		for (Direction d : Direction.Type.HORIZONTAL) {
+			BlockState state = world.getBlockState(seat.offset(d));
+			if (state.isOf(BakeryBlocks.CAFE_TABLE) || state.isOf(BakeryBlocks.PARASOL_TABLE)) return seat.offset(d);
+		}
+		return null;
+	}
+
+	// ------------------------------------------------------------------ chatting
+
+	/** Starts a chat between these two for a while. */
+	public void chatWith(CustomerEntity other, int ticks) {
+		int topic = random.nextInt(6);
+		dataTracker.set(CHAT_WITH, other.getId());
+		dataTracker.set(CHAT_TOPIC, topic);
+		chatTicks = ticks;
+		other.dataTracker.set(CHAT_WITH, getId());
+		other.dataTracker.set(CHAT_TOPIC, topic);
+		other.chatTicks = ticks;
+	}
+
+	private CustomerEntity chatPartner() {
+		int id = chatPartnerId();
+		return id >= 0 && getWorld().getEntityById(id) instanceof CustomerEntity other ? other : null;
+	}
+
+	private void stopChat() {
+		dataTracker.set(CHAT_WITH, -1);
+		chatTicks = 0;
+	}
+
+	/**
+	 * Customers chat with whoever is right there: diners at the same table, or the person just ahead of or behind
+	 * them in the line (who turns round). The talk goes back and forth, and now and then ends in a laugh.
+	 */
+	private void socialize(ServerWorld world) {
+		CustomerEntity partner = chatPartner();
+		if (partner != null || chatPartnerId() >= 0) {
+			if (partner == null || !partner.isAlive() || partner.chatPartnerId() != getId() || squaredDistanceTo(partner) > 20
+					|| partner.state() != state()) {
+				stopChat();
+				return;
+			}
+			getLookControl().lookAt(partner, 40, 40);
+			if (--chatTicks <= 0) {
+				if (getId() < partner.getId() && random.nextFloat() < 0.45f) {
+					boolean hearts = random.nextFloat() < 0.4f;
+					for (CustomerEntity c : List.of(this, partner)) {
+						world.spawnParticles(hearts ? ParticleTypes.HEART : ParticleTypes.HAPPY_VILLAGER, c.getX(), c.getY() + 2.0, c.getZ(), hearts ? 1 : 4, 0.2, 0.1, 0.2, 0);
+					}
+					world.playSound(null, getBlockPos(), SoundEvents.ENTITY_VILLAGER_YES, SoundCategory.NEUTRAL, 0.35f, 1.7f);
+				}
+				stopChat();
+				partner.stopChat();
+				return;
+			}
+			if (isTalking() && age % 34 == 6) {
+				world.playSound(null, getBlockPos(), SoundEvents.ENTITY_VILLAGER_AMBIENT, SoundCategory.NEUTRAL, 0.25f, 1.5f + random.nextFloat() * 0.3f);
+			}
+			return;
+		}
+		if (timer % 40 != 0 || random.nextFloat() > 0.2f) return;
+		for (CustomerEntity other : world.getEntitiesByClass(CustomerEntity.class, getBoundingBox().expand(3.2), c -> c != this && c.chatPartnerId() < 0)) {
+			boolean pair = state() == EATING ? other.state() == EATING
+					: state() == WAITING && other.state() == WAITING && counter != null && counter.equals(other.counter) && Math.abs(other.queueIndex - queueIndex) == 1;
+			if (!pair) continue;
+			chatWith(other, 90 + random.nextInt(180));
+			return;
+		}
 	}
 
 	private void sitDown(ServerWorld world) {
@@ -407,6 +531,8 @@ public class CustomerEntity extends PathAwareEntity {
 		setHeadYaw(yaw);
 		setBodyYaw(yaw);
 		setState(EATING);
+		eatTicks = EAT_MIN + random.nextInt(EAT_RANDOM);
+		stayTicks = Math.max(eatTicks + 200, STAY_MIN + random.nextInt(STAY_RANDOM));
 	}
 
 	private void finishEating(ServerWorld world) {
@@ -415,7 +541,7 @@ public class CustomerEntity extends PathAwareEntity {
 			// A little thank-you left on the table (or the chair if there is no table).
 			BlockPos table = seat;
 			for (Direction d : Direction.Type.HORIZONTAL) {
-				if (world.getBlockState(seat.offset(d)).isOf(BakeryBlocks.CAFE_TABLE)) {
+				if (world.getBlockState(seat.offset(d)).isOf(BakeryBlocks.CAFE_TABLE) || world.getBlockState(seat.offset(d)).isOf(BakeryBlocks.PARASOL_TABLE)) {
 					table = seat.offset(d);
 					break;
 				}

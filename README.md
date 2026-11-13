@@ -39,7 +39,7 @@ Matcha latte, hot chocolate, strawberry milk, lavender tea, rose tea and starlig
 
 ## Your café
 
-Place a **Bakery Counter**, then lay the way in with a **Path Ribbon**: click the floor at your door (the entrance), then at each turn, then click the counter to tie the path to it. The counter won't open without one. Customers walk in along the path, line up on its last stretch in front of the counter, move up as you serve, and walk back out the same way. Hold the ribbon to see your paths.
+Place a **Bakery Counter**, then lay the way in with a **Path Ribbon**: click the floor at your door (the entrance), then at each turn, then click the counter to tie the path to it. The counter won't open without one. Customers walk in along the path, line up on its last stretch in front of the counter, move up as you serve, and walk back out the same way. Hold the ribbon to see your paths. Some take their treat to go; others pick a seat (tables first), eat, then linger for a couple of minutes before leaving a tip. Diners at the same table and neighbours in the line chat with each other, with little speech bubbles.
 
 Cakes are decorated on the **Cake Turntable**: smooth round, rounded-square or heart tiers, piped dots, rosettes and drips. Hold a topper to see a preview of where it lands; toppers go on top of a tier (facing you) or pressed onto its side, and the Sweetheart Spatula turns them.
 

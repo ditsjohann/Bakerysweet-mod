@@ -11,6 +11,9 @@ import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.render.LightmapTextureManager;
+import org.joml.Matrix4f;
 
 /**
  * Café customers look like little people in pastel outfits (player-style skins, slim or classic arms).
@@ -36,6 +39,32 @@ public class CustomerRenderer extends BipedEntityRenderer<CustomerEntity, Custom
 	public void render(CustomerEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider consumers, int light) {
 		model = entity.regular().slim() ? slim : wide;
 		super.render(entity, yaw, tickDelta, matrices, consumers, light);
+		if (entity.isTalking()) chatBubble(entity, tickDelta, matrices, consumers);
+	}
+
+	/** What a chat looks like from outside: little faces and notes, a different set for each topic. */
+	private static final String[][] TOPICS = {{"…", "☺", "♪"}, {"♥", "☺", "♥"}, {"?", "!", "☺"}, {"✿", "♥", "✿"}, {"…", "!!", "☺"}, {"♪", "♫", "☺"}};
+
+	/** A small speech bubble beside the head of whoever is talking right now. */
+	private void chatBubble(CustomerEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider consumers) {
+		String[] topic = TOPICS[Math.floorMod(entity.chatTopic(), TOPICS.length)];
+		float t = entity.age + tickDelta;
+		String glyph = topic[(int) (t / 11) % topic.length];
+		float pop = MathHelper.clamp((t % 34) / 4f, 0, 1);
+		TextRenderer text = getTextRenderer();
+		matrices.push();
+		matrices.translate(0, entity.getHeight() + 0.25 + MathHelper.sin(t * 0.3f) * 0.02, 0);
+		matrices.multiply(dispatcher.getRotation());
+		matrices.translate(-0.42, 0, 0);
+		float s = 0.03f * pop;
+		matrices.scale(s, -s, s);
+		Matrix4f m = matrices.peek().getPositionMatrix();
+		float w = text.getWidth(glyph);
+		text.draw(" " + glyph + " ", -w / 2f - 3, -4, 0xFF5A3A48, false, m, consumers, TextRenderer.TextLayerType.NORMAL, 0xE0FFFFFF,
+				LightmapTextureManager.MAX_LIGHT_COORDINATE);
+		// The little tail pointing at the talker.
+		text.draw("◢", w / 2f - 1, 4, 0xE0FFFFFF, false, m, consumers, TextRenderer.TextLayerType.NORMAL, 0, LightmapTextureManager.MAX_LIGHT_COORDINATE);
+		matrices.pop();
 	}
 
 	@Override
@@ -56,7 +85,7 @@ public class CustomerRenderer extends BipedEntityRenderer<CustomerEntity, Custom
 		@Override
 		public void setAngles(CustomerEntity entity, float limbAngle, float limbDistance, float age, float headYaw, float headPitch) {
 			super.setAngles(entity, limbAngle, limbDistance, age, headYaw, headPitch);
-			if (entity.isEating()) {
+			if (entity.isBiting()) {
 				// Bring the food up for a bite every couple of seconds.
 				float cycle = (age % 48) / 48f;
 				float lift = cycle < 0.35f ? MathHelper.sin(cycle / 0.35f * MathHelper.PI) : 0;
@@ -67,6 +96,14 @@ public class CustomerRenderer extends BipedEntityRenderer<CustomerEntity, Custom
 				rightSleeve.copyTransform(rightArm);
 				leftSleeve.copyTransform(leftArm);
 				hat.copyTransform(head);
+			} else if (entity.isEating()) {
+				// Done eating: hands resting in the lap while they sit and chat.
+				rightArm.pitch = -0.55f;
+				leftArm.pitch = -0.55f;
+				rightArm.yaw = 0.25f;
+				leftArm.yaw = -0.25f;
+				rightSleeve.copyTransform(rightArm);
+				leftSleeve.copyTransform(leftArm);
 			} else if (!entity.getMainHandStack().isEmpty()) {
 				// Carrying a treat home: hold it in front.
 				rightArm.pitch = -0.45f + MathHelper.cos(limbAngle * 0.6662f) * 0.15f * limbDistance;

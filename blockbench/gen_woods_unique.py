@@ -28,7 +28,7 @@ STYLE = {
     "blossom": dict(bark="h", top="spiral", planks="soft_h", door="heart", trap="flower", sapling="blossom"),
     "citrus": dict(bark="eyes", top="squares", planks="soft_v", door="slats", trap="dots", sapling="lemon"),
     "orangewood": dict(bark="plates", top="squares", planks="framed", door="panel", trap="framed", sapling="orange"),
-    "peachwood": dict(bark="v", top="spiral", planks="brick", door="porthole", trap="round", sapling="peach"),
+    "peachwood": dict(bark="v", top="spiral", planks="classic", door="porthole", trap="round", sapling="peach"),
     "mangowood": dict(bark="mossy", top="squares", planks="wide", door="lattice", trap="lattice", sapling="mango"),
     "plumwood": dict(bark="h", top="spiral", planks="diagonal", door="ornate", trap="ornament", sapling="plum"),
     "palm": dict(bark="rings", top="fibre", planks="bamboo", door="bamboo", trap="woven", sapling="palm"),
@@ -183,6 +183,32 @@ def planks(name, w):
     style = STYLE[name]["planks"]
     img = canvas()
     seed = sum(map(ord, name)) + 11
+    if style == "classic":
+        # Peach: the familiar four-board plank layout in a brown-pink, each board with a lit top row, a soft seam,
+        # one butt joint and a couple of quiet grain streaks; the joints step across like a stair (its own touch).
+        pal = ramp("#6e4034", "#d6a08c", 6)
+        rnd = random.Random(seed)
+        joints = [2, 6, 10, 14]
+        for b in range(4):
+            y0 = b * 4
+            for r in range(4):
+                for x in range(S):
+                    k = 3
+                    if r == 0:
+                        k = 4
+                    elif r == 3:
+                        k = 1
+                    put(img, x, y0 + r, pal[k])
+            j = joints[b]
+            for r in range(3):
+                put(img, j, y0 + r, pal[1])
+            put(img, (j + 1) % S, y0 + 1, pal[4])
+            for _ in range(2):
+                gx, gy = rnd.randrange(S), y0 + rnd.choice((1, 2))
+                for k in range(rnd.choice((3, 4))):
+                    if (gx + k) % S != j:
+                        put(img, gx + k, gy, pal[2])
+        return img
     if style in ("soft_h", "soft_v", "brick"):
         # Calm boards: two close tones inside each board, every board a shade apart, one soft seam, no details.
         rnd = random.Random(seed)
@@ -194,6 +220,7 @@ def planks(name, w):
         else:                      # peach: three wide rounded boards (5, 6, 5 px), lit along the top edge
             boards = [(0, 0, S, 5, 6), (0, 5, S, 6, 13), (0, 11, S, 5, 2)]
         tone = [2, 3, 2, 3, 3, 2, 3, 2]
+        gold = ramp("#a8784a", "#f6d290", 6)
         for i, (bx, by, bw, bh, joint) in enumerate(boards):
             base = tone[i % len(tone)]
             for yy in range(bh):
@@ -207,7 +234,10 @@ def planks(name, w):
                         k = 4
                     elif joint is not None and ((style in ("soft_h", "brick") and x == joint) or (style == "soft_v" and y == joint)):
                         k = 1
-                    put(img, x, y, pal[min(5, k)])
+                    c = pal[min(5, k)]
+                    if name == "blossom" and k == 3 and fill[y][x] > 0.66:
+                        c = tuple((a * 2 + b) // 3 for a, b in zip(gold[4], c))   # cherry: soft gold grain in the pink
+                    put(img, x, y, c)
         return img
     if style == "vertical":
         # Tongue-and-groove boards standing upright, staggered ends, tiny flower-shaped nail heads.
@@ -228,16 +258,15 @@ def planks(name, w):
         return img
     if style == "diagonal":
         # Slanted boards running corner to corner, each with a light leading edge and a soft seam.
-        fill_noise(img, pal, 2, 4, seed, 3, 3)
+        # The board width (8) divides the tile, so the slant runs on unbroken from block to block.
+        fill_noise(img, pal, 2, 3, seed, 3, 3)
         for y in range(S):
             for x in range(S):
-                u = (x + y) % 5
+                u = (x + y) % 8
                 if u == 0:
                     put(img, x, y, pal[1])
                 elif u == 1:
                     put(img, x, y, pal[4])
-        for (x, y) in ((3, 9), (12, 4), (8, 14)):
-            put(img, x, y, pal[1]); put(img, (x + 1) % S, (y + 1) % S, pal[5])
         return img
     if style == "bamboo":
         # Upright bamboo stalks: rounded (light middle, darker sides) with a node ring every few pixels.

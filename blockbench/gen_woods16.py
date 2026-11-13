@@ -21,13 +21,13 @@ S = 16
 
 # (bark dark, bark light, wood dark, wood light, bark grain direction)
 WOODS = {
-    "blossom": ("#2e1a26", "#6c4459", "#98527e", "#ffb6d3", "h"),
+    "blossom": ("#2e1a26", "#6c4459", "#a05a6e", "#ffc2c8", "h"),
     "citrus": ("#3a3226", "#7c6e54", "#a8823a", "#fbe6a0", "v"),
     "orangewood": ("#3a2618", "#7c5636", "#8e4a1e", "#f6b06a", "v"),
     "peachwood": ("#3e221c", "#80503e", "#a85a48", "#fcd0b8", "v"),
     "mangowood": ("#2a2818", "#625c36", "#9a6a1c", "#f4d26a", "v"),
     "plumwood": ("#2a2234", "#6a5c7a", "#5c4c70", "#c8b2de", "h"),
-    "palm": ("#4a3624", "#9c7c56", "#9a7a4a", "#f0dcb0", "rings"),
+    "palm": ("#4a3624", "#9c7c56", "#a46a34", "#f4d08c", "rings"),
 }
 
 

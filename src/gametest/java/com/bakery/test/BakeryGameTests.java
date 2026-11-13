@@ -599,7 +599,42 @@ public class BakeryGameTests implements FabricGameTest {
 		});
 	}
 
-	@GameTest(templateName = EMPTY, tickLimit = 900)
+	@GameTest(templateName = EMPTY, tickLimit = 600)
+	public void dineInCustomersOrderThenWaitAtATable(TestContext ctx) {
+		FakePlayer p = player(ctx);
+		ServerWorld world = ctx.getWorld();
+		world.setTimeOfDay(1000);
+		fill(ctx, 0, 0, 0, 6, 0, 6, Blocks.STONE.getDefaultState());
+		BlockPos counterPos = new BlockPos(1, 1, 1);
+		ctx.setBlockState(counterPos, BakeryBlocks.BAKERY_COUNTER.getDefaultState().with(CounterBlock.FACING, Direction.SOUTH).with(CounterBlock.OPEN, true));
+		ctx.setBlockState(new BlockPos(4, 1, 3), BakeryBlocks.CAFE_CHAIR.getDefaultState().with(com.bakery.deco.DecoBlock.FACING, Direction.NORTH));
+		ctx.setBlockState(new BlockPos(4, 1, 2), BakeryBlocks.CAFE_TABLE.getDefaultState());
+		CounterBlockEntity counter = ctx.getBlockEntity(counterPos);
+		counter.setOwner(p.getUuid());
+		List<BlockPos> path = List.of(ctx.getAbsolutePos(new BlockPos(1, 1, 4)), ctx.getAbsolutePos(new BlockPos(1, 1, 2)));
+		counter.setPath(path);
+		com.bakery.cafe.CustomerEntity customer = com.bakery.cafe.CustomerEntity.create(world, ctx.getAbsolutePos(counterPos), path, 0, com.bakery.cafe.Regular.get(0));
+		BlockPos in = ctx.getAbsolutePos(new BlockPos(1, 1, 4));
+		customer.refreshPositionAndAngles(in.getX() + 0.5, in.getY(), in.getZ() + 0.5, 0, 0);
+		Order order = new Order(customer.getUuid(), 0, new ItemStack(BakeryItems.COOKIES), false, 100000, true);
+		counter.getOrders().add(order);
+		world.spawnEntity(customer);
+		ctx.runAtTick(320, () -> {
+			check(ctx, customer.state() == com.bakery.cafe.CustomerEntity.SEATED && customer.hasVehicle(),
+					"after ordering at the counter, a dine-in customer sits down at a free table to wait (state " + customer.state() + ")");
+			check(ctx, customer.isSeatedWaiting() && order.seated && counter.getOrders().contains(order), "their order stays open while they wait at the table");
+			ItemStack cookies = new ItemStack(BakeryItems.COOKIES);
+			cookies.set(BakeryComponents.QUALITY, 4);
+			Freshness.stampFresh(cookies, world.getTime());
+			check(ctx, ShopManager.serve(p, customer, cookies), "the baker brings the order to the table");
+			check(ctx, customer.state() == com.bakery.cafe.CustomerEntity.EATING && customer.hasVehicle() && customer.getMainHandStack().isOf(BakeryItems.COOKIES),
+					"and they eat it right there");
+			check(ctx, counter.getOrders().isEmpty(), "the order is done");
+			ctx.complete();
+		});
+	}
+
+	@GameTest(templateName = EMPTY, tickLimit = 1000)
 	public void dinersLingerAndChatAtTheirTable(TestContext ctx) {
 		ServerWorld world = ctx.getWorld();
 		fill(ctx, 0, 0, 0, 6, 0, 6, Blocks.STONE.getDefaultState());
@@ -617,7 +652,8 @@ public class BakeryGameTests implements FabricGameTest {
 		a.chatWith(b, 200);
 		check(ctx, a.chatPartnerId() == b.getId() && b.chatPartnerId() == a.getId(), "diners at the same table chat with each other");
 		check(ctx, a.isTalking() != b.isTalking(), "they take turns talking");
-		ctx.runAtTick(800, () -> {
+		// Eating takes 400-899 ticks; they stay at least 1800.
+		ctx.runAtTick(950, () -> {
 			check(ctx, a.isEating() && a.hasVehicle() && b.isEating(), "they stay at the table for a good while, not just a few seconds");
 			check(ctx, a.getMainHandStack().isEmpty(), "the treat is long finished; they linger anyway");
 			ctx.complete();

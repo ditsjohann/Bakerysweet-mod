@@ -19,7 +19,7 @@ import java.util.Deque;
  * wait &lt;ticks&gt;       wait
  * cam x y z yaw pitch  move the player (spectator) there
  * shot &lt;name&gt;        save run/screenshots/&lt;name&gt;.png
- * gui catalog|guide|menu   open a screen; key left|right|up|down [n]   press keys on it; close
+ * gui catalog|guide|menu [served]   open a screen; key left|right|up|down [n]   press keys on it; click x y; close
  * quit
  * </pre>
  */
@@ -80,6 +80,7 @@ public final class Showcase {
 					client.setScreen(switch (p[0]) {
 						case "catalog" -> new com.bakery.client.CatalogScreen(pos, data);
 						case "menu" -> new com.bakery.client.MenuScreen(pos);
+						case "counter" -> new com.bakery.client.CounterScreen(pos);
 						default -> new com.bakery.client.GuideScreen(data);
 					});
 					client.options.hudHidden = false;
@@ -97,6 +98,12 @@ public final class Showcase {
 					for (int i = 0; i < (k.length > 1 ? Integer.parseInt(k[1]) : 1); i++) {
 						if (client.currentScreen != null) client.currentScreen.keyPressed(code, 0, 0);
 					}
+					wait = 5;
+				}
+				case "click" -> {
+					// Clicks the open screen at gui coordinates: "click 120 80".
+					String[] c = arg.split(" ");
+					if (client.currentScreen != null) client.currentScreen.mouseClicked(Double.parseDouble(c[0]), Double.parseDouble(c[1]), 0);
 					wait = 5;
 				}
 				case "close" -> {

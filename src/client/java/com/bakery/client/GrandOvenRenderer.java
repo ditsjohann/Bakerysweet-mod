@@ -44,6 +44,7 @@ public class GrandOvenRenderer implements BlockEntityRenderer<GrandOvenBlockEnti
 		int outside = oven.getWorld() == null ? light : WorldRenderer.getLightmapCoordinates(oven.getWorld(), oven.rackPos());
 		int rackLight = rack > 0.5f ? outside : lit ? LightmapTextureManager.MAX_LIGHT_COORDINATE : light;
 		float time = (oven.getWorld() == null ? 0 : oven.getWorld().getTime()) + tickDelta;
+		OvenTimerCard.render(oven, tickDelta, matrices, consumers);
 
 		matrices.push();
 		PixelBox.orient(matrices, facing);

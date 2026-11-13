@@ -126,6 +126,23 @@ public final class BakingRecipes {
 		return recipes;
 	}
 
+	/** What goes into the bowl for this dough (item to count), for the recipe book. */
+	public static Map<Item, Integer> mixNeeds(DoughType type) {
+		for (MixRecipe recipe : recipes()) {
+			if (recipe.result() == type) return recipe.needs();
+		}
+		return Map.of();
+	}
+
+	/** The dough a shape is rolled from (sugar cookies are cut from cookie dough). */
+	public static DoughType doughFor(Shape shape) {
+		if (shape == Shape.SUGAR_COOKIE) return DoughType.COOKIE;
+		for (DoughType type : DoughType.values()) {
+			if (type.shapes().contains(shape)) return type;
+		}
+		return null;
+	}
+
 	/** Base ingredients (not flavorings) that the mixing bowl accepts. */
 	public static boolean isBaseIngredient(ItemStack stack) {
 		for (MixRecipe recipe : recipes()) {

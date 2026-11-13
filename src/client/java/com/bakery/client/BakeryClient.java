@@ -170,6 +170,8 @@ public class BakeryClient implements ClientModInitializer {
 				context.client().setScreen(new CatalogScreen(payload.pos(), payload.data())));
 		ClientPlayNetworking.registerGlobalReceiver(com.bakery.network.SweetPayloads.OpenMenu.ID, (payload, context) ->
 				context.client().setScreen(new MenuScreen(payload.counter())));
+		ClientPlayNetworking.registerGlobalReceiver(com.bakery.network.SweetPayloads.OpenCounter.ID, (payload, context) ->
+				context.client().setScreen(new CounterScreen(payload.counter())));
 		ClientPlayNetworking.registerGlobalReceiver(com.bakery.network.StickerPayload.ID, (payload, context) -> {
 			com.bakery.sweet.Sticker[] stickers = com.bakery.sweet.Sticker.values();
 			if (payload.sticker() >= 0 && payload.sticker() < stickers.length) {

@@ -30,13 +30,16 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 /**
- * The bakery counter. Right-click to flip the sign between Open and Closed; sneak + right-click to empty the till.
+ * The bakery counter. Right-click to open the counter screen (open or close up, empty the till, edit the menu, see
+ * the orders and your level's perks); sneak + right-click to empty the till straight away.
  * Customers line up on the side it faces. It is also the Baker villager's job site.
  */
 public class CounterBlock extends BlockWithEntity {
 	public static final MapCodec<CounterBlock> CODEC = createCodec(CounterBlock::new);
 	public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 	public static final BooleanProperty OPEN = Properties.OPEN;
+	/** Counter screen buttons. */
+	public static final int OPEN_SIGN = 0, COLLECT = 1;
 	private static final VoxelShape SHAPE = Block.createCuboidShape(0, 0, 0, 16, 15, 16);
 
 	public CounterBlock(Settings settings) {
@@ -98,7 +101,22 @@ public class CounterBlock extends BlockWithEntity {
 		if (counter.getOwner() == null) {
 			counter.setOwner(player.getUuid());
 		}
-		if (player.isSneaking()) {
+		if (!player.isSneaking()) {
+			if (player instanceof net.minecraft.server.network.ServerPlayerEntity serverPlayer) {
+				net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(serverPlayer, new com.bakery.network.SweetPayloads.OpenCounter(pos));
+			}
+			return ActionResult.CONSUME;
+		}
+		act(world, pos, player, COLLECT);
+		return ActionResult.CONSUME;
+	}
+
+	/** Does what a counter screen button asks: flip the Open sign, or empty the till into the player's purse. */
+	public static void act(World world, BlockPos pos, PlayerEntity player, int action) {
+		BlockState state = world.getBlockState(pos);
+		if (!(world.getBlockEntity(pos) instanceof CounterBlockEntity counter)) return;
+		if (counter.getOwner() == null) counter.setOwner(player.getUuid());
+		if (action == COLLECT) {
 			int coins = counter.collectTill();
 			if (coins > 0) {
 				if (player instanceof net.minecraft.server.network.ServerPlayerEntity serverPlayer) com.bakery.sweet.Coins.pay(serverPlayer, coins);
@@ -107,19 +125,19 @@ public class CounterBlock extends BlockWithEntity {
 			} else {
 				player.sendMessage(Text.translatable("message.bakery.shop.till_empty"), true);
 			}
-			return ActionResult.CONSUME;
+			return;
 		}
+		if (action != OPEN_SIGN) return;
 		boolean open = !state.get(OPEN);
 		if (open && !counter.hasPath()) {
 			player.sendMessage(Text.translatable("message.bakery.shop.needs_path").formatted(Formatting.GOLD), false);
 			world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BLOCK_BASS.value(), SoundCategory.BLOCKS, 0.7f, 0.8f);
-			return ActionResult.CONSUME;
+			return;
 		}
 		world.setBlockState(pos, state.with(OPEN, open));
 		world.playSound(null, pos, open ? SoundEvents.BLOCK_NOTE_BLOCK_CHIME.value() : SoundEvents.BLOCK_WOODEN_TRAPDOOR_CLOSE, SoundCategory.BLOCKS, 1f, open ? 1.4f : 1f);
 		player.sendMessage(Text.translatable(open ? "message.bakery.shop.open" : "message.bakery.shop.closed")
 				.formatted(open ? Formatting.LIGHT_PURPLE : Formatting.GRAY), true);
-		return ActionResult.CONSUME;
 	}
 
 	@Override

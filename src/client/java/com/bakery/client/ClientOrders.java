@@ -67,7 +67,8 @@ public final class ClientOrders {
 			Vec3d pos = entity.getLerpedPos(delta);
 			float bob = MathHelper.sin((ticks + delta) * 0.12f + order.entityId()) * 0.04f;
 			matrices.push();
-			matrices.translate(pos.x - cam.x, pos.y - cam.y + entity.getHeight() + 0.55 + bob, pos.z - cam.z);
+			// Above the name tag (which floats half a block over the head): the wish, with the patience hearts under it.
+			matrices.translate(pos.x - cam.x, pos.y - cam.y + entity.getHeight() + 1.18 + bob, pos.z - cam.z);
 			matrices.multiply(camera.getRotation());
 
 			// The wished-for item, gently spinning.
@@ -78,8 +79,8 @@ public final class ClientOrders {
 					OverlayTexture.DEFAULT_UV, matrices, consumers, client.world, order.entityId());
 			matrices.pop();
 
-			// Patience as little hearts underneath.
-			matrices.translate(0, -0.3, 0);
+			// Patience as little hearts underneath, still clear of the name tag.
+			matrices.translate(0, -0.27, 0);
 			matrices.scale(0.02f, -0.02f, 0.02f);
 			int hearts = MathHelper.ceil(order.patience() * 5);
 			boolean urgent = order.patience() < 0.3f && (ticks / 5) % 2 == 0;

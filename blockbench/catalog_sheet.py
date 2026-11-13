@@ -9,7 +9,7 @@ import sys
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
-CROP = {"std": 330, "flat": 330, "tall": 420, "high": 420, "wide": 520, "big": 640}
+CROP = {"std": 330, "flat": 330, "tall": 420, "high": 420, "wide": 520, "big": 640, "fruit": 360, "crop3": 520}
 CELL, COLS, PER_SHEET = 220, 6, 36
 
 

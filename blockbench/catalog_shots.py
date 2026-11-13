@@ -54,11 +54,11 @@ def entries():
         if n.endswith("_crop") and n not in ("corn_crop", "pea_crop"):
             out.append((label, "std", [(0, -1, 0, "minecraft:farmland"), (0, 0, 0, st("age=3"))]))
         elif n in ("corn_crop", "pea_crop"):
-            out.append((label, "big", [(0, -1, 0, "minecraft:farmland")] + [(0, i, 0, st(f"age=3,segment={i}")) for i in range(3)]))
+            out.append((label, "crop3", [(0, -1, 0, "minecraft:farmland")] + [(0, i, 0, st(f"age=3,segment={i}")) for i in range(3)]))
         elif n == "zucchini_stem":
             out.append((label, "std", [(0, -1, 0, "minecraft:farmland"), (0, 0, 0, st("age=7"))]))
         elif n in FRUIT:
-            out.append((label, "high", [(0, 2, 0, "minecraft:oak_leaves[persistent=true]"), (0, 1, 0, st("age=2"))]))
+            out.append((label, "fruit", [(0, 1, 0, "minecraft:oak_leaves[persistent=true]"), (0, 0, 0, st("age=2"))]))
         elif n == "pink_couch":
             out.append((label, "wide", [(-1, 0, 0, st("part=left")), (0, 0, 0, st("part=middle")), (1, 0, 0, st("part=right"))]))
         else:
@@ -69,11 +69,11 @@ def entries():
 
 CAM = {  # profile: (distance in front, feet height above the floor, pitch)
     "std": (2.3, -0.55, 16), "flat": (1.9, -0.45, 38), "tall": (3.6, -0.3, 10), "high": (3.0, 0.1, 6),
-    "wide": (3.8, -0.2, 18), "big": (6.2, 0.4, 12),
+    "wide": (3.8, -0.2, 18), "big": (6.2, 0.4, 12), "fruit": (2.6, -0.4, 4), "crop3": (5.0, 0.0, 4),
 }
 
 
-def build():
+def build(only=None):
     items = entries()
     X0, Y, Z0 = 1000, 150, 0
     per_row, dx, dz = 16, 6, 12
@@ -95,6 +95,8 @@ def build():
         manifest.append({"n": i + 1, "label": label, "profile": prof})
     lines.append("wait 100")
     for i, (label, prof, blocks) in enumerate(items):
+        if only and prof not in only:
+            continue
         x, z = X0 + (i % per_row) * dx, Z0 + (i // per_row) * dz
         dist, h, pitch = CAM[prof]
         lines += [f"cam {x + 0.5} {Y + h} {z + 0.5 - dist} 0 {pitch}", f"shot all_{i + 1:03d}"]
@@ -105,4 +107,5 @@ def build():
 
 
 if __name__ == "__main__":
-    build()
+    import sys
+    build(set(sys.argv[1:]) or None)   # optional: only re-shoot these camera profiles

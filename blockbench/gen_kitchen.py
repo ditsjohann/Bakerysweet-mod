@@ -100,32 +100,7 @@ mill_static().save(path("grand_millstone_static"))
 mill_static().save(path("grand_millstone"))
 mill_runner().save(path("part/millstone_runner"))
 
-# ---- Bakery Catalog: an open pink book on a curvy wooden lectern
-CAT_TEX = {"wood": "bakery:block/wood_cream", "cover": "bakery:block/catalog_cover", "pages": "bakery:block/catalog_pages",
-           "gold": "bakery:block/metal_gold", "particle": "bakery:block/catalog_cover"}
-
-
-def catalog():
-    m = Model(CAT_TEX)
-    m.disc("foot", 4.4, 0, 1.0, "wood")
-    m.disc("foot_trim", 3.4, 1.0, 1.6, "gold")
-    m.disc("stem_low", 1.6, 1.6, 4, "wood")
-    m.disc("stem_knot", 2.0, 4, 5.2, "wood")
-    m.disc("stem_high", 1.3, 5.2, 9.5, "wood")
-    m.box("desk", (3.5, 9.2, 4.5), (12.5, 10.2, 11.5), "wood", rotation={"angle": 22.5, "axis": "x", "origin": [8, 9.7, 8]})
-    m.box("ledge", (3.5, 9.0, 3.4), (12.5, 10.6, 4.4), "wood", rotation={"angle": 22.5, "axis": "x", "origin": [8, 9.7, 8]})
-    # the open book: two covers, two page blocks raised in the middle, and a ribbon
-    rot = {"angle": 22.5, "axis": "x", "origin": [8, 10.2, 8]}
-    m.box("cover_l", (1.5, 10.2, 3.6), (8.2, 10.7, 12.6), "cover", rotation=rot)
-    m.box("cover_r", (7.8, 10.2, 3.6), (14.5, 10.7, 12.6), "cover", rotation=rot)
-    m.box("pages_l", (2.2, 10.7, 4.2), (7.9, 11.9, 12.0), "pages", top="pages", rotation=rot)
-    m.box("pages_r", (8.1, 10.7, 4.2), (13.8, 11.9, 12.0), "pages", top="pages", rotation=rot)
-    m.box("spine", (7.7, 10.7, 4.2), (8.3, 11.4, 12.0), "cover", rotation=rot)
-    m.box("ribbon", (10.6, 9.0, 3.2), (11.2, 11.95, 4.3), "gold", rotation=rot)
-    return m
-
-
-catalog().save(path("bakery_catalog"))
+# (The Bakery Catalog has its own script: gen_catalog.py)
 
 # ---- Tulip pot: a round terracotta-peach pot with a rolled rim, soil, and the tulip bunch
 POT_TEX = {"pot": "bakery:block/flower_pot_peach", "soil": "bakery:block/soil", "flowers": "bakery:block/tulips",

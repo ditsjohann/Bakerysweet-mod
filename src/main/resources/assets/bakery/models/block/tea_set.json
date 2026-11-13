@@ -132,15 +132,6 @@
 						10
 					],
 					"texture": "#china"
-				},
-				"down": {
-					"uv": [
-						3,
-						6,
-						8,
-						11
-					],
-					"texture": "#china"
 				}
 			}
 		},
@@ -200,15 +191,6 @@
 						9.5
 					],
 					"texture": "#white"
-				},
-				"down": {
-					"uv": [
-						3.5,
-						6.5,
-						7.5,
-						10.5
-					],
-					"texture": "#white"
 				}
 			}
 		},
@@ -266,15 +248,6 @@
 						7,
 						6,
 						8
-					],
-					"texture": "#china"
-				},
-				"down": {
-					"uv": [
-						5,
-						8,
-						6,
-						9
 					],
 					"texture": "#china"
 				}
@@ -387,15 +360,6 @@
 					],
 					"texture": "#china"
 				},
-				"east": {
-					"uv": [
-						8,
-						11.5,
-						9,
-						14
-					],
-					"texture": "#china"
-				},
 				"west": {
 					"uv": [
 						7,
@@ -481,15 +445,6 @@
 						6.5
 					],
 					"texture": "#tea"
-				},
-				"down": {
-					"uv": [
-						10,
-						9.5,
-						13,
-						12.5
-					],
-					"texture": "#china"
 				}
 			}
 		},
@@ -549,15 +504,6 @@
 						12
 					],
 					"texture": "#tea"
-				},
-				"down": {
-					"uv": [
-						10,
-						4,
-						13,
-						7
-					],
-					"texture": "#china"
 				}
 			}
 		}

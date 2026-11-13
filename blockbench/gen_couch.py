@@ -10,22 +10,25 @@ TEX = {"velvet": "bakery:block/velvet_pink", "cushion": "bakery:block/cushion", 
 
 
 def roll_x(m, name, x1, x2, cy, cz, r, tex):
-    """A round bolster lying along x (octagon: a box plus the same box turned 45 degrees)."""
+    """A round bolster lying along x (octagon: a box plus the same box turned 45 degrees). The pieces' ends are
+    staggered a hair so they never sit in the same plane (which flickers)."""
+    s = 0.03
     m.box(name + "_a", (x1, cy - r, cz - r * 0.42), (x2, cy + r, cz + r * 0.42), tex)
-    m.box(name + "_b", (x1, cy - r * 0.42, cz - r), (x2, cy + r * 0.42, cz + r), tex)
-    m.box(name + "_c", (x1, cy - r * 0.42, cz - r), (x2, cy + r * 0.42, cz + r), tex,
+    m.box(name + "_b", (x1 + s, cy - r * 0.42, cz - r), (x2 - s, cy + r * 0.42, cz + r), tex)
+    m.box(name + "_c", (x1 + 2 * s, cy - r * 0.42, cz - r), (x2 - 2 * s, cy + r * 0.42, cz + r), tex,
           rotation={"angle": 45, "axis": "x", "origin": [x1, cy, cz]})
-    m.box(name + "_d", (x1, cy - r * 0.42, cz - r), (x2, cy + r * 0.42, cz + r), tex,
+    m.box(name + "_d", (x1 + 3 * s, cy - r * 0.42, cz - r), (x2 - 3 * s, cy + r * 0.42, cz + r), tex,
           rotation={"angle": -45, "axis": "x", "origin": [x1, cy, cz]})
 
 
 def roll_z(m, name, z1, z2, cx, cy, r, tex):
-    """A round arm roll lying along z."""
+    """A round arm roll lying along z (ends staggered like roll_x)."""
+    s = 0.03
     m.box(name + "_a", (cx - r * 0.42, cy - r, z1), (cx + r * 0.42, cy + r, z2), tex)
-    m.box(name + "_b", (cx - r, cy - r * 0.42, z1), (cx + r, cy + r * 0.42, z2), tex)
-    m.box(name + "_c", (cx - r, cy - r * 0.42, z1), (cx + r, cy + r * 0.42, z2), tex,
+    m.box(name + "_b", (cx - r, cy - r * 0.42, z1 + s), (cx + r, cy + r * 0.42, z2 - s), tex)
+    m.box(name + "_c", (cx - r, cy - r * 0.42, z1 + 2 * s), (cx + r, cy + r * 0.42, z2 - 2 * s), tex,
           rotation={"angle": 45, "axis": "z", "origin": [cx, cy, z1]})
-    m.box(name + "_d", (cx - r, cy - r * 0.42, z1), (cx + r, cy + r * 0.42, z2), tex,
+    m.box(name + "_d", (cx - r, cy - r * 0.42, z1 + 3 * s), (cx + r, cy + r * 0.42, z2 - 3 * s), tex,
           rotation={"angle": -45, "axis": "z", "origin": [cx, cy, z1]})
 
 

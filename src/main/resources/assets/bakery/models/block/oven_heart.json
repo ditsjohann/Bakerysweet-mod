@@ -127,15 +127,6 @@
 					],
 					"texture": "#bricks"
 				},
-				"south": {
-					"uv": [
-						6,
-						0.5,
-						10,
-						4
-					],
-					"texture": "#bricks"
-				},
 				"west": {
 					"uv": [
 						15.5,

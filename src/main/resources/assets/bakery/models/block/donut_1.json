@@ -155,15 +155,6 @@
 						7
 					],
 					"texture": "#dough"
-				},
-				"down": {
-					"uv": [
-						4,
-						9,
-						12,
-						12
-					],
-					"texture": "#dough"
 				}
 			}
 		},
@@ -233,15 +224,6 @@
 						12
 					],
 					"texture": "#dough"
-				},
-				"down": {
-					"uv": [
-						4,
-						4,
-						12,
-						7
-					],
-					"texture": "#dough"
 				}
 			}
 		},
@@ -267,29 +249,11 @@
 				]
 			},
 			"faces": {
-				"north": {
-					"uv": [
-						9,
-						13,
-						12,
-						15.5
-					],
-					"texture": "#dough"
-				},
 				"east": {
 					"uv": [
 						7,
 						13,
 						9,
-						15.5
-					],
-					"texture": "#dough"
-				},
-				"south": {
-					"uv": [
-						4,
-						13,
-						7,
 						15.5
 					],
 					"texture": "#dough"
@@ -304,15 +268,6 @@
 					"texture": "#dough"
 				},
 				"up": {
-					"uv": [
-						4,
-						7,
-						7,
-						9
-					],
-					"texture": "#dough"
-				},
-				"down": {
 					"uv": [
 						4,
 						7,
@@ -345,29 +300,11 @@
 				]
 			},
 			"faces": {
-				"north": {
-					"uv": [
-						4,
-						13,
-						7,
-						15.5
-					],
-					"texture": "#dough"
-				},
 				"east": {
 					"uv": [
 						7,
 						13,
 						9,
-						15.5
-					],
-					"texture": "#dough"
-				},
-				"south": {
-					"uv": [
-						9,
-						13,
-						12,
 						15.5
 					],
 					"texture": "#dough"
@@ -382,15 +319,6 @@
 					"texture": "#dough"
 				},
 				"up": {
-					"uv": [
-						9,
-						7,
-						12,
-						9
-					],
-					"texture": "#dough"
-				},
-				"down": {
 					"uv": [
 						9,
 						7,
@@ -571,31 +499,11 @@
 				]
 			},
 			"faces": {
-				"north": {
-					"uv": [
-						9,
-						12.5,
-						11.6,
-						13
-					],
-					"texture": "#glaze",
-					"tintindex": 0
-				},
 				"east": {
 					"uv": [
 						7,
 						12.5,
 						9,
-						13
-					],
-					"texture": "#glaze",
-					"tintindex": 0
-				},
-				"south": {
-					"uv": [
-						4.4,
-						12.5,
-						7,
 						13
 					],
 					"texture": "#glaze",
@@ -645,31 +553,11 @@
 				]
 			},
 			"faces": {
-				"north": {
-					"uv": [
-						4.4,
-						12.5,
-						7,
-						13
-					],
-					"texture": "#glaze",
-					"tintindex": 0
-				},
 				"east": {
 					"uv": [
 						7,
 						12.5,
 						9,
-						13
-					],
-					"texture": "#glaze",
-					"tintindex": 0
-				},
-				"south": {
-					"uv": [
-						9,
-						12.5,
-						11.6,
 						13
 					],
 					"texture": "#glaze",

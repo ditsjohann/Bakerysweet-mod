@@ -154,15 +154,6 @@
 						8.1
 					],
 					"texture": "#cookie"
-				},
-				"down": {
-					"uv": [
-						3,
-						7.9,
-						7.6,
-						12.5
-					],
-					"texture": "#cookie"
 				}
 			}
 		},
@@ -351,16 +342,6 @@
 					"texture": "#chip",
 					"tintindex": 0
 				},
-				"south": {
-					"uv": [
-						5.7,
-						14.15,
-						6.5,
-						14.4
-					],
-					"texture": "#chip",
-					"tintindex": 0
-				},
 				"west": {
 					"uv": [
 						5.9,
@@ -377,80 +358,6 @@
 						5.9,
 						6.5,
 						6.7
-					],
-					"texture": "#chip",
-					"tintindex": 0
-				}
-			}
-		},
-		{
-			"name": "chip",
-			"from": [
-				4.54275,
-				1.6,
-				6.6
-			],
-			"to": [
-				5.3,
-				1.85,
-				7.4
-			],
-			"rotation": {
-				"angle": 0,
-				"axis": "y",
-				"origin": [
-					8,
-					8,
-					8
-				]
-			},
-			"faces": {
-				"north": {
-					"uv": [
-						10.7,
-						14.15,
-						11.45725,
-						14.4
-					],
-					"texture": "#chip",
-					"tintindex": 0
-				},
-				"east": {
-					"uv": [
-						8.6,
-						14.15,
-						9.4,
-						14.4
-					],
-					"texture": "#chip",
-					"tintindex": 0
-				},
-				"south": {
-					"uv": [
-						4.54275,
-						14.15,
-						5.3,
-						14.4
-					],
-					"texture": "#chip",
-					"tintindex": 0
-				},
-				"west": {
-					"uv": [
-						6.6,
-						14.15,
-						7.4,
-						14.4
-					],
-					"texture": "#chip",
-					"tintindex": 0
-				},
-				"up": {
-					"uv": [
-						4.54275,
-						6.6,
-						5.3,
-						7.4
 					],
 					"texture": "#chip",
 					"tintindex": 0
@@ -521,15 +428,6 @@
 						7.5,
 						12.6,
 						12.1
-					],
-					"texture": "#cookie"
-				},
-				"down": {
-					"uv": [
-						8,
-						3.9,
-						12.6,
-						8.5
 					],
 					"texture": "#cookie"
 				}
@@ -651,16 +549,6 @@
 						9,
 						14.15,
 						9.8,
-						14.4
-					],
-					"texture": "#chip",
-					"tintindex": 0
-				},
-				"west": {
-					"uv": [
-						8.7,
-						14.15,
-						9.5,
 						14.4
 					],
 					"texture": "#chip",
@@ -890,15 +778,6 @@
 						2.5,
 						13.1,
 						7.1
-					],
-					"texture": "#cookie"
-				},
-				"down": {
-					"uv": [
-						8.5,
-						8.9,
-						13.1,
-						13.5
 					],
 					"texture": "#cookie"
 				}
@@ -1628,15 +1507,6 @@
 						9.5,
 						7.6,
 						14.1
-					],
-					"texture": "#cookie"
-				},
-				"down": {
-					"uv": [
-						3,
-						1.9,
-						7.6,
-						6.5
 					],
 					"texture": "#cookie"
 				}

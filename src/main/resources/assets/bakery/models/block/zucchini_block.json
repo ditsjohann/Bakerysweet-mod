@@ -206,15 +206,6 @@
 					],
 					"texture": "#flower"
 				},
-				"west": {
-					"uv": [
-						6.5,
-						12,
-						9.5,
-						15
-					],
-					"texture": "#flower"
-				},
 				"up": {
 					"uv": [
 						13.5,

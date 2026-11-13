@@ -17,6 +17,8 @@ import json
 import math
 
 TAN_11 = math.tan(math.radians(11.25))
+# How far apart overlapping caps are pushed (pixels): enough for the depth buffer, too small to see.
+STAGGER = 0.025
 # (base axis, rotation) pairs that give the eight 22.5-degree orientations with only -45..45 rotations.
 ORIENTATIONS = [("x", 0), ("x", 22.5), ("x", 45), ("x", -22.5), ("z", 22.5), ("z", 0), ("z", -22.5), ("x", -45)]
 
@@ -55,7 +57,7 @@ def _faces(size, tex, faces=None, tint=None, top_tex=None, bottom_tex=None, uv_y
 
 
 class Model:
-    def __init__(self, textures, parent="block/block", ambient=True, display=None):
+    def __init__(self, textures, parent="block/block", ambient=False, display=None):
         self.data = {"parent": parent, "textures": dict(textures), "elements": []}
         if not ambient:
             self.data["ambientocclusion"] = False
@@ -81,11 +83,13 @@ class Model:
         """A 16-sided upright cylinder of radius r (to the flat sides)."""
         half = r * TAN_11 + 0.001
         for i, (axis, angle) in enumerate(ORIENTATIONS):
+            # Stagger each piece's cap a hair so overlapping tops never z-fight (flicker/stripes).
+            dy = i * STAGGER
             if axis == "x":
-                frm, to = (cx - r, y1, cz - half), (cx + r, y2, cz + half)
+                frm, to = (cx - r, y1 - dy, cz - half), (cx + r, y2 + dy, cz + half)
                 faces = ["east", "west"] if sides else []
             else:
-                frm, to = (cx - half, y1, cz - r), (cx + half, y2, cz + r)
+                frm, to = (cx - half, y1 - dy, cz - r), (cx + half, y2 + dy, cz + r)
                 faces = ["north", "south"] if sides else []
             faces = faces + ["up", "down"]
             rot = {"angle": angle, "axis": "y", "origin": [cx, (y1 + y2) / 2, cz]} if angle else None
@@ -115,6 +119,10 @@ class Model:
                 frm = (cx - length / 2, y1, cz + sz * mid - thick / 2)
                 to = (cx + length / 2, y2, cz + sz * mid + thick / 2)
                 faces = ["north", "south", "east", "west", "up"]
+            # Neighbouring segments overlap at their ends: alternate their tops so they never z-fight.
+            lift = (k % 2) * STAGGER * 2
+            frm = (frm[0], frm[1] - lift, frm[2])
+            to = (to[0], to[1] + lift, to[2])
             rot = {"angle": -rest, "axis": "y", "origin": [cx, (y1 + y2) / 2, cz]} if abs(rest) > 1e-6 else None
             self.box(f"{name}_{k}", frm, to, tex, faces, top=top, rotation=rot)
 

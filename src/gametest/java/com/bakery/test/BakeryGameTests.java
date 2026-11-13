@@ -625,6 +625,28 @@ public class BakeryGameTests implements FabricGameTest {
 	}
 
 	@GameTest(templateName = EMPTY)
+	public void smallBlocksAreNotOpaque(TestContext ctx) {
+		// A block that is opaque but not a full cube blacks out the light inside it and renders dark.
+		List<String> bad = new java.util.ArrayList<>();
+		for (net.minecraft.block.Block block : net.minecraft.registry.Registries.BLOCK) {
+			net.minecraft.util.Identifier id = net.minecraft.registry.Registries.BLOCK.getId(block);
+			if (!id.getNamespace().equals("bakery")) continue;
+			// Vanilla-style shapes light themselves by their shape, just like oak stairs or carpet.
+			if (block instanceof net.minecraft.block.StairsBlock || block instanceof net.minecraft.block.SlabBlock || block instanceof net.minecraft.block.FenceBlock
+					|| block instanceof net.minecraft.block.FenceGateBlock || block instanceof net.minecraft.block.CarpetBlock) continue;
+			for (BlockState state : block.getStateManager().getStates()) {
+				boolean full = net.minecraft.block.Block.isShapeFullCube(state.getOutlineShape(ctx.getWorld(), BlockPos.ORIGIN));
+				if (state.isOpaque() && !full) {
+					bad.add(id.getPath());
+					break;
+				}
+			}
+		}
+		check(ctx, bad.isEmpty(), "opaque blocks that are not full cubes: " + bad);
+		ctx.complete();
+	}
+
+	@GameTest(templateName = EMPTY)
 	public void menuGrowsWithTheBakery(TestContext ctx) {
 		java.util.Set<String> none = java.util.Set.of();
 		check(ctx, com.bakery.shop.Menu.available(com.bakery.cafe.CafeLevel.STALL, none).stream().noneMatch(d -> d.item() == BakeryItems.CAKE),

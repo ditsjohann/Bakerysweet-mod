@@ -73,15 +73,6 @@
 					],
 					"texture": "#bricks"
 				},
-				"up": {
-					"uv": [
-						0,
-						0,
-						12,
-						12
-					],
-					"texture": "#bricks"
-				},
 				"down": {
 					"uv": [
 						0,
@@ -331,29 +322,11 @@
 					],
 					"texture": "#inside"
 				},
-				"east": {
-					"uv": [
-						0.25,
-						5.25,
-						4.5,
-						8
-					],
-					"texture": "#bricks"
-				},
 				"south": {
 					"uv": [
 						4.25,
 						5.25,
 						7.75,
-						8
-					],
-					"texture": "#bricks"
-				},
-				"west": {
-					"uv": [
-						7.5,
-						5.25,
-						11.75,
 						8
 					],
 					"texture": "#bricks"
@@ -400,29 +373,11 @@
 					],
 					"texture": "#bricks"
 				},
-				"east": {
-					"uv": [
-						4.5,
-						4.5,
-						11.5,
-						5.25
-					],
-					"texture": "#bricks"
-				},
 				"south": {
 					"uv": [
 						4.25,
 						4.5,
 						7.75,
-						5.25
-					],
-					"texture": "#bricks"
-				},
-				"west": {
-					"uv": [
-						0.5,
-						4.5,
-						7.5,
 						5.25
 					],
 					"texture": "#bricks"
@@ -810,15 +765,6 @@
 						11.9,
 						4.175,
 						12,
-						4.925
-					],
-					"texture": "#stone"
-				},
-				"south": {
-					"uv": [
-						5.5,
-						4.175,
-						6.5,
 						4.925
 					],
 					"texture": "#stone"
@@ -1254,15 +1200,6 @@
 						2
 					],
 					"texture": "#bricks"
-				},
-				"up": {
-					"uv": [
-						6.75,
-						8.5,
-						8.5,
-						10.25
-					],
-					"texture": "#soot"
 				}
 			}
 		},
@@ -1339,7 +1276,7 @@
 			"name": "peel_handle",
 			"from": [
 				22,
-				0,
+				-0.02,
 				-15.6
 			],
 			"to": [

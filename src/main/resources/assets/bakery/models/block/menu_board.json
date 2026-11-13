@@ -117,51 +117,6 @@
 						16
 					],
 					"texture": "#chalk"
-				},
-				"east": {
-					"uv": [
-						1,
-						1,
-						2,
-						15
-					],
-					"texture": "#wood"
-				},
-				"south": {
-					"uv": [
-						2,
-						1,
-						14,
-						15
-					],
-					"texture": "#wood"
-				},
-				"west": {
-					"uv": [
-						14,
-						1,
-						15,
-						15
-					],
-					"texture": "#wood"
-				},
-				"up": {
-					"uv": [
-						2,
-						14,
-						14,
-						15
-					],
-					"texture": "#wood"
-				},
-				"down": {
-					"uv": [
-						2,
-						1,
-						14,
-						2
-					],
-					"texture": "#wood"
 				}
 			}
 		},

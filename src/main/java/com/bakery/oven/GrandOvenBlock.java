@@ -24,6 +24,7 @@ import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
@@ -99,9 +100,20 @@ public class GrandOvenBlock extends BlockWithEntity {
 		BlockPos chimney = pos.offset(facing.getOpposite()).up();
 		world.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, chimney.getX() + 0.5 + random.nextDouble() * 0.2, chimney.getY() + 1.0, chimney.getZ() + 0.5, 0, 0.04, 0);
 		if (world.getBlockEntity(pos) instanceof GrandOvenBlockEntity oven) {
-			for (int i = 0; i < GrandOvenBlockEntity.SLOTS; i++) {
-				if (oven.isBaking(i) && oven.doneness(i, 0) > oven.getTemperature().perfectEnd()) {
+			for (GrandOvenBlockEntity.Bake bake : oven.getBakes()) {
+				Vec3d at = oven.bakeCenter(bake);
+				if (oven.isBaking(bake) && oven.doneness(bake, 0) > oven.getTemperature().perfectEnd()) {
 					world.addParticle(ParticleTypes.LARGE_SMOKE, mouth.getX() + 0.5, mouth.getY() + 0.7, mouth.getZ() + 0.5, 0, 0.05, 0);
+				}
+				// Sizzling bubbles and a wisp of steam: this one wants flipping.
+				if (oven.wantsFlip(bake)) {
+					world.addParticle(ParticleTypes.BUBBLE_POP, at.x + (random.nextDouble() - 0.5) * 0.15, at.y + 0.08, at.z + (random.nextDouble() - 0.5) * 0.15, 0, 0.02, 0);
+					world.addParticle(ParticleTypes.WHITE_SMOKE, at.x, at.y + 0.12, at.z, 0, 0.02, 0);
+				}
+				// Golden sparkles in the perfect window.
+				float d = oven.doneness(bake, 0);
+				if (d >= oven.getTemperature().perfectStart() && d <= oven.getTemperature().perfectEnd() && random.nextFloat() < 0.6f) {
+					world.addParticle(ParticleTypes.WAX_OFF, at.x + (random.nextDouble() - 0.5) * 0.2, at.y + 0.15, at.z + (random.nextDouble() - 0.5) * 0.2, 0, 0.03, 0);
 				}
 			}
 		}

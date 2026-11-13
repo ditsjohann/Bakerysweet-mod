@@ -45,7 +45,11 @@ public final class CakeGeometry {
 	/** Whether the point (x, z) lies inside a tier of radius r. The heart points towards +z (the front). */
 	public static boolean inside(int shape, float x, float z, float r) {
 		return switch (shape) {
-			case SQUARE -> Math.abs(x) <= r * 0.9f && Math.abs(z) <= r * 0.9f;
+			case SQUARE -> {
+				// A soft square: a superellipse, so the corners are gently rounded.
+				float h = r * 0.92f, ax = Math.abs(x) / h, az = Math.abs(z) / h;
+				yield ax * ax * ax * ax * ax * ax + az * az * az * az * az * az <= 1;
+			}
 			case HEART -> {
 				float lx = x - r * 0.45f, rx = x + r * 0.45f, lz = z + r * 0.25f;
 				float lobe = r * 0.6f;

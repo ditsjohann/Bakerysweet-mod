@@ -185,13 +185,22 @@ public final class BakeryDemo {
 		NbtCompound ov = new NbtCompound();
 		ov.putInt("fuel", 20000);
 		ov.putFloat("heat", 62);
-		ov.put("slot0", stack(world, new ItemStack(BakeryItems.RAW_CUPCAKE)));
-		ov.putInt("progress0", 30000);
-		ov.put("slot1", stack(world, new ItemStack(BakeryItems.RAW_LOAF)));
-		ov.putInt("progress1", 54000);
-		ov.put("slot2", stack(world, new ItemStack(BakeryItems.RAW_CROISSANT)));
-		ov.putInt("progress2", 10000);
+		// Door down and the rack pulled out: a pie (2x2), a loaf (1x2) and a tray of cookies waiting to be flipped.
+		net.minecraft.nbt.NbtList bakes = new net.minecraft.nbt.NbtList();
+		Object[][] onRack = {{BakeryItems.RAW_PIE, 0, 0, 2, 2, 60000}, {BakeryItems.RAW_LOAF, 2, 0, 1, 2, 54000},
+				{BakeryItems.RAW_COOKIES, 2, 2, 1, 1, 15000}, {BakeryItems.RAW_CUPCAKE, 0, 2, 1, 1, 38000}, {BakeryItems.RAW_SUGAR_COOKIE, 1, 2, 1, 1, 5000}};
+		for (Object[] b : onRack) {
+			NbtCompound bake = new NbtCompound();
+			bake.put("item", stack(world, new ItemStack((net.minecraft.item.Item) b[0])));
+			bake.putIntArray("cell", new int[]{(int) b[1], (int) b[2], (int) b[3], (int) b[4]});
+			bake.putInt("progress", (int) b[5]);
+			bakes.add(bake);
+		}
+		ov.put("bakes", bakes);
+		ov.putBoolean("doorOpen", true);
+		ov.putBoolean("rackOut", true);
 		nbt(world, oven, ov);
+		set(world, oven.offset(s, 2), BakeryBlocks.OVEN_RACK.getDefaultState().with(com.bakery.oven.OvenRackBlock.FACING, s));
 		BlockPos mill = o.add(8, 0, -6);
 		set(world, mill, BakeryBlocks.GRAND_MILLSTONE.getDefaultState().with(DecoBlock.FACING, s));
 		NbtCompound ml = new NbtCompound();
@@ -229,8 +238,16 @@ public final class BakeryDemo {
 		set(world, o.add(21, 0, -6), BakeryBlocks.CAFE_TABLE.getDefaultState());
 		set(world, o.add(21, 0, -5), BakeryBlocks.CAFE_CHAIR.getDefaultState().with(DecoBlock.FACING, Direction.NORTH));
 		set(world, o.add(27, 0, -6), BakeryBlocks.PARASOL_TABLE.getDefaultState());
-		set(world, o.add(28, 0, -6), BakeryBlocks.PINK_LOVESEAT.getDefaultState().with(DecoBlock.FACING, Direction.WEST));
+		for (int i = 0; i < 3; i++) {
+			set(world, o.add(26 + i, 0, -3), BakeryBlocks.PINK_COUCH.getDefaultState().with(DecoBlock.FACING, Direction.NORTH));
+		}
+		for (int i = 0; i < 3; i++) {
+			BlockPos p = o.add(26 + i, 0, -3);
+			set(world, p, Block.postProcessState(world.getBlockState(p), world, p));
+		}
 		if (world.getBlockEntity(counter) instanceof CounterBlockEntity shop) {
+			// The walking path: in at the front (z = 2), up to the counter.
+			shop.setPath(List.of(o.add(22, 0, 2), o.add(24, 0, 0), o.add(24, 0, -9)));
 			for (int i = 0; i < 2; i++) {
 				if (shop.callCustomer()) {
 					CustomerEntity customer = world.getEntitiesByClass(CustomerEntity.class, new net.minecraft.util.math.Box(counter).expand(40),

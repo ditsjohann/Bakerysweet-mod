@@ -65,6 +65,7 @@ public final class Catalog {
 			add(list, c, BakeryItems.MILLSTONE_CORE, 1, 8, l1);
 			add(list, c, Items.STONE_BRICKS, 9, 3, l1);
 			add(list, c, Items.COBBLESTONE_WALL, 4, 2, l1);
+			add(list, c, BakeryItems.PATH_RIBBON, 1, 1, l1);
 			add(list, c, BakeryItems.SERVICE_BELL, 1, 5, l1);
 			add(list, c, BakeryItems.JUICER, 1, 10, l2);
 			add(list, c, BakeryItems.DISPLAY_CASE, 1, 14, l2);
@@ -80,8 +81,7 @@ public final class Catalog {
 			add(list, c, BakeryItems.GLASS_JAR, 4, 3, l3);
 			add(list, c, BakeryItems.WAX_PAPER, 8, 4, l3);
 			add(list, c, BakeryItems.ICE_CREAM_CHURN, 1, 16, l4);
-			add(list, c, BakeryItems.FOUNTAIN_CORE, 1, 18, l4);
-			add(list, c, Items.WHITE_TERRACOTTA, 9, 5, l4);
+			add(list, c, BakeryItems.CHOCOLATE_FOUNTAIN, 1, 22, l4);
 			add(list, c, BakeryItems.FROST_WRAP, 8, 6, l4);
 			add(list, c, BakeryItems.CAKE_TURNTABLE, 1, 15, l4);
 			add(list, c, BakeryItems.ROUND_CAKE_MOLD, 1, 6, l4);
@@ -164,7 +164,7 @@ public final class Catalog {
 			add(list, c, BakeryItems.TEA_SET, 1, 7, l2);
 			add(list, c, BakeryItems.COOKIE_JAR, 1, 6, l2);
 			add(list, c, BakeryItems.CUPCAKE_LAMP, 1, 8, l3);
-			add(list, c, BakeryItems.PINK_LOVESEAT, 1, 14, l3);
+			add(list, c, BakeryItems.PINK_COUCH, 1, 8, l2);
 			add(list, c, BakeryItems.HEART_MIRROR, 1, 10, l3);
 			add(list, c, BakeryItems.DONUT_WALL, 1, 10, l3);
 			add(list, c, BakeryItems.CAKE_SHELF, 1, 12, l3);

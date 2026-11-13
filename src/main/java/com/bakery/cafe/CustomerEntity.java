@@ -52,7 +52,9 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * A café customer. Walks in from somewhere nearby, queues at the counter showing what they'd like, and waits
+ * A café customer. Walks in through the bakery's entrance along the path the baker laid (see
+ * {@link com.bakery.shop.CustomerPath}), joins the line on it showing what they'd like, moves up as the people in
+ * front are served, and waits
  * (not forever). Once served they either take it to go, or find a free café chair, sit down and eat or drink,
  * leave a little tip on the table and head home.
  */
@@ -70,6 +72,12 @@ public class CustomerEntity extends PathAwareEntity {
 	private int stuck;
 	private int tip;
 	private Vec3d lastPos = Vec3d.ZERO;
+	/** Path points still to walk through on the way in, and on the way out. */
+	private final List<BlockPos> route = new java.util.ArrayList<>();
+	private final List<BlockPos> exitRoute = new java.util.ArrayList<>();
+	private int routeIndex;
+	private int exitIndex;
+	private int queueIndex = -1;
 
 	public CustomerEntity(EntityType<? extends PathAwareEntity> type, World world) {
 		super(type, world);
@@ -130,7 +138,57 @@ public class CustomerEntity extends PathAwareEntity {
 		return spot;
 	}
 
-	/** Makes a new customer for a counter, standing somewhere they can walk in from. */
+	/**
+	 * Makes a new customer for a counter with a walking path: they appear just outside the entrance, walk in along
+	 * the path and take place {@code queueIndex} in the line.
+	 */
+	public static CustomerEntity create(ServerWorld world, BlockPos counterPos, List<BlockPos> path, int queueIndex, Regular regular) {
+		CustomerEntity customer = new CustomerEntity(BakeryEntities.CUSTOMER, world);
+		customer.dataTracker.set(REGULAR, regular.index());
+		customer.counter = counterPos.toImmutable();
+		customer.setCustomName(regular.displayName());
+		customer.queueAt(queueIndex, path);
+		BlockPos start = customer.outside(world, path);
+		customer.exit = start;
+		customer.refreshPositionAndAngles(start.getX() + 0.5, start.getY(), start.getZ() + 0.5, world.random.nextFloat() * 360, 0);
+		return customer;
+	}
+
+	/** A spot a few steps outside the entrance (away from the path), so customers walk in through the door. */
+	private BlockPos outside(ServerWorld world, List<BlockPos> path) {
+		BlockPos entrance = path.getFirst();
+		BlockPos next = path.size() > 1 ? path.get(1) : counter;
+		int dx = Integer.signum(entrance.getX() - next.getX()), dz = Integer.signum(entrance.getZ() - next.getZ());
+		if (Math.abs(entrance.getX() - next.getX()) > Math.abs(entrance.getZ() - next.getZ())) dz = 0;
+		else dx = 0;
+		BlockPos best = entrance;
+		for (int step = 1; step <= 5; step++) {
+			BlockPos ground = standable(world, entrance.add(dx * step, 0, dz * step));
+			if (ground == null || Math.abs(ground.getY() - entrance.getY()) > 1) break;
+			best = ground;
+		}
+		return best;
+	}
+
+	/** Takes place {@code index} in the line (0 = at the counter); called again whenever the line moves up. */
+	public void queueAt(int index, List<BlockPos> path) {
+		if (index == queueIndex || path.size() < 2) return;
+		queueIndex = index;
+		spot = com.bakery.shop.CustomerPath.queueSpot(path, index);
+		if (state() == ARRIVING) {
+			List<BlockPos> left = com.bakery.shop.CustomerPath.routeTo(path, index);
+			int done = Math.min(routeIndex, left.size());
+			route.clear();
+			route.addAll(left);
+			routeIndex = done;
+		}
+	}
+
+	public int queueIndex() {
+		return queueIndex;
+	}
+
+	/** Makes a new customer for a counter, standing somewhere they can walk in from (no path: used by the showroom). */
 	public static CustomerEntity create(ServerWorld world, BlockPos counterPos, BlockPos spot, Regular regular) {
 		CustomerEntity customer = new CustomerEntity(BakeryEntities.CUSTOMER, world);
 		customer.dataTracker.set(REGULAR, regular.index());
@@ -186,6 +244,11 @@ public class CustomerEntity extends PathAwareEntity {
 			case ARRIVING -> {
 				if (!counterStillWants()) {
 					leave();
+				} else if (routeIndex < route.size()) {
+					// Follow the path in, turn by turn.
+					BlockPos next = route.get(routeIndex);
+					if (horizontalDistance(next) < 1.6) routeIndex++;
+					else walkTo(next, true);
 				} else if (spot != null && squaredDistanceTo(Vec3d.ofBottomCenter(spot)) < 1.1) {
 					getNavigation().stop();
 					setState(WAITING);
@@ -198,7 +261,9 @@ public class CustomerEntity extends PathAwareEntity {
 					leave();
 					return;
 				}
-				if (squaredDistanceTo(Vec3d.ofBottomCenter(spot)) > 2.5) walkTo(spot, false);
+				// Shuffle up the line when someone ahead is served.
+				if (squaredDistanceTo(Vec3d.ofBottomCenter(spot)) > 0.7) walkTo(spot, false);
+				else getNavigation().stop();
 				getLookControl().lookAt(counter.getX() + 0.5, counter.getY() + 1.2, counter.getZ() + 0.5);
 			}
 			case TO_SEAT -> {
@@ -231,7 +296,13 @@ public class CustomerEntity extends PathAwareEntity {
 				if (timer > 360) finishEating(world);
 			}
 			case LEAVING -> {
-				if (exit == null || squaredDistanceTo(Vec3d.ofBottomCenter(exit)) < 2.5 || timer > 700) {
+				if (exitIndex < exitRoute.size()) {
+					// Back out along the path and through the door.
+					BlockPos next = exitRoute.get(exitIndex);
+					if (horizontalDistance(next) < 1.6) exitIndex++;
+					else walkTo(next, true);
+					if (timer > 900) discard();
+				} else if (exit == null || squaredDistanceTo(Vec3d.ofBottomCenter(exit)) < 2.5 || timer > 700) {
 					discard();
 				} else {
 					walkTo(exit, false);
@@ -245,6 +316,11 @@ public class CustomerEntity extends PathAwareEntity {
 	private boolean counterStillWants() {
 		if (counter == null || !(getWorld().getBlockEntity(counter) instanceof CounterBlockEntity table)) return false;
 		return table.find(getUuid()) != null;
+	}
+
+	private double horizontalDistance(BlockPos target) {
+		double dx = getX() - (target.getX() + 0.5), dz = getZ() - (target.getZ() + 0.5);
+		return Math.sqrt(dx * dx + dz * dz) + Math.abs(getY() - target.getY()) * 0.5;
 	}
 
 	/** Walks somewhere; if stuck for a long time on the way in, hops there so a customer never gets lost forever. */
@@ -285,6 +361,11 @@ public class CustomerEntity extends PathAwareEntity {
 		if (state() == LEAVING) return;
 		stopRiding();
 		setState(LEAVING);
+		exitRoute.clear();
+		exitIndex = 0;
+		if (counter != null && getWorld().getBlockEntity(counter) instanceof CounterBlockEntity table && table.hasPath()) {
+			exitRoute.addAll(com.bakery.shop.CustomerPath.routeOut(table.getPath(), getBlockPos()));
+		}
 	}
 
 	private BlockPos freeChair(ServerWorld world) {
@@ -417,6 +498,11 @@ public class CustomerEntity extends PathAwareEntity {
 		if (exit != null) nbt.put("Exit", NbtHelper.fromBlockPos(exit));
 		if (seat != null) nbt.put("Seat", NbtHelper.fromBlockPos(seat));
 		nbt.putInt("Tip", tip);
+		nbt.putLongArray("Route", route.stream().mapToLong(BlockPos::asLong).toArray());
+		nbt.putLongArray("ExitRoute", exitRoute.stream().mapToLong(BlockPos::asLong).toArray());
+		nbt.putInt("RouteIndex", routeIndex);
+		nbt.putInt("ExitIndex", exitIndex);
+		nbt.putInt("QueueIndex", queueIndex);
 	}
 
 	@Override
@@ -429,6 +515,13 @@ public class CustomerEntity extends PathAwareEntity {
 		exit = NbtHelper.toBlockPos(nbt, "Exit").orElse(null);
 		seat = NbtHelper.toBlockPos(nbt, "Seat").orElse(null);
 		tip = nbt.getInt("Tip");
+		route.clear();
+		for (long l : nbt.getLongArray("Route")) route.add(BlockPos.fromLong(l));
+		exitRoute.clear();
+		for (long l : nbt.getLongArray("ExitRoute")) exitRoute.add(BlockPos.fromLong(l));
+		routeIndex = nbt.getInt("RouteIndex");
+		exitIndex = nbt.getInt("ExitIndex");
+		queueIndex = nbt.contains("QueueIndex") ? nbt.getInt("QueueIndex") : -1;
 		// Seats are not saved, so someone who was eating gets up and goes home.
 		dataTracker.set(STATE, state == EATING || state == TO_SEAT ? LEAVING : state);
 	}

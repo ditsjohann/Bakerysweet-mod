@@ -55,13 +55,14 @@ public final class BakeryBlocks {
 	// Buildable machines (built from blocks, then tapped with the Sweetheart Spatula)
 	public static final Block OVEN_HEART = register("oven_heart", new CoreBlock(AbstractBlock.Settings.copy(Blocks.BRICKS).strength(2.0f, 6.0f), () -> Multiblock.OVEN));
 	public static final Block MILLSTONE_CORE = register("millstone_core", new CoreBlock(AbstractBlock.Settings.copy(Blocks.STONE_BRICKS), () -> Multiblock.MILLSTONE));
-	public static final Block FOUNTAIN_CORE = register("fountain_core", new CoreBlock(AbstractBlock.Settings.copy(Blocks.WHITE_TERRACOTTA), () -> Multiblock.FOUNTAIN));
 	public static final Block GRAND_OVEN = register("grand_oven", new GrandOvenBlock(AbstractBlock.Settings.copy(Blocks.BRICKS)
 			.strength(2.0f, 6.0f).nonOpaque().dropsNothing().luminance(state -> state.get(GrandOvenBlock.LIT) ? 14 : 0)));
 	public static final Block GRAND_MILLSTONE = register("grand_millstone", new MachineBlock(AbstractBlock.Settings.copy(Blocks.STONE_BRICKS).nonOpaque(),
 			() -> Multiblock.MILLSTONE, MillstoneBlockEntity::new, () -> BakeryBlockEntities.MILLSTONE));
-	public static final Block CHOCOLATE_FOUNTAIN = register("chocolate_fountain", new MachineBlock(AbstractBlock.Settings.copy(Blocks.WHITE_TERRACOTTA).nonOpaque()
-			.luminance(state -> 4), () -> Multiblock.FOUNTAIN, FountainBlockEntity::new, () -> BakeryBlockEntities.FOUNTAIN));
+	public static final Block CHOCOLATE_FOUNTAIN = register("chocolate_fountain", new com.bakery.oven.FountainBlock(AbstractBlock.Settings.copy(Blocks.WHITE_TERRACOTTA)
+			.strength(1.2f).nonOpaque().luminance(state -> 4)));
+	public static final Block OVEN_RACK = register("oven_rack", new com.bakery.oven.OvenRackBlock(AbstractBlock.Settings.copy(Blocks.IRON_BARS)
+			.strength(0.5f).nonOpaque().dropsNothing().noCollision()));
 	public static final Block MULTIBLOCK_PART = register("multiblock_part", new MultiblockPartBlock(AbstractBlock.Settings.copy(Blocks.BRICKS)
 			.strength(2.0f, 6.0f).nonOpaque().suffocates((s, w, p) -> false).blockVision((s, w, p) -> false)));
 
@@ -135,7 +136,7 @@ public final class BakeryBlocks {
 			box(0, 9, 6, 16, 16, 16), true));
 
 	// Cozy update: indoor decor
-	public static final Block PINK_LOVESEAT = register("pink_loveseat", new ChairBlock(fabric(), VoxelShapes.union(box(1, 0, 2, 15, 8, 15), box(1, 8, 12, 15, 16, 15))));
+	public static final Block PINK_COUCH = register("pink_couch", new com.bakery.deco.CouchBlock(fabric(), VoxelShapes.union(box(0, 0, 1.5, 16, 9, 15.5), box(0, 9, 11.5, 16, 16.5, 15.5))));
 	public static final Block MACARON_POUF = register("macaron_pouf", new ChairBlock(fabric(), box(2, 0, 2, 14, 9, 14)));
 	public static final Block HEART_MIRROR = register("heart_mirror", new DecoBlock(AbstractBlock.Settings.copy(Blocks.WHITE_TERRACOTTA).nonOpaque().noCollision()
 			.strength(0.5f), box(2, 1, 15, 14, 15, 16), true));
@@ -173,7 +174,7 @@ public final class BakeryBlocks {
 	public static final Block PASTRY_CART = register("pastry_cart", new DecoBlock(wood(), box(0, 0, 2, 16, 16, 14), false));
 	public static final Block WELCOME_MAT = register("welcome_mat", new DecoBlock(AbstractBlock.Settings.copy(Blocks.PINK_CARPET).nonOpaque(), box(0, 0, 1, 16, 1, 15), false));
 	/** Every Cozy update decor piece (render layers, Charm, catalog). */
-	public static final Block[] COZY_DECOR = {PINK_LOVESEAT, MACARON_POUF, HEART_MIRROR, NEON_HEART_SIGN, BUNNY_PLUSH, BEAR_PLUSH, TULIP_VASE, TEA_SET,
+	public static final Block[] COZY_DECOR = {PINK_COUCH, MACARON_POUF, HEART_MIRROR, NEON_HEART_SIGN, BUNNY_PLUSH, BEAR_PLUSH, TULIP_VASE, TEA_SET,
 			CAKE_SHELF, DONUT_WALL, LACE_CURTAINS, STAR_LIGHTS, CASH_REGISTER, TIP_JAR, OPEN_SIGN, CHALKBOARD_SIGN, PASTEL_BENCH, FLOWER_BOX,
 			HEART_LAMP_POST, PARASOL_TABLE, TULIP_POT, HANGING_FLOWERS, BUNNY_STATUE, PINK_MAILBOX, PASTRY_CART, WELCOME_MAT};
 

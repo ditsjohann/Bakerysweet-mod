@@ -84,6 +84,7 @@ public final class BakeryEvents {
 			ServerPlayerEntity player = handler.getPlayer();
 			if (player.getCommandTags().add("bakery_starter")) {
 				player.getInventory().offerOrDrop(new ItemStack(BakeryItems.BAKERY_CATALOG));
+				player.getInventory().offerOrDrop(new ItemStack(BakeryItems.PATH_RIBBON));
 				player.getInventory().offerOrDrop(new ItemStack(BakeryItems.SWEET_COIN, STARTING_COINS));
 				player.sendMessage(Text.translatable("message.bakery.welcome").formatted(Formatting.LIGHT_PURPLE), false);
 			}

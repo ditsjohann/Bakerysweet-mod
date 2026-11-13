@@ -19,6 +19,7 @@ import java.util.Deque;
  * wait &lt;ticks&gt;       wait
  * cam x y z yaw pitch  move the player (spectator) there
  * shot &lt;name&gt;        save run/screenshots/&lt;name&gt;.png
+ * gui catalog|guide|menu   open a screen; key left|right|up|down [n]   press keys on it; close
  * quit
  * </pre>
  */
@@ -83,6 +84,20 @@ public final class Showcase {
 					});
 					client.options.hudHidden = false;
 					wait = 20;
+				}
+				case "key" -> {
+					// Presses a key on the open screen n times: "key right 3", "key down 1".
+					String[] k = arg.split(" ");
+					int code = switch (k[0]) {
+						case "left" -> org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT;
+						case "up" -> org.lwjgl.glfw.GLFW.GLFW_KEY_UP;
+						case "down" -> org.lwjgl.glfw.GLFW.GLFW_KEY_DOWN;
+						default -> org.lwjgl.glfw.GLFW.GLFW_KEY_RIGHT;
+					};
+					for (int i = 0; i < (k.length > 1 ? Integer.parseInt(k[1]) : 1); i++) {
+						if (client.currentScreen != null) client.currentScreen.keyPressed(code, 0, 0);
+					}
+					wait = 5;
 				}
 				case "close" -> {
 					client.setScreen(null);

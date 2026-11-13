@@ -33,13 +33,11 @@ import java.util.function.Consumer;
  * <pre>
  * Grand Brick Oven      bottom: 3x3 bricks   middle: bricks ring, Oven Heart in front, empty chamber   top: plus of bricks
  * Grand Millstone       bottom: 3x3 stone bricks   middle: Millstone Core with a cobblestone wall on each side
- * Chocolate Fountain    bottom: 3x3 white terracotta   middle: Fountain Core   top: a gold block on the core
  * </pre>
  */
 public enum Multiblock {
 	OVEN("grand_oven"),
-	MILLSTONE("grand_millstone"),
-	FOUNTAIN("chocolate_fountain");
+	MILLSTONE("grand_millstone");
 
 	public static final TagKey<Block> OVEN_BRICKS = TagKey.of(RegistryKeys.BLOCK, Bakery.id("oven_bricks"));
 	private static final DustParticleEffect MISSING = new DustParticleEffect(new Vector3f(1f, 0.45f, 0.65f), 1.4f);
@@ -79,7 +77,6 @@ public enum Multiblock {
 		return switch (this) {
 			case OVEN -> BakeryBlocks.OVEN_HEART;
 			case MILLSTONE -> BakeryBlocks.MILLSTONE_CORE;
-			case FOUNTAIN -> BakeryBlocks.FOUNTAIN_CORE;
 		};
 	}
 
@@ -87,7 +84,6 @@ public enum Multiblock {
 		return switch (this) {
 			case OVEN -> BakeryBlocks.GRAND_OVEN;
 			case MILLSTONE -> BakeryBlocks.GRAND_MILLSTONE;
-			case FOUNTAIN -> BakeryBlocks.CHOCOLATE_FOUNTAIN;
 		};
 	}
 
@@ -116,13 +112,6 @@ public enum Multiblock {
 						slots.add(new Slot(column.down(), Role.STONE));
 						if (middle) slots.add(new Slot(column, Role.CORE));
 						else if (cross) slots.add(new Slot(column, Role.WALL));
-					}
-					case FOUNTAIN -> {
-						slots.add(new Slot(column.down(), Role.TERRACOTTA));
-						if (middle) {
-							slots.add(new Slot(column, Role.CORE));
-							slots.add(new Slot(column.up(), Role.GOLD));
-						}
 					}
 				}
 			}

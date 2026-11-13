@@ -99,7 +99,8 @@ public final class KitchenRenderers {
 				float top = 3.2f + juicer.juice() * 1.55f;
 				VertexConsumer glass = PixelBox.translucent(consumers);
 				Sprite liquid = PixelBox.sprite("juice_liquid");
-				PixelBox.box(glass, matrices, 4.6f, 3.1f, 4.6f, 11.4f, top, 11.4f, 0xD0000000 | color, liquid, liquid, light, overlay);
+				PixelBox.tube(glass, matrices, 8, 8, 3.55f, 3.1f, top, 16, 0xD0000000 | color, liquid, light, overlay);
+				PixelBox.disc(glass, matrices, 8, top, 8, 3.55f, 16, 0xD0000000 | color, liquid, true, light, overlay);
 			}
 			// A trickle of juice for a moment after each press.
 			if (juicer.loaded() && push > 0) {
@@ -211,27 +212,27 @@ public final class KitchenRenderers {
 					}
 					if (pot.sugar()) {
 						Sprite sugar = PixelBox.sprite("cake_piping");
-						PixelBox.box(vc, matrices, 4.5f, 1, 4.5f, 11.5f, 1.6f, 11.5f, 0xFFFAF4, sugar, sugar, light, overlay);
+						PixelBox.blob(vc, matrices, 8, 1.0f, 8, 3.6f, 0.9f, 3.6f, 3, 14, 0.5f, 0xFFFAF4, sugar, light, overlay);
 					}
 				}
 				case JamPotBlockEntity.COOKING -> {
 					// Jam cooking down: it thickens and darkens if you forget to stir.
 					int c = mix(color, 0x5A2A20, pot.scorch() * 0.55f);
 					float level = 3.5f + pot.cookProgress() * 2.5f + MathHelper.sin(time * 0.4f) * 0.15f;
-					PixelBox.box(vc, matrices, 4, 1, 4, 12, level, 12, c, jam, jam, LightmapTextureManager.pack(Math.max(6, LightmapTextureManager.getBlockLightCoordinates(light)), LightmapTextureManager.getSkyLightCoordinates(light)), overlay);
+					PixelBox.disc(vc, matrices, 8, level, 8, 5.05f, 20, c, jam, true, LightmapTextureManager.pack(Math.max(6, LightmapTextureManager.getBlockLightCoordinates(light)), LightmapTextureManager.getSkyLightCoordinates(light)), overlay);
 					// Big slow bubbles.
 					for (int i = 0; i < 3; i++) {
 						float phase = (time * 0.05f + i * 0.33f) % 1f;
 						float size = phase * 1.6f;
 						float x = 5.5f + (i * 31 % 40) / 10f, z = 5.5f + (i * 17 % 40) / 10f;
-						PixelBox.box(vc, matrices, x - size / 2, level - 0.2f, z - size / 2, x + size / 2, level + size * 0.6f, z + size / 2, mix(c, 0xFFFFFF, 0.2f), jam, jam, light, overlay);
+						PixelBox.blob(vc, matrices, x, level - 0.1f, z, size / 2 + 0.05f, size * 0.45f + 0.05f, size / 2 + 0.05f, 3, 8, 0.5f, mix(c, 0xFFFFFF, 0.2f), jam, light, overlay);
 					}
 				}
 				case JamPotBlockEntity.DONE -> {
 					float level = 2.5f + pot.servings() * 1.3f;
-					PixelBox.box(vc, matrices, 4, 1, 4, 12, level, 12, mix(color, 0xFFFFFF, 0.1f), jam, jam, light, overlay);
+					PixelBox.disc(vc, matrices, 8, level, 8, 5.05f, 20, mix(color, 0xFFFFFF, 0.1f), jam, true, light, overlay);
 				}
-				case JamPotBlockEntity.BURNT -> PixelBox.box(vc, matrices, 4, 1, 4, 12, 4.5f, 12, 0x2E1A16, jam, jam, light, overlay);
+				case JamPotBlockEntity.BURNT -> PixelBox.disc(vc, matrices, 8, 4.5f, 8, 5.05f, 20, 0x2E1A16, jam, true, light, overlay);
 				default -> {
 				}
 			}
@@ -377,35 +378,34 @@ public final class KitchenRenderers {
 			Sprite pool = PixelBox.sprite("fountain/chocolate_pool");
 			int c = 0xFFFFFF;
 			float full = choc / (float) FountainBlockEntity.MAX_CHOCOLATE;
-			// The pool in the basin fills up with melted chocolate.
-			float poolTop = 1.2f + full * 2.3f;
-			PixelBox.box(vc, matrices, -12, 1, -12, 28, poolTop, 28, c, pool, pool, light, overlay);
-			// Chocolate welling up out of the crown...
-			float well = MathHelper.sin(time * 0.3f) * 0.3f;
-			PixelBox.box(vc, matrices, 6.5f, 26, 6.5f, 9.5f, 31 + well, 9.5f, c, flow, pool, light, overlay);
-			// ...pooling on each tier and pouring over the edges in curtains.
-			curtain(vc, matrices, 2, 14, 18, 12, flow, pool, light, overlay);
-			curtain(vc, matrices, -2, 18, 10, poolTop, flow, pool, light, overlay);
+			// The basin fills up with melted chocolate.
+			float level = 3.05f + full * 1.4f;
+			PixelBox.disc(vc, matrices, 8, level, 8, 6.7f, 24, c, pool, true, light, overlay);
+			// Chocolate wells up out of the crown, coats each tier and pours over its gold lip in a smooth round curtain.
+			float well = MathHelper.sin(time * 0.3f) * 0.25f;
+			PixelBox.blob(vc, matrices, 8, 21.6f + well, 8, 1.35f, 0.9f, 1.35f, 4, 12, 0.5f, c, flow, light, overlay);
+			PixelBox.tube(vc, matrices, 8, 8, 1.3f, 19.0f, 21.8f + well, 12, c, flow, light, overlay);
+			// Each tier: a glossy pool inside its gold lip, and a curtain pouring from just under the lip.
+			sheet(vc, matrices, 2.1f, 19.05f, 2.85f, 18.8f, 14.95f, flow, pool, light, overlay, time, 0);
+			sheet(vc, matrices, 3.6f, 14.75f, 4.45f, 14.4f, 9.45f, flow, pool, light, overlay, time, 1);
+			sheet(vc, matrices, 5.2f, 9.25f, 6.15f, 8.8f, level, flow, pool, light, overlay, time, 2);
 		}
 
 		/**
-		 * A tier (x/z from lo to hi, top at {@code top}): a glossy layer of chocolate on top, and thin streams
-		 * running over the rim all the way round, down to {@code to}.
+		 * A tier holding a glossy pool of chocolate (radius {@code poolR} at {@code poolY}, inside the gold lip) and the
+		 * round curtain pouring off it (radius {@code curtainR}) from {@code top} down to {@code to}.
 		 */
-		private static void curtain(VertexConsumer vc, MatrixStack matrices, float lo, float hi, float top, float to, Sprite flow, Sprite pool, int light, int overlay) {
+		private static void sheet(VertexConsumer vc, MatrixStack matrices, float poolR, float poolY, float curtainR, float top, float to, Sprite flow, Sprite pool,
+								  int light, int overlay, float time, int tier) {
 			int c = 0xFFFFFF;
-			PixelBox.box(vc, matrices, lo + 0.6f, top + 2, lo + 0.6f, hi - 0.6f, top + 2.35f, hi - 0.6f, c, pool, pool, light, overlay);
-			float t = 0.45f, w = 1.1f;
-			for (float a = lo + 1; a < hi - 0.5f; a += 2.6f) {
-				float len = (top + 2.2f - to) * (0.75f + ((int) (a * 7) % 4) * 0.08f);
-				float bottom = top + 2.2f - len;
-				// a little rim drip on every side, plus a full stream on every other one
-				PixelBox.box(vc, matrices, a, bottom, lo - t, a + w, top + 2.3f, lo, c, flow, pool, light, overlay);
-				PixelBox.box(vc, matrices, a, bottom, hi, a + w, top + 2.3f, hi + t, c, flow, pool, light, overlay);
-				PixelBox.box(vc, matrices, lo - t, bottom, a, lo, top + 2.3f, a + w, c, flow, pool, light, overlay);
-				PixelBox.box(vc, matrices, hi, bottom, a, hi + t, top + 2.3f, a + w, c, flow, pool, light, overlay);
-			}
+			PixelBox.disc(vc, matrices, 8, poolY, 8, poolR, 20, c, pool, true, light, overlay);
+			// The curtain flares out a touch as it falls, with a gentle ripple.
+			float ripple = MathHelper.sin(time * 0.25f + tier) * 0.08f;
+			float mid = (top + to) / 2;
+			PixelBox.tube(vc, matrices, 8, 8, curtainR + ripple, mid, top, 20, c, flow, light, overlay);
+			PixelBox.tube(vc, matrices, 8, 8, curtainR + 0.25f + ripple, to, mid + 0.05f, 20, c, flow, light, overlay);
 		}
+
 		@Override
 		public boolean rendersOutsideBoundingBox(FountainBlockEntity fountain) {
 			return true;

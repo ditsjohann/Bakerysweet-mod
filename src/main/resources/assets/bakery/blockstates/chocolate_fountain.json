@@ -1,12 +1,10 @@
 {
 	"variants": {
 		"facing=north,active=false": {
-			"model": "bakery:block/chocolate_fountain",
-			"y": 0
+			"model": "bakery:block/chocolate_fountain"
 		},
 		"facing=north,active=true": {
-			"model": "bakery:block/chocolate_fountain_active",
-			"y": 0
+			"model": "bakery:block/chocolate_fountain_active"
 		},
 		"facing=east,active=false": {
 			"model": "bakery:block/chocolate_fountain",

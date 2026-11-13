@@ -10,6 +10,7 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
@@ -20,11 +21,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
-import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
 
 /**
- * Everything you need to read the oven, right on the oven: bakes on the floor puffing up and turning golden,
+ * Everything you need to read the oven, right on the oven: the iron door and wire rack sliding in and out, bakes on
+ * the rack puffing up, turning golden and flipping over,
  * logs in the firebox and flames that grow and shrink with the heat, and a heat gauge on the front whose needle
  * swings with the fire (the green notch is the sweet spot for what's inside).
  */
@@ -36,38 +37,120 @@ public class GrandOvenRenderer implements BlockEntityRenderer<GrandOvenBlockEnti
 	public void render(GrandOvenBlockEntity oven, float tickDelta, MatrixStack matrices, VertexConsumerProvider consumers, int light, int overlay) {
 		Direction facing = oven.getCachedState().get(GrandOvenBlock.FACING);
 		boolean lit = oven.getCachedState().get(GrandOvenBlock.LIT);
-		int glow = lit ? LightmapTextureManager.MAX_LIGHT_COORDINATE : light;
 		MinecraftClient client = MinecraftClient.getInstance();
-		for (int i = 0; i < GrandOvenBlockEntity.SLOTS; i++) {
-			ItemStack stack = oven.getSlot(i);
-			if (stack.isEmpty()) {
-				continue;
-			}
-			float doneness = oven.doneness(i, tickDelta);
+		float rack = oven.rackAmount(tickDelta);
+		float door = oven.doorAmount(tickDelta);
+		// Out on the rack the bakes get the light of the kitchen; inside they glow with the fire.
+		int outside = oven.getWorld() == null ? light : WorldRenderer.getLightmapCoordinates(oven.getWorld(), oven.rackPos());
+		int rackLight = rack > 0.5f ? outside : lit ? LightmapTextureManager.MAX_LIGHT_COORDINATE : light;
+		float time = (oven.getWorld() == null ? 0 : oven.getWorld().getTime()) + tickDelta;
+
+		matrices.push();
+		PixelBox.orient(matrices, facing);
+		float front = MathHelper.lerp(rack, GrandOvenBlockEntity.RACK_FRONT_IN, GrandOvenBlockEntity.RACK_FRONT_OUT);
+		renderRack(matrices, consumers, front, rackLight, overlay);
+		float cellW = GrandOvenBlockEntity.RACK_W / GrandOvenBlockEntity.COLS, cellD = GrandOvenBlockEntity.RACK_D / GrandOvenBlockEntity.ROWS;
+		int index = 0;
+		for (GrandOvenBlockEntity.Bake bake : oven.getBakes()) {
+			ItemStack stack = bake.stack;
+			float doneness = oven.doneness(bake, tickDelta);
 			ItemStack shown = stack;
 			BakingRecipes.Shape shape = BakingRecipes.shapeForRaw(stack);
 			if (shape != null && doneness >= 0.85f) {
 				shown = new ItemStack(shape.baked());
-				if (stack.contains(BakeryComponents.FLAVOR)) {
-					shown.set(BakeryComponents.FLAVOR, stack.get(BakeryComponents.FLAVOR));
-				}
+				if (stack.contains(BakeryComponents.FLAVOR)) shown.set(BakeryComponents.FLAVOR, stack.get(BakeryComponents.FLAVOR));
+				if (stack.contains(BakeryComponents.COOKIE_SHAPE)) shown.set(BakeryComponents.COOKIE_SHAPE, stack.get(BakeryComponents.COOKIE_SHAPE));
 			}
-			float puff = 0.36f + Math.min(doneness, 1f) * 0.08f;
-			Vec3d spot = GrandOvenBlockEntity.slotOffset(facing, i);
+			float cx = GrandOvenBlockEntity.RACK_X + (bake.col + bake.w / 2f) * cellW;
+			float cz = front + (bake.row + bake.h / 2f) * cellD;
+			float size = bake.w == 2 ? 0.56f : bake.h == 3 ? 0.66f : bake.h == 2 ? 0.44f : 0.3f;
+			size *= 1 + Math.min(doneness, 1f) * 0.08f;
+			float lift = 0, roll = 0;
+			float flip = MathHelper.clamp((oven.getWorld() == null ? 0 : oven.getWorld().getTime() - bake.flippedAt + tickDelta) / 10f, 0, 1);
+			if (bake.flipped && flip < 1) {
+				lift = MathHelper.sin(flip * MathHelper.PI) * 3.5f;
+				roll = flip * 180;
+			} else if (bake.flipped) {
+				roll = 180;
+			} else if (oven.wantsFlip(bake)) {
+				// Sizzling: a little jitter so you notice from across the kitchen.
+				lift = Math.abs(MathHelper.sin(time * 1.3f + index)) * 0.35f;
+			}
 			matrices.push();
-			matrices.translate(spot.x, spot.y, spot.z);
-			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180 - facing.asRotation()));
-			matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(90));
-			matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(i * 25 - 25));
-			matrices.scale(puff, puff, puff);
-			client.getItemRenderer().renderItem(shown, ModelTransformationMode.FIXED, glow, overlay, matrices, consumers, oven.getWorld(), i);
+			matrices.translate(cx / 16f, (GrandOvenBlockEntity.RACK_Y + 0.55f + lift) / 16f, cz / 16f);
+			matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(90 + roll));
+			// Long bakes lie along the rack; squares get a small natural twist.
+			float twist = bake.h > bake.w ? -45 : (bake.col * 7 + bake.row * 11) % 21 - 10;
+			matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(twist));
+			matrices.scale(size, size, size);
+			client.getItemRenderer().renderItem(shown, ModelTransformationMode.FIXED, rackLight, overlay, matrices, consumers, oven.getWorld(), index++);
 			matrices.pop();
 		}
-
-		matrices.push();
-		PixelBox.orient(matrices, facing);
+		renderDoor(matrices, consumers, door, lit, light, overlay);
 		renderFire(oven, tickDelta, matrices, consumers, light, overlay);
 		renderGauge(oven, matrices, consumers, light, overlay);
+		matrices.pop();
+	}
+
+	/** The wire rack: a frame, wires running front to back, and cross bars between the squares. */
+	private void renderRack(MatrixStack matrices, VertexConsumerProvider consumers, float front, int light, int overlay) {
+		VertexConsumer vc = PixelBox.solid(consumers);
+		Sprite metal = PixelBox.sprite("metal");
+		int steel = 0xC9CCD6, dark = 0x8E92A0;
+		float x1 = GrandOvenBlockEntity.RACK_X, x2 = x1 + GrandOvenBlockEntity.RACK_W, y = GrandOvenBlockEntity.RACK_Y;
+		float z1 = front, z2 = front + GrandOvenBlockEntity.RACK_D;
+		float t = 0.35f;
+		// Frame and runners
+		PixelBox.box(vc, matrices, x1 - 0.4f, y - 0.5f, z1, x1 + 0.2f, y + 0.3f, z2, steel, metal, metal, light, overlay);
+		PixelBox.box(vc, matrices, x2 - 0.2f, y - 0.5f, z1, x2 + 0.4f, y + 0.3f, z2, steel, metal, metal, light, overlay);
+		PixelBox.box(vc, matrices, x1, y - t, z1, x2, y + t, z1 + 0.5f, steel, metal, metal, light, overlay);
+		PixelBox.box(vc, matrices, x1, y - t, z2 - 0.5f, x2, y + t, z2, steel, metal, metal, light, overlay);
+		// Handle on the front edge
+		PixelBox.box(vc, matrices, x1 + 3, y + 0.3f, z1 - 1.2f, x1 + 3.5f, y + 0.8f, z1, dark, metal, metal, light, overlay);
+		PixelBox.box(vc, matrices, x2 - 3.5f, y + 0.3f, z1 - 1.2f, x2 - 3, y + 0.8f, z1, dark, metal, metal, light, overlay);
+		PixelBox.box(vc, matrices, x1 + 3, y + 0.5f, z1 - 1.6f, x2 - 3, y + 1f, z1 - 1.1f, 0xE8C46A, metal, metal, light, overlay);
+		// Wires
+		for (float x = x1 + 1; x < x2 - 0.5f; x += 1.5f) {
+			PixelBox.box(vc, matrices, x - 0.15f, y - 0.15f, z1, x + 0.15f, y + 0.15f, z2, steel, metal, metal, light, overlay);
+		}
+		float cellD = GrandOvenBlockEntity.RACK_D / GrandOvenBlockEntity.ROWS, cellW = GrandOvenBlockEntity.RACK_W / GrandOvenBlockEntity.COLS;
+		for (int r = 1; r < GrandOvenBlockEntity.ROWS; r++) {
+			float z = z1 + r * cellD;
+			PixelBox.box(vc, matrices, x1, y - 0.2f, z - 0.2f, x2, y + 0.25f, z + 0.2f, dark, metal, metal, light, overlay);
+		}
+		for (int c = 1; c < GrandOvenBlockEntity.COLS; c++) {
+			float x = x1 + c * cellW;
+			PixelBox.box(vc, matrices, x - 0.2f, y - 0.2f, z1, x + 0.2f, y + 0.25f, z2, dark, metal, metal, light, overlay);
+		}
+	}
+
+	/** The iron door, hinged at the bottom of the mouth, with a little window so you can peek at the bakes. */
+	private void renderDoor(MatrixStack matrices, VertexConsumerProvider consumers, float open, boolean lit, int light, int overlay) {
+		VertexConsumer vc = PixelBox.solid(consumers);
+		Sprite metal = PixelBox.sprite("metal");
+		Sprite glass = PixelBox.sprite("case_glass");
+		int iron = 0x4A4650, rim = 0x6A6470, brass = 0xE8C46A;
+		matrices.push();
+		PixelBox.rotateAround(matrices, 8, 1.5f, -16.7f, RotationAxis.POSITIVE_X, -90 * open);
+		float z1 = -16.7f, z2 = -15.7f;
+		PixelBox.box(vc, matrices, 1.2f, 1.5f, z1, 3.4f, 10.2f, z2, iron, metal, metal, light, overlay);
+		PixelBox.box(vc, matrices, 12.6f, 1.5f, z1, 14.8f, 10.2f, z2, iron, metal, metal, light, overlay);
+		PixelBox.box(vc, matrices, 3.4f, 1.5f, z1, 12.6f, 3.6f, z2, iron, metal, metal, light, overlay);
+		PixelBox.box(vc, matrices, 3.4f, 7.8f, z1, 12.6f, 10.2f, z2, iron, metal, metal, light, overlay);
+		// Rivets and a pink heart on the bottom panel
+		for (float x : new float[]{2.3f, 13.7f}) {
+			for (float y : new float[]{2.4f, 9.3f}) {
+				PixelBox.box(vc, matrices, x - 0.3f, y - 0.3f, z1 - 0.3f, x + 0.3f, y + 0.3f, z1, rim, metal, metal, light, overlay);
+			}
+		}
+		PixelBox.box(vc, matrices, 7.2f, 2.0f, z1 - 0.2f, 8.8f, 3.0f, z1, 0xF06A98, metal, metal, light, overlay);
+		// Brass handle
+		PixelBox.box(vc, matrices, 5f, 8.6f, z1 - 1.2f, 5.6f, 9.2f, z1, brass, metal, metal, light, overlay);
+		PixelBox.box(vc, matrices, 10.4f, 8.6f, z1 - 1.2f, 11f, 9.2f, z1, brass, metal, metal, light, overlay);
+		PixelBox.box(vc, matrices, 5f, 8.7f, z1 - 1.7f, 11f, 9.3f, z1 - 1.1f, brass, metal, metal, light, overlay);
+		// Window glass, warm when the fire is going.
+		PixelBox.box(PixelBox.translucent(consumers), matrices, 3.4f, 3.6f, -16.3f, 12.6f, 7.8f, -16.1f, lit ? 0x90FFB070 : 0x70A0B4C0, glass, glass,
+				lit ? LightmapTextureManager.MAX_LIGHT_COORDINATE : light, overlay);
 		matrices.pop();
 	}
 
@@ -124,9 +207,9 @@ public class GrandOvenRenderer implements BlockEntityRenderer<GrandOvenBlockEnti
 		PixelBox.box(vc, matrices, 11.6f, 12.6f, -16.4f, 15.4f, 16.4f, -16.1f, 0xFFF4E2, face, face, light, overlay);
 		// The sweet spot for whatever is baking (if anything is).
 		int ideal = -1;
-		for (int i = 0; i < GrandOvenBlockEntity.SLOTS; i++) {
-			if (!oven.getSlot(i).isEmpty() && GrandOvenBlockEntity.bakeTime(oven.getSlot(i)) > 0) {
-				ideal = GrandOvenBlockEntity.idealHeat(oven.getSlot(i));
+		for (GrandOvenBlockEntity.Bake bake : oven.getBakes()) {
+			if (GrandOvenBlockEntity.bakeTime(bake.stack) > 0) {
+				ideal = GrandOvenBlockEntity.idealHeat(bake.stack);
 				break;
 			}
 		}

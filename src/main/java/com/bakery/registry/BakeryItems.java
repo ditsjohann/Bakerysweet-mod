@@ -59,6 +59,7 @@ public final class BakeryItems {
 
 	// Tools and workstations
 	public static final Item BAKERY_GUIDE = register("bakery_guide", new GuideItem(new Item.Settings().maxCount(1)));
+	public static final Item PATH_RIBBON = register("path_ribbon", new com.bakery.shop.PathRibbonItem(new Item.Settings().maxCount(1)));
 	public static final Item SPATULA = register("sweetheart_spatula", new TooltipItem(new Item.Settings().maxCount(1), "spatula"));
 	public static final Item ROLLING_PIN = register("rolling_pin", new TooltipItem(new Item.Settings().maxDamage(128), "rolling_pin"));
 	public static final Item WHISK = register("whisk", new TooltipItem(new Item.Settings().maxDamage(128), "whisk"));
@@ -70,7 +71,7 @@ public final class BakeryItems {
 	public static final Item ICE_CREAM_CHURN = register("ice_cream_churn", new BlockItem(BakeryBlocks.ICE_CREAM_CHURN, new Item.Settings()));
 	public static final Item JAM_POT = register("jam_pot", new BlockItem(BakeryBlocks.JAM_POT, new Item.Settings()));
 	public static final Item MILLSTONE_CORE = register("millstone_core", new BlockItem(BakeryBlocks.MILLSTONE_CORE, new Item.Settings()));
-	public static final Item FOUNTAIN_CORE = register("fountain_core", new BlockItem(BakeryBlocks.FOUNTAIN_CORE, new Item.Settings()));
+	public static final Item CHOCOLATE_FOUNTAIN = register("chocolate_fountain", new BlockItem(BakeryBlocks.CHOCOLATE_FOUNTAIN, new Item.Settings()));
 
 	// Seeds
 	public static final Item STRAWBERRY_SEEDS = seeds("strawberry_seeds", BakeryBlocks.STRAWBERRY_CROP);
@@ -289,7 +290,7 @@ public final class BakeryItems {
 	public static final Item MACARON_TOWER = block(BakeryBlocks.MACARON_TOWER);
 	public static final Item PINK_AWNING = block(BakeryBlocks.PINK_AWNING);
 	public static final Item MINT_AWNING = block(BakeryBlocks.MINT_AWNING);
-	public static final Item PINK_LOVESEAT = block(BakeryBlocks.PINK_LOVESEAT);
+	public static final Item PINK_COUCH = block(BakeryBlocks.PINK_COUCH);
 	public static final Item MACARON_POUF = block(BakeryBlocks.MACARON_POUF);
 	public static final Item HEART_MIRROR = block(BakeryBlocks.HEART_MIRROR);
 	public static final Item NEON_HEART_SIGN = block(BakeryBlocks.NEON_HEART_SIGN);

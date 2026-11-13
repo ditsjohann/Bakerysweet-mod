@@ -39,7 +39,8 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * Runs a little bakery. While open it invites the town's regulars: they walk in, queue in front of the counter
+ * Runs a little bakery. While open it invites the town's regulars: they walk in along the path laid with a Path
+ * Ribbon, queue on its last stretch in front of the counter
  * with a wish bubble over their heads and wait - not forever. Serve them by hand, or let them help themselves
  * from a display case. How many come and what they ask for grows with the owner's {@link CafeLevel}.
  */
@@ -58,6 +59,8 @@ public class CounterBlockEntity extends BlockEntity {
 	private int charm;
 	private int cozyCount;
 	private int lastRegular = -1;
+	/** The walking path customers follow, laid with a Path Ribbon: entrance first, the spot in front of the counter last. */
+	private final List<BlockPos> path = new ArrayList<>();
 
 	public CounterBlockEntity(BlockPos pos, BlockState state) {
 		super(BakeryBlockEntities.COUNTER, pos, state);
@@ -93,6 +96,21 @@ public class CounterBlockEntity extends BlockEntity {
 
 	public void setOwner(UUID owner) {
 		this.owner = owner;
+		sync();
+	}
+
+	public List<BlockPos> getPath() {
+		return path;
+	}
+
+	/** Customers only come once a walking path leads in to the counter. */
+	public boolean hasPath() {
+		return path.size() >= 2;
+	}
+
+	public void setPath(List<BlockPos> points) {
+		path.clear();
+		path.addAll(points);
 		sync();
 	}
 
@@ -162,7 +180,7 @@ public class CounterBlockEntity extends BlockEntity {
 
 	/** Called by the service bell: invite a customer right now. */
 	public boolean callCustomer() {
-		return world instanceof ServerWorld server && isOpen() && orders.size() < maxCustomers() && recruit(server);
+		return world instanceof ServerWorld server && isOpen() && hasPath() && orders.size() < maxCustomers() && recruit(server);
 	}
 
 	public int maxCustomers() {
@@ -197,6 +215,14 @@ public class CounterBlockEntity extends BlockEntity {
 		if (world.getTime() % 200 == 0) {
 			counter.updateCharm();
 			counter.refreshOwner();
+		}
+
+		// Everyone moves up the line as the people in front are served.
+		int place = 0;
+		for (Order order : counter.orders) {
+			if (server.getEntity(order.customer) instanceof CustomerEntity customer && counter.hasPath()) {
+				customer.queueAt(place++, counter.path);
+			}
 		}
 
 		Iterator<Order> it = counter.orders.iterator();
@@ -237,7 +263,7 @@ public class CounterBlockEntity extends BlockEntity {
 		}
 
 		// Customers come by during the day; a charming, well-known bakery gets them more often.
-		if (counter.isOpen() && server.isDay() && counter.orders.size() < counter.maxCustomers()
+		if (counter.isOpen() && counter.hasPath() && server.isDay() && counter.orders.size() < counter.maxCustomers()
 				&& server.random.nextInt(Math.max(4, 36 - counter.charm * 4 - counter.getLevel().ordinal() * 2)) == 0) {
 			changed |= counter.recruit(server);
 		}
@@ -258,10 +284,8 @@ public class CounterBlockEntity extends BlockEntity {
 		}
 		if (free.isEmpty()) return false;
 		Regular regular = Regular.get(free.get(server.random.nextInt(free.size())));
-		int slot = freeSlot();
-		if (slot < 0) return false;
-		BlockPos spot = CustomerEntity.queueSpot(server, pos, slot);
-		CustomerEntity customer = CustomerEntity.create(server, pos, spot, regular);
+		if (!hasPath()) return false;
+		CustomerEntity customer = CustomerEntity.create(server, pos, path, orders.size(), regular);
 		Order order = Menu.randomOrder(customer.getUuid(), regular, getLevel(), offMenu, server.random);
 		orders.add(order);
 		server.spawnEntity(customer);
@@ -269,23 +293,6 @@ public class CounterBlockEntity extends BlockEntity {
 		server.playSound(null, pos, SoundEvents.BLOCK_NOTE_BLOCK_CHIME.value(), SoundCategory.BLOCKS, 0.5f, 1.8f);
 		sync();
 		return true;
-	}
-
-	/** The first free place in line (0 = straight in front). */
-	private int freeSlot() {
-		if (!(world instanceof ServerWorld server)) return -1;
-		boolean[] taken = new boolean[MAX_CUSTOMERS];
-		for (Order order : orders) {
-			CustomerEntity.byUuid(server, order.customer).ifPresent(c -> {
-				for (int i = 0; i < MAX_CUSTOMERS; i++) {
-					if (CustomerEntity.queueSpot(server, pos, i).equals(c.spot())) taken[i] = true;
-				}
-			});
-		}
-		for (int i = 0; i < MAX_CUSTOMERS; i++) {
-			if (!taken[i]) return i;
-		}
-		return -1;
 	}
 
 	/** If a nearby display case has what the customer wants, they take it and leave the money in the till. */
@@ -353,6 +360,7 @@ public class CounterBlockEntity extends BlockEntity {
 		nbt.putInt("walkouts", walkouts);
 		nbt.putInt("charm", charm);
 		nbt.putInt("cozy", cozyCount);
+		nbt.putLongArray("path", path.stream().mapToLong(BlockPos::asLong).toArray());
 	}
 
 	@Override
@@ -374,6 +382,8 @@ public class CounterBlockEntity extends BlockEntity {
 		walkouts = nbt.getInt("walkouts");
 		charm = nbt.getInt("charm");
 		cozyCount = nbt.getInt("cozy");
+		path.clear();
+		for (long l : nbt.getLongArray("path")) path.add(BlockPos.fromLong(l));
 	}
 
 	@Override

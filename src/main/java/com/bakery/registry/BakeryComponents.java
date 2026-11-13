@@ -31,6 +31,10 @@ public final class BakeryComponents {
 	public static final ComponentType<Integer> GIFT_COLOR = register("gift_color", Codec.INT, PacketCodecs.INTEGER);
 	public static final ComponentType<String> GIFT_FROM = register("gift_from", Codec.STRING, PacketCodecs.STRING);
 
+	/** The customer path being laid with a Path Ribbon: the entrance first, then each turn toward the counter. */
+	public static final ComponentType<java.util.List<net.minecraft.util.math.BlockPos>> PATH_POINTS = register("path_points",
+			net.minecraft.util.math.BlockPos.CODEC.listOf(), net.minecraft.util.math.BlockPos.PACKET_CODEC.collect(PacketCodecs.toList()));
+
 	private BakeryComponents() {
 	}
 

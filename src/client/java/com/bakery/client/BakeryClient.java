@@ -45,7 +45,7 @@ public class BakeryClient implements ClientModInitializer {
 				BakeryBlocks.BAKERY_COUNTER, BakeryBlocks.SERVICE_BELL, BakeryBlocks.CAFE_TABLE, BakeryBlocks.CAFE_CHAIR, BakeryBlocks.FLOUR_SACK,
 				BakeryBlocks.BREAD_BASKET, BakeryBlocks.CAKE_STAND, BakeryBlocks.MENU_BOARD, BakeryBlocks.BUNTING, BakeryBlocks.JAR_SHELF,
 				BakeryBlocks.STRAWBERRY_CRATE, BakeryBlocks.LEMON_CRATE, BakeryBlocks.COCONUT_CRATE, BakeryBlocks.GRAND_MILLSTONE,
-				BakeryBlocks.CHOCOLATE_FOUNTAIN, BakeryBlocks.MILLSTONE_CORE, BakeryBlocks.FOUNTAIN_CORE,
+				BakeryBlocks.CHOCOLATE_FOUNTAIN, BakeryBlocks.MILLSTONE_CORE,
 				BakeryBlocks.ICE_CREAM_CHURN, BakeryBlocks.JAM_POT, BakeryBlocks.PROOFING_BASKET);
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BakeryBlocks.CAKE_TURNTABLE, BakeryBlocks.BAKERY_CATALOG,
 				BakeryBlocks.PINK_HEART_BALLOON, BakeryBlocks.LILAC_HEART_BALLOON, BakeryBlocks.MINT_HEART_BALLOON, BakeryBlocks.FAIRY_LIGHTS,
@@ -145,6 +145,7 @@ public class BakeryClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(BakeryEntities.CUSTOMER, CustomerRenderer::new);
 		com.bakery.client.dev.Showcase.init();
+		PathPreview.init();
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (client.world != null) {

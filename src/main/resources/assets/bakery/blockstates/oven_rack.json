@@ -1,0 +1,16 @@
+{
+	"variants": {
+		"facing=north": {
+			"model": "bakery:block/multiblock_part"
+		},
+		"facing=south": {
+			"model": "bakery:block/multiblock_part"
+		},
+		"facing=east": {
+			"model": "bakery:block/multiblock_part"
+		},
+		"facing=west": {
+			"model": "bakery:block/multiblock_part"
+		}
+	}
+}

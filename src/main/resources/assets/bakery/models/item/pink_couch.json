@@ -1,5 +1,5 @@
 {
-	"parent": "bakery:block/pink_loveseat",
+	"parent": "bakery:block/pink_couch_single",
 	"display": {
 		"gui": {
 			"rotation": [

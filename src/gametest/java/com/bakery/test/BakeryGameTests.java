@@ -279,20 +279,31 @@ public class BakeryGameTests implements FabricGameTest {
 	public void ovenFormsBakesAndComesApart(TestContext ctx) {
 		FakePlayer p = player(ctx);
 		buildOven(ctx, true);
-		BlockPos heart = new BlockPos(3, 1, 2), chamber = new BlockPos(3, 1, 3);
+		BlockPos heart = new BlockPos(3, 1, 2), chamber = new BlockPos(3, 1, 3), rack = new BlockPos(3, 1, 1);
 		use(ctx, p, heart, BakeryItems.SPATULA);
 		check(ctx, ctx.getBlockState(chamber).isOf(BakeryBlocks.GRAND_OVEN), "the spatula lights the Grand Brick Oven");
 		use(ctx, p, heart, new ItemStack(Items.COAL, 4), false);
+		GrandOvenBlockEntity oven = ctx.getBlockEntity(chamber);
 		ItemStack batter = flavored(BakeryItems.RAW_CUPCAKE, Flavor.VANILLA);
 		batter.set(BakeryComponents.QUALITY, 5);
-		use(ctx, p, heart, batter, false);
-		GrandOvenBlockEntity oven = ctx.getBlockEntity(chamber);
-		check(ctx, !oven.getSlot(0).isEmpty() || !oven.getSlot(1).isEmpty() || !oven.getSlot(2).isEmpty(), "the batter goes into the oven");
+		use(ctx, p, heart, batter.copy(), false);
+		check(ctx, oven.getBakes().isEmpty(), "bakes can't go in through a shut door");
+		click(ctx, p, heart);
+		check(ctx, oven.isDoorOpen(), "an empty-hand click swings the door open");
+		click(ctx, p, heart);
+		check(ctx, oven.isRackOut() && ctx.getBlockState(rack).isOf(BakeryBlocks.OVEN_RACK), "a second click slides the rack out in front");
+		use(ctx, p, rack, batter, false);
+		check(ctx, oven.getBakes().size() == 1, "the batter goes on the rack");
+		click(ctx, p, heart);
+		check(ctx, !oven.isRackOut() && ctx.getBlockState(rack).isAir(), "clicking the oven slides the rack back in");
+		use(ctx, p, heart, ItemStack.EMPTY, true);
+		check(ctx, !oven.isDoorOpen(), "sneak-clicking shuts the door");
 		check(ctx, oven.getFuel() > 0, "coal fuels the oven");
 		ctx.waitAndRun(410, () -> {
 			check(ctx, oven.getHeat() > 30, "the fire warms up, heat " + oven.getHeat());
-			// Clicking the bake with an empty hand peels it out (sneaking would open the damper instead).
-			use(ctx, p, heart, ItemStack.EMPTY, false);
+			click(ctx, p, heart);
+			click(ctx, p, heart);
+			click(ctx, p, rack);
 			ItemStack cupcakes = find(p, BakeryItems.CUPCAKE);
 			check(ctx, cupcakes.getCount() == 4, "a perfect peel gives 4 cupcakes, got " + cupcakes.getCount());
 			check(ctx, BakeryFoods.quality(cupcakes) >= 4, "well rolled + perfect timing + good heat = 4-5 stars, got " + BakeryFoods.quality(cupcakes));
@@ -300,14 +311,56 @@ public class BakeryGameTests implements FabricGameTest {
 					"the vanilla cupcake joins the recipe collection");
 			ctx.getWorld().breakBlock(ctx.getAbsolutePos(new BlockPos(2, 0, 2)), true);
 			check(ctx, ctx.getBlockState(chamber).isAir(), "breaking a brick takes the oven apart");
+			check(ctx, ctx.getBlockState(rack).isAir(), "the rack goes with it");
 			check(ctx, ctx.getBlockState(heart).isOf(BakeryBlocks.OVEN_HEART), "the heart comes back");
 			check(ctx, ctx.getBlockState(new BlockPos(4, 1, 4)).isOf(Blocks.BRICKS), "the other bricks come back");
 			ctx.complete();
 		});
 	}
 
-	@GameTest(templateName = EMPTY)
-	public void ovenFanAndVentChangeTheHeat(TestContext ctx) {
+	@GameTest(templateName = EMPTY, tickLimit = 500)
+	public void ovenBigBakesTakeRoomAndCookiesNeedFlipping(TestContext ctx) {
+		FakePlayer p = player(ctx);
+		buildOven(ctx, true);
+		BlockPos heart = new BlockPos(3, 1, 2), chamber = new BlockPos(3, 1, 3), rack = new BlockPos(3, 1, 1);
+		use(ctx, p, heart, BakeryItems.SPATULA);
+		use(ctx, p, heart, new ItemStack(Items.COAL, 4), false);
+		GrandOvenBlockEntity oven = ctx.getBlockEntity(chamber);
+		click(ctx, p, heart);
+		click(ctx, p, heart);
+		for (int i = 0; i < 2; i++) use(ctx, p, rack, new ItemStack(BakeryItems.RAW_CAKE), false);
+		check(ctx, oven.getBakes().size() == 1, "a cake takes a 2x2 block: only one fits the 3x3 rack, got " + oven.getBakes().size());
+		use(ctx, p, rack, new ItemStack(BakeryItems.RAW_LOAF), false);
+		check(ctx, oven.getBakes().size() == 2, "a loaf still fits down the free side");
+		oven.getBakes().clear();
+		ItemStack dough = flavored(BakeryItems.RAW_COOKIES, Flavor.VANILLA);
+		dough.set(BakeryComponents.QUALITY, 5);
+		use(ctx, p, rack, dough, false);
+		click(ctx, p, heart);
+		use(ctx, p, heart, ItemStack.EMPTY, true);
+		ctx.waitAndRun(130, () -> {
+			GrandOvenBlockEntity.Bake cookies = oven.getBakes().get(0);
+			check(ctx, oven.wantsFlip(cookies), "halfway through, the cookies sizzle for a flip");
+			click(ctx, p, heart);
+			click(ctx, p, heart);
+			click(ctx, p, rack);
+			check(ctx, cookies.flipped, "clicking the sizzling cookies flips them");
+			click(ctx, p, heart);
+			use(ctx, p, heart, ItemStack.EMPTY, true);
+			ctx.waitAndRun(185, () -> {
+				click(ctx, p, heart);
+				click(ctx, p, heart);
+				click(ctx, p, rack);
+				ItemStack baked = find(p, BakeryItems.COOKIES);
+				check(ctx, baked.getCount() == 6, "a tray of cookies gives 6, got " + baked.getCount());
+				check(ctx, BakeryFoods.quality(baked) >= 3, "flipped cookies bake evenly, got " + BakeryFoods.quality(baked));
+				ctx.complete();
+			});
+		});
+	}
+
+	@GameTest(templateName = EMPTY, tickLimit = 200)
+	public void ovenBellowsHeatAndOpenDoorCools(TestContext ctx) {
 		FakePlayer p = player(ctx);
 		buildOven(ctx, true);
 		use(ctx, p, new BlockPos(3, 1, 2), BakeryItems.SPATULA);
@@ -317,10 +370,12 @@ public class BakeryGameTests implements FabricGameTest {
 		use(ctx, p, new BlockPos(3, 1, 2), BakeryItems.BELLOWS);
 		check(ctx, oven.getHeat() > before, "pumping the bellows raises the heat");
 		check(ctx, find(p, BakeryItems.BELLOWS).getDamage() == 1 || p.getMainHandStack().getDamage() == 1, "the bellows wear a little");
-		float fanned = oven.getHeat();
-		use(ctx, p, new BlockPos(3, 1, 2), ItemStack.EMPTY, true);
-		check(ctx, oven.getHeat() < fanned, "sneak-clicking opens the damper and lowers the heat");
-		ctx.complete();
+		for (int i = 0; i < 16; i++) use(ctx, p, new BlockPos(3, 1, 2), BakeryItems.BELLOWS);
+		click(ctx, p, new BlockPos(3, 1, 2));
+		ctx.waitAndRun(40, () -> {
+			check(ctx, oven.getHeat() < 60, "an open door lets the heat out, heat " + oven.getHeat());
+			ctx.complete();
+		});
 	}
 
 	// ---------------------------------------------------------------- buildable machines
@@ -347,20 +402,17 @@ public class BakeryGameTests implements FabricGameTest {
 	@GameTest(templateName = EMPTY)
 	public void chocolateFountainDipsFruit(TestContext ctx) {
 		FakePlayer p = player(ctx);
-		fill(ctx, 2, 0, 2, 4, 0, 4, Blocks.WHITE_TERRACOTTA.getDefaultState());
-		BlockPos core = new BlockPos(3, 1, 3);
-		ctx.setBlockState(core, BakeryBlocks.FOUNTAIN_CORE.getDefaultState().with(com.bakery.oven.CoreBlock.FACING, Direction.NORTH));
-		ctx.setBlockState(new BlockPos(3, 2, 3), Blocks.GOLD_BLOCK.getDefaultState());
-		use(ctx, p, core, BakeryItems.SPATULA);
-		check(ctx, ctx.getBlockState(core).isOf(BakeryBlocks.CHOCOLATE_FOUNTAIN), "the spatula builds the Chocolate Fountain");
-		use(ctx, p, core, BakeryItems.CHOCOLATE_BAR);
-		use(ctx, p, core, BakeryItems.STRAWBERRY);
+		BlockPos fountain = new BlockPos(3, 1, 3);
+		ctx.setBlockState(fountain.down(), Blocks.OAK_PLANKS.getDefaultState());
+		check(ctx, use(ctx, p, fountain.down(), BakeryItems.CHOCOLATE_FOUNTAIN).isAccepted(), "the fountain is placed like any block");
+		check(ctx, ctx.getBlockState(fountain).isOf(BakeryBlocks.CHOCOLATE_FOUNTAIN), "it stands on the table, no building needed");
+		use(ctx, p, fountain, BakeryItems.CHOCOLATE_BAR);
+		use(ctx, p, fountain, BakeryItems.STRAWBERRY);
 		ItemStack treat = find(p, BakeryItems.CHOCOLATE_TREAT);
 		check(ctx, treat.getCount() == 2, "dipping a strawberry gives two chocolate treats");
 		check(ctx, BakeryFoods.flavor(treat) == Flavor.STRAWBERRY, "the treat is strawberry flavored");
-		// Clicking the gold block on top (a machine part) also works.
-		use(ctx, p, new BlockPos(3, 2, 3), BakeryItems.CHERRIES);
-		check(ctx, p.getInventory().count(BakeryItems.CHOCOLATE_TREAT) == 4, "clicking any part of the fountain dips too");
+		ctx.getWorld().breakBlock(ctx.getAbsolutePos(fountain), true);
+		check(ctx, dropped(ctx, fountain, BakeryItems.CHOCOLATE_FOUNTAIN) == 1, "breaking it drops the fountain as an item");
 		ctx.complete();
 	}
 
@@ -467,10 +519,25 @@ public class BakeryGameTests implements FabricGameTest {
 		CounterBlockEntity counter = ctx.getBlockEntity(counterPos);
 		counter.setOwner(p.getUuid());
 		click(ctx, p, new BlockPos(4, 1, 2));
+		check(ctx, counter.getOrders().isEmpty(), "without a walking path nobody can come in");
+		// Lay the path: the entrance at the far corner, a turn, then tie it to the counter.
+		ItemStack ribbon = new ItemStack(BakeryItems.PATH_RIBBON);
+		use(ctx, p, new BlockPos(6, 0, 6), ribbon, false);
+		ribbon = p.getMainHandStack().copy();
+		use(ctx, p, new BlockPos(3, 0, 6), ribbon, false);
+		ribbon = p.getMainHandStack().copy();
+		check(ctx, com.bakery.shop.PathRibbonItem.points(ribbon).size() == 2, "the ribbon remembers the entrance and the turn");
+		use(ctx, p, counterPos, ribbon, false);
+		check(ctx, counter.hasPath() && counter.getPath().getLast().equals(ctx.getAbsolutePos(new BlockPos(3, 1, 3))),
+				"tying the ribbon to the counter links the path, ending in front of it");
+		click(ctx, p, new BlockPos(4, 1, 2));
 		check(ctx, counter.getOrders().size() == 1, "ringing the bell calls a customer");
 		Order order = counter.getOrders().getFirst();
 		com.bakery.cafe.CustomerEntity customer = (com.bakery.cafe.CustomerEntity) ctx.getWorld().getEntity(order.customer);
 		check(ctx, customer != null && customer.hasCustomName(), "a named customer walks in (not a villager)");
+		check(ctx, customer.getBlockPos().getSquaredDistance(ctx.getAbsolutePos(new BlockPos(6, 1, 6))) <= 2 * 2 * 5 * 5,
+				"they come in at the entrance, got " + customer.getBlockPos());
+		check(ctx, customer.spot().equals(ctx.getAbsolutePos(new BlockPos(3, 1, 3))), "the first in line heads for the spot in front of the counter");
 		check(ctx, com.bakery.shop.Menu.dish(order.wanted.getItem()).level() == com.bakery.cafe.CafeLevel.STALL,
 				"a brand new bakery only gets asked for the simple things, got " + order.wanted.getName().getString());
 		ItemStack wanted = order.wanted.copy();
@@ -488,6 +555,26 @@ public class BakeryGameTests implements FabricGameTest {
 		check(ctx, customer.getMainHandStack().isOf(dish), "they walk off holding their treat");
 		check(ctx, customer.state() == com.bakery.cafe.CustomerEntity.LEAVING || customer.state() == com.bakery.cafe.CustomerEntity.TO_SEAT,
 				"then they head home or to a seat");
+		ctx.complete();
+	}
+
+	@GameTest(templateName = EMPTY, tickLimit = 200)
+	public void customersQueueAlongThePath(TestContext ctx) {
+		ServerWorld world = ctx.getWorld();
+		fill(ctx, 0, 0, 0, 7, 0, 7, Blocks.STONE.getDefaultState());
+		BlockPos counterPos = new BlockPos(3, 1, 1);
+		ctx.setBlockState(counterPos, BakeryBlocks.BAKERY_COUNTER.getDefaultState().with(CounterBlock.FACING, Direction.SOUTH));
+		// In at the far corner, along the bottom, then straight up to the counter.
+		List<BlockPos> path = List.of(ctx.getAbsolutePos(new BlockPos(7, 1, 6)), ctx.getAbsolutePos(new BlockPos(3, 1, 6)), ctx.getAbsolutePos(new BlockPos(3, 1, 2)));
+		check(ctx, com.bakery.shop.CustomerPath.blocks(path).size() == 9, "the path is walked block by block: " + com.bakery.shop.CustomerPath.blocks(path).size());
+		check(ctx, com.bakery.shop.CustomerPath.queueSpot(path, 0).equals(ctx.getAbsolutePos(new BlockPos(3, 1, 2))), "first in line stands at the counter");
+		check(ctx, com.bakery.shop.CustomerPath.queueSpot(path, 2).equals(ctx.getAbsolutePos(new BlockPos(3, 1, 4))), "the line forms back along the path");
+		check(ctx, com.bakery.shop.CustomerPath.routeTo(path, 0).size() == 2, "the first customer walks through the entrance and the turn");
+		com.bakery.cafe.CustomerEntity second = com.bakery.cafe.CustomerEntity.create(world, ctx.getAbsolutePos(counterPos), path, 1, com.bakery.cafe.Regular.get(1));
+		check(ctx, second.spot().equals(ctx.getAbsolutePos(new BlockPos(3, 1, 3))), "second in line waits one step back");
+		check(ctx, second.getBlockPos().getX() >= ctx.getAbsolutePos(new BlockPos(7, 1, 6)).getX(), "customers arrive from outside the entrance");
+		second.queueAt(0, path);
+		check(ctx, second.spot().equals(ctx.getAbsolutePos(new BlockPos(3, 1, 2))), "when the first is served, the next moves up to the counter");
 		ctx.complete();
 	}
 

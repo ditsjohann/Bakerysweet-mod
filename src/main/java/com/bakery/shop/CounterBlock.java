@@ -80,6 +80,14 @@ public class CounterBlock extends BlockWithEntity {
 	}
 
 	@Override
+	protected net.minecraft.util.ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player,
+															  net.minecraft.util.Hand hand, BlockHitResult hit) {
+		// A Path Ribbon ties its path to the counter (the item handles it) instead of flipping the sign.
+		if (stack.isOf(com.bakery.registry.BakeryItems.PATH_RIBBON)) return net.minecraft.util.ItemActionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+		return net.minecraft.util.ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+	}
+
+	@Override
 	protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
 		if (!(world.getBlockEntity(pos) instanceof CounterBlockEntity counter)) {
 			return ActionResult.PASS;
@@ -102,6 +110,11 @@ public class CounterBlock extends BlockWithEntity {
 			return ActionResult.CONSUME;
 		}
 		boolean open = !state.get(OPEN);
+		if (open && !counter.hasPath()) {
+			player.sendMessage(Text.translatable("message.bakery.shop.needs_path").formatted(Formatting.GOLD), false);
+			world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BLOCK_BASS.value(), SoundCategory.BLOCKS, 0.7f, 0.8f);
+			return ActionResult.CONSUME;
+		}
 		world.setBlockState(pos, state.with(OPEN, open));
 		world.playSound(null, pos, open ? SoundEvents.BLOCK_NOTE_BLOCK_CHIME.value() : SoundEvents.BLOCK_WOODEN_TRAPDOOR_CLOSE, SoundCategory.BLOCKS, 1f, open ? 1.4f : 1f);
 		player.sendMessage(Text.translatable(open ? "message.bakery.shop.open" : "message.bakery.shop.closed")

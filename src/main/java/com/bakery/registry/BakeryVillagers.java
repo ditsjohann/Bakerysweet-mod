@@ -69,7 +69,7 @@ public final class BakeryVillagers {
 			sell(offers, BakeryItems.MILLSTONE_CORE, 1, 6, 10);
 		});
 		TradeOfferHelper.registerVillagerOffers(BAKER, 4, offers -> {
-			sell(offers, BakeryItems.FOUNTAIN_CORE, 1, 12, 15);
+			sell(offers, BakeryItems.CHOCOLATE_FOUNTAIN, 1, 12, 15);
 			sell(offers, BakeryBlocks.BLOSSOM.sapling.asItem(), 1, 6, 15);
 			sell(offers, BakeryBlocks.PEACHWOOD.sapling.asItem(), 1, 6, 15);
 		});

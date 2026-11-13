@@ -164,6 +164,9 @@ public class TurntableBlockEntity extends BlockEntity {
 		if (CakeDesign.isTopper(stack)) {
 			return topper(player, stack, design, p, side);
 		}
+		if (stack.isOf(BakeryItems.SPATULA)) {
+			return turnTopper(player, design, p);
+		}
 		return false;
 	}
 
@@ -171,7 +174,7 @@ public class TurntableBlockEntity extends BlockEntity {
 	 * Which tier a click landed on: the face that was clicked says top or side, and the height says which tier.
 	 * Returns {tier, 1 if on top} or null for a miss (the underside).
 	 */
-	private static int[] locate(float[] p, net.minecraft.util.math.Direction face, CakeDesign design) {
+	public static int[] locate(float[] p, net.minecraft.util.math.Direction face, CakeDesign design) {
 		int tiers = design.tierCount();
 		if (face == net.minecraft.util.math.Direction.DOWN) return null;
 		if (face == net.minecraft.util.math.Direction.UP) {
@@ -274,7 +277,7 @@ public class TurntableBlockEntity extends BlockEntity {
 	}
 
 	/** Snaps a click to the icing surface: on top of the tier (pulled in from the edge), or just outside its side. */
-	private static float[] surface(float[] p, boolean onTop, int tier, CakeDesign design) {
+	public static float[] surface(float[] p, boolean onTop, int tier, CakeDesign design) {
 		int tiers = design.tierCount();
 		if (onTop) {
 			float r = CakeGeometry.radius(tier, tiers);
@@ -305,9 +308,34 @@ public class TurntableBlockEntity extends BlockEntity {
 		return (float) Math.sqrt(dx * dx + dy * dy + dz * dz);
 	}
 
+	/** The yaw (degrees, 15-degree steps) that turns a topper at (x, z) on the cake to face this player. */
+	public int yawToward(net.minecraft.entity.Entity viewer, float x, float z) {
+		float[] eye = toCake(viewer.getEyePos());
+		return Math.round((float) Math.toDegrees(Math.atan2(eye[0] - x, eye[2] - z)) / 15f) * 15;
+	}
+
+	/**
+	 * Where a topper would go for a click at cake point {@code p} on {@code face}: {x, y, z, yaw, onSide} in pixels,
+	 * or null if it can't go there. On top of a tier it stands up facing the viewer; on a tier's side it is pressed
+	 * flat against the icing, facing out. Shared with the renderer's placement preview.
+	 */
+	public float[] topperSpot(CakeDesign design, float[] p, net.minecraft.util.math.Direction face, net.minecraft.entity.Entity viewer) {
+		int tiers = design.tierCount();
+		int[] where = locate(p, face, design);
+		if (where == null) return null;
+		int tier = where[0];
+		if (where[1] == 1) {
+			float[] spot = surface(p, true, tier, design);
+			float y = CakeGeometry.top(tier, tiers);
+			return new float[]{spot[0], y, spot[2], yawToward(viewer, spot[0], spot[2]), 0};
+		}
+		float[] spot = surface(p, false, tier, design);
+		float yaw = Math.round((float) Math.toDegrees(Math.atan2(spot[0], spot[2])) / 15f) * 15;
+		return new float[]{spot[0], spot[1], spot[2], yaw, 1};
+	}
+
 	private boolean topper(ServerPlayerEntity player, ItemStack stack, CakeDesign design, float[] p, net.minecraft.util.math.Direction face) {
 		ServerWorld world = player.getServerWorld();
-		int tiers = design.tierCount();
 		if (player.isSneaking()) {
 			Item[] removed = new Item[1];
 			CakeDesign without = design.withoutTopperNear(p[0], p[1], p[2], 3f, removed);
@@ -318,24 +346,44 @@ public class TurntableBlockEntity extends BlockEntity {
 			}
 			return true;
 		}
-		int[] where = locate(p, face, design);
-		if (where == null || where[1] != 1) {
+		float[] spot = topperSpot(design, p, face, player);
+		if (spot == null) {
 			player.sendMessage(Text.translatable("message.bakery.turntable.on_top"), true);
 			return true;
 		}
-		int tier = where[0];
-		float[] spot = surface(p, true, tier, design);
-		p = new float[]{spot[0], p[1], spot[2]};
 		if (design.toppers().size() >= CakeDesign.MAX_TOPPERS) {
 			player.sendMessage(Text.translatable("message.bakery.turntable.full_toppers"), true);
 			return true;
 		}
-		float y = CakeGeometry.top(tier, tiers);
-		// Toppers face outwards, towards whoever is looking at that side of the cake.
-		int yaw = Math.round((float) Math.toDegrees(Math.atan2(p[0], p[2])) / 15f) * 15;
-		setDesign(design.withTopper(new CakeDesign.Topper(stack.getItem(), Math.round(p[0] * 2), Math.round(y * 2), Math.round(p[2] * 2), yaw)));
+		setDesign(design.withTopper(new CakeDesign.Topper(stack.getItem(), Math.round(spot[0] * 2), Math.round(spot[1] * 2), Math.round(spot[2] * 2), (int) spot[3])));
 		stack.decrementUnlessCreative(1, player);
 		world.playSound(null, pos, SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.BLOCKS, 0.6f, 1.6f + world.random.nextFloat() * 0.3f);
+		return true;
+	}
+
+	/** The spatula turns the topper nearest the click by 22.5 degrees (sneak to turn it back). */
+	private boolean turnTopper(ServerPlayerEntity player, CakeDesign design, float[] p) {
+		int best = -1;
+		float bestD = 3.5f;
+		for (int i = 0; i < design.toppers().size(); i++) {
+			CakeDesign.Topper t = design.toppers().get(i);
+			float dx = t.x() / 2f - p[0], dy = t.y() / 2f - p[1], dz = t.z() / 2f - p[2];
+			float d = (float) Math.sqrt(dx * dx + dy * dy * 0.25f + dz * dz);
+			if (d < bestD) {
+				bestD = d;
+				best = i;
+			}
+		}
+		if (best < 0) {
+			player.sendMessage(Text.translatable("message.bakery.turntable.turn_hint"), true);
+			return true;
+		}
+		List<CakeDesign.Topper> toppers = new ArrayList<>(design.toppers());
+		CakeDesign.Topper t = toppers.get(best);
+		int step = player.isSneaking() ? -22 : 22;
+		toppers.set(best, new CakeDesign.Topper(t.item(), t.x(), t.y(), t.z(), Math.floorMod(t.yaw() + step, 360)));
+		setDesign(new CakeDesign(design.shape(), design.tiers(), design.dabs(), toppers));
+		player.getServerWorld().playSound(null, pos, SoundEvents.ENTITY_ITEM_FRAME_ROTATE_ITEM, SoundCategory.BLOCKS, 0.7f, 1.5f);
 		return true;
 	}
 

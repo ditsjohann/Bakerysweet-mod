@@ -88,6 +88,10 @@ public final class Catalog {
 			add(list, c, BakeryItems.ROUND_CAKE_MOLD, 1, 6, l4);
 			add(list, c, BakeryItems.SQUARE_CAKE_MOLD, 1, 8, l4);
 			add(list, c, BakeryItems.HEART_CAKE_MOLD, 1, 12, l5);
+			add(list, c, BakeryItems.STAR_CAKE_MOLD, 1, 10, l4);
+			add(list, c, BakeryItems.FLOWER_CAKE_MOLD, 1, 10, l4);
+			add(list, c, BakeryItems.HEXAGON_CAKE_MOLD, 1, 9, l4);
+			add(list, c, BakeryItems.BUNNY_CAKE_MOLD, 1, 14, l5);
 
 			c = Category.PANTRY;
 			add(list, c, BakeryItems.FLOUR, 4, 2, l1);
@@ -107,6 +111,14 @@ public final class Catalog {
 			add(list, c, BakeryItems.MATCHA_POWDER, 2, 5, l3);
 			add(list, c, BakeryItems.SPRINKLES, 4, 4, l3);
 			add(list, c, Items.ICE, 4, 3, l4);
+			add(list, c, BakeryItems.COCOA_POWDER, 2, 3, l2);
+			add(list, c, BakeryItems.RASPBERRY, 4, 3, l2);
+			add(list, c, BakeryItems.ORANGE, 3, 3, l2);
+			add(list, c, BakeryItems.PEACH, 3, 3, l3);
+			add(list, c, BakeryItems.CORNMEAL, 2, 3, l3);
+			add(list, c, BakeryItems.PEANUT_BUTTER, 2, 4, l3);
+			add(list, c, BakeryItems.COCONUT_FLAKES, 2, 4, l3);
+			add(list, c, BakeryItems.CANDIED_PETALS, 2, 5, l4);
 			add(list, c, BakeryItems.STAR_PETALS, 1, 8, l5);
 
 			c = Category.GARDEN;
@@ -151,6 +163,14 @@ public final class Catalog {
 			add(list, c, BakeryItems.POLKA_DOT_WALLPAPER, 8, 5, l2);
 			add(list, c, BakeryItems.BOW_WALLPAPER, 8, 6, l3);
 			add(list, c, BakeryItems.TULIP_VASE, 1, 4, l1);
+			add(list, c, BakeryItems.PINK_TILES, 8, 4, l1);
+			add(list, c, BakeryItems.MINT_TILES, 8, 4, l1);
+			add(list, c, BakeryItems.LAVENDER_TILES, 8, 4, l1);
+			add(list, c, BakeryItems.CREAM_TILES, 8, 4, l1);
+			add(list, c, BakeryItems.FLOUR_SACK, 1, 4, l1);
+			add(list, c, BakeryItems.BREAD_BASKET, 1, 5, l1);
+			add(list, c, BakeryItems.CAKE_STAND, 1, 6, l2);
+			add(list, c, BakeryItems.JAR_SHELF, 1, 8, l3);
 			add(list, c, BakeryItems.CASH_REGISTER, 1, 8, l1);
 			add(list, c, BakeryItems.TIP_JAR, 1, 3, l1);
 			add(list, c, BakeryItems.OPEN_SIGN, 1, 3, l1);
@@ -204,9 +224,10 @@ public final class Catalog {
 			add(list, c, BakeryItems.BAKERY_GUIDE, 1, 2, l1);
 
 			// Fancy cake toppers live with the cake things in the kitchen.
+			// Sugar decals: a few to start, the fancier ones as the bakery grows.
 			int i = 0;
 			for (Item topper : BakeryItems.TOPPERS) {
-				add(list, Category.KITCHEN, topper, 4, 4 + i / 3, i < 4 ? l4 : l5);
+				add(list, Category.KITCHEN, topper, 4, 3 + i / 6, i < 6 ? l2 : i < 14 ? l3 : l4);
 				i++;
 			}
 			entries = List.copyOf(list);

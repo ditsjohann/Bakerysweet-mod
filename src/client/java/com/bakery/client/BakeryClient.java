@@ -167,6 +167,7 @@ public class BakeryClient implements ClientModInitializer {
 		ClientPlayNetworking.registerGlobalReceiver(ReviewPayload.ID, (payload, context) -> WorldPopups.review(payload));
 		ClientPlayNetworking.registerGlobalReceiver(OrdersPayload.ID, (payload, context) -> ClientOrders.receive(payload));
 		ClientPlayNetworking.registerGlobalReceiver(BakeResultPayload.ID, (payload, context) -> WorldPopups.bake(payload));
+		ClientPlayNetworking.registerGlobalReceiver(com.bakery.network.AppraisalPayload.ID, (payload, context) -> WorldPopups.appraisal(payload));
 		ClientPlayNetworking.registerGlobalReceiver(com.bakery.network.SweetPayloads.OpenCatalog.ID, (payload, context) ->
 				context.client().setScreen(new CatalogScreen(payload.pos(), payload.data())));
 		ClientPlayNetworking.registerGlobalReceiver(com.bakery.network.SweetPayloads.OpenMenu.ID, (payload, context) ->

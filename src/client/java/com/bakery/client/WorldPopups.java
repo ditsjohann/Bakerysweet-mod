@@ -74,6 +74,21 @@ public final class WorldPopups {
 		POPUPS.add(new Popup(-1, Vec3d.ofBottomCenter(result.pos()).add(0, 0.9, 0), result.result(), result.stars(), title, lines, ticks));
 	}
 
+	/** A cake sold at the counter: the verdict, what the buyer said, the coins, and taste / looks / freshness. */
+	public static void appraisal(com.bakery.network.AppraisalPayload result) {
+		List<Text> lines = new ArrayList<>();
+		lines.add(Text.translatable(result.comment()).formatted(Formatting.ITALIC));
+		lines.add(Text.translatable("popup.bakery.coins", result.coins()).withColor(0xE0568A));
+		lines.add(Text.translatable("appraisal.bakery.breakdown", com.bakery.food.BakeryFoods.stars(result.taste()),
+				com.bakery.food.BakeryFoods.stars(result.looks()), com.bakery.food.BakeryFoods.stars(result.fresh())));
+		Text title = Text.translatable("appraisal.bakery.verdict." + result.verdict()).withColor(switch (result.verdict()) {
+			case com.bakery.sweet.CakeAppraisal.GOOD -> 0xF0A800;
+			case com.bakery.sweet.CakeAppraisal.NEUTRAL -> 0xE0568A;
+			default -> 0x9C8C94;
+		});
+		POPUPS.add(new Popup(-1, Vec3d.ofBottomCenter(result.pos()).add(0, 1.2, 0), result.cake(), result.stars(), title, lines, ticks));
+	}
+
 	public static void render(WorldRenderContext context) {
 		MinecraftClient client = MinecraftClient.getInstance();
 		if (client.world == null || POPUPS.isEmpty() || context.consumers() == null) return;

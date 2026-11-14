@@ -28,6 +28,7 @@ public final class BakeryNetworking {
 		PayloadTypeRegistry.playC2S().register(ShapeDoughPayload.ID, ShapeDoughPayload.CODEC);
 
 		PayloadTypeRegistry.playS2C().register(BakeResultPayload.ID, BakeResultPayload.CODEC);
+		PayloadTypeRegistry.playS2C().register(AppraisalPayload.ID, AppraisalPayload.CODEC);
 
 		PayloadTypeRegistry.playS2C().register(StickerPayload.ID, StickerPayload.CODEC);
 		PayloadTypeRegistry.playS2C().register(SweetPayloads.GuideData.ID, SweetPayloads.GuideData.CODEC);

@@ -87,6 +87,14 @@ public class CounterBlock extends BlockWithEntity {
 															  net.minecraft.util.Hand hand, BlockHitResult hit) {
 		// A Path Ribbon ties its path to the counter (the item handles it) instead of flipping the sign.
 		if (stack.isOf(com.bakery.registry.BakeryItems.PATH_RIBBON)) return net.minecraft.util.ItemActionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+		// A finished cake on the counter is sold: someone from town rates it, says what they think and pays.
+		if (stack.isOf(com.bakery.registry.BakeryItems.CAKE) && world.getBlockEntity(pos) instanceof CounterBlockEntity counter) {
+			if (!world.isClient && player instanceof net.minecraft.server.network.ServerPlayerEntity serverPlayer) {
+				if (counter.getOwner() == null) counter.setOwner(player.getUuid());
+				com.bakery.sweet.CakeAppraisal.sell(serverPlayer, counter, stack);
+			}
+			return net.minecraft.util.ItemActionResult.success(world.isClient);
+		}
 		return net.minecraft.util.ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 

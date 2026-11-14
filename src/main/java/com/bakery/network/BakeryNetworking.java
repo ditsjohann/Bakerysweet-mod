@@ -78,6 +78,7 @@ public final class BakeryNetworking {
 			raw.set(BakeryComponents.FLAVOR, dough.get(BakeryComponents.FLAVOR));
 		}
 		raw.set(BakeryComponents.QUALITY, stars);
+		raw.set(BakeryComponents.HOMEMADE, dough.get(BakeryComponents.HOMEMADE));
 		Freshness.stampFresh(raw, world.getTime());
 		board.setDough(ItemStack.EMPTY);
 		player.getInventory().offerOrDrop(raw);

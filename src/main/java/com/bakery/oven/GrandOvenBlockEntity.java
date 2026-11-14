@@ -539,6 +539,7 @@ public class GrandOvenBlockEntity extends BlockEntity implements Multiblock.Mach
 			result.set(BakeryComponents.COOKIE_SHAPE, item.get(BakeryComponents.COOKIE_SHAPE));
 		}
 		result.set(BakeryComponents.QUALITY, stars);
+		result.set(BakeryComponents.HOMEMADE, item.get(BakeryComponents.HOMEMADE));
 		if (stars == 5 && player instanceof ServerPlayerEntity baker) {
 			com.bakery.sweet.Stickers.award(baker, com.bakery.sweet.Sticker.FIVE_STARS);
 		}

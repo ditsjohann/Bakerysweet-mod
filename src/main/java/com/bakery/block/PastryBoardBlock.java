@@ -105,6 +105,7 @@ public class PastryBoardBlock extends BlockWithEntity {
 					tray.set(com.bakery.registry.BakeryComponents.FLAVOR, dough.get(com.bakery.registry.BakeryComponents.FLAVOR));
 				}
 				tray.set(com.bakery.registry.BakeryComponents.QUALITY, proofed ? 4 : 3);
+				tray.set(com.bakery.registry.BakeryComponents.HOMEMADE, dough.get(com.bakery.registry.BakeryComponents.HOMEMADE));
 				com.bakery.food.Freshness.stampFresh(tray, world.getTime());
 				board.setDough(ItemStack.EMPTY);
 				player.getInventory().offerOrDrop(tray);

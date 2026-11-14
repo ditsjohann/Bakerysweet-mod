@@ -63,9 +63,10 @@ public final class SweetPayloads {
 
 	/** Server -> client: everything the guide's sticker book and progress pages show; opens the guide. */
 	public record GuideData(List<String> stickers, String rank, int reviews, int recipes, int totalRecipes, int coinsEarned,
-							int served, int friends) implements CustomPayload {
+							int served, int friends, List<Integer> stockLeft) implements CustomPayload {
 		public static final Id<GuideData> ID = new Id<>(Bakery.id("guide_data"));
 		private static final PacketCodec<io.netty.buffer.ByteBuf, List<String>> STRINGS = PacketCodecs.STRING.collect(PacketCodecs.toList());
+		private static final PacketCodec<io.netty.buffer.ByteBuf, List<Integer>> INTS = PacketCodecs.VAR_INT.collect(PacketCodecs.toList());
 		public static final PacketCodec<RegistryByteBuf, GuideData> CODEC = PacketCodec.of((p, buf) -> {
 			STRINGS.encode(buf, p.stickers);
 			buf.writeString(p.rank);
@@ -75,8 +76,14 @@ public final class SweetPayloads {
 			buf.writeVarInt(p.coinsEarned);
 			buf.writeVarInt(p.served);
 			buf.writeVarInt(p.friends);
+			INTS.encode(buf, p.stockLeft.stream().map(i -> i + 1).toList());
 		}, buf -> new GuideData(STRINGS.decode(buf), buf.readString(), buf.readVarInt(), buf.readVarInt(), buf.readVarInt(),
-				buf.readVarInt(), buf.readVarInt(), buf.readVarInt()));
+				buf.readVarInt(), buf.readVarInt(), buf.readVarInt(), INTS.decode(buf).stream().map(i -> i - 1).toList()));
+
+		/** Stock left today for catalog entry {@code index}; -1 = unlimited. */
+		public int left(int index) {
+			return index < stockLeft.size() ? stockLeft.get(index) : -1;
+		}
 
 		@Override
 		public Id<? extends CustomPayload> getId() {

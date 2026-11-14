@@ -34,6 +34,9 @@ public class BakeryReputation extends PersistentState {
 		public final Map<UUID, Integer> friends = new HashMap<>();
 		public int coinsEarned;
 		public int served;
+		/** Catalog stock bought today (entry index -> times), and which day that was. */
+		public long stockDay = -1;
+		public final Map<Integer, Integer> bought = new HashMap<>();
 
 		public int bestFriends() {
 			return (int) friends.values().stream().filter(h -> h >= 5).count();
@@ -128,6 +131,10 @@ public class BakeryReputation extends PersistentState {
 			entry.put("friends", friends);
 			entry.putInt("coins", s.coinsEarned);
 			entry.putInt("served", s.served);
+			entry.putLong("stockDay", s.stockDay);
+			NbtCompound bought = new NbtCompound();
+			s.bought.forEach((i, n) -> bought.putInt(String.valueOf(i), n));
+			entry.put("bought", bought);
 			players.put(uuid.toString(), entry);
 		});
 		nbt.put("players", players);
@@ -151,6 +158,9 @@ public class BakeryReputation extends PersistentState {
 			for (String villager : friends.getKeys()) s.friends.put(UUID.fromString(villager), friends.getInt(villager));
 			s.coinsEarned = entry.getInt("coins");
 			s.served = entry.getInt("served");
+			s.stockDay = entry.contains("stockDay") ? entry.getLong("stockDay") : -1;
+			NbtCompound bought = entry.getCompound("bought");
+			for (String i : bought.getKeys()) s.bought.put(Integer.parseInt(i), bought.getInt(i));
 			reputation.stats.put(UUID.fromString(key), s);
 		}
 		return reputation;

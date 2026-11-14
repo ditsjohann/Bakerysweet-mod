@@ -1026,5 +1026,14 @@
 	"screen.bakery.catalog.buy": "Buy",
 	"screen.bakery.catalog.click_buy": "Click to buy",
 	"screen.bakery.catalog.poor": "Not enough Sweet Coins yet",
-	"screen.bakery.catalog.nothing": "Nothing here yet"
+	"screen.bakery.catalog.nothing": "Nothing here yet",
+	"tooltip.bakery.store_bought": "Store-bought",
+	"tooltip.bakery.homemade": "✿ Homemade - customers pay half again as much",
+	"message.bakery.shop.homemade": "Homemade! +%s coins for using your own ingredients",
+	"message.bakery.catalog.sold_out": "Sold out for today - new stock arrives tomorrow (or grow your own!)",
+	"screen.bakery.catalog.left": "%s left",
+	"screen.bakery.catalog.sold_out": "Sold out",
+	"screen.bakery.catalog.left_hint": "%s left today - restocks each morning",
+	"screen.bakery.catalog.sold_out_hint": "Sold out today - restocks each morning",
+	"screen.bakery.catalog.store_hint": "Store-bought: bakes made only from your own ingredients sell for more"
 }

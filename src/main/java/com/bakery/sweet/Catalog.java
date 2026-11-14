@@ -36,9 +36,18 @@ public final class Catalog {
 		}
 	}
 
-	public record Entry(Category category, Item item, int count, int price, CafeLevel level) {
+	/** {@code stock}: how many times a day each baker can buy it (0 = as often as they like). */
+	public record Entry(Category category, Item item, int count, int price, CafeLevel level, int stock) {
 		public ItemStack stack() {
-			return new ItemStack(item, count);
+			ItemStack stack = new ItemStack(item, count);
+			if (storeBought()) stack.set(com.bakery.registry.BakeryComponents.STORE_BOUGHT, true);
+			return stack;
+		}
+
+		/** Pantry ingredients come labelled, so customers can tell a homemade bake from a store-bought one. */
+		public boolean storeBought() {
+			return category == Category.PANTRY && item != Items.WATER_BUCKET && item != Items.CHARCOAL && item != Items.ICE
+					&& item != BakeryItems.SPRINKLES;
 		}
 	}
 
@@ -88,25 +97,27 @@ public final class Catalog {
 			add(list, c, BakeryItems.SQUARE_CAKE_MOLD, 1, 8, l4);
 			add(list, c, BakeryItems.HEART_CAKE_MOLD, 1, 12, l5);
 
+			// Pantry basics are pricey and only a few come in each day: growing, milling and churning your own is the way
+			// to keep a bakery stocked (and dishes made only from your own ingredients sell for more).
 			c = Category.PANTRY;
-			add(list, c, BakeryItems.FLOUR, 4, 2, l1);
-			add(list, c, Items.WHEAT, 6, 2, l1);
-			add(list, c, Items.SUGAR, 4, 2, l1);
-			add(list, c, BakeryItems.BUTTER, 2, 3, l1);
-			add(list, c, Items.EGG, 4, 2, l1);
-			add(list, c, Items.MILK_BUCKET, 1, 2, l1);
+			stock(list, c, BakeryItems.FLOUR, 2, 4, l1, 3);
+			stock(list, c, Items.WHEAT, 3, 3, l1, 2);
+			stock(list, c, Items.SUGAR, 2, 3, l1, 3);
+			stock(list, c, BakeryItems.BUTTER, 1, 4, l1, 2);
+			stock(list, c, Items.EGG, 2, 3, l1, 3);
+			stock(list, c, Items.MILK_BUCKET, 1, 3, l1, 2);
 			add(list, c, Items.WATER_BUCKET, 1, 1, l1);
-			add(list, c, Items.CHARCOAL, 8, 2, l1);
-			add(list, c, BakeryItems.STRAWBERRY, 4, 3, l1);
-			add(list, c, BakeryItems.BLUEBERRY, 4, 3, l2);
-			add(list, c, BakeryItems.LEMON, 3, 3, l2);
-			add(list, c, BakeryItems.VANILLA_POD, 2, 4, l2);
-			add(list, c, BakeryItems.CHOCOLATE_BAR, 2, 4, l2);
-			add(list, c, BakeryItems.WHIPPED_CREAM, 2, 4, l3);
-			add(list, c, BakeryItems.MATCHA_POWDER, 2, 5, l3);
+			stock(list, c, Items.CHARCOAL, 8, 3, l1, 4);
+			stock(list, c, BakeryItems.STRAWBERRY, 2, 5, l1, 1);
+			stock(list, c, BakeryItems.BLUEBERRY, 2, 5, l2, 1);
+			stock(list, c, BakeryItems.LEMON, 1, 5, l2, 1);
+			stock(list, c, BakeryItems.VANILLA_POD, 1, 6, l2, 1);
+			stock(list, c, BakeryItems.CHOCOLATE_BAR, 1, 6, l2, 2);
+			stock(list, c, BakeryItems.WHIPPED_CREAM, 1, 6, l3, 2);
+			stock(list, c, BakeryItems.MATCHA_POWDER, 1, 7, l3, 1);
 			add(list, c, BakeryItems.SPRINKLES, 4, 4, l3);
-			add(list, c, Items.ICE, 4, 3, l4);
-			add(list, c, BakeryItems.STAR_PETALS, 1, 8, l5);
+			stock(list, c, Items.ICE, 4, 3, l4, 3);
+			stock(list, c, BakeryItems.STAR_PETALS, 1, 10, l5, 1);
 
 			c = Category.GARDEN;
 			add(list, c, Items.WHEAT_SEEDS, 8, 1, l1);
@@ -214,7 +225,26 @@ public final class Catalog {
 	}
 
 	private static void add(List<Entry> list, Category category, ItemConvertible item, int count, int price, CafeLevel level) {
-		list.add(new Entry(category, item.asItem(), count, price, level));
+		list.add(new Entry(category, item.asItem(), count, price, level, 0));
+	}
+
+	private static void stock(List<Entry> list, Category category, ItemConvertible item, int count, int price, CafeLevel level, int perDay) {
+		list.add(new Entry(category, item.asItem(), count, price, level, perDay));
+	}
+
+	/** How many more of entry {@code index} this baker can buy today, or -1 for no limit. */
+	public static int left(BakeryReputation.Stats stats, int index, long day) {
+		int stock = entries().get(index).stock();
+		if (stock <= 0) return -1;
+		if (stats.stockDay != day) return stock;
+		return Math.max(0, stock - stats.bought.getOrDefault(index, 0));
+	}
+
+	/** Today's stock for every entry (-1 = unlimited), for the catalog screen. */
+	public static List<Integer> stockLeft(BakeryReputation.Stats stats, long day) {
+		List<Integer> out = new ArrayList<>();
+		for (int i = 0; i < entries().size(); i++) out.add(left(stats, i, day));
+		return out;
 	}
 
 	public static long day(World world) {
@@ -251,11 +281,27 @@ public final class Catalog {
 			world.playSound(null, pos, SoundEvents.ENTITY_VILLAGER_NO, SoundCategory.BLOCKS, 0.6f, 1.3f);
 			return false;
 		}
-		int price = price(index, day(world));
+		BakeryReputation reputation = BakeryReputation.get(player.getServer());
+		BakeryReputation.Stats stats = reputation.of(player.getUuid());
+		long today = day(world);
+		if (left(stats, index, today) == 0 && !player.getAbilities().creativeMode) {
+			player.sendMessage(Text.translatable("message.bakery.catalog.sold_out").formatted(Formatting.GOLD), true);
+			world.playSound(null, pos, SoundEvents.ENTITY_VILLAGER_NO, SoundCategory.BLOCKS, 0.6f, 1.3f);
+			return false;
+		}
+		int price = price(index, today);
 		if (!Coins.take(player, price)) {
 			player.sendMessage(Text.translatable("message.bakery.catalog.poor", price).formatted(Formatting.RED), true);
 			world.playSound(null, pos, SoundEvents.ENTITY_VILLAGER_NO, SoundCategory.BLOCKS, 0.6f, 1.3f);
 			return false;
+		}
+		if (entry.stock() > 0) {
+			if (stats.stockDay != today) {
+				stats.stockDay = today;
+				stats.bought.clear();
+			}
+			stats.bought.merge(index, 1, Integer::sum);
+			reputation.markDirty();
 		}
 		player.getInventory().offerOrDrop(entry.stack());
 		player.currentScreenHandler.sendContentUpdates();

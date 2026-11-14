@@ -182,6 +182,7 @@ public class JamPotBlockEntity extends StationEntity {
 		if (f == Flavor.RASPBERRY) return new ItemStack(BakeryItems.RASPBERRY_JAM);
 		ItemStack jar = new ItemStack(BakeryItems.FRUIT_JAM);
 		jar.set(BakeryComponents.FLAVOR, flavor);
+		if (!Boolean.TRUE.equals(fruitType.get(BakeryComponents.STORE_BOUGHT))) jar.set(BakeryComponents.HOMEMADE, true);
 		return jar;
 	}
 

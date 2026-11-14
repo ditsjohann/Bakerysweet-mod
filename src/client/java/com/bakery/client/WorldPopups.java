@@ -91,7 +91,9 @@ public final class WorldPopups {
 			if (popup.entity() >= 0) {
 				Entity entity = client.world.getEntityById(popup.entity());
 				if (entity == null) continue;
-				at = entity.getLerpedPos(delta).add(0, entity.getHeight() + 0.35, 0);
+				// Lift the card so its lowest line still clears the customer's head (the lines hang below the anchor).
+				double card = (14 + popup.lines().size() * 10 + 4) * 0.022;
+				at = entity.getLerpedPos(delta).add(0, entity.getHeight() + 0.2 + card, 0);
 			} else {
 				at = popup.pos();
 			}

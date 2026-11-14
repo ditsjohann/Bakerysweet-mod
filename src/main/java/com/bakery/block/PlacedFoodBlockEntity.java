@@ -38,6 +38,8 @@ public class PlacedFoodBlockEntity extends BlockEntity {
 		if (!stack.isEmpty()) {
 			nbt.put("food", stack.encode(registries));
 		}
+		// Always write something: the client ignores an empty update, so an emptied block would keep showing its old item.
+		nbt.putBoolean("synced", true);
 	}
 
 	@Override

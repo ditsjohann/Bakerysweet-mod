@@ -81,6 +81,9 @@ public class MixingBowlBlockEntity extends BlockEntity {
 		Flavor flavor = BakingRecipes.flavorOf(contents);
 		ItemStack dough = new ItemStack(type.dough());
 		dough.set(BakeryComponents.FLAVOR, flavor.asString());
+		if (contents.stream().noneMatch(c -> Boolean.TRUE.equals(c.get(BakeryComponents.STORE_BOUGHT)))) {
+			dough.set(BakeryComponents.HOMEMADE, true);
+		}
 		contents.clear();
 		stirs = 0;
 		sync();

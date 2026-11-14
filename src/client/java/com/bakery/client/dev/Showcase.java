@@ -74,7 +74,8 @@ public final class Showcase {
 				case "gui" -> {
 					String[] p = arg.split(" ");
 					com.bakery.network.SweetPayloads.GuideData data = new com.bakery.network.SweetPayloads.GuideData(
-							java.util.List.of("first_bake", "first_customer", "shopper"), "home_baker", 4, 6, 280, 37, Integer.parseInt(p.length > 1 ? p[1] : "7"), 1);
+							java.util.List.of("first_bake", "first_customer", "shopper"), "home_baker", 4, 6, 280, 37, Integer.parseInt(p.length > 1 ? p[1] : "7"), 1,
+							com.bakery.sweet.Catalog.entries().stream().map(e -> e.stock() > 0 ? e.stock() : -1).toList());
 					net.minecraft.util.math.BlockPos pos = p.length > 4 ? new net.minecraft.util.math.BlockPos(Integer.parseInt(p[2]), Integer.parseInt(p[3]), Integer.parseInt(p[4]))
 							: net.minecraft.util.math.BlockPos.ORIGIN;
 					client.setScreen(switch (p[0]) {

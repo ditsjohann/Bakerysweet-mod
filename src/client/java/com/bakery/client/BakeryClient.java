@@ -39,6 +39,15 @@ public class BakeryClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		// Where an ingredient or bake came from: catalog stock, or grown and made at home.
+		net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
+			if (Boolean.TRUE.equals(stack.get(com.bakery.registry.BakeryComponents.STORE_BOUGHT))) {
+				lines.add(net.minecraft.text.Text.translatable("tooltip.bakery.store_bought").withColor(0xFF9A8C92));
+			}
+			if (Boolean.TRUE.equals(stack.get(com.bakery.registry.BakeryComponents.HOMEMADE))) {
+				lines.add(net.minecraft.text.Text.translatable("tooltip.bakery.homemade").withColor(0xFF5DAA55));
+			}
+		});
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BakeryBlocks.GRAND_OVEN, BakeryBlocks.OVEN_HEART, BakeryBlocks.MIXING_BOWL,
 				BakeryBlocks.PASTRY_BOARD, BakeryBlocks.BREAD_LOAF, BakeryBlocks.BAGUETTE, BakeryBlocks.CROISSANT, BakeryBlocks.CUPCAKE,
 				BakeryBlocks.DONUT, BakeryBlocks.COOKIES, BakeryBlocks.MACARONS, BakeryBlocks.PIE, BakeryBlocks.CAKE, BakeryBlocks.MUG,

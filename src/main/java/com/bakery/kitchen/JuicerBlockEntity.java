@@ -32,6 +32,8 @@ public class JuicerBlockEntity extends StationEntity {
 	private int juice;
 	/** The fruit sitting on the reamer, and when the lever was last pulled (for the animation). */
 	private ItemStack fruit = ItemStack.EMPTY;
+	/** Whether every fruit in the jug was home-grown (no catalog fruit). */
+	private boolean homemade = true;
 	private long pressedAt;
 
 	public JuicerBlockEntity(BlockPos pos, BlockState state) {
@@ -79,10 +81,14 @@ public class JuicerBlockEntity extends StationEntity {
 			stack.decrementUnlessCreative(1, player);
 			ItemStack glass = new ItemStack(BakeryItems.JUICE);
 			glass.set(BakeryComponents.FLAVOR, flavor);
+			if (homemade) glass.set(BakeryComponents.HOMEMADE, true);
 			Freshness.stampFresh(glass, world.getTime());
 			player.getInventory().offerOrDrop(glass);
 			world.playSound(null, pos, SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 1f, 1.2f);
-			if (juice == 0 && !loaded) flavor = "";
+			if (juice == 0 && !loaded) {
+				flavor = "";
+				homemade = true;
+			}
 			sync();
 			return true;
 		}
@@ -104,6 +110,7 @@ public class JuicerBlockEntity extends StationEntity {
 			loaded = true;
 			presses = 0;
 			fruit = stack.copyWithCount(1);
+			if (Boolean.TRUE.equals(stack.get(BakeryComponents.STORE_BOUGHT))) homemade = false;
 			stack.decrementUnlessCreative(1, player);
 			world.playSound(null, pos, SoundEvents.BLOCK_COMPOSTER_FILL, SoundCategory.BLOCKS, 1f, 1.3f);
 			sync();
@@ -144,6 +151,7 @@ public class JuicerBlockEntity extends StationEntity {
 		nbt.putInt("juice", juice);
 		if (!fruit.isEmpty()) nbt.put("fruit", fruit.encode(registries));
 		nbt.putLong("pressedAt", pressedAt);
+		nbt.putBoolean("homemade", homemade);
 	}
 
 	@Override
@@ -155,5 +163,6 @@ public class JuicerBlockEntity extends StationEntity {
 		juice = nbt.getInt("juice");
 		fruit = nbt.contains("fruit") ? ItemStack.fromNbtOrEmpty(registries, nbt.getCompound("fruit")) : ItemStack.EMPTY;
 		pressedAt = nbt.getLong("pressedAt");
+		homemade = !nbt.contains("homemade") || nbt.getBoolean("homemade");
 	}
 }

@@ -31,6 +31,6 @@ public class GuideItem extends Item {
 	public static SweetPayloads.GuideData data(ServerPlayerEntity player) {
 		BakeryReputation.Stats s = BakeryReputation.get(player.getServer()).of(player.getUuid());
 		return new SweetPayloads.GuideData(List.copyOf(s.stickers), s.rankKey(), s.reviews, s.recipes.size(), BakeryReputation.TOTAL_RECIPES,
-				s.coinsEarned, s.served, s.bestFriends());
+				s.coinsEarned, s.served, s.bestFriends(), com.bakery.sweet.Catalog.stockLeft(s, com.bakery.sweet.Catalog.day(player.getWorld())));
 	}
 }

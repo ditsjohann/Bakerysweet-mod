@@ -153,6 +153,45 @@ public class BakeryGameTests implements FabricGameTest {
 	}
 
 	@GameTest(templateName = EMPTY)
+	public void homemadeDoughOnlyFromYourOwnIngredients(TestContext ctx) {
+		FakePlayer p = player(ctx);
+		BlockPos bowl = new BlockPos(1, 1, 1);
+		ctx.setBlockState(bowl, BakeryBlocks.MIXING_BOWL.getDefaultState());
+		for (Item i : new Item[]{BakeryItems.FLOUR, Items.EGG, Items.SUGAR, BakeryItems.BUTTER}) use(ctx, p, bowl, i);
+		for (int i = 0; i < BakingRecipes.STIRS_NEEDED; i++) use(ctx, p, bowl, new ItemStack(BakeryItems.WHISK), false);
+		ItemStack own = find(p, BakeryItems.SWEET_DOUGH);
+		check(ctx, Boolean.TRUE.equals(own.get(com.bakery.registry.BakeryComponents.HOMEMADE)), "dough from your own ingredients is homemade");
+		p.getInventory().clear();
+		ItemStack bought = new ItemStack(BakeryItems.FLOUR);
+		bought.set(com.bakery.registry.BakeryComponents.STORE_BOUGHT, true);
+		use(ctx, p, bowl, bought, false);
+		for (Item i : new Item[]{Items.EGG, Items.SUGAR, BakeryItems.BUTTER}) use(ctx, p, bowl, i);
+		for (int i = 0; i < BakingRecipes.STIRS_NEEDED; i++) use(ctx, p, bowl, new ItemStack(BakeryItems.WHISK), false);
+		ItemStack store = find(p, BakeryItems.SWEET_DOUGH);
+		check(ctx, !store.isEmpty() && store.get(com.bakery.registry.BakeryComponents.HOMEMADE) == null, "store-bought flour makes it not homemade");
+		ctx.complete();
+	}
+
+	@GameTest(templateName = EMPTY)
+	public void catalogPantryHasDailyStock(TestContext ctx) {
+		FakePlayer p = player(ctx);
+		BlockPos at = new BlockPos(2, 1, 1);
+		ctx.setBlockState(at, BakeryBlocks.BAKERY_CATALOG.getDefaultState());
+		int index = -1;
+		for (int i = 0; i < Catalog.entries().size(); i++) {
+			if (Catalog.entries().get(i).item() == BakeryItems.FLOUR) index = i;
+		}
+		int stock = Catalog.entries().get(index).stock();
+		check(ctx, stock > 0, "flour is stocked, not unlimited");
+		p.getInventory().insertStack(new ItemStack(BakeryItems.SWEET_COIN, 64));
+		for (int i = 0; i < stock; i++) check(ctx, Catalog.buy(p, ctx.getAbsolutePos(at), index), "flour sells while in stock");
+		check(ctx, !Catalog.buy(p, ctx.getAbsolutePos(at), index), "then it is sold out for the day");
+		ItemStack flour = find(p, BakeryItems.FLOUR);
+		check(ctx, Boolean.TRUE.equals(flour.get(com.bakery.registry.BakeryComponents.STORE_BOUGHT)), "catalog flour is labelled store-bought");
+		ctx.complete();
+	}
+
+	@GameTest(templateName = EMPTY)
 	public void mixingBowlWrongRecipeGivesIngredientsBack(TestContext ctx) {
 		FakePlayer p = player(ctx);
 		BlockPos bowl = new BlockPos(1, 1, 1);

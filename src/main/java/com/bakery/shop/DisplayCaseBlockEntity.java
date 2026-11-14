@@ -75,6 +75,8 @@ public class DisplayCaseBlockEntity extends BlockEntity {
 				nbt.put("slot" + i, slots[i].encode(registries));
 			}
 		}
+		// Always write something: the client ignores an empty update, so an emptied block would keep showing its old item.
+		nbt.putBoolean("synced", true);
 	}
 
 	@Override

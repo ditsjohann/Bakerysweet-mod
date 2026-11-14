@@ -98,7 +98,8 @@ public final class Menu {
 			Flavor flavor = random.nextFloat() < 0.6f ? regular.favorite() : Flavor.values()[1 + random.nextInt(Flavor.values().length - 1)];
 			wanted.set(BakeryComponents.FLAVOR, flavor.asString());
 		}
-		int patience = Math.round(20 * (100 + random.nextInt(60)) * level.patience());
+		// Customers wait two and a half to four minutes (longer at a small stall), so there is time to bake to order.
+		int patience = Math.round(20 * (150 + random.nextInt(90)) * level.patience());
 		boolean dineIn = random.nextFloat() < regular.dineIn();
 		return new Order(customer, regular.index(), wanted, flavorRequested, patience, dineIn);
 	}

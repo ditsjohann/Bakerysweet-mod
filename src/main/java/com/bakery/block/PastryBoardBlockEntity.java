@@ -44,6 +44,8 @@ public class PastryBoardBlockEntity extends BlockEntity {
 		if (!dough.isEmpty()) {
 			nbt.put("dough", dough.encode(registries));
 		}
+		// Always write something: the client ignores an empty update, so an emptied block would keep showing its old item.
+		nbt.putBoolean("synced", true);
 	}
 
 	@Override

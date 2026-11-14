@@ -69,6 +69,7 @@ public final class ShopManager {
 		if (flavor == regular.favorite()) score += 1;
 		if (flavor == regular.disliked()) score -= 1;
 		if (flavor == Flavor.STARBLOOM) score += 0.5;
+		if (Boolean.TRUE.equals(stack.get(com.bakery.registry.BakeryComponents.HOMEMADE))) score += 0.5;
 		return Math.clamp(Math.round(score), 1, 5);
 	}
 
@@ -93,6 +94,12 @@ public final class ShopManager {
 		int stars = rate(regular, stack, now);
 		boolean favorite = BakeryFoods.flavor(stack) == regular.favorite();
 		int price = Menu.price(order, stars, favorite);
+		// Farm to table: a dish made only from what the baker grew and made sells for half again as much.
+		if (Boolean.TRUE.equals(stack.get(com.bakery.registry.BakeryComponents.HOMEMADE))) {
+			int extra = Math.max(1, price / 2);
+			price += extra;
+			player.sendMessage(Text.translatable("message.bakery.shop.homemade", extra).formatted(Formatting.GREEN), true);
+		}
 
 		// Serving streak: keep the 4-5 star dishes coming and the tips grow.
 		int streak = stars >= 4 ? STREAKS.merge(player.getUuid(), 1, Integer::sum) : 0;

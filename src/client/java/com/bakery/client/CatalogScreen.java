@@ -38,11 +38,22 @@ public class CatalogScreen extends Screen {
 	private int scroll;
 	private int flash = -1;
 	private long flashAt;
+	/** Today's stock per entry (-1 = unlimited), counted down locally as the baker buys. */
+	private final List<Integer> stock;
 
 	public CatalogScreen(BlockPos pos, SweetPayloads.GuideData data) {
 		super(Text.translatable("screen.bakery.catalog"));
 		this.pos = pos;
 		this.data = data;
+		this.stock = new ArrayList<>(data.stockLeft());
+	}
+
+	private int left(int index) {
+		return index < stock.size() ? stock.get(index) : -1;
+	}
+
+	private boolean soldOut(int index) {
+		return left(index) == 0 && !creative();
 	}
 
 	// ------------------------------------------------------------------ layout
@@ -247,8 +258,15 @@ public class CatalogScreen extends Screen {
 				lines.add(Text.translatable("screen.bakery.catalog.locked", entry.level().number(), entry.level().displayName()).withColor(0xFF9C8C94));
 			} else {
 				lines.add(Text.translatable("screen.bakery.catalog.price", Catalog.price(hovered, day())).withColor(0xFFD0567E));
-				lines.add(Text.translatable(coins() >= Catalog.price(hovered, day()) || creative() ? "screen.bakery.catalog.click_buy" : "screen.bakery.catalog.poor")
-						.formatted(Formatting.GRAY));
+				if (left(hovered) >= 0) {
+					lines.add(Text.translatable(soldOut(hovered) ? "screen.bakery.catalog.sold_out_hint" : "screen.bakery.catalog.left_hint", left(hovered))
+							.withColor(0xFFB07A3C));
+				}
+				if (entry.storeBought()) lines.add(Text.translatable("screen.bakery.catalog.store_hint").formatted(Formatting.GRAY));
+				if (!soldOut(hovered)) {
+					lines.add(Text.translatable(coins() >= Catalog.price(hovered, day()) || creative() ? "screen.bakery.catalog.click_buy" : "screen.bakery.catalog.poor")
+							.formatted(Formatting.GRAY));
+				}
 			}
 			context.drawTooltip(textRenderer, lines, mouseX, mouseY);
 		}
@@ -281,6 +299,13 @@ public class CatalogScreen extends Screen {
 		} else {
 			SweetUi.item(context, new ItemStack(BakeryItems.SWEET_COIN), tx - 1, cy + 15, 0.6f);
 			context.drawText(textRenderer, String.valueOf(price), tx + 10, cy + 17, affordable ? 0xFFD0567E : 0xFFB0A0A6, false);
+			if (left(index) >= 0) {
+				// Daily stock: a little "3 left" tag, or "sold out" until tomorrow.
+				Text tag = soldOut(index) ? Text.translatable("screen.bakery.catalog.sold_out") : Text.translatable("screen.bakery.catalog.left", left(index));
+				int tw = textRenderer.getWidth(tag);
+				context.drawText(textRenderer, tag, cx + cw - tw - 4, cy + 17, soldOut(index) ? 0xFFB0A0A6 : 0xFFB07A3C, false);
+				if (soldOut(index)) context.fill(cx + 1, cy + 1, cx + cw - 1, cy + ch - 1, 0x60FFFFFF);
+			}
 			if (special) {
 				int was = Catalog.entries().get(index).price();
 				int px = tx + 12 + textRenderer.getWidth(String.valueOf(price));
@@ -369,7 +394,12 @@ public class CatalogScreen extends Screen {
 			sound(SoundEvents.BLOCK_NOTE_BLOCK_BASS.value(), 0.8f);
 			return;
 		}
+		if (soldOut(index)) {
+			sound(SoundEvents.BLOCK_NOTE_BLOCK_BASS.value(), 0.8f);
+			return;
+		}
 		ClientPlayNetworking.send(new SweetPayloads.Buy(pos, index));
+		if (left(index) > 0 && coins() >= Catalog.price(index, day())) stock.set(index, left(index) - 1);
 		sound(SoundEvents.UI_BUTTON_CLICK.value(), 1.4f);
 		flash = index;
 		flashAt = client != null && client.world != null ? client.world.getTime() : 0;

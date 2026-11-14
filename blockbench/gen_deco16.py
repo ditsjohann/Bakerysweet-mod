@@ -145,47 +145,34 @@ def bunting():
 # ------------------------------------------------------------------ wrapped pottery (columns go round, rows go down)
 
 def vase_wrap():
-    """The tulip vase, unrolled: a gold lip, a pink neck, a white scalloped shoulder, a belly of white polka dots
-    in staggered rows, a fine white line and a deeper pink foot. Rows run from the lip (top) to the foot."""
-    pink = [hx(c) for c in ("#c8607e", "#e07c98", "#f29ab2", "#fbc0d0")]
-    white, gold, gold_d = hx("#fff8f6"), hx("#f2c94c"), hx("#c89a30")
+    """The tulip vase, unrolled (rows run from the lip down to the foot): a gold lip, a calm pink body with one
+    soft white band round the shoulder, and a slightly deeper foot. Rows 2-3 are plain (tops and bottoms use them)."""
+    pink = [hx(c) for c in ("#cc6884", "#e07c98", "#f09ab2", "#f8b8ca")]
+    white = hx("#fff4f2")
+    gold, gold_d = hx("#f2c94c"), hx("#c89a30")
     img = canvas()
     for y in range(16):
+        k = 3 if y in (2, 3) else 2 if y < 13 else 1
         for x in range(16):
-            k = 2 if y < 11 else 1
-            if y in (4, 13, 14, 15):
-                k = 1
             put(img, x, y, pink[k])
     for x in range(16):
-        put(img, x, 0, gold); put(img, x, 1, gold_d)          # lip
-        put(img, x, 5, white if x % 2 == 0 else pink[3])     # scalloped shoulder
-        put(img, x, 6, white if x % 4 == 1 else pink[2])
-        put(img, x, 12, white)                                # a fine line above the foot
-    for y, off in ((8, 0), (10, 2)):
-        for x in range(off, 16, 4):
-            put(img, x, y, white); put(img, x + 1, y, white)  # polka dots
-            put(img, x, y + 1, pink[3])
-    for x in range(1, 16, 4):
-        put(img, x, 3, pink[3])                               # a glint on the neck
+        put(img, x, 0, gold); put(img, x, 1, gold_d)
+        put(img, x, 6, white); put(img, x, 7, pink[3])
     return img
 
 
 def pot_wrap():
-    """The tulip pot, unrolled: a lighter rolled rim with a shadow under it, a painted band of little white hearts,
-    then the terracotta body with soft throwing rings."""
-    t = [hx(c) for c in ("#a8583a", "#c87250", "#e08e66", "#f2aa82")]
-    white, rose = hx("#fff4ec"), hx("#f28aa6")
+    """The tulip pot, unrolled: a lighter rolled rim with a shadow under it, one soft rose band, plain terracotta
+    below. Rows 12-15 are plain (tops and bottoms use them)."""
+    t = [hx(c) for c in ("#a8583a", "#c87250", "#dc8a62", "#eea47c")]
+    rose, rose_d = hx("#e88a98"), hx("#c86a7a")
     img = canvas()
     for y in range(16):
+        k = 3 if y < 3 else 1 if y == 3 else 2
         for x in range(16):
-            k = 3 if y < 2 else 2 if y < 4 else 1 if y == 4 else 2 if y < 12 else 1
-            if y in (10, 14) and x % 5 != 2:
-                k = 1                                         # throwing rings
             put(img, x, y, t[k])
-    heart = ((0, 0), (2, 0), (0, 1), (1, 1), (2, 1), (1, 2))
-    for x0 in range(0, 16, 4):
-        for (dx, dy) in heart:
-            put(img, x0 + dx, 6 + dy, white if (x0 // 4) % 2 == 0 else rose)
+    for x in range(16):
+        put(img, x, 7, rose); put(img, x, 8, rose_d)
     return img
 
 

@@ -117,7 +117,7 @@ def tulip_pot():
     return m
 
 
-def wrap_uvs(m, tex, y_top):
+def wrap_uvs(m, tex, y_top, plain=(4, 13, 8, 15)):
     """Wraps a texture round a turned (round) shape: each side face takes the texture column for the direction it
     faces (16 columns = 16 sides) and the rows for its height (row 0 at the top). Painted patterns then go all the
     way round instead of every side showing the same middle strip."""
@@ -127,7 +127,12 @@ def wrap_uvs(m, tex, y_top):
         rot = e.get("rotation") or {}
         ang = _m.radians(rot.get("angle", 0)) if rot.get("axis") == "y" else 0
         for fname, f in e["faces"].items():
-            if f.get("texture") != "#" + tex or fname not in normals:
+            if f.get("texture") != "#" + tex:
+                continue
+            if fname in ("up", "down"):
+                f["uv"] = list(plain)  # tops and bottoms take a plain patch, never the painted bands
+                continue
+            if fname not in normals:
                 continue
             nx, nz = normals[fname]
             # Minecraft turns elements clockwise (seen from above) for positive angles.
@@ -167,5 +172,5 @@ def tulip_vase():
     return m
 
 
-fix_flowers(wrap_uvs(tulip_vase(), "vase", 9.4)).save(path("tulip_vase"))
+fix_flowers(wrap_uvs(tulip_vase(), "vase", 9.4, plain=(4, 2, 8, 4))).save(path("tulip_vase"))
 print("kitchen models written")

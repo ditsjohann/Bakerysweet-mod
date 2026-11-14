@@ -27,34 +27,63 @@ class Plant(Canvas):
         self.rnd = random.Random(seed)
 
     def stem(self, x, y0, height, color=GREEN, curve=0.0, width=1):
-        """A stem from the ground (y0, usually 31) up `height` pixels, bending by `curve`. Returns its tip."""
-        r = ramp(color, 4, 0.3)
+        """A stem from the ground (y0, usually 31) up `height` pixels, bending by `curve`. Returns its tip.
+        Lit on its left, shaded on its right, a little darker near the ground."""
+        r = ramp(color, 5, 0.3)
         tip = (x, y0)
+        w = max(width, 1)
         for t in range(height):
             px = x + curve * (t / max(1, height)) ** 2 * height * 0.3
             py = y0 - t
-            for w in range(width):
-                self.set(px + w, py, r[2 if w == 0 else 1])
+            low = t < height * 0.3
+            if w == 1:
+                self.set(px, py, r[1] if low else r[2])
+            else:
+                for i in range(w):
+                    self.set(px + i, py, (r[3] if i == 0 else r[1]) if not low else (r[2] if i == 0 else r[0]))
             tip = (px, py)
         return tip
 
-    def leaf(self, x, y, angle, length, color=GREEN, width=0.34):
-        """A pointed leaf from (x, y) toward `angle` (radians, 0 = right, -pi/2 = up), lit on its upper side."""
-        r = ramp(color, 5, 0.32)
+    def leaf(self, x, y, angle, length, color=GREEN, width=0.34, depth=None):
+        """A pointed leaf from (x, y) toward `angle` (radians, 0 = right, -pi/2 = up).
+
+        Drawn with depth: leaves at the back (higher up the plant) are deeper green, leaves in front are fresher;
+        the upper half catches the light with a bright rim, the lower half is in shade with a darker rim, a pale
+        midrib runs along it, and it casts a one-pixel shadow onto whatever is already drawn under it.
+        """
+        if depth is None:
+            depth = max(0.0, min(1.0, (y - 6) / 24))      # lower on the plant = nearer the viewer
+        base = rgb(color)
+        k_dark = 0.78 + 0.3 * depth
+        tint = tuple(max(0, min(255, int(c * k_dark))) for c in base)
+        r = ramp("#%02x%02x%02x" % tint, 6, 0.36)
         ca, sa = math.cos(angle), math.sin(angle)
+        mine = set()
         for t in range(0, length + 1):
             half = math.sin((t + 0.5) / (length + 1) * math.pi) * length * width
             s = -half
             while s <= half:
                 px, py = x + ca * t - sa * s, y + sa * t + ca * s
                 upper = (s * ca) < 0 if abs(sa) < 0.5 else s < 0
-                k = 3 if upper else 2
-                if abs(s) < 0.5 and 0 < t < length:
-                    k = 4 if t < length * 0.7 else 3
-                if abs(s) > half - 0.6:
-                    k = 1
+                edge = abs(s) > half - 0.6
+                if abs(s) < 0.5 and 0 < t < length and length >= 4:
+                    k = 4                                    # a pale midrib on the bigger leaves
+                elif edge and not upper:
+                    k = 0                                    # a shaded rim underneath only
+                else:
+                    k = 3 if upper else 2
+                X, Y = int(round(px)), int(round(py))
+                mine.add((X, Y))
                 self.set(px, py, r[k])
                 s += 0.5
+        # Cast shadow: darken what lies just under the leaf (stems, leaves behind it).
+        for (X, Y) in mine:
+            below = (X, Y + 1)
+            if below in mine or not (0 <= below[0] < self.w and 0 <= below[1] < self.h):
+                continue
+            pr, pg, pb, pa = self.get(*below)
+            if pa > 0:
+                self.set(below[0], below[1], (int(pr * 0.72), int(pg * 0.72), int(pb * 0.78)))
 
     def berry(self, x, y, rad, color):
         self.disc(x, y, rad, ramp(color, 5, 0.34))
@@ -71,12 +100,16 @@ class Plant(Canvas):
         """A rounded leafy bush standing on the ground."""
         for t in range(3):
             self.stem(cx - 2 + t * 2, base, int(h * 0.6), color="#6e8a3e", curve=(t - 1) * 2)
+        spots = []
         for _ in range(leaves):
             a = self.rnd.uniform(0, math.tau)
             d = self.rnd.uniform(0, 1) ** 0.6
             x = cx + math.cos(a) * w * 0.5 * d
             y = base - h * 0.45 + math.sin(a) * h * 0.45 * d
-            self.leaf(x, y, self.rnd.uniform(-math.pi, 0.2), self.rnd.randint(leaf_len - 1, leaf_len + 1), color)
+            spots.append((y, x, self.rnd.uniform(-math.pi, 0.2), self.rnd.randint(leaf_len - 1, leaf_len + 1)))
+        # Back (upper) leaves first, so the fresher front leaves overlap them and cast their shadows.
+        for (y, x, angle, length) in sorted(spots):
+            self.leaf(x, y, angle, length, color)
 
     def sprout(self, x=16, color=GREEN, h=5):
         tx, ty = self.stem(x, 31, h, color)

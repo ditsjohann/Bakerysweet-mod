@@ -130,6 +130,7 @@ public class BakeryClient implements ClientModInitializer {
 
 		BlockEntityRendererFactories.register(BakeryBlockEntities.GRAND_OVEN, GrandOvenRenderer::new);
 		BlockEntityRendererFactories.register(BakeryBlockEntities.DISPLAY_CASE, DisplayCaseRenderer::new);
+		BlockEntityRendererFactories.register(BakeryBlockEntities.ORDER_NOTEBOOK, OrderNotebookRenderer::new);
 		BlockEntityRendererFactories.register(BakeryBlockEntities.TURNTABLE, TurntableRenderer::new);
 		BlockEntityRendererFactories.register(BakeryBlockEntities.PLACED_FOOD, PlacedCakeRenderer::new);
 		BlockEntityRendererFactories.register(BakeryBlockEntities.JUICER, KitchenRenderers.Juicer::new);
@@ -172,6 +173,8 @@ public class BakeryClient implements ClientModInitializer {
 				context.client().setScreen(new MenuScreen(payload.counter())));
 		ClientPlayNetworking.registerGlobalReceiver(com.bakery.network.SweetPayloads.OpenCounter.ID, (payload, context) ->
 				context.client().setScreen(new CounterScreen(payload.counter())));
+		ClientPlayNetworking.registerGlobalReceiver(com.bakery.network.SweetPayloads.OpenNotebook.ID, (payload, context) ->
+				context.client().setScreen(new OrderNotebookScreen(payload.pos())));
 		ClientPlayNetworking.registerGlobalReceiver(com.bakery.network.StickerPayload.ID, (payload, context) -> {
 			com.bakery.sweet.Sticker[] stickers = com.bakery.sweet.Sticker.values();
 			if (payload.sticker() >= 0 && payload.sticker() < stickers.length) {

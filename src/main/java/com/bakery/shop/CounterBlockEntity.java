@@ -46,6 +46,16 @@ import java.util.UUID;
  */
 public class CounterBlockEntity extends BlockEntity {
 	public static final int MAX_CUSTOMERS = 6;
+	/** Counters that have ticked recently, per world, so an Order Notebook can find them all. */
+	private static final java.util.Map<net.minecraft.registry.RegistryKey<World>, Set<BlockPos>> ACTIVE = new java.util.concurrent.ConcurrentHashMap<>();
+
+	/** Every counter in this world that is loaded and ticking. */
+	public static Set<BlockPos> active(ServerWorld world) {
+		Set<BlockPos> set = ACTIVE.get(world.getRegistryKey());
+		if (set == null) return Set.of();
+		set.removeIf(p -> !world.isChunkLoaded(p) || !(world.getBlockEntity(p) instanceof CounterBlockEntity));
+		return Set.copyOf(set);
+	}
 
 	private final List<Order> orders = new ArrayList<>();
 	/** Dishes the baker took off the menu (item ids). */
@@ -228,6 +238,7 @@ public class CounterBlockEntity extends BlockEntity {
 		if (!(world instanceof ServerWorld server) || world.getTime() % 10 != 0) {
 			return;
 		}
+		ACTIVE.computeIfAbsent(world.getRegistryKey(), k -> java.util.concurrent.ConcurrentHashMap.newKeySet()).add(pos.toImmutable());
 		boolean changed = false;
 		if (world.getTime() % 200 == 0) {
 			counter.updateCharm();

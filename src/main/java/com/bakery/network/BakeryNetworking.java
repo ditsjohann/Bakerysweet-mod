@@ -36,6 +36,7 @@ public final class BakeryNetworking {
 		PayloadTypeRegistry.playC2S().register(SweetPayloads.Buy.ID, SweetPayloads.Buy.CODEC);
 		PayloadTypeRegistry.playC2S().register(SweetPayloads.ToggleDish.ID, SweetPayloads.ToggleDish.CODEC);
 		PayloadTypeRegistry.playS2C().register(SweetPayloads.OpenCounter.ID, SweetPayloads.OpenCounter.CODEC);
+		PayloadTypeRegistry.playS2C().register(SweetPayloads.OpenNotebook.ID, SweetPayloads.OpenNotebook.CODEC);
 		PayloadTypeRegistry.playC2S().register(SweetPayloads.CounterAction.ID, SweetPayloads.CounterAction.CODEC);
 		ServerPlayNetworking.registerGlobalReceiver(SweetPayloads.CounterAction.ID, (payload, context) -> context.server().execute(() -> {
 			ServerPlayerEntity player = context.player();

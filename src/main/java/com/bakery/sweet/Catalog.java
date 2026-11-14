@@ -67,6 +67,7 @@ public final class Catalog {
 			add(list, c, Items.COBBLESTONE_WALL, 4, 2, l1);
 			add(list, c, BakeryItems.PATH_RIBBON, 1, 1, l1);
 			add(list, c, BakeryItems.SERVICE_BELL, 1, 5, l1);
+			add(list, c, BakeryItems.ORDER_NOTEBOOK, 1, 4, l1);
 			add(list, c, BakeryItems.JUICER, 1, 10, l2);
 			add(list, c, BakeryItems.DISPLAY_CASE, 1, 14, l2);
 			add(list, c, BakeryItems.HEART_CUTTER, 1, 6, l2);

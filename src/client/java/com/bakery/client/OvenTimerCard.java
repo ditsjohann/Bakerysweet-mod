@@ -28,7 +28,7 @@ import java.util.List;
  */
 final class OvenTimerCard {
 	private static final double SHOW_DISTANCE = 9;
-	private static final int BAR_W = 70, ROW_H = 20;
+	private static final int BAR_W = 70, ROW_H = 19;
 	private static final float BAR_END = BakingRecipes.BURNT;
 
 	private OvenTimerCard() {
@@ -51,15 +51,24 @@ final class OvenTimerCard {
 		matrices.push();
 		matrices.translate(at.x - oven.getPos().getX(), at.y - oven.getPos().getY(), at.z - oven.getPos().getZ());
 		matrices.multiply(client.gameRenderer.getCamera().getRotation());
-		final float scale = 0.0135f;
+		final float scale = 0.011f;
 		// The card's bottom edge sits at the anchor, so more bakes make it grow upward, not into the oven.
 		matrices.translate(0, h / 2f * scale, 0);
+		float left = -w / 2f, top = -h / 2f;
+		// Bake icons in plain block space (they do not show inside the mirrored text frame).
+		for (int i = 0; i < rows; i++) {
+			matrices.push();
+			matrices.translate((left + 10) * scale, -(top + 13 + i * ROW_H + 7) * scale, 0.01f);
+			matrices.scale(0.18f, 0.18f, 0.05f);
+			client.getItemRenderer().renderItem(bakes.get(i).stack, ModelTransformationMode.FIXED, LightmapTextureManager.MAX_LIGHT_COORDINATE,
+					OverlayTexture.DEFAULT_UV, matrices, consumers, oven.getWorld(), i);
+			matrices.pop();
+		}
 		matrices.scale(scale, -scale, scale);
 		Matrix4f m = matrices.peek().getPositionMatrix();
 		// Item and text rendering switch buffers, so quads always ask for theirs fresh.
 		Quads quads = new Quads(consumers);
 		int light = LightmapTextureManager.MAX_LIGHT_COORDINATE;
-		float left = -w / 2f, top = -h / 2f;
 
 		// Card: cream with a pink rim, and a header with the oven setting.
 		rect(quads, m, left - 1, top - 1, left + w + 1, top + h + 1, 0xF0F7B6CF, 0.02f);
@@ -74,13 +83,6 @@ final class OvenTimerCard {
 			GrandOvenBlockEntity.Bake bake = bakes.get(i);
 			float y = top + 13 + i * ROW_H;
 			Status status = status(oven, bake, tickDelta, time);
-			// Item icon
-			matrices.push();
-			matrices.translate(left + 10, y + 8, -0.02f);
-			matrices.scale(14, -14, 0.01f);
-			client.getItemRenderer().renderItem(bake.stack, ModelTransformationMode.GUI, light, OverlayTexture.DEFAULT_UV, matrices, consumers, oven.getWorld(), i);
-			matrices.pop();
-			m = matrices.peek().getPositionMatrix();
 			// Bar
 			float bx = left + 20, by = y + 2;
 			drawBar(quads, m, oven, bake, bx, by, tickDelta);
@@ -153,10 +155,11 @@ final class OvenTimerCard {
 	private record Quads(VertexConsumerProvider consumers) {
 	}
 
-	/** A flat coloured quad (z pulls it toward the viewer, so later layers sit on top). */
-	private static void rect(Quads quads, Matrix4f m, float x1, float y1, float x2, float y2, int argb, float z) {
+	/** A flat coloured quad; a smaller {@code z} sits nearer the viewer (the text itself is at 0). */
+	private static void rect(Quads quads, Matrix4f m, float x1, float y1, float x2, float y2, int argb, float depth) {
 		VertexConsumer vc = quads.consumers().getBuffer(RenderLayer.getTextBackground());
 		int light = LightmapTextureManager.MAX_LIGHT_COORDINATE;
+		float z = depth * 60;   // in text pixels: far enough apart that the layers never fight
 		// Both windings, so the card shows whichever way the matrices ended up facing.
 		vc.vertex(m, x1, y1, -z).color(argb).light(light);
 		vc.vertex(m, x1, y2, -z).color(argb).light(light);

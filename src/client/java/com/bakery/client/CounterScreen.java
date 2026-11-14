@@ -140,15 +140,19 @@ public class CounterScreen extends Screen {
 		int py = y + 48;
 		for (CafeLevel l : CafeLevel.values()) {
 			boolean have = l.ordinal() <= level.ordinal();
-			for (String key : perksOf(l)) {
-				Text line = Text.literal(have ? "✔ " : "Lv " + l.number() + " ").append(Text.translatable(key));
-				for (OrderedText wrapped : textRenderer.wrapLines(line, pw - 10)) {
-					if (py > y + h - 18) break;
-					context.drawText(textRenderer, wrapped, px + 5, py, have ? SweetUi.INK : 0xFFB0A0A6, false);
-					py += 9;
-				}
-				py += 2;
+			// One entry per level: "✔" or "Lv n", then its perks joined with dots.
+			net.minecraft.text.MutableText line = Text.literal(have ? "✔ " : "Lv " + l.number() + " ").withColor(have ? 0xFF4FA060 : 0xFFC8B4BC);
+			List<String> keys = perksOf(l);
+			for (int k = 0; k < keys.size(); k++) {
+				if (k > 0) line.append(" · ");
+				line.append(Text.translatable(keys.get(k)).withColor(have ? SweetUi.INK : 0xFFB0A0A6));
 			}
+			for (OrderedText wrapped : textRenderer.wrapLines(line, pw - 10)) {
+				if (py > y + h - 18) break;
+				context.drawText(textRenderer, wrapped, px + 5, py, have ? SweetUi.INK : 0xFFB0A0A6, false);
+				py += 9;
+			}
+			py += 3;
 		}
 	}
 

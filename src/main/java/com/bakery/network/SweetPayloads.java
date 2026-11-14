@@ -60,6 +60,17 @@ public final class SweetPayloads {
 		}
 	}
 
+	/** Server -> client: opens the Order Notebook screen (the orders come with the notebook's block entity sync). */
+	public record OpenNotebook(BlockPos pos) implements CustomPayload {
+		public static final Id<OpenNotebook> ID = new Id<>(Bakery.id("open_notebook"));
+		public static final PacketCodec<RegistryByteBuf, OpenNotebook> CODEC = PacketCodec.tuple(BlockPos.PACKET_CODEC, OpenNotebook::pos, OpenNotebook::new);
+
+		@Override
+		public Id<? extends CustomPayload> getId() {
+			return ID;
+		}
+	}
+
 	/** Client -> server: a button on the counter screen ({@link com.bakery.shop.CounterBlock#OPEN_SIGN} etc.). */
 	public record CounterAction(BlockPos counter, int action) implements CustomPayload {
 		public static final Id<CounterAction> ID = new Id<>(Bakery.id("counter_action"));

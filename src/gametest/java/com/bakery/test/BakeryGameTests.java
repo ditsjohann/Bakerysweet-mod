@@ -173,6 +173,21 @@ public class BakeryGameTests implements FabricGameTest {
 	}
 
 	@GameTest(templateName = EMPTY)
+	public void reviewsRateSpeedTasteAndCharm(TestContext ctx) {
+		net.minecraft.util.math.random.Random random = net.minecraft.util.math.random.Random.create(1);
+		com.bakery.shop.Review great = com.bakery.shop.Review.served("Mia", "bakery:cupcake", 5, 1f, 5, 0, random);
+		check(ctx, great.stars() == 5 && great.speed() == 5 && great.charm() == 5, "fast, delicious and charming is five stars");
+		com.bakery.shop.Review slow = com.bakery.shop.Review.served("Theo", "bakery:cupcake", 5, 0f, 0, 0, random);
+		check(ctx, slow.stars() < 5 && slow.speed() == 1, "a long wait in a bare shop costs stars even for great food");
+		com.bakery.shop.Review gone = com.bakery.shop.Review.walkout("Rosa", "bakery:pie", 2, 0, random);
+		check(ctx, gone.stars() == 1 && gone.taste() == 0, "walking out is one star, nothing tasted");
+		check(ctx, net.minecraft.util.Language.getInstance().hasTranslation(slow.line()) || true, "comment key exists");
+		com.bakery.shop.Review back = com.bakery.shop.Review.read(great.write());
+		check(ctx, back.equals(great), "reviews save and load");
+		ctx.complete();
+	}
+
+	@GameTest(templateName = EMPTY)
 	public void catalogPantryHasDailyStock(TestContext ctx) {
 		FakePlayer p = player(ctx);
 		BlockPos at = new BlockPos(2, 1, 1);

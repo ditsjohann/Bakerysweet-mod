@@ -205,6 +205,8 @@ public final class TreeShapes {
 			case PLUM -> plum(plan, base, random);
 		}
 		plan.trim();
+		// A low, wide canopy can reach below the sapling; never dig leaves into the ground.
+		plan.blocks.keySet().removeIf(p -> p.getY() < base.getY());
 		if (kind != Kind.PALM) {
 			plan.fruitUnderLeaves();
 		}

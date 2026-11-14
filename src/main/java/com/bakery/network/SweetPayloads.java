@@ -49,6 +49,29 @@ public final class SweetPayloads {
 		}
 	}
 
+	/** Server -> client: open the counter's screen (shop sign, till and review board). */
+	public record OpenCounter(BlockPos counter) implements CustomPayload {
+		public static final Id<OpenCounter> ID = new Id<>(Bakery.id("open_counter"));
+		public static final PacketCodec<RegistryByteBuf, OpenCounter> CODEC = PacketCodec.tuple(BlockPos.PACKET_CODEC, OpenCounter::counter, OpenCounter::new);
+
+		@Override
+		public Id<? extends CustomPayload> getId() {
+			return ID;
+		}
+	}
+
+	/** Client -> server: a button on the counter screen. 0 = open/close the shop, 1 = empty the till. */
+	public record CounterAction(BlockPos counter, int action) implements CustomPayload {
+		public static final Id<CounterAction> ID = new Id<>(Bakery.id("counter_action"));
+		public static final PacketCodec<RegistryByteBuf, CounterAction> CODEC = PacketCodec.tuple(
+				BlockPos.PACKET_CODEC, CounterAction::counter, PacketCodecs.VAR_INT, CounterAction::action, CounterAction::new);
+
+		@Override
+		public Id<? extends CustomPayload> getId() {
+			return ID;
+		}
+	}
+
 	/** Client -> server: take a dish off (or put it back on) the menu of the counter at {@code counter}. */
 	public record ToggleDish(BlockPos counter, String dish) implements CustomPayload {
 		public static final Id<ToggleDish> ID = new Id<>(Bakery.id("toggle_dish"));

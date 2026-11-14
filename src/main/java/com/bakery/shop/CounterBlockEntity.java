@@ -61,9 +61,42 @@ public class CounterBlockEntity extends BlockEntity {
 	private int lastRegular = -1;
 	/** The walking path customers follow, laid with a Path Ribbon: entrance first, the spot in front of the counter last. */
 	private final List<BlockPos> path = new ArrayList<>();
+	/** The review board: what customers wrote about the bakery, newest first. */
+	private final List<Review> reviews = new ArrayList<>();
 
 	public CounterBlockEntity(BlockPos pos, BlockState state) {
 		super(BakeryBlockEntities.COUNTER, pos, state);
+	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	/** Most customers leave a few words on the review board; unhappy ones are the most likely to. */
+	public void maybeReview(ServerWorld server, Review review) {
+		float chance = review.stars() <= 2 ? 0.85f : 0.65f;
+		if (server.random.nextFloat() >= chance) return;
+		reviews.addFirst(review);
+		while (reviews.size() > Review.KEEP) reviews.removeLast();
+		sync();
+	}
+
+	/** Average of one part of the reviews: 0 overall, 1 speed, 2 taste, 3 charm. 0 if there are none. */
+	public float average(int part) {
+		float sum = 0;
+		int n = 0;
+		for (Review r : reviews) {
+			int v = switch (part) {
+				case 1 -> r.speed();
+				case 2 -> r.taste();
+				case 3 -> r.charm();
+				default -> r.stars();
+			};
+			if (v <= 0) continue;
+			sum += v;
+			n++;
+		}
+		return n == 0 ? 0 : sum / n;
 	}
 
 	public List<Order> getOrders() {
@@ -254,6 +287,8 @@ public class CounterBlockEntity extends BlockEntity {
 				customer.leave();
 				it.remove();
 				counter.walkouts++;
+				counter.maybeReview(server, Review.walkout(customer.regular().name(), net.minecraft.registry.Registries.ITEM.getId(order.wanted.getItem()).toString(),
+						counter.charm, server.getTimeOfDay() / 24000L, server.random));
 				changed = true;
 			}
 		}
@@ -308,6 +343,8 @@ public class CounterBlockEntity extends BlockEntity {
 			int stars = ShopManager.rate(customer.regular(), taken, server.getTime());
 			boolean favorite = BakeryFoods.flavor(taken) == customer.regular().favorite();
 			till += Math.max(1, Menu.price(order, stars, favorite) - 1) + charm / 2;
+			maybeReview(server, Review.served(customer.regular().name(), net.minecraft.registry.Registries.ITEM.getId(taken.getItem()).toString(), stars,
+					order.patienceFraction(), charm, server.getTimeOfDay() / 24000L, server.random));
 			served++;
 			server.spawnParticles(stars >= 4 ? ParticleTypes.HEART : ParticleTypes.HAPPY_VILLAGER, customer.getX(), customer.getY() + 2.1, customer.getZ(), 3, 0.3, 0.15, 0.3, 0);
 			server.playSound(null, p, SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.BLOCKS, 1f, 1.6f);
@@ -361,6 +398,9 @@ public class CounterBlockEntity extends BlockEntity {
 		nbt.putInt("charm", charm);
 		nbt.putInt("cozy", cozyCount);
 		nbt.putLongArray("path", path.stream().mapToLong(BlockPos::asLong).toArray());
+		NbtList board = new NbtList();
+		reviews.forEach(r -> board.add(r.write()));
+		nbt.put("reviews", board);
 	}
 
 	@Override
@@ -384,6 +424,9 @@ public class CounterBlockEntity extends BlockEntity {
 		cozyCount = nbt.getInt("cozy");
 		path.clear();
 		for (long l : nbt.getLongArray("path")) path.add(BlockPos.fromLong(l));
+		reviews.clear();
+		NbtList board = nbt.getList("reviews", NbtElement.COMPOUND_TYPE);
+		for (int i = 0; i < board.size(); i++) reviews.add(Review.read(board.getCompound(i)));
 	}
 
 	@Override

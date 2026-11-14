@@ -81,6 +81,7 @@ public final class Showcase {
 					client.setScreen(switch (p[0]) {
 						case "catalog" -> new com.bakery.client.CatalogScreen(pos, data);
 						case "menu" -> new com.bakery.client.MenuScreen(pos);
+						case "counter" -> new com.bakery.client.CounterScreen(pos);
 						default -> new com.bakery.client.GuideScreen(data);
 					});
 					client.options.hudHidden = false;

@@ -99,27 +99,42 @@ public class CounterBlock extends BlockWithEntity {
 			counter.setOwner(player.getUuid());
 		}
 		if (player.isSneaking()) {
-			int coins = counter.collectTill();
-			if (coins > 0) {
-				if (player instanceof net.minecraft.server.network.ServerPlayerEntity serverPlayer) com.bakery.sweet.Coins.pay(serverPlayer, coins);
-				world.playSound(null, pos, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 0.8f, 1.1f);
-				player.sendMessage(Text.translatable("message.bakery.shop.till", coins).formatted(Formatting.LIGHT_PURPLE), true);
-			} else {
-				player.sendMessage(Text.translatable("message.bakery.shop.till_empty"), true);
-			}
+			collect(world, pos, player);
 			return ActionResult.CONSUME;
 		}
+		// Everything else (open sign, till, the review board) is on the counter's screen.
+		if (player instanceof net.minecraft.server.network.ServerPlayerEntity serverPlayer) {
+			net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(serverPlayer, new com.bakery.network.SweetPayloads.OpenCounter(pos));
+		}
+		return ActionResult.CONSUME;
+	}
+
+	/** Empties the till into the player's purse. */
+	public static void collect(World world, BlockPos pos, PlayerEntity player) {
+		if (!(world.getBlockEntity(pos) instanceof CounterBlockEntity counter)) return;
+		int coins = counter.collectTill();
+		if (coins > 0) {
+			if (player instanceof net.minecraft.server.network.ServerPlayerEntity serverPlayer) com.bakery.sweet.Coins.pay(serverPlayer, coins);
+			world.playSound(null, pos, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 0.8f, 1.1f);
+			player.sendMessage(Text.translatable("message.bakery.shop.till", coins).formatted(Formatting.LIGHT_PURPLE), true);
+		} else {
+			player.sendMessage(Text.translatable("message.bakery.shop.till_empty"), true);
+		}
+	}
+
+	/** Flips the OPEN sign (a shop can only open once customers have a path to walk in on). */
+	public static void toggleOpen(BlockState state, World world, BlockPos pos, PlayerEntity player) {
+		if (!(world.getBlockEntity(pos) instanceof CounterBlockEntity counter)) return;
 		boolean open = !state.get(OPEN);
 		if (open && !counter.hasPath()) {
 			player.sendMessage(Text.translatable("message.bakery.shop.needs_path").formatted(Formatting.GOLD), false);
 			world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BLOCK_BASS.value(), SoundCategory.BLOCKS, 0.7f, 0.8f);
-			return ActionResult.CONSUME;
+			return;
 		}
 		world.setBlockState(pos, state.with(OPEN, open));
 		world.playSound(null, pos, open ? SoundEvents.BLOCK_NOTE_BLOCK_CHIME.value() : SoundEvents.BLOCK_WOODEN_TRAPDOOR_CLOSE, SoundCategory.BLOCKS, 1f, open ? 1.4f : 1f);
 		player.sendMessage(Text.translatable(open ? "message.bakery.shop.open" : "message.bakery.shop.closed")
 				.formatted(open ? Formatting.LIGHT_PURPLE : Formatting.GRAY), true);
-		return ActionResult.CONSUME;
 	}
 
 	@Override

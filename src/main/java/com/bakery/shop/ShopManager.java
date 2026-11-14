@@ -138,6 +138,8 @@ public final class ShopManager {
 		world.playSound(null, customer.getBlockPos(), SoundEvents.ENTITY_VILLAGER_YES, SoundCategory.NEUTRAL, 0.7f, 1.6f);
 		world.playSound(null, customer.getBlockPos(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.6f, 1.3f);
 
+		counter.maybeReview(world, Review.served(regular.name(), net.minecraft.registry.Registries.ITEM.getId(tasted.getItem()).toString(), stars,
+				order.patienceFraction(), counter.getCharm(), world.getTimeOfDay() / 24000L, world.random));
 		counter.complete(order);
 		customer.served(world, order, tasted, order.dineIn ? Math.max(1, charmTip) : 0);
 		BakeryReputation.recordAndCelebrate(player, stars);

@@ -188,6 +188,26 @@ public final class Catalog {
 			int sapling = 0;
 			for (WoodSet set : BakeryBlocks.WOODS) add(list, c, set.sapling.asItem(), 1, 10, sapling++ < 3 ? l2 : l3);
 			add(list, c, Items.BONE_MEAL, 8, 3, l1);
+			sub = "nature";
+			add(list, c, BakeryItems.DAISIES, 2, 2, l1);
+			add(list, c, BakeryItems.BUTTERCUPS, 2, 2, l1);
+			add(list, c, BakeryItems.FORGET_ME_NOTS, 2, 2, l1);
+			add(list, c, BakeryItems.CLOVER_PATCH, 2, 2, l1);
+			add(list, c, BakeryItems.WILDFLOWER_PATCH, 2, 2, l1);
+			add(list, c, BakeryItems.WILD_FERN, 2, 2, l1);
+			add(list, c, BakeryItems.PINK_COSMOS, 2, 3, l2);
+			add(list, c, BakeryItems.BLUEBELLS, 2, 3, l2);
+			add(list, c, BakeryItems.LILY_OF_THE_VALLEY, 2, 3, l2);
+			add(list, c, BakeryItems.MOSSY_PEBBLES, 2, 3, l2);
+			add(list, c, BakeryItems.WILD_MUSHROOMS, 2, 3, l2);
+			add(list, c, BakeryItems.HANGING_IVY, 2, 4, l2);
+			add(list, c, BakeryItems.FOXGLOVE, 1, 4, l2);
+			add(list, c, BakeryItems.CATTAILS, 2, 4, l2);
+			add(list, c, BakeryItems.BLOSSOM_LILY_PAD, 2, 4, l2);
+			add(list, c, BakeryItems.ROSE_BUSH, 1, 6, l3);
+			add(list, c, BakeryItems.HYDRANGEA_BUSH, 1, 6, l3);
+			add(list, c, BakeryItems.MOSSY_LOG, 1, 6, l3);
+			add(list, c, BakeryItems.MOSSY_BOULDER, 1, 6, l3);
 
 			c = Category.DECOR;
 			sub = "furniture";
@@ -258,10 +278,8 @@ public final class Catalog {
 			add(list, c, BakeryItems.STRAWBERRY_CRATE, 1, 5, l2);
 			add(list, c, BakeryItems.LEMON_CRATE, 1, 5, l2);
 			add(list, c, BakeryItems.COCONUT_CRATE, 1, 5, l3);
-			add(list, c, BakeryItems.WILDFLOWER_PATCH, 2, 2, l1);
 			add(list, c, BakeryItems.STEPPING_STONES, 3, 3, l1);
 			add(list, c, BakeryItems.POTTED_SUCCULENT, 1, 4, l1);
-			add(list, c, BakeryItems.HANGING_IVY, 2, 4, l2);
 			add(list, c, BakeryItems.POTTED_FERN, 1, 5, l2);
 			add(list, c, BakeryItems.STUMP_STOOL, 1, 7, l2);
 			add(list, c, BakeryItems.MUSHROOM_LAMP, 1, 10, l3);

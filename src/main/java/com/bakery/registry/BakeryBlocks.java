@@ -11,6 +11,8 @@ import com.bakery.block.SliceFoodBlock;
 import com.bakery.block.StackFoodBlock;
 import com.bakery.deco.ChairBlock;
 import com.bakery.deco.DecoBlock;
+import com.bakery.deco.BlossomLilyPadBlock;
+import com.bakery.deco.WildPlantBlock;
 import com.bakery.deco.ServiceBellBlock;
 import com.bakery.block.SpecialCropBlock;
 import com.bakery.block.TallCropBlock;
@@ -196,6 +198,26 @@ public final class BakeryBlocks {
 			.strength(0.2f), box(0, 0, 15, 16, 16, 16), true));
 	public static final Block STEPPING_STONES = register("stepping_stones", new DecoBlock(AbstractBlock.Settings.copy(Blocks.STONE).strength(1f).nonOpaque(), box(0, 0, 0, 16, 1.5, 16), false));
 	public static final Block STUMP_STOOL = register("stump_stool", new ChairBlock(wood(), box(2.5, 0, 2.5, 13.5, 9, 13.5)));
+	// Wild nature: flowers and ferns (grow on grass/dirt like vanilla flowers)
+	public static final Block DAISIES = register("daisies", new WildPlantBlock(AbstractBlock.Settings.copy(Blocks.POPPY), box(3, 0, 3, 13, 12, 13)));
+	public static final Block PINK_COSMOS = register("pink_cosmos", new WildPlantBlock(AbstractBlock.Settings.copy(Blocks.POPPY), box(3, 0, 3, 13, 15, 13)));
+	public static final Block FORGET_ME_NOTS = register("forget_me_nots", new WildPlantBlock(AbstractBlock.Settings.copy(Blocks.POPPY), box(2, 0, 2, 14, 9, 14)));
+	public static final Block LILY_OF_THE_VALLEY = register("lily_of_the_valley", new WildPlantBlock(AbstractBlock.Settings.copy(Blocks.POPPY), box(3, 0, 3, 13, 12, 13)));
+	public static final Block BLUEBELLS = register("bluebells", new WildPlantBlock(AbstractBlock.Settings.copy(Blocks.POPPY), box(3, 0, 3, 13, 13, 13)));
+	public static final Block BUTTERCUPS = register("buttercups", new WildPlantBlock(AbstractBlock.Settings.copy(Blocks.POPPY), box(3, 0, 3, 13, 12, 13)));
+	public static final Block FOXGLOVE = register("foxglove", new WildPlantBlock(AbstractBlock.Settings.copy(Blocks.POPPY), box(4, 0, 4, 12, 16, 12)));
+	public static final Block CATTAILS = register("cattails", new WildPlantBlock(AbstractBlock.Settings.copy(Blocks.POPPY), box(3, 0, 3, 13, 16, 13)));
+	public static final Block WILD_FERN = register("wild_fern", new WildPlantBlock(AbstractBlock.Settings.copy(Blocks.POPPY), box(2, 0, 2, 14, 13, 14)));
+	public static final Block CLOVER_PATCH = register("clover_patch", new WildPlantBlock(AbstractBlock.Settings.copy(Blocks.PINK_PETALS), box(0, 0, 0, 16, 3, 16)));
+	public static final Block MOSSY_PEBBLES = register("mossy_pebbles", new WildPlantBlock(AbstractBlock.Settings.copy(Blocks.MOSS_CARPET).noCollision(), box(1, 0, 1, 15, 2, 15)));
+	public static final Block WILD_MUSHROOMS = register("wild_mushrooms", new WildPlantBlock(AbstractBlock.Settings.copy(Blocks.BROWN_MUSHROOM).luminance(state -> 3), box(3, 0, 3, 13, 7, 13)));
+	public static final Block ROSE_BUSH = register("rose_bush", new WildPlantBlock(AbstractBlock.Settings.copy(Blocks.AZALEA), box(1, 0, 1, 15, 15, 15)));
+	public static final Block HYDRANGEA_BUSH = register("hydrangea_bush", new WildPlantBlock(AbstractBlock.Settings.copy(Blocks.AZALEA), box(1, 0, 1, 15, 15, 15)));
+	public static final Block BLOSSOM_LILY_PAD = register("blossom_lily_pad", new BlossomLilyPadBlock(AbstractBlock.Settings.copy(Blocks.LILY_PAD)));
+	public static final Block MOSSY_LOG = register("mossy_log", new DecoBlock(wood(), box(1, 0, 4, 15, 8, 12), false));
+	public static final Block MOSSY_BOULDER = register("mossy_boulder", new DecoBlock(AbstractBlock.Settings.copy(Blocks.MOSSY_COBBLESTONE).nonOpaque(), box(1, 0, 2, 15, 10, 14), false));
+	/** The wild nature set (render layer, Charm, catalog). */
+	public static final Block[] NATURE = {DAISIES, PINK_COSMOS, FORGET_ME_NOTS, LILY_OF_THE_VALLEY, BLUEBELLS, BUTTERCUPS, FOXGLOVE, CATTAILS, WILD_FERN, CLOVER_PATCH, MOSSY_PEBBLES, WILD_MUSHROOMS, ROSE_BUSH, HYDRANGEA_BUSH, BLOSSOM_LILY_PAD, MOSSY_LOG, MOSSY_BOULDER};
 	/** Every Cozy update decor piece (render layers, Charm, catalog). */
 	public static final Block[] COZY_DECOR = {PINK_COUCH, MACARON_POUF, HEART_MIRROR, NEON_HEART_SIGN, BUNNY_PLUSH, BEAR_PLUSH, TULIP_VASE, TEA_SET,
 			CAKE_SHELF, DONUT_WALL, LACE_CURTAINS, STAR_LIGHTS, CASH_REGISTER, TIP_JAR, OPEN_SIGN, CHALKBOARD_SIGN, PASTEL_BENCH, FLOWER_BOX,

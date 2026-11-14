@@ -1,0 +1,308 @@
+{
+	"parent": "block/block",
+	"ambientocclusion": false,
+	"textures": {
+		"bark": "bakery:block/wild/log_side",
+		"end": "bakery:block/wild/log_end",
+		"moss": "bakery:block/wild/moss_full",
+		"stem": "bakery:block/wild/mushroom_stem",
+		"cap": "bakery:block/wild/cap_pink",
+		"particle": "bakery:block/wild/log_side"
+	},
+	"elements": [
+		{
+			"name": "core",
+			"from": [
+				0.98,
+				0,
+				5
+			],
+			"to": [
+				15.02,
+				8,
+				11
+			],
+			"faces": {
+				"north": {
+					"texture": "#bark",
+					"uv": [
+						1,
+						4,
+						15,
+						12
+					]
+				},
+				"south": {
+					"texture": "#bark",
+					"uv": [
+						1,
+						4,
+						15,
+						12
+					]
+				},
+				"up": {
+					"texture": "#moss"
+				},
+				"down": {
+					"texture": "#bark"
+				},
+				"east": {
+					"texture": "#end",
+					"uv": [
+						2,
+						0,
+						14,
+						16
+					]
+				},
+				"west": {
+					"texture": "#end",
+					"uv": [
+						2,
+						0,
+						14,
+						16
+					]
+				}
+			}
+		},
+		{
+			"name": "wide",
+			"from": [
+				1,
+				1,
+				4
+			],
+			"to": [
+				15,
+				7,
+				12
+			],
+			"faces": {
+				"north": {
+					"texture": "#bark",
+					"uv": [
+						1,
+						5,
+						15,
+						11
+					]
+				},
+				"south": {
+					"texture": "#bark",
+					"uv": [
+						1,
+						5,
+						15,
+						11
+					]
+				},
+				"up": {
+					"texture": "#moss"
+				},
+				"down": {
+					"texture": "#bark"
+				},
+				"east": {
+					"texture": "#end",
+					"uv": [
+						0,
+						2,
+						16,
+						14
+					]
+				},
+				"west": {
+					"texture": "#end",
+					"uv": [
+						0,
+						2,
+						16,
+						14
+					]
+				}
+			}
+		},
+		{
+			"name": "mush0_stem",
+			"from": [
+				3.7,
+				8,
+				6.7
+			],
+			"to": [
+				4.3,
+				9.6,
+				7.3
+			],
+			"faces": {
+				"north": {
+					"texture": "#stem"
+				},
+				"south": {
+					"texture": "#stem"
+				},
+				"east": {
+					"texture": "#stem"
+				},
+				"west": {
+					"texture": "#stem"
+				}
+			}
+		},
+		{
+			"name": "mush0_cap",
+			"from": [
+				2.7,
+				9.6,
+				5.7
+			],
+			"to": [
+				5.3,
+				10.4,
+				8.3
+			],
+			"faces": {
+				"north": {
+					"texture": "#cap"
+				},
+				"south": {
+					"texture": "#cap"
+				},
+				"east": {
+					"texture": "#cap"
+				},
+				"west": {
+					"texture": "#cap"
+				},
+				"up": {
+					"texture": "#cap"
+				},
+				"down": {
+					"texture": "#cap"
+				}
+			}
+		},
+		{
+			"name": "mush1_stem",
+			"from": [
+				5.3,
+				8,
+				8.299999999999999
+			],
+			"to": [
+				5.8999999999999995,
+				9.0,
+				8.9
+			],
+			"faces": {
+				"north": {
+					"texture": "#stem"
+				},
+				"south": {
+					"texture": "#stem"
+				},
+				"east": {
+					"texture": "#stem"
+				},
+				"west": {
+					"texture": "#stem"
+				}
+			}
+		},
+		{
+			"name": "mush1_cap",
+			"from": [
+				4.699999999999999,
+				9.0,
+				7.699999999999999
+			],
+			"to": [
+				6.5,
+				9.8,
+				9.5
+			],
+			"faces": {
+				"north": {
+					"texture": "#cap"
+				},
+				"south": {
+					"texture": "#cap"
+				},
+				"east": {
+					"texture": "#cap"
+				},
+				"west": {
+					"texture": "#cap"
+				},
+				"up": {
+					"texture": "#cap"
+				},
+				"down": {
+					"texture": "#cap"
+				}
+			}
+		},
+		{
+			"name": "mush2_stem",
+			"from": [
+				11.2,
+				8,
+				7.2
+			],
+			"to": [
+				11.8,
+				9.3,
+				7.8
+			],
+			"faces": {
+				"north": {
+					"texture": "#stem"
+				},
+				"south": {
+					"texture": "#stem"
+				},
+				"east": {
+					"texture": "#stem"
+				},
+				"west": {
+					"texture": "#stem"
+				}
+			}
+		},
+		{
+			"name": "mush2_cap",
+			"from": [
+				10.4,
+				9.3,
+				6.4
+			],
+			"to": [
+				12.6,
+				10.100000000000001,
+				8.6
+			],
+			"faces": {
+				"north": {
+					"texture": "#cap"
+				},
+				"south": {
+					"texture": "#cap"
+				},
+				"east": {
+					"texture": "#cap"
+				},
+				"west": {
+					"texture": "#cap"
+				},
+				"up": {
+					"texture": "#cap"
+				},
+				"down": {
+					"texture": "#cap"
+				}
+			}
+		}
+	]
+}

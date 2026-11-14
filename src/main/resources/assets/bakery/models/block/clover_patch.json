@@ -1,0 +1,128 @@
+{
+	"parent": "block/block",
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "bakery:block/wild/clover_top",
+		"top": "bakery:block/wild/clover_top",
+		"side": "bakery:block/wild/clover_side"
+	},
+	"elements": [
+		{
+			"name": "patch",
+			"from": [
+				0,
+				0.1,
+				0
+			],
+			"to": [
+				16,
+				0.1,
+				16
+			],
+			"faces": {
+				"up": {
+					"texture": "#top",
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					]
+				},
+				"down": {
+					"texture": "#top",
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					]
+				}
+			}
+		},
+		{
+			"name": "a",
+			"from": [
+				2,
+				0,
+				8
+			],
+			"to": [
+				14,
+				6,
+				8
+			],
+			"faces": {
+				"north": {
+					"texture": "#side",
+					"uv": [
+						2,
+						10,
+						14,
+						16
+					]
+				},
+				"south": {
+					"texture": "#side",
+					"uv": [
+						2,
+						10,
+						14,
+						16
+					]
+				}
+			},
+			"rotation": {
+				"angle": 45,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			}
+		},
+		{
+			"name": "b",
+			"from": [
+				8,
+				0,
+				2
+			],
+			"to": [
+				8,
+				6,
+				14
+			],
+			"faces": {
+				"east": {
+					"texture": "#side",
+					"uv": [
+						2,
+						10,
+						14,
+						16
+					]
+				},
+				"west": {
+					"texture": "#side",
+					"uv": [
+						2,
+						10,
+						14,
+						16
+					]
+				}
+			},
+			"rotation": {
+				"angle": 45,
+				"axis": "y",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			}
+		}
+	]
+}

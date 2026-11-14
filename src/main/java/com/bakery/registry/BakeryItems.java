@@ -363,6 +363,23 @@ public final class BakeryItems {
 	public static final Item HANGING_IVY = block(BakeryBlocks.HANGING_IVY);
 	public static final Item STEPPING_STONES = block(BakeryBlocks.STEPPING_STONES);
 	public static final Item STUMP_STOOL = block(BakeryBlocks.STUMP_STOOL);
+	public static final Item DAISIES = block(BakeryBlocks.DAISIES);
+	public static final Item PINK_COSMOS = block(BakeryBlocks.PINK_COSMOS);
+	public static final Item FORGET_ME_NOTS = block(BakeryBlocks.FORGET_ME_NOTS);
+	public static final Item LILY_OF_THE_VALLEY = block(BakeryBlocks.LILY_OF_THE_VALLEY);
+	public static final Item BLUEBELLS = block(BakeryBlocks.BLUEBELLS);
+	public static final Item BUTTERCUPS = block(BakeryBlocks.BUTTERCUPS);
+	public static final Item FOXGLOVE = block(BakeryBlocks.FOXGLOVE);
+	public static final Item CATTAILS = block(BakeryBlocks.CATTAILS);
+	public static final Item WILD_FERN = block(BakeryBlocks.WILD_FERN);
+	public static final Item CLOVER_PATCH = block(BakeryBlocks.CLOVER_PATCH);
+	public static final Item MOSSY_PEBBLES = block(BakeryBlocks.MOSSY_PEBBLES);
+	public static final Item WILD_MUSHROOMS = block(BakeryBlocks.WILD_MUSHROOMS);
+	public static final Item ROSE_BUSH = block(BakeryBlocks.ROSE_BUSH);
+	public static final Item HYDRANGEA_BUSH = block(BakeryBlocks.HYDRANGEA_BUSH);
+	public static final Item MOSSY_LOG = block(BakeryBlocks.MOSSY_LOG);
+	public static final Item MOSSY_BOULDER = block(BakeryBlocks.MOSSY_BOULDER);
+	public static final Item BLOSSOM_LILY_PAD = register("blossom_lily_pad", new net.minecraft.item.PlaceableOnWaterItem(BakeryBlocks.BLOSSOM_LILY_PAD, new Item.Settings()));
 
 	static {
 		for (WoodSet set : BakeryBlocks.WOODS) {
@@ -511,6 +528,10 @@ public final class BakeryItems {
 	public static void init() {
 		for (Item compostable : new Item[]{STRAWBERRY_SEEDS, BLUEBERRY_SEEDS, RASPBERRY_SEEDS, TEA_SEEDS, MINT_SEEDS, VANILLA_SEEDS, LAVENDER_SEEDS, ROSE_SEEDS, PINEAPPLE_SEEDS}) {
 			CompostingChanceRegistry.INSTANCE.add(compostable, 0.3f);
+		}
+		for (Item compostable : new Item[]{DAISIES, PINK_COSMOS, FORGET_ME_NOTS, LILY_OF_THE_VALLEY, BLUEBELLS, BUTTERCUPS, FOXGLOVE, CATTAILS, WILD_FERN,
+				CLOVER_PATCH, ROSE_BUSH, HYDRANGEA_BUSH, BLOSSOM_LILY_PAD}) {
+			CompostingChanceRegistry.INSTANCE.add(compostable, 0.65f);
 		}
 		for (Item compostable : new Item[]{STRAWBERRY, BLUEBERRY, RASPBERRY, TEA_LEAVES, MINT_LEAVES, LAVENDER, ROSE_PETALS, LEMON, PINEAPPLE, BURNT_PASTRY}) {
 			CompostingChanceRegistry.INSTANCE.add(compostable, 0.65f);

@@ -1,0 +1,22 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "bakery:block/blossom_lily_pad",
+				"y": 0
+			},
+			{
+				"model": "bakery:block/blossom_lily_pad",
+				"y": 90
+			},
+			{
+				"model": "bakery:block/blossom_lily_pad",
+				"y": 180
+			},
+			{
+				"model": "bakery:block/blossom_lily_pad",
+				"y": 270
+			}
+		]
+	}
+}

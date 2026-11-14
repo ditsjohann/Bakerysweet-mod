@@ -66,6 +66,7 @@ public class BakeryClient implements ClientModInitializer {
 				BakeryBlocks.PINK_HEART_BALLOON, BakeryBlocks.LILAC_HEART_BALLOON, BakeryBlocks.MINT_HEART_BALLOON, BakeryBlocks.FAIRY_LIGHTS,
 				BakeryBlocks.CUPCAKE_LAMP, BakeryBlocks.COOKIE_JAR, BakeryBlocks.MACARON_TOWER, BakeryBlocks.PINK_AWNING, BakeryBlocks.MINT_AWNING);
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BakeryBlocks.COZY_DECOR);
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BakeryBlocks.NATURE);
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BakeryBlocks.PINK_PICKET_FENCE);
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTranslucent(), BakeryBlocks.TIP_JAR, BakeryBlocks.COOKIE_JAR);
 		BlockRenderLayerMap.INSTANCE.putBlock(BakeryBlocks.JUICER, RenderLayer.getTranslucent());

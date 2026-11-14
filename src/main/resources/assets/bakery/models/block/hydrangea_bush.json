@@ -1,0 +1,44 @@
+{
+	"parent": "block/block",
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "bakery:block/wild/hydrangea_bush",
+		"side": "bakery:block/wild/hydrangea_bush",
+		"top": "bakery:block/wild/hydrangea_bush_top"
+	},
+	"elements": [
+		{
+			"name": "bush",
+			"from": [
+				1,
+				0,
+				1
+			],
+			"to": [
+				15,
+				14,
+				15
+			],
+			"faces": {
+				"north": {
+					"texture": "#side"
+				},
+				"south": {
+					"texture": "#side"
+				},
+				"east": {
+					"texture": "#side"
+				},
+				"west": {
+					"texture": "#side"
+				},
+				"up": {
+					"texture": "#top"
+				},
+				"down": {
+					"texture": "#side"
+				}
+			}
+		}
+	]
+}

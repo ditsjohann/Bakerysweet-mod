@@ -41,6 +41,7 @@ public class CounterBlock extends BlockWithEntity {
 
 	public CounterBlock(Settings settings) {
 		super(settings);
+		setDefaultState(getDefaultState().with(com.bakery.deco.Dyeable.DYED, false));
 		setDefaultState(getDefaultState().with(OPEN, false));
 	}
 
@@ -51,7 +52,7 @@ public class CounterBlock extends BlockWithEntity {
 
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(FACING, OPEN);
+		builder.add(FACING, OPEN, com.bakery.deco.Dyeable.DYED, com.bakery.deco.Dyeable.COLOR);
 	}
 
 	@Override
@@ -84,6 +85,8 @@ public class CounterBlock extends BlockWithEntity {
 															  net.minecraft.util.Hand hand, BlockHitResult hit) {
 		// A Path Ribbon ties its path to the counter (the item handles it) instead of flipping the sign.
 		if (stack.isOf(com.bakery.registry.BakeryItems.PATH_RIBBON)) return net.minecraft.util.ItemActionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+		net.minecraft.util.ItemActionResult dyed = com.bakery.deco.Dyeable.use(stack, state, world, pos, player);
+		if (dyed != null) return dyed;
 		return net.minecraft.util.ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 

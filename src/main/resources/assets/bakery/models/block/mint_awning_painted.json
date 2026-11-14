@@ -1,0 +1,147 @@
+{
+	"parent": "minecraft:block/block",
+	"textures": {
+		"cloth": "bakery:block/mint_awning",
+		"particle": "bakery:block/mint_awning",
+		"paint_cloth": "bakery:block/paint/mint_awning"
+	},
+	"elements": [
+		{
+			"from": [
+				0,
+				12.5,
+				4
+			],
+			"to": [
+				16,
+				13.5,
+				16
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						2.5,
+						16,
+						3.5
+					],
+					"texture": "#paint_cloth",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						0,
+						2.5,
+						16,
+						3.5
+					],
+					"texture": "#paint_cloth",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						4,
+						2.5,
+						16,
+						3.5
+					],
+					"texture": "#paint_cloth",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						4,
+						2.5,
+						16,
+						3.5
+					],
+					"texture": "#paint_cloth",
+					"tintindex": 0
+				},
+				"up": {
+					"uv": [
+						0,
+						0,
+						16,
+						12
+					],
+					"texture": "#paint_cloth",
+					"tintindex": 0
+				},
+				"down": {
+					"uv": [
+						0,
+						0,
+						16,
+						12
+					],
+					"texture": "#paint_cloth",
+					"tintindex": 0
+				}
+			},
+			"rotation": {
+				"axis": "x",
+				"angle": -22.5,
+				"origin": [
+					8,
+					13,
+					16
+				]
+			}
+		},
+		{
+			"from": [
+				0,
+				8.5,
+				3.8
+			],
+			"to": [
+				16,
+				12.5,
+				4
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						12,
+						16,
+						16
+					],
+					"texture": "#paint_cloth",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						0,
+						12,
+						16,
+						16
+					],
+					"texture": "#paint_cloth",
+					"tintindex": 0
+				},
+				"east": {
+					"uv": [
+						3.8,
+						3.5,
+						4,
+						7.5
+					],
+					"texture": "#paint_cloth",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						3.8,
+						3.5,
+						4,
+						7.5
+					],
+					"texture": "#paint_cloth",
+					"tintindex": 0
+				}
+			}
+		}
+	]
+}

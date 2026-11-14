@@ -34,6 +34,7 @@ public class DisplayCaseBlock extends BlockWithEntity {
 
 	public DisplayCaseBlock(Settings settings) {
 		super(settings);
+		setDefaultState(getDefaultState().with(com.bakery.deco.Dyeable.DYED, false));
 	}
 
 	@Override
@@ -43,7 +44,7 @@ public class DisplayCaseBlock extends BlockWithEntity {
 
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(FACING);
+		builder.add(FACING, com.bakery.deco.Dyeable.DYED, com.bakery.deco.Dyeable.COLOR);
 	}
 
 	@Override
@@ -68,6 +69,8 @@ public class DisplayCaseBlock extends BlockWithEntity {
 
 	@Override
 	protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+		ItemActionResult dyed = com.bakery.deco.Dyeable.use(stack, state, world, pos, player);
+		if (dyed != null) return dyed;
 		if (!(stack.getItem() instanceof Perishable) || !(world.getBlockEntity(pos) instanceof DisplayCaseBlockEntity display)) {
 			return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}

@@ -1123,5 +1123,6 @@
 	"screen.bakery.counter.part.taste": "Taste",
 	"screen.bakery.counter.part.charm": "Charm",
 	"message.bakery.oven.out_of_fuel": "The oven fire went out - feed it coal or charcoal",
-	"message.bakery.oven.low_fuel": "The oven is running low on fuel (the embers under the door blink red)"
+	"message.bakery.oven.low_fuel": "The oven is running low on fuel (the embers under the door blink red)",
+	"guide.bakery.decor.tip": "Use any dye on tables, chairs, awnings, the counter, display case, mixing bowl or catalog to paint them. A sponge washes the colour off."
 }

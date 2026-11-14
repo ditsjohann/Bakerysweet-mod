@@ -88,8 +88,8 @@ public final class BakeryBlocks {
 			.strength(0.5f).sounds(BlockSoundGroup.METAL).nonOpaque().pistonBehavior(PistonBehavior.DESTROY), box(5, 0, 5, 11, 5, 11)));
 
 	// Decor
-	public static final Block CAFE_TABLE = register("cafe_table", new DecoBlock(wood(), box(0, 0, 0, 16, 15, 16), false));
-	public static final Block CAFE_CHAIR = register("cafe_chair", new ChairBlock(wood(), VoxelShapes.union(box(2, 0, 2, 14, 9, 14), box(2, 9, 12, 14, 18, 14))));
+	public static final Block CAFE_TABLE = register("cafe_table", new com.bakery.deco.DyeableDecoBlock(wood(), box(0, 0, 0, 16, 15, 16), false));
+	public static final Block CAFE_CHAIR = register("cafe_chair", new com.bakery.deco.DyeableChairBlock(wood(), VoxelShapes.union(box(2, 0, 2, 14, 9, 14), box(2, 9, 12, 14, 18, 14))));
 	public static final Block FLOUR_SACK = register("flour_sack", new DecoBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).nonOpaque(), box(2, 0, 3, 14, 13, 13), false));
 	public static final Block BREAD_BASKET = register("bread_basket", new DecoBlock(wood(), box(2, 0, 3, 14, 9, 13), false));
 	public static final Block CAKE_STAND = register("cake_stand", new DecoBlock(AbstractBlock.Settings.copy(Blocks.WHITE_TERRACOTTA).nonOpaque(), box(2, 0, 2, 14, 15, 14), false));
@@ -130,9 +130,9 @@ public final class BakeryBlocks {
 			box(4, 0, 4, 12, 11, 12), false));
 	public static final Block MACARON_TOWER = register("macaron_tower", new DecoBlock(AbstractBlock.Settings.copy(Blocks.WHITE_TERRACOTTA).nonOpaque()
 			.strength(0.4f), box(3, 0, 3, 13, 15, 13), false));
-	public static final Block PINK_AWNING = register("pink_awning", new DecoBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).noCollision().nonOpaque(),
+	public static final Block PINK_AWNING = register("pink_awning", new com.bakery.deco.DyeableDecoBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).noCollision().nonOpaque(),
 			box(0, 9, 6, 16, 16, 16), true));
-	public static final Block MINT_AWNING = register("mint_awning", new DecoBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).noCollision().nonOpaque(),
+	public static final Block MINT_AWNING = register("mint_awning", new com.bakery.deco.DyeableDecoBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).noCollision().nonOpaque(),
 			box(0, 9, 6, 16, 16, 16), true));
 
 	// Cozy update: indoor decor
@@ -159,12 +159,12 @@ public final class BakeryBlocks {
 	public static final Block OPEN_SIGN = register("open_sign", new DecoBlock(wood().noCollision(), box(2, 2, 15, 14, 14, 16), true));
 	// Cozy update: outdoor decor
 	public static final Block CHALKBOARD_SIGN = register("chalkboard_sign", new DecoBlock(wood(), box(2, 0, 4, 14, 16, 12), false));
-	public static final Block PASTEL_BENCH = register("pastel_bench", new ChairBlock(wood(), VoxelShapes.union(box(0, 0, 3, 16, 8, 13), box(0, 8, 11, 16, 16, 13))));
+	public static final Block PASTEL_BENCH = register("pastel_bench", new com.bakery.deco.DyeableChairBlock(wood(), VoxelShapes.union(box(0, 0, 3, 16, 8, 13), box(0, 8, 11, 16, 16, 13))));
 	public static final Block FLOWER_BOX = register("flower_box", new DecoBlock(wood(), box(0, 0, 9, 16, 9, 16), true));
 	public static final Block PINK_PICKET_FENCE = register("pink_picket_fence", new net.minecraft.block.FenceBlock(AbstractBlock.Settings.copy(Blocks.OAK_FENCE).mapColor(MapColor.PINK)));
 	public static final Block HEART_LAMP_POST = register("heart_lamp_post", new DecoBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(1f).nonOpaque()
 			.sounds(BlockSoundGroup.LANTERN).luminance(state -> 15), box(5, 0, 5, 11, 16, 11), false));
-	public static final Block PARASOL_TABLE = register("parasol_table", new DecoBlock(wood(), box(0, 0, 0, 16, 15, 16), false));
+	public static final Block PARASOL_TABLE = register("parasol_table", new com.bakery.deco.DyeableDecoBlock(wood(), box(0, 0, 0, 16, 15, 16), false));
 	public static final Block TULIP_POT = register("tulip_pot", new DecoBlock(AbstractBlock.Settings.copy(Blocks.FLOWER_POT).nonOpaque(), box(3, 0, 3, 13, 13, 13), false));
 	public static final Block HANGING_FLOWERS = register("hanging_flowers", new DecoBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).noCollision().nonOpaque()
 			.strength(0.2f).sounds(BlockSoundGroup.GRASS), box(3, 2, 3, 13, 16, 13), false));

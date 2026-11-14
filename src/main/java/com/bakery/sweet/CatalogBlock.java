@@ -25,6 +25,11 @@ public class CatalogBlock extends DecoBlock {
 	}
 
 	@Override
+	protected boolean dyeable() {
+		return true;
+	}
+
+	@Override
 	protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
 		if (player instanceof ServerPlayerEntity serverPlayer) {
 			world.playSound(null, pos, SoundEvents.ITEM_BOOK_PAGE_TURN, SoundCategory.BLOCKS, 1f, 1.1f);

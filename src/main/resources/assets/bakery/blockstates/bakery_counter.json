@@ -1,35 +1,67 @@
 {
 	"variants": {
-		"facing=north,open=true": {
+		"dyed=false,facing=north,open=true": {
 			"model": "bakery:block/bakery_counter_open",
 			"y": 0
 		},
-		"facing=north,open=false": {
+		"dyed=true,facing=north,open=true": {
+			"model": "bakery:block/bakery_counter_open_painted",
+			"y": 0
+		},
+		"dyed=false,facing=north,open=false": {
 			"model": "bakery:block/bakery_counter_closed",
 			"y": 0
 		},
-		"facing=east,open=true": {
+		"dyed=true,facing=north,open=false": {
+			"model": "bakery:block/bakery_counter_closed_painted",
+			"y": 0
+		},
+		"dyed=false,facing=east,open=true": {
 			"model": "bakery:block/bakery_counter_open",
 			"y": 90
 		},
-		"facing=east,open=false": {
+		"dyed=true,facing=east,open=true": {
+			"model": "bakery:block/bakery_counter_open_painted",
+			"y": 90
+		},
+		"dyed=false,facing=east,open=false": {
 			"model": "bakery:block/bakery_counter_closed",
 			"y": 90
 		},
-		"facing=south,open=true": {
+		"dyed=true,facing=east,open=false": {
+			"model": "bakery:block/bakery_counter_closed_painted",
+			"y": 90
+		},
+		"dyed=false,facing=south,open=true": {
 			"model": "bakery:block/bakery_counter_open",
 			"y": 180
 		},
-		"facing=south,open=false": {
+		"dyed=true,facing=south,open=true": {
+			"model": "bakery:block/bakery_counter_open_painted",
+			"y": 180
+		},
+		"dyed=false,facing=south,open=false": {
 			"model": "bakery:block/bakery_counter_closed",
 			"y": 180
 		},
-		"facing=west,open=true": {
+		"dyed=true,facing=south,open=false": {
+			"model": "bakery:block/bakery_counter_closed_painted",
+			"y": 180
+		},
+		"dyed=false,facing=west,open=true": {
 			"model": "bakery:block/bakery_counter_open",
 			"y": 270
 		},
-		"facing=west,open=false": {
+		"dyed=true,facing=west,open=true": {
+			"model": "bakery:block/bakery_counter_open_painted",
+			"y": 270
+		},
+		"dyed=false,facing=west,open=false": {
 			"model": "bakery:block/bakery_counter_closed",
+			"y": 270
+		},
+		"dyed=true,facing=west,open=false": {
+			"model": "bakery:block/bakery_counter_closed_painted",
 			"y": 270
 		}
 	}

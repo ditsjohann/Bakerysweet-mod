@@ -1,19 +1,35 @@
 {
 	"variants": {
-		"facing=north": {
+		"dyed=false,facing=north": {
 			"model": "bakery:block/display_case",
 			"y": 0
 		},
-		"facing=east": {
+		"dyed=true,facing=north": {
+			"model": "bakery:block/display_case_painted",
+			"y": 0
+		},
+		"dyed=false,facing=east": {
 			"model": "bakery:block/display_case",
 			"y": 90
 		},
-		"facing=south": {
+		"dyed=true,facing=east": {
+			"model": "bakery:block/display_case_painted",
+			"y": 90
+		},
+		"dyed=false,facing=south": {
 			"model": "bakery:block/display_case",
 			"y": 180
 		},
-		"facing=west": {
+		"dyed=true,facing=south": {
+			"model": "bakery:block/display_case_painted",
+			"y": 180
+		},
+		"dyed=false,facing=west": {
 			"model": "bakery:block/display_case",
+			"y": 270
+		},
+		"dyed=true,facing=west": {
+			"model": "bakery:block/display_case_painted",
 			"y": 270
 		}
 	}

@@ -1,10 +1,16 @@
 {
 	"variants": {
-		"filled=false": {
+		"dyed=false,filled=false": {
 			"model": "bakery:block/mixing_bowl"
 		},
-		"filled=true": {
+		"dyed=true,filled=false": {
+			"model": "bakery:block/mixing_bowl_painted"
+		},
+		"dyed=false,filled=true": {
 			"model": "bakery:block/mixing_bowl"
+		},
+		"dyed=true,filled=true": {
+			"model": "bakery:block/mixing_bowl_painted"
 		}
 	}
 }

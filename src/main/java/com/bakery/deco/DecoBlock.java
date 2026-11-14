@@ -30,6 +30,7 @@ public class DecoBlock extends HorizontalFacingBlock {
 	public DecoBlock(Settings settings, VoxelShape northShape, boolean wallMounted) {
 		super(settings);
 		this.wallMounted = wallMounted;
+		if (dyeable()) setDefaultState(getDefaultState().with(Dyeable.DYED, false));
 		for (Direction direction : Direction.Type.HORIZONTAL) {
 			shapes.put(direction, rotate(northShape, direction));
 		}
@@ -43,6 +44,19 @@ public class DecoBlock extends HorizontalFacingBlock {
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		builder.add(FACING);
+		if (dyeable()) builder.add(Dyeable.DYED, Dyeable.COLOR);
+	}
+
+	/** Whether dye paints this block. Called while the block is being built, so overrides return a constant. */
+	protected boolean dyeable() {
+		return false;
+	}
+
+	@Override
+	protected net.minecraft.util.ItemActionResult onUseWithItem(net.minecraft.item.ItemStack stack, BlockState state, net.minecraft.world.World world, BlockPos pos,
+			net.minecraft.entity.player.PlayerEntity player, net.minecraft.util.Hand hand, net.minecraft.util.hit.BlockHitResult hit) {
+		net.minecraft.util.ItemActionResult dyed = Dyeable.use(stack, state, world, pos, player);
+		return dyed != null ? dyed : super.onUseWithItem(stack, state, world, pos, player, hand, hit);
 	}
 
 	@Override

@@ -39,6 +39,11 @@ public class BakeryClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		// Dyed furniture: the painted parts take the dye's (pastel) colour.
+		net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register(
+				(state, world, pos, tint) -> tint == 0 ? com.bakery.deco.Dyeable.tint(state) : -1,
+				BakeryBlocks.CAFE_TABLE, BakeryBlocks.CAFE_CHAIR, BakeryBlocks.PINK_AWNING, BakeryBlocks.MINT_AWNING, BakeryBlocks.BAKERY_COUNTER,
+				BakeryBlocks.DISPLAY_CASE, BakeryBlocks.MIXING_BOWL, BakeryBlocks.BAKERY_CATALOG, BakeryBlocks.PARASOL_TABLE, BakeryBlocks.PASTEL_BENCH);
 		// Where an ingredient or bake came from: catalog stock, or grown and made at home.
 		net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
 			if (Boolean.TRUE.equals(stack.get(com.bakery.registry.BakeryComponents.STORE_BOUGHT))) {

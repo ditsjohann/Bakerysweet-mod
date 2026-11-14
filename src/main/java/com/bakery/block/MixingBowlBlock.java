@@ -40,6 +40,7 @@ public class MixingBowlBlock extends BlockWithEntity {
 
 	public MixingBowlBlock(Settings settings) {
 		super(settings);
+		setDefaultState(getDefaultState().with(com.bakery.deco.Dyeable.DYED, false));
 		setDefaultState(getDefaultState().with(FILLED, false));
 	}
 
@@ -50,7 +51,7 @@ public class MixingBowlBlock extends BlockWithEntity {
 
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(FILLED);
+		builder.add(FILLED, com.bakery.deco.Dyeable.DYED, com.bakery.deco.Dyeable.COLOR);
 	}
 
 	@Override
@@ -70,6 +71,8 @@ public class MixingBowlBlock extends BlockWithEntity {
 
 	@Override
 	protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+		ItemActionResult dyed = com.bakery.deco.Dyeable.use(stack, state, world, pos, player);
+		if (dyed != null) return dyed;
 		if (!(world.getBlockEntity(pos) instanceof MixingBowlBlockEntity bowl)) {
 			return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}

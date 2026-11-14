@@ -188,6 +188,24 @@ public class BakeryGameTests implements FabricGameTest {
 	}
 
 	@GameTest(templateName = EMPTY)
+	public void furnitureTakesDyeAndWashesOff(TestContext ctx) {
+		FakePlayer p = player(ctx);
+		BlockPos table = new BlockPos(1, 1, 1);
+		ctx.setBlockState(table, BakeryBlocks.CAFE_TABLE.getDefaultState());
+		check(ctx, !ctx.getBlockState(table).get(com.bakery.deco.Dyeable.DYED), "a new table is not dyed");
+		use(ctx, p, table, Items.LIGHT_BLUE_DYE);
+		check(ctx, ctx.getBlockState(table).get(com.bakery.deco.Dyeable.DYED)
+				&& ctx.getBlockState(table).get(com.bakery.deco.Dyeable.COLOR) == net.minecraft.util.DyeColor.LIGHT_BLUE, "light blue dye paints it");
+		use(ctx, p, table, Items.SPONGE);
+		check(ctx, !ctx.getBlockState(table).get(com.bakery.deco.Dyeable.DYED), "a sponge washes it back");
+		BlockPos counter = new BlockPos(3, 1, 1);
+		ctx.setBlockState(counter, BakeryBlocks.BAKERY_COUNTER.getDefaultState());
+		use(ctx, p, counter, Items.LIME_DYE);
+		check(ctx, ctx.getBlockState(counter).get(com.bakery.deco.Dyeable.COLOR) == net.minecraft.util.DyeColor.LIME, "the counter takes dye too");
+		ctx.complete();
+	}
+
+	@GameTest(templateName = EMPTY)
 	public void catalogPantryHasDailyStock(TestContext ctx) {
 		FakePlayer p = player(ctx);
 		BlockPos at = new BlockPos(2, 1, 1);
@@ -653,7 +671,7 @@ public class BakeryGameTests implements FabricGameTest {
 		});
 	}
 
-	@GameTest(templateName = EMPTY, tickLimit = 900)
+	@GameTest(templateName = EMPTY, tickLimit = 1100)
 	public void dinersLingerAndChatAtTheirTable(TestContext ctx) {
 		ServerWorld world = ctx.getWorld();
 		fill(ctx, 0, 0, 0, 6, 0, 6, Blocks.STONE.getDefaultState());
@@ -671,7 +689,7 @@ public class BakeryGameTests implements FabricGameTest {
 		a.chatWith(b, 200);
 		check(ctx, a.chatPartnerId() == b.getId() && b.chatPartnerId() == a.getId(), "diners at the same table chat with each other");
 		check(ctx, a.isTalking() != b.isTalking(), "they take turns talking");
-		ctx.runAtTick(800, () -> {
+		ctx.runAtTick(950, () -> {
 			check(ctx, a.isEating() && a.hasVehicle() && b.isEating(), "they stay at the table for a good while, not just a few seconds");
 			check(ctx, a.getMainHandStack().isEmpty(), "the treat is long finished; they linger anyway");
 			ctx.complete();

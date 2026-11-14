@@ -14,7 +14,15 @@ public enum Icing {
 	LILAC("lilac", 0xCDB4F0, () -> BakeryItems.LILAC_ICING),
 	LEMON("lemon", 0xFFEE99, () -> BakeryItems.LEMON_ICING),
 	SKY("sky", 0xA8D8F7, () -> BakeryItems.SKY_ICING),
-	WHITE("white", 0xFFFAF2, () -> BakeryItems.WHITE_ICING);
+	WHITE("white", 0xFFFAF2, () -> BakeryItems.WHITE_ICING),
+	CHOCOLATE("chocolate", 0x8A5A3C, () -> BakeryItems.CHOCOLATE_ICING),
+	STRAWBERRY("strawberry", 0xF0607E, () -> BakeryItems.STRAWBERRY_ICING),
+	PEACH("peach", 0xFFC4A0, () -> BakeryItems.PEACH_ICING),
+	BLUEBERRY("blueberry", 0x8C9BE8, () -> BakeryItems.BLUEBERRY_ICING),
+	MATCHA("matcha", 0xB8DC8C, () -> BakeryItems.MATCHA_ICING),
+	CARAMEL("caramel", 0xDDA463, () -> BakeryItems.CARAMEL_ICING),
+	GOLDEN("golden", 0xF2C94C, () -> BakeryItems.GOLDEN_ICING),
+	LICORICE("licorice", 0x5A4C5E, () -> BakeryItems.LICORICE_ICING);
 
 	private final String name;
 	private final int color;

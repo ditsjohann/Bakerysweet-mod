@@ -101,6 +101,7 @@ public final class Showcase {
 					}
 					wait = 5;
 				}
+				case "hud" -> client.options.hudHidden = !arg.trim().equals("on");
 				case "click" -> {
 					// Clicks the open screen at a point given in scaled GUI pixels: "click 120 64".
 					String[] c = arg.split(" ");

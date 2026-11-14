@@ -107,6 +107,30 @@ public final class CakeGeometry {
 		return strips;
 	}
 
+	/**
+	 * Follows a ray (cake space, pixels) until it meets the cake's real outline - its round, soft-square or heart
+	 * tiers, not their bounding boxes - and returns {x, y, z, tier, 1 if it landed on the tier's top else 0},
+	 * or null if it misses. This is what makes piping land exactly under the crosshair.
+	 */
+	public static float[] raycast(int shape, int tiers, float[] origin, float[] dir, float maxDistance) {
+		float step = 0.06f;
+		float px = origin[0], py = origin[1], pz = origin[2];
+		for (float t = 0; t <= maxDistance; t += step) {
+			float x = origin[0] + dir[0] * t, y = origin[1] + dir[1] * t, z = origin[2] + dir[2] * t;
+			for (int i = tiers - 1; i >= 0; i--) {
+				if (y < bottom(i, tiers) || y > top(i, tiers) || !inside(shape, x, z, radius(i, tiers))) continue;
+				// Entered through the top if the previous sample was above this tier (and over it).
+				boolean fromTop = py > top(i, tiers) - 0.02f && inside(shape, px, pz, radius(i, tiers));
+				if (fromTop) return new float[]{x, top(i, tiers), z, i, 1};
+				return new float[]{x, y, z, i, 0};
+			}
+			px = x;
+			py = y;
+			pz = z;
+		}
+		return null;
+	}
+
 	/** Which tier a point at height y sits on top of, or -1. */
 	public static int tierWithTopAt(float y, int tiers, float x, float z, int shape) {
 		for (int i = tiers - 1; i >= 0; i--) {

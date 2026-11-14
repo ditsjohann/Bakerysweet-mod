@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class IcingBagItem extends Item {
 	public enum Tip {
-		DOTS, ROSETTES, LINE, BORDER, DRIPS, FROST;
+		DOTS, PEARLS, STARS, ROSETTES, LINE, BORDER, SHELLS, DRIPS, FROST;
 
 		public Text displayName() {
 			return Text.translatable("tip.bakery." + name().toLowerCase());

@@ -121,6 +121,27 @@ public class TurntableBlockEntity extends BlockEntity {
 		return new float[]{wx * cos - wz * sin, wy, wx * sin + wz * cos};
 	}
 
+	/** Turns a world direction into cake space (the plate's spin undone). */
+	public float[] toCakeDir(Vec3d dir) {
+		double a = Math.toRadians(angle);
+		float cos = (float) Math.cos(a), sin = (float) Math.sin(a);
+		float x = (float) dir.x, z = (float) dir.z;
+		return new float[]{x * cos - z * sin, (float) dir.y, x * sin + z * cos};
+	}
+
+	/**
+	 * Where on the cake this player is aiming, traced from their eyes to the real cake surface:
+	 * {x, y, z, tier, onTop} in cake pixels, or null if they are not looking at the cake.
+	 */
+	public float[] aim(net.minecraft.entity.Entity viewer, float tickDelta) {
+		if (cake.isEmpty()) return null;
+		CakeDesign d = design();
+		float[] eye = toCake(viewer.getCameraPosVec(tickDelta));
+		// The server reads the player's current look; the client smooths it between ticks for the preview.
+		float[] dir = toCakeDir(tickDelta >= 1 ? viewer.getRotationVector() : viewer.getRotationVec(tickDelta));
+		return CakeGeometry.raycast(d.shape(), d.tierCount(), eye, dir, 16 * 5);
+	}
+
 	// ------------------------------------------------------------------ decorating
 
 	/** A click with something in hand on the cake (which face was clicked guessed from the height). */
@@ -136,6 +157,12 @@ public class TurntableBlockEntity extends BlockEntity {
 		ServerWorld world = player.getServerWorld();
 		CakeDesign design = design();
 		float[] p = toCake(hit);
+		// Prefer exactly where the player is looking on the real cake shape over the block's boxy outline.
+		float[] aim = aim(player, 1f);
+		if (aim != null) {
+			p = new float[]{aim[0], aim[1], aim[2]};
+			side = aim[4] > 0.5f ? net.minecraft.util.math.Direction.UP : net.minecraft.util.math.Direction.NORTH;
+		}
 
 		if (stack.isOf(BakeryItems.CAKE)) {
 			if (design.tierCount() >= CakeGeometry.MAX_TIERS) {
@@ -166,6 +193,9 @@ public class TurntableBlockEntity extends BlockEntity {
 		}
 		if (stack.isOf(BakeryItems.SPATULA)) {
 			return turnTopper(player, design, p);
+		}
+		if (stack.isOf(BakeryItems.CAKE_SCRAPER)) {
+			return scrape(player, design, p, side);
 		}
 		return false;
 	}
@@ -207,7 +237,7 @@ public class TurntableBlockEntity extends BlockEntity {
 			return true;
 		}
 		if (player.isSneaking()) {
-			CakeDesign scraped = design.withoutDabsNear(p[0], p[1], p[2], 1.8f);
+			CakeDesign scraped = design.withoutDabsNear(p[0], p[1], p[2], 2.4f);
 			if (scraped.dabs().size() != design.dabs().size()) {
 				setDesign(scraped);
 				world.playSound(null, pos, SoundEvents.BLOCK_HONEY_BLOCK_SLIDE, SoundCategory.BLOCKS, 0.6f, 0.7f);
@@ -227,8 +257,10 @@ public class TurntableBlockEntity extends BlockEntity {
 				world.playSound(null, pos, SoundEvents.BLOCK_HONEY_BLOCK_PLACE, SoundCategory.BLOCKS, 0.8f, 1.3f);
 				cost = 2;
 			}
-			case DOTS -> dabs.add(dab(CakeDesign.Dab.DOT, color, at));
-			case ROSETTES -> dabs.add(dab(CakeDesign.Dab.ROSETTE, color, at));
+			case DOTS, PEARLS, STARS, ROSETTES, SHELLS, BORDER, DRIPS -> {
+				dabs.addAll(piped(tip, color, design, at, tier, top >= 0));
+				cost = tip == IcingBagItem.Tip.SHELLS || tip == IcingBagItem.Tip.BORDER ? 3 : tip == IcingBagItem.Tip.DRIPS && dabs.size() > 30 ? 3 : 1;
+			}
 			case LINE -> {
 				float[] last = lineEnds.get(player.getUuid());
 				if (last != null && dist(last, at) < 9) {
@@ -241,25 +273,6 @@ public class TurntableBlockEntity extends BlockEntity {
 					dabs.add(dab(CakeDesign.Dab.DOT, color, at));
 				}
 				lineEnds.put(player.getUuid(), at);
-			}
-			case BORDER -> {
-				for (float[] e : CakeGeometry.perimeter(shape, r - 0.6f, 1.6f)) {
-					dabs.add(dab(CakeDesign.Dab.ROSETTE, color, new float[]{e[0], topY + 0.3f, e[1]}));
-				}
-				cost = 3;
-			}
-			case DRIPS -> {
-				int i = 0;
-				for (float[] e : CakeGeometry.perimeter(shape, r + 0.25f, 1.3f)) {
-					int length = 1 + Math.floorMod(i * 7 + (int) (e[0] * 3), 4);
-					dabs.add(new CakeDesign.Dab(CakeDesign.Dab.DRIP + length - 1, color, Math.round(e[0] * 2), Math.round(topY * 2), Math.round(e[1] * 2)));
-					i++;
-				}
-				// A ring of icing along the top edge the drips run down from.
-				for (float[] e : CakeGeometry.perimeter(shape, r - 0.4f, 1f)) {
-					dabs.add(dab(CakeDesign.Dab.DOT, color, new float[]{e[0], topY + 0.1f, e[1]}));
-				}
-				cost = 3;
 			}
 		}
 		if (!dabs.isEmpty()) {
@@ -274,6 +287,56 @@ public class TurntableBlockEntity extends BlockEntity {
 			stack.damage(cost, player, hand == Hand.MAIN_HAND ? net.minecraft.entity.EquipmentSlot.MAINHAND : net.minecraft.entity.EquipmentSlot.OFFHAND);
 		}
 		return true;
+	}
+
+	/**
+	 * The icing one click with this tip pipes at {@code at} (already on the surface) on {@code tier}. Shared with the
+	 * renderer, so the see-through preview shows exactly what a click will add.
+	 */
+	public static List<CakeDesign.Dab> piped(IcingBagItem.Tip tip, int color, CakeDesign design, float[] at, int tier, boolean onTop) {
+		int tiers = design.tierCount(), shape = design.shape();
+		float r = CakeGeometry.radius(tier, tiers), topY = CakeGeometry.top(tier, tiers);
+		List<CakeDesign.Dab> dabs = new ArrayList<>();
+		switch (tip) {
+			case DOTS -> dabs.add(dab(CakeDesign.Dab.DOT, color, at));
+			case PEARLS -> dabs.add(dab(CakeDesign.Dab.PEARL, color, at));
+			case STARS -> dabs.add(dab(CakeDesign.Dab.STAR, color, at));
+			case ROSETTES -> dabs.add(dab(CakeDesign.Dab.ROSETTE, color, at));
+			case SHELLS -> {
+				// A shell border all round the bottom of the tier.
+				float y = CakeGeometry.bottom(tier, tiers) + 0.55f;
+				for (float[] e : CakeGeometry.perimeter(shape, r + 0.2f, 1.25f)) dabs.add(dab(CakeDesign.Dab.SHELL, color, new float[]{e[0], y, e[1]}));
+			}
+			case BORDER -> {
+				for (float[] e : CakeGeometry.perimeter(shape, r - 0.6f, 1.6f)) dabs.add(dab(CakeDesign.Dab.ROSETTE, color, new float[]{e[0], topY + 0.3f, e[1]}));
+			}
+			case DRIPS -> {
+				// Drips run down the side nearest the click (about a quarter of the way round);
+				// a click near the middle of the top drips the whole edge.
+				double clickAngle = Math.atan2(at[2], at[0]);
+				boolean all = onTop && Math.sqrt(at[0] * at[0] + at[2] * at[2]) < r * 0.45f;
+				int i = 0;
+				for (float[] e : CakeGeometry.perimeter(shape, r + 0.25f, 1.3f)) {
+					if (all || angleGap(e, clickAngle) <= 0.85) {
+						int length = 1 + Math.floorMod(i * 7 + (int) (e[0] * 3), 4);
+						dabs.add(new CakeDesign.Dab(CakeDesign.Dab.DRIP + length - 1, color, Math.round(e[0] * 2), Math.round(topY * 2), Math.round(e[1] * 2)));
+					}
+					i++;
+				}
+				// A ring of icing along the top edge the drips run down from.
+				for (float[] e : CakeGeometry.perimeter(shape, r - 0.4f, 1f)) {
+					if (all || angleGap(e, clickAngle) <= 0.85) dabs.add(dab(CakeDesign.Dab.DOT, color, new float[]{e[0], topY + 0.1f, e[1]}));
+				}
+			}
+			default -> {
+			}
+		}
+		return dabs;
+	}
+
+	private static double angleGap(float[] e, double angle) {
+		double a = Math.atan2(e[1], e[0]) - angle;
+		return Math.abs(Math.atan2(Math.sin(a), Math.cos(a)));
 	}
 
 	/** Snaps a click to the icing surface: on top of the tier (pulled in from the edge), or just outside its side. */
@@ -355,13 +418,50 @@ public class TurntableBlockEntity extends BlockEntity {
 			player.sendMessage(Text.translatable("message.bakery.turntable.full_toppers"), true);
 			return true;
 		}
-		setDesign(design.withTopper(new CakeDesign.Topper(stack.getItem(), Math.round(spot[0] * 2), Math.round(spot[1] * 2), Math.round(spot[2] * 2), (int) spot[3])));
+		setDesign(design.withTopper(new CakeDesign.Topper(stack.getItem(), Math.round(spot[0] * 2), Math.round(spot[1] * 2), Math.round(spot[2] * 2), (int) spot[3],
+				CakeDesign.defaultScale(stack.getItem()))));
 		stack.decrementUnlessCreative(1, player);
 		world.playSound(null, pos, SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.BLOCKS, 0.6f, 1.6f + world.random.nextFloat() * 0.3f);
 		return true;
 	}
 
-	/** The spatula turns the topper nearest the click by 22.5 degrees (sneak to turn it back). */
+	/**
+	 * The scraper: a click lifts off the topper or icing under it; sneak-click scrapes the whole tier clean (frosting,
+	 * piping and toppers - the toppers come back to you).
+	 */
+	private boolean scrape(ServerPlayerEntity player, CakeDesign design, float[] p, net.minecraft.util.math.Direction face) {
+		ServerWorld world = player.getServerWorld();
+		int[] where = locate(p, face, design);
+		if (player.isSneaking()) {
+			if (where == null) return true;
+			List<Item> removed = new ArrayList<>();
+			CakeDesign clean = design.withoutTier(where[0], removed);
+			setDesign(clean);
+			removed.forEach(item -> player.getInventory().offerOrDrop(new ItemStack(item)));
+			world.playSound(null, pos, SoundEvents.BLOCK_HONEY_BLOCK_SLIDE, SoundCategory.BLOCKS, 0.9f, 0.6f);
+			player.sendMessage(Text.translatable("message.bakery.turntable.scraped_tier", where[0] + 1), true);
+			return true;
+		}
+		Item[] lifted = new Item[1];
+		CakeDesign without = design.withoutTopperNear(p[0], p[1], p[2], 2f, lifted);
+		if (lifted[0] != null) {
+			setDesign(without);
+			player.getInventory().offerOrDrop(new ItemStack(lifted[0]));
+			world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 0.5f, 1.4f);
+			return true;
+		}
+		CakeDesign scraped = design.withoutDabsNear(p[0], p[1], p[2], 2.6f);
+		if (scraped.dabs().size() != design.dabs().size()) {
+			setDesign(scraped);
+			world.playSound(null, pos, SoundEvents.BLOCK_HONEY_BLOCK_SLIDE, SoundCategory.BLOCKS, 0.6f, 0.8f);
+		} else if (where != null && design.tiers().get(where[0]) != -1) {
+			setDesign(design.frost(where[0], -1));
+			world.playSound(null, pos, SoundEvents.BLOCK_HONEY_BLOCK_SLIDE, SoundCategory.BLOCKS, 0.7f, 0.7f);
+		}
+		return true;
+	}
+
+	/** The spatula turns the topper nearest the click by 22.5 degrees; sneak-click steps it through sizes instead. */
 	private boolean turnTopper(ServerPlayerEntity player, CakeDesign design, float[] p) {
 		int best = -1;
 		float bestD = 3.5f;
@@ -380,10 +480,21 @@ public class TurntableBlockEntity extends BlockEntity {
 		}
 		List<CakeDesign.Topper> toppers = new ArrayList<>(design.toppers());
 		CakeDesign.Topper t = toppers.get(best);
-		int step = player.isSneaking() ? -22 : 22;
-		toppers.set(best, new CakeDesign.Topper(t.item(), t.x(), t.y(), t.z(), Math.floorMod(t.yaw() + step, 360)));
+		if (player.isSneaking()) {
+			int next = CakeDesign.SIZES[0];
+			for (int size : CakeDesign.SIZES) {
+				if (size > t.scale()) {
+					next = size;
+					break;
+				}
+			}
+			toppers.set(best, t.withScale(next));
+			player.sendMessage(Text.translatable("message.bakery.turntable.size", next), true);
+		} else {
+			toppers.set(best, t.withYaw(Math.floorMod(t.yaw() + 22, 360)));
+		}
 		setDesign(new CakeDesign(design.shape(), design.tiers(), design.dabs(), toppers));
-		player.getServerWorld().playSound(null, pos, SoundEvents.ENTITY_ITEM_FRAME_ROTATE_ITEM, SoundCategory.BLOCKS, 0.7f, 1.5f);
+		player.getServerWorld().playSound(null, pos, SoundEvents.ENTITY_ITEM_FRAME_ROTATE_ITEM, SoundCategory.BLOCKS, 0.7f, player.isSneaking() ? 1.1f : 1.5f);
 		return true;
 	}
 
@@ -402,6 +513,8 @@ public class TurntableBlockEntity extends BlockEntity {
 	protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
 		super.writeNbt(nbt, registries);
 		if (!cake.isEmpty()) nbt.put("cake", cake.encode(registries));
+		// Always write something: the client ignores an empty update, so a taken cake would stay on screen.
+		nbt.putBoolean("synced", true);
 		nbt.putInt("base", baseQuality);
 		nbt.putInt("angle", angle);
 		nbt.putInt("lastAngle", lastAngle);

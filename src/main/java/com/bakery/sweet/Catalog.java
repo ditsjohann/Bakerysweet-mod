@@ -108,6 +108,7 @@ public final class Catalog {
 			add(list, c, BakeryItems.FROST_WRAP, 8, 6, l4);
 			sub = "cakes";
 			add(list, c, BakeryItems.CAKE_TURNTABLE, 1, 15, l4);
+			add(list, c, BakeryItems.CAKE_SCRAPER, 1, 4, l4);
 			add(list, c, BakeryItems.ROUND_CAKE_MOLD, 1, 6, l4);
 			add(list, c, BakeryItems.SQUARE_CAKE_MOLD, 1, 8, l4);
 			add(list, c, BakeryItems.HEART_CAKE_MOLD, 1, 12, l5);

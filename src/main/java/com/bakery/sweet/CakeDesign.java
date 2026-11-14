@@ -23,12 +23,15 @@ import java.util.List;
  * (see {@link CakeGeometry}). How cute it turned out adds stars.
  */
 public record CakeDesign(int shape, List<Integer> tiers, List<Dab> dabs, List<Topper> toppers) {
-	public static final int MAX_DABS = 480;
+	public static final int MAX_DABS = 900;
 	public static final int MAX_TOPPERS = 24;
 
-	/** Piped icing. Kinds: dot, rosette, or a drip {@code DRIP + length - 1} hanging down from (x, y, z). */
+	/**
+	 * Piped icing. Kinds: dot, rosette, a drip {@code DRIP + length - 1} (1-4) hanging down from (x, y, z), a star-tip
+	 * swirl, a tiny pearl, or a shell (part of a shell border, lying along the tier's edge).
+	 */
 	public record Dab(int kind, int color, int x, int y, int z) {
-		public static final int DOT = 0, ROSETTE = 1, DRIP = 2;
+		public static final int DOT = 0, ROSETTE = 1, DRIP = 2, STAR = 10, PEARL = 11, SHELL = 12;
 		public static final Codec<Dab> CODEC = Codec.INT.listOf().xmap(
 				l -> new Dab(l.get(0), l.get(1), l.get(2), l.get(3), l.get(4)), d -> List.of(d.kind, d.color, d.x, d.y, d.z));
 		public static final PacketCodec<RegistryByteBuf, Dab> PACKET_CODEC = PacketCodec.of((d, buf) -> {
@@ -40,7 +43,7 @@ public record CakeDesign(int shape, List<Integer> tiers, List<Dab> dabs, List<To
 		}, buf -> new Dab(buf.readByte(), buf.readInt(), buf.readShort(), buf.readShort(), buf.readShort()));
 
 		public boolean isDrip() {
-			return kind >= DRIP;
+			return kind >= DRIP && kind < STAR;
 		}
 
 		public int dripLength() {
@@ -48,21 +51,46 @@ public record CakeDesign(int shape, List<Integer> tiers, List<Dab> dabs, List<To
 		}
 	}
 
-	/** A topper standing on the cake, turned {@code yaw} degrees. */
-	public record Topper(Item item, int x, int y, int z, int yaw) {
+	/** A topper standing on the cake, turned {@code yaw} degrees, at {@code scale} percent of its usual size. */
+	public record Topper(Item item, int x, int y, int z, int yaw, int scale) {
 		public static final Codec<Topper> CODEC = RecordCodecBuilder.create(i -> i.group(
 				Registries.ITEM.getCodec().fieldOf("item").forGetter(Topper::item),
 				Codec.INT.fieldOf("x").forGetter(Topper::x),
 				Codec.INT.fieldOf("y").forGetter(Topper::y),
 				Codec.INT.fieldOf("z").forGetter(Topper::z),
-				Codec.INT.optionalFieldOf("yaw", 0).forGetter(Topper::yaw)).apply(i, Topper::new));
+				Codec.INT.optionalFieldOf("yaw", 0).forGetter(Topper::yaw),
+				Codec.INT.optionalFieldOf("scale", 100).forGetter(Topper::scale)).apply(i, Topper::new));
 		public static final PacketCodec<RegistryByteBuf, Topper> PACKET_CODEC = PacketCodec.tuple(
 				PacketCodecs.registryValue(RegistryKeys.ITEM), Topper::item,
 				PacketCodecs.VAR_INT, Topper::x,
 				PacketCodecs.VAR_INT, Topper::y,
 				PacketCodecs.VAR_INT, Topper::z,
 				PacketCodecs.VAR_INT, Topper::yaw,
+				PacketCodecs.VAR_INT, Topper::scale,
 				Topper::new);
+
+		public Topper withYaw(int yaw) {
+			return new Topper(item, x, y, z, yaw, scale);
+		}
+
+		public Topper withScale(int scale) {
+			return new Topper(item, x, y, z, yaw, scale);
+		}
+	}
+
+	/** The sizes the spatula steps a topper through (percent). */
+	public static final int[] SIZES = {60, 80, 100, 125, 150};
+
+	/** Little things start small: a fondant heart or sugar pearls shouldn't tower over the cake. */
+	public static int defaultScale(Item item) {
+		if (item == BakeryItems.FONDANT_HEART || item == BakeryItems.SUGAR_PEARLS) return 60;
+		if (item == BakeryItems.MINI_MACARON || item == BakeryItems.FONDANT_STAR) return 80;
+		return 100;
+	}
+
+	/** Picks stand up on a stick pushed into the icing (the cake flag, the butterfly on its wire). */
+	public static boolean isPick(Item item) {
+		return item == BakeryItems.CAKE_FLAG || item == BakeryItems.SUGAR_BUTTERFLY;
 	}
 
 	public static final Codec<CakeDesign> CODEC = RecordCodecBuilder.create(i -> i.group(
@@ -123,6 +151,28 @@ public record CakeDesign(int shape, List<Integer> tiers, List<Dab> dabs, List<To
 		List<Topper> list = new ArrayList<>(toppers);
 		list.add(topper);
 		return new CakeDesign(shape, tiers, dabs, list);
+	}
+
+	/** Clears one tier: its frosting, all icing on it, and (returned through {@code removed}) its toppers. */
+	public CakeDesign withoutTier(int tier, List<Item> removed) {
+		int n = tierCount();
+		float r = CakeGeometry.radius(tier, n) + 1.6f, y1 = CakeGeometry.bottom(tier, n) - 0.6f, y2 = CakeGeometry.top(tier, n) + 1.6f;
+		List<Dab> keep = new ArrayList<>();
+		for (Dab d : dabs) {
+			float x = d.x / 2f, y = d.y / 2f, z = d.z / 2f;
+			boolean on = y >= y1 && y <= y2 && CakeGeometry.inside(shape, x, z, r);
+			if (d.isDrip()) on = y >= y1 && y <= y2 + 0.5f && CakeGeometry.inside(shape, x, z, r);
+			if (!on) keep.add(d);
+		}
+		List<Topper> keepT = new ArrayList<>();
+		for (Topper t : toppers) {
+			float x = t.x / 2f, y = t.y / 2f, z = t.z / 2f;
+			if (y >= y1 && y <= y2 && CakeGeometry.inside(shape, x, z, r)) removed.add(t.item());
+			else keepT.add(t);
+		}
+		List<Integer> list = new ArrayList<>(tiers);
+		list.set(tier, -1);
+		return new CakeDesign(shape, list, keep, keepT);
 	}
 
 	public CakeDesign withoutDabsNear(float x, float y, float z, float range) {
@@ -192,7 +242,7 @@ public record CakeDesign(int shape, List<Integer> tiers, List<Dab> dabs, List<To
 		if (tiers.size() >= 2) score++;
 		if (shape != CakeGeometry.ROUND) score++;
 		if (dabs.size() >= 12) score++;
-		if (dabs.stream().map(d -> Math.min(d.kind, Dab.DRIP)).distinct().count() >= 2 || dabs.stream().map(Dab::color).distinct().count() >= 2) score++;
+		if (dabs.stream().map(d -> d.isDrip() ? Dab.DRIP : d.kind).distinct().count() >= 2 || dabs.stream().map(Dab::color).distinct().count() >= 2) score++;
 		if (toppers.size() >= 3) score++;
 		if (toppers.stream().map(Topper::item).distinct().count() >= 3) score++;
 		if (toppers.size() >= 2 && symmetric()) score++;

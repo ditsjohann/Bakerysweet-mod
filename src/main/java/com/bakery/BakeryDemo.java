@@ -83,15 +83,15 @@ public final class BakeryDemo {
 		}
 		List<CakeDesign.Topper> toppers = new ArrayList<>();
 		float top = CakeGeometry.top(2, tiers) * 2;
-		toppers.add(new CakeDesign.Topper(BakeryItems.FONDANT_BUNNY, 0, Math.round(top), 0, 0));
+		toppers.add(new CakeDesign.Topper(BakeryItems.FONDANT_BUNNY, 0, Math.round(top), 0, 0, CakeDesign.defaultScale(BakeryItems.FONDANT_BUNNY)));
 		float mid = CakeGeometry.top(1, tiers) * 2, low = CakeGeometry.top(0, tiers) * 2;
-		toppers.add(new CakeDesign.Topper(BakeryItems.SUGAR_FLOWER, -7, Math.round(mid), 3, -30));
-		toppers.add(new CakeDesign.Topper(BakeryItems.SUGAR_FLOWER, 7, Math.round(mid), 3, 30));
-		toppers.add(new CakeDesign.Topper(BakeryItems.STRAWBERRY, -10, Math.round(low), 6, 0));
-		toppers.add(new CakeDesign.Topper(BakeryItems.STRAWBERRY, 10, Math.round(low), 6, 0));
-		toppers.add(new CakeDesign.Topper(BakeryItems.FONDANT_HEART, 0, Math.round(low), 10, 0));
-		toppers.add(new CakeDesign.Topper(BakeryItems.MINI_MACARON, -5, Math.round(low), -7, 0));
-		toppers.add(new CakeDesign.Topper(BakeryItems.MINI_MACARON, 5, Math.round(low), -7, 0));
+		toppers.add(new CakeDesign.Topper(BakeryItems.SUGAR_FLOWER, -7, Math.round(mid), 3, -30, CakeDesign.defaultScale(BakeryItems.SUGAR_FLOWER)));
+		toppers.add(new CakeDesign.Topper(BakeryItems.SUGAR_FLOWER, 7, Math.round(mid), 3, 30, CakeDesign.defaultScale(BakeryItems.SUGAR_FLOWER)));
+		toppers.add(new CakeDesign.Topper(BakeryItems.STRAWBERRY, -10, Math.round(low), 6, 0, CakeDesign.defaultScale(BakeryItems.STRAWBERRY)));
+		toppers.add(new CakeDesign.Topper(BakeryItems.STRAWBERRY, 10, Math.round(low), 6, 0, CakeDesign.defaultScale(BakeryItems.STRAWBERRY)));
+		toppers.add(new CakeDesign.Topper(BakeryItems.FONDANT_HEART, 0, Math.round(low), 10, 0, CakeDesign.defaultScale(BakeryItems.FONDANT_HEART)));
+		toppers.add(new CakeDesign.Topper(BakeryItems.MINI_MACARON, -5, Math.round(low), -7, 0, CakeDesign.defaultScale(BakeryItems.MINI_MACARON)));
+		toppers.add(new CakeDesign.Topper(BakeryItems.MINI_MACARON, 5, Math.round(low), -7, 0, CakeDesign.defaultScale(BakeryItems.MINI_MACARON)));
 		return new CakeDesign(CakeGeometry.HEART, List.of(pink, white, pink), dabs, toppers);
 	}
 
@@ -175,7 +175,7 @@ public final class BakeryDemo {
 			dabs.add(new CakeDesign.Dab(CakeDesign.Dab.ROSETTE, Icing.WHITE.color(), Math.round(e[0] * 2), Math.round((CakeGeometry.top(1, 2) + 0.3f) * 2), Math.round(e[1] * 2)));
 		}
 		simple.set(BakeryComponents.CAKE_DESIGN, new CakeDesign(CakeGeometry.SQUARE, List.of(Icing.MINT.color(), -1), dabs,
-				List.of(new CakeDesign.Topper(BakeryItems.GOLDEN_CROWN, 0, Math.round(CakeGeometry.top(1, 2) * 2), 0, 0))));
+				List.of(new CakeDesign.Topper(BakeryItems.GOLDEN_CROWN, 0, Math.round(CakeGeometry.top(1, 2) * 2), 0, 0, CakeDesign.defaultScale(BakeryItems.GOLDEN_CROWN)))));
 		set(world, plated, PlacedFoodBlock.withStackProperties(BakeryBlocks.CAKE.getDefaultState().with(PlacedFoodBlock.FACING, s), simple));
 		if (world.getBlockEntity(plated) instanceof PlacedFoodBlockEntity food) food.setStack(simple);
 

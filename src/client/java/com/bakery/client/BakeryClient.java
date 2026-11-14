@@ -39,6 +39,7 @@ public class BakeryClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
+		HudRenderCallback.EVENT.register((context, tickCounter) -> DecoratingHud.render(context));
 		// Dyed furniture: the painted parts take the dye's (pastel) colour.
 		net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register(
 				(state, world, pos, tint) -> tint == 0 ? com.bakery.deco.Dyeable.tint(state) : -1,
@@ -126,8 +127,8 @@ public class BakeryClient implements ClientModInitializer {
 
 		// Sweet Life: icing bags show their colour, cookies their icing, gifts their ribbon.
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 1 && stack.getItem() instanceof com.bakery.sweet.IcingBagItem bag
-				? OPAQUE | bag.icing().color() : -1, BakeryItems.PINK_ICING, BakeryItems.MINT_ICING, BakeryItems.LILAC_ICING, BakeryItems.LEMON_ICING,
-				BakeryItems.SKY_ICING, BakeryItems.WHITE_ICING);
+				? OPAQUE | bag.icing().color() : -1, java.util.Arrays.stream(com.bakery.sweet.Icing.values()).map(com.bakery.sweet.Icing::bag)
+				.toArray(net.minecraft.item.ItemConvertible[]::new));
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> {
 			if (tintIndex == 0) return itemColor(stack, 0);
 			if (tintIndex == 1) return OPAQUE | stack.getOrDefault(BakeryComponents.ICING, 0xFFFFFF);

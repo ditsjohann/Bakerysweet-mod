@@ -58,30 +58,58 @@ public final class CakeRenderer {
 		}
 
 		for (CakeDesign.Dab dab : design.dabs()) {
-			float x = dab.x() / 2f, y = dab.y() / 2f, z = dab.z() / 2f;
-			int c = dab.color();
-			if (dab.isDrip()) {
-				// A teardrop running down the side: a thin round stream ending in a plump bead.
-				float len = dab.dripLength() * 0.9f;
-				PixelBox.tube(buffer, matrices, x, z, 0.42f, y - len, y + 0.15f, 8, c, piping, light, overlay);
-				PixelBox.blob(buffer, matrices, x, y - len, z, 0.6f, 0.7f, 0.6f, 4, 8, 0, c, piping, light, overlay);
-				PixelBox.blob(buffer, matrices, x, y + 0.1f, z, 0.5f, 0.3f, 0.5f, 2, 8, 0.5f, c, piping, light, overlay);
-			} else if (dab.kind() == CakeDesign.Dab.ROSETTE) {
-				// A piped swirl: three softly stacked rings getting smaller, with a lighter kiss on top.
-				PixelBox.blob(buffer, matrices, x, y - 0.35f, z, 1.15f, 0.55f, 1.15f, 3, 10, 0.5f, c, piping, light, overlay);
-				PixelBox.blob(buffer, matrices, x + 0.08f, y + 0.1f, z - 0.05f, 0.85f, 0.5f, 0.85f, 3, 10, 0.5f, lighten(c, 10), piping, light, overlay);
-				PixelBox.blob(buffer, matrices, x - 0.05f, y + 0.55f, z + 0.06f, 0.55f, 0.45f, 0.55f, 3, 8, 0.5f, lighten(c, 18), piping, light, overlay);
-				PixelBox.blob(buffer, matrices, x, y + 0.95f, z, 0.25f, 0.35f, 0.25f, 2, 6, 0.4f, lighten(c, 28), piping, light, overlay);
-			} else {
-				// A round dollop with a little peak.
-				PixelBox.blob(buffer, matrices, x, y - 0.3f, z, 0.7f, 0.65f, 0.7f, 4, 10, 0.45f, c, piping, light, overlay);
-				PixelBox.blob(buffer, matrices, x, y + 0.2f, z, 0.25f, 0.3f, 0.25f, 2, 6, 0.4f, lighten(c, 20), piping, light, overlay);
-			}
+			dab(buffer, matrices, dab.kind(), dab.color(), 255, dab.x() / 2f, dab.y() / 2f, dab.z() / 2f, piping, light, overlay);
 		}
 
 		for (CakeDesign.Topper topper : design.toppers()) {
-			topper(new ItemStack(topper.item()), topper.x() / 2f, topper.y() / 2f, topper.z() / 2f, topper.yaw(), onSide(design, topper),
-					matrices, consumers, light);
+			topper(new ItemStack(topper.item()), topper.x() / 2f, topper.y() / 2f, topper.z() / 2f, topper.yaw(), topper.scale() / 100f,
+					onSide(design, topper), matrices, consumers, light);
+		}
+	}
+
+	/**
+	 * One piece of piped icing at (x, y, z) pixels. {@code alpha} below 255 draws a see-through ghost (the preview);
+	 * the buffer must then be a translucent one.
+	 */
+	public static void dab(VertexConsumer buffer, MatrixStack matrices, int kind, int color, int alpha, float x, float y, float z, Sprite piping,
+						   int light, int overlay) {
+		int a = alpha << 24;
+		int c = a | (color & 0xFFFFFF);
+		if (kind >= CakeDesign.Dab.DRIP && kind < CakeDesign.Dab.STAR) {
+			// A teardrop running down the side: a thin round stream ending in a plump bead.
+			float len = (kind - CakeDesign.Dab.DRIP + 1) * 0.9f;
+			PixelBox.tube(buffer, matrices, x, z, 0.42f, y - len, y + 0.15f, 8, c, piping, light, overlay);
+			PixelBox.blob(buffer, matrices, x, y - len, z, 0.6f, 0.7f, 0.6f, 4, 8, 0, c, piping, light, overlay);
+			PixelBox.blob(buffer, matrices, x, y + 0.1f, z, 0.5f, 0.3f, 0.5f, 2, 8, 0.5f, c, piping, light, overlay);
+		} else if (kind == CakeDesign.Dab.PEARL) {
+			// A tiny glossy pearl with a bright highlight.
+			PixelBox.blob(buffer, matrices, x, y - 0.15f, z, 0.38f, 0.38f, 0.38f, 3, 8, 0.4f, c, piping, light, overlay);
+			PixelBox.blob(buffer, matrices, x - 0.12f, y + 0.08f, z - 0.12f, 0.12f, 0.12f, 0.12f, 2, 5, 0.3f, a | lighten(c, 40), piping, light, overlay);
+		} else if (kind == CakeDesign.Dab.STAR) {
+			// A star-tip swirl: five ridges around a little peak.
+			for (int k = 0; k < 5; k++) {
+				double ang = Math.PI * 2 * k / 5;
+				float ox = (float) Math.cos(ang) * 0.38f, oz = (float) Math.sin(ang) * 0.38f;
+				PixelBox.blob(buffer, matrices, x + ox, y - 0.25f, z + oz, 0.32f, 0.6f, 0.32f, 3, 6, 0.45f, k % 2 == 0 ? c : a | lighten(c, 10), piping, light, overlay);
+			}
+			PixelBox.blob(buffer, matrices, x, y + 0.2f, z, 0.3f, 0.45f, 0.3f, 3, 6, 0.4f, a | lighten(c, 22), piping, light, overlay);
+		} else if (kind == CakeDesign.Dab.SHELL) {
+			// A shell lying along the tier's edge: a plump head tapering into a tail toward the next shell.
+			float len = (float) Math.sqrt(x * x + z * z);
+			float tx = len < 0.01f ? 1 : -z / len, tz = len < 0.01f ? 0 : x / len;
+			PixelBox.blob(buffer, matrices, x - tx * 0.25f, y - 0.1f, z - tz * 0.25f, 0.62f, 0.55f, 0.62f, 3, 8, 0.45f, c, piping, light, overlay);
+			PixelBox.blob(buffer, matrices, x + tx * 0.35f, y - 0.25f, z + tz * 0.35f, 0.38f, 0.32f, 0.38f, 2, 6, 0.4f, a | lighten(c, 12), piping, light, overlay);
+			PixelBox.blob(buffer, matrices, x + tx * 0.7f, y - 0.35f, z + tz * 0.7f, 0.22f, 0.2f, 0.22f, 2, 6, 0.4f, a | lighten(c, 18), piping, light, overlay);
+		} else if (kind == CakeDesign.Dab.ROSETTE) {
+			// A piped swirl: three softly stacked rings getting smaller, with a lighter kiss on top.
+			PixelBox.blob(buffer, matrices, x, y - 0.35f, z, 1.15f, 0.55f, 1.15f, 3, 10, 0.5f, c, piping, light, overlay);
+			PixelBox.blob(buffer, matrices, x + 0.08f, y + 0.1f, z - 0.05f, 0.85f, 0.5f, 0.85f, 3, 10, 0.5f, a | lighten(c, 10), piping, light, overlay);
+			PixelBox.blob(buffer, matrices, x - 0.05f, y + 0.55f, z + 0.06f, 0.55f, 0.45f, 0.55f, 3, 8, 0.5f, a | lighten(c, 18), piping, light, overlay);
+			PixelBox.blob(buffer, matrices, x, y + 0.95f, z, 0.25f, 0.35f, 0.25f, 2, 6, 0.4f, a | lighten(c, 28), piping, light, overlay);
+		} else {
+			// A round dollop with a little peak.
+			PixelBox.blob(buffer, matrices, x, y - 0.3f, z, 0.7f, 0.65f, 0.7f, 4, 10, 0.45f, c, piping, light, overlay);
+			PixelBox.blob(buffer, matrices, x, y + 0.2f, z, 0.25f, 0.3f, 0.25f, 2, 6, 0.4f, a | lighten(c, 20), piping, light, overlay);
 		}
 	}
 
@@ -95,7 +123,8 @@ public final class CakeRenderer {
 	}
 
 	/** Draws one topper at (x, y, z) pixels: standing on a tier, or pressed flat against a tier's side. */
-	public static void topper(ItemStack stack, float x, float y, float z, float yaw, boolean side, MatrixStack matrices, VertexConsumerProvider consumers, int light) {
+	public static void topper(ItemStack stack, float x, float y, float z, float yaw, float scale, boolean side, MatrixStack matrices,
+							  VertexConsumerProvider consumers, int light) {
 		MinecraftClient client = MinecraftClient.getInstance();
 		matrices.push();
 		matrices.translate(x * PX, y * PX, z * PX);
@@ -103,9 +132,13 @@ public final class CakeRenderer {
 		// Sculpted toppers are little 3D figurines; fruit and petals are flat cut-outs, candles are blocks.
 		boolean figurine = java.util.Arrays.asList(com.bakery.registry.BakeryItems.TOPPERS).contains(stack.getItem());
 		boolean block = stack.getItem() instanceof net.minecraft.item.BlockItem;
-		float size = side ? 0.24f : figurine || block ? 0.42f : 0.28f;
+		boolean pick = CakeDesign.isPick(stack.getItem());
+		float size = (side ? 0.24f : pick ? 0.5f : figurine || block ? 0.42f : 0.28f) * scale;
 		if (side) {
 			matrices.translate(0, 0, 0.02f);
+		} else if (pick) {
+			// Picks stand tall on their stick, pushed a little way into the icing.
+			matrices.translate(0, size * 0.5f - 1.6f * PX * scale, 0);
 		} else {
 			matrices.translate(0, size * 0.5f - 0.01f, 0);
 		}

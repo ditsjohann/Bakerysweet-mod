@@ -821,6 +821,54 @@ public class BakeryGameTests implements FabricGameTest {
 	}
 
 	@GameTest(templateName = EMPTY)
+	public void cakeDecoratingAimsAtTheRealCake(TestContext ctx) {
+		FakePlayer p = player(ctx);
+		BlockPos at = new BlockPos(1, 1, 1);
+		ctx.setBlockState(at, BakeryBlocks.CAKE_TURNTABLE.getDefaultState());
+		use(ctx, p, at, new ItemStack(BakeryItems.CAKE), false);
+		TurntableBlockEntity table = ctx.getBlockEntity(at);
+		BlockPos abs = ctx.getAbsolutePos(at);
+		// Straight down onto the middle: the top of the tier.
+		p.refreshPositionAndAngles(abs.getX() + 0.5, abs.getY() + 1.2, abs.getZ() + 0.5, 0, 90);
+		float[] down = table.aim(p, 1f);
+		check(ctx, down != null && down[4] > 0.5f && Math.abs(down[1] - com.bakery.sweet.CakeGeometry.top(0, 1)) < 0.01f, "looking down lands on the top");
+		// Level with the middle of the cake from the east: its round side, 6.5 px out, not the block's square edge.
+		float midY = (TurntableBlockEntity.PLATE + 3) / 16f;
+		p.refreshPositionAndAngles(abs.getX() + 1.6, abs.getY() + midY - p.getStandingEyeHeight(), abs.getZ() + 0.5 + 3 / 16.0, 90, 0);
+		float[] side = table.aim(p, 1f);
+		check(ctx, side != null && side[4] < 0.5f, "looking from the side lands on the side: " + (side == null ? "miss" : java.util.Arrays.toString(side)));
+		float radius = (float) Math.sqrt(side[0] * side[0] + side[2] * side[2]);
+		check(ctx, Math.abs(radius - 6.5f) < 0.2f, "on the round outline, radius " + radius);
+
+		// Drips only run down near the click; a click in the middle of the top drips all round.
+		com.bakery.sweet.CakeDesign d = table.design();
+		int some = TurntableBlockEntity.piped(com.bakery.sweet.IcingBagItem.Tip.DRIPS, Icing.PINK.color(), d, new float[]{6.8f, 3, 0}, 0, false).size();
+		int all = TurntableBlockEntity.piped(com.bakery.sweet.IcingBagItem.Tip.DRIPS, Icing.PINK.color(), d, new float[]{0, 6.3f, 0}, 0, true).size();
+		check(ctx, some > 0 && some < all, "drips follow the click (" + some + " of " + all + ")");
+
+		// Toppers start at a sensible size; the spatula turns them, sneak-spatula resizes them.
+		Vec3d top = new Vec3d(abs.getX() + 0.5, abs.getY() + (TurntableBlockEntity.PLATE + 6) / 16.0, abs.getZ() + 0.5);
+		p.refreshPositionAndAngles(abs.getX() + 2.5, abs.getY(), abs.getZ() - 1, 0, 0);
+		table.use(p, Hand.MAIN_HAND, new ItemStack(BakeryItems.FONDANT_HEART), top);
+		check(ctx, table.design().toppers().getFirst().scale() < 100, "a fondant heart starts small");
+		int before = table.design().toppers().getFirst().scale();
+		p.setSneaking(true);
+		table.use(p, Hand.MAIN_HAND, new ItemStack(BakeryItems.SPATULA), top);
+		check(ctx, table.design().toppers().getFirst().scale() > before, "sneak-spatula makes it bigger");
+		// The scraper: sneak-click clears the tier and gives the toppers back.
+		ItemStack bag = new ItemStack(BakeryItems.CHOCOLATE_ICING);
+		p.setSneaking(false);
+		table.use(p, Hand.MAIN_HAND, bag, top);
+		check(ctx, !table.design().dabs().isEmpty(), "piped some chocolate icing");
+		p.setSneaking(true);
+		table.use(p, Hand.MAIN_HAND, new ItemStack(BakeryItems.CAKE_SCRAPER), top);
+		p.setSneaking(false);
+		check(ctx, table.design().dabs().isEmpty() && table.design().toppers().isEmpty() && p.getInventory().count(BakeryItems.FONDANT_HEART) == 1,
+				"the scraper cleans the tier and hands back the topper");
+		ctx.complete();
+	}
+
+	@GameTest(templateName = EMPTY)
 	public void catalogSellsForCoins(TestContext ctx) {
 		FakePlayer p = player(ctx);
 		BlockPos at = new BlockPos(2, 1, 1);

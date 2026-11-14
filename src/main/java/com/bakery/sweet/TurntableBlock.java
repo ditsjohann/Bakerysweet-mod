@@ -98,6 +98,7 @@ public class TurntableBlock extends BlockWithEntity {
 		}
 		if (world.isClient) {
 			return CakeDesign.isTopper(stack) || stack.getItem() instanceof IcingBagItem || stack.isOf(BakeryItems.CAKE) || stack.isOf(BakeryItems.SPATULA)
+					|| stack.isOf(BakeryItems.CAKE_SCRAPER)
 					|| stack.isOf(BakeryItems.ROUND_CAKE_MOLD) || stack.isOf(BakeryItems.SQUARE_CAKE_MOLD) || stack.isOf(BakeryItems.HEART_CAKE_MOLD)
 					? ItemActionResult.SUCCESS : ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}

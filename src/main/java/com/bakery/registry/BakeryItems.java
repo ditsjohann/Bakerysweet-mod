@@ -212,6 +212,14 @@ public final class BakeryItems {
 	public static final Item LEMON_ICING = icing("lemon_icing", Icing.LEMON);
 	public static final Item SKY_ICING = icing("sky_icing", Icing.SKY);
 	public static final Item WHITE_ICING = icing("white_icing", Icing.WHITE);
+	public static final Item CHOCOLATE_ICING = icing("chocolate_icing", Icing.CHOCOLATE);
+	public static final Item STRAWBERRY_ICING = icing("strawberry_icing", Icing.STRAWBERRY);
+	public static final Item PEACH_ICING = icing("peach_icing", Icing.PEACH);
+	public static final Item BLUEBERRY_ICING = icing("blueberry_icing", Icing.BLUEBERRY);
+	public static final Item MATCHA_ICING = icing("matcha_icing", Icing.MATCHA);
+	public static final Item CARAMEL_ICING = icing("caramel_icing", Icing.CARAMEL);
+	public static final Item GOLDEN_ICING = icing("golden_icing", Icing.GOLDEN);
+	public static final Item LICORICE_ICING = icing("licorice_icing", Icing.LICORICE);
 	public static final Item GIFT_BOX = register("gift_box", new GiftBoxItem(new Item.Settings()));
 	public static final Item WRAPPED_GIFT = register("wrapped_gift", new WrappedGiftItem(new Item.Settings().maxCount(1)));
 	public static final Item CHEF_HAT = hat("chef_hat");
@@ -245,6 +253,8 @@ public final class BakeryItems {
 	public static final Item SUGAR_BUTTERFLY = topper("sugar_butterfly");
 	public static final Item GOLDEN_CROWN = topper("golden_crown");
 	public static final Item CAKE_FLAG = topper("cake_flag");
+	/** Scrapes icing off a cake on the turntable (sneak: the whole tier). */
+	public static final Item CAKE_SCRAPER = register("cake_scraper", new TooltipItem(new Item.Settings().maxCount(1), "cake_scraper"));
 	public static final Item[] TOPPERS = {FONDANT_HEART, FONDANT_STAR, FONDANT_BUNNY, SUGAR_FLOWER, MINI_MACARON, SUGAR_PEARLS, CHOCOLATE_CURL,
 			SUGAR_BUTTERFLY, GOLDEN_CROWN, CAKE_FLAG};
 

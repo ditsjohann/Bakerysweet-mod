@@ -255,8 +255,31 @@ public final class BakeryItems {
 	public static final Item CAKE_FLAG = topper("cake_flag");
 	/** Scrapes icing off a cake on the turntable (sneak: the whole tier). */
 	public static final Item CAKE_SCRAPER = register("cake_scraper", new TooltipItem(new Item.Settings().maxCount(1), "cake_scraper"));
+	// More moulds (each tier can have its own shape) and a big box of flat sugar decals.
+	public static final Item STAR_CAKE_MOLD = register("star_cake_mold", new TooltipItem(new Item.Settings().maxCount(1), "cake_mold"));
+	public static final Item FLOWER_CAKE_MOLD = register("flower_cake_mold", new TooltipItem(new Item.Settings().maxCount(1), "cake_mold"));
+	public static final Item HEXAGON_CAKE_MOLD = register("hexagon_cake_mold", new TooltipItem(new Item.Settings().maxCount(1), "cake_mold"));
+	public static final Item BUNNY_CAKE_MOLD = register("bunny_cake_mold", new TooltipItem(new Item.Settings().maxCount(1), "cake_mold"));
+	/** Moulds in the order of the {@link com.bakery.sweet.CakeGeometry} shapes they press. */
+	public static final Item[] CAKE_MOLDS = {ROUND_CAKE_MOLD, SQUARE_CAKE_MOLD, HEART_CAKE_MOLD, STAR_CAKE_MOLD, FLOWER_CAKE_MOLD, HEXAGON_CAKE_MOLD,
+			BUNNY_CAKE_MOLD};
+	public static final Item SUGAR_RAINBOW = topper("sugar_rainbow");
+	public static final Item SUGAR_MOON = topper("sugar_moon");
+	public static final Item SUGAR_SUN = topper("sugar_sun");
+	public static final Item SUGAR_CLOUD = topper("sugar_cloud");
+	public static final Item SUGAR_CHERRY = topper("sugar_cherry");
+	public static final Item SUGAR_STRAWBERRY = topper("sugar_strawberry");
+	public static final Item SUGAR_BOW = topper("sugar_bow");
+	public static final Item SUGAR_DAISY = topper("sugar_daisy");
+	public static final Item SUGAR_BEAR = topper("sugar_bear");
+	public static final Item SUGAR_KITTY = topper("sugar_kitty");
+	public static final Item SUGAR_LOLLIPOP = topper("sugar_lollipop");
+	public static final Item SUGAR_CUPCAKE = topper("sugar_cupcake");
+	public static final Item SUGAR_LEAF = topper("sugar_leaf");
+	public static final Item SUGAR_MUSHROOM = topper("sugar_mushroom");
 	public static final Item[] TOPPERS = {FONDANT_HEART, FONDANT_STAR, FONDANT_BUNNY, SUGAR_FLOWER, MINI_MACARON, SUGAR_PEARLS, CHOCOLATE_CURL,
-			SUGAR_BUTTERFLY, GOLDEN_CROWN, CAKE_FLAG};
+			SUGAR_BUTTERFLY, GOLDEN_CROWN, CAKE_FLAG, SUGAR_RAINBOW, SUGAR_MOON, SUGAR_SUN, SUGAR_CLOUD, SUGAR_CHERRY, SUGAR_STRAWBERRY, SUGAR_BOW,
+			SUGAR_DAISY, SUGAR_BEAR, SUGAR_KITTY, SUGAR_LOLLIPOP, SUGAR_CUPCAKE, SUGAR_LEAF, SUGAR_MUSHROOM};
 
 	// ---- Decor & garden tab ----
 	static {
@@ -269,6 +292,7 @@ public final class BakeryItems {
 	public static final Item PASTRY_SHELF = block(BakeryBlocks.PASTRY_SHELF);
 	public static final Item GLASS_CLOCHE = block(BakeryBlocks.GLASS_CLOCHE);
 	public static final Item SERVICE_BELL = block(BakeryBlocks.SERVICE_BELL);
+	public static final Item ORDER_NOTEBOOK = block(BakeryBlocks.ORDER_NOTEBOOK);
 	public static final Item CAFE_TABLE = block(BakeryBlocks.CAFE_TABLE);
 	public static final Item CAFE_CHAIR = block(BakeryBlocks.CAFE_CHAIR);
 	public static final Item FLOUR_SACK = block(BakeryBlocks.FLOUR_SACK);

@@ -688,7 +688,42 @@ public class BakeryGameTests implements FabricGameTest {
 		});
 	}
 
-	@GameTest(templateName = EMPTY, tickLimit = 1100)
+	@GameTest(templateName = EMPTY, tickLimit = 600)
+	public void dineInCustomersOrderThenWaitAtATable(TestContext ctx) {
+		FakePlayer p = player(ctx);
+		ServerWorld world = ctx.getWorld();
+		world.setTimeOfDay(1000);
+		fill(ctx, 0, 0, 0, 6, 0, 6, Blocks.STONE.getDefaultState());
+		BlockPos counterPos = new BlockPos(1, 1, 1);
+		ctx.setBlockState(counterPos, BakeryBlocks.BAKERY_COUNTER.getDefaultState().with(CounterBlock.FACING, Direction.SOUTH).with(CounterBlock.OPEN, true));
+		ctx.setBlockState(new BlockPos(4, 1, 3), BakeryBlocks.CAFE_CHAIR.getDefaultState().with(com.bakery.deco.DecoBlock.FACING, Direction.NORTH));
+		ctx.setBlockState(new BlockPos(4, 1, 2), BakeryBlocks.CAFE_TABLE.getDefaultState());
+		CounterBlockEntity counter = ctx.getBlockEntity(counterPos);
+		counter.setOwner(p.getUuid());
+		List<BlockPos> path = List.of(ctx.getAbsolutePos(new BlockPos(1, 1, 4)), ctx.getAbsolutePos(new BlockPos(1, 1, 2)));
+		counter.setPath(path);
+		com.bakery.cafe.CustomerEntity customer = com.bakery.cafe.CustomerEntity.create(world, ctx.getAbsolutePos(counterPos), path, 0, com.bakery.cafe.Regular.get(0));
+		BlockPos in = ctx.getAbsolutePos(new BlockPos(1, 1, 4));
+		customer.refreshPositionAndAngles(in.getX() + 0.5, in.getY(), in.getZ() + 0.5, 0, 0);
+		Order order = new Order(customer.getUuid(), 0, new ItemStack(BakeryItems.COOKIES), false, 100000, true);
+		counter.getOrders().add(order);
+		world.spawnEntity(customer);
+		ctx.runAtTick(320, () -> {
+			check(ctx, customer.state() == com.bakery.cafe.CustomerEntity.SEATED && customer.hasVehicle(),
+					"after ordering at the counter, a dine-in customer sits down at a free table to wait (state " + customer.state() + ")");
+			check(ctx, customer.isSeatedWaiting() && order.seated && counter.getOrders().contains(order), "their order stays open while they wait at the table");
+			ItemStack cookies = new ItemStack(BakeryItems.COOKIES);
+			cookies.set(BakeryComponents.QUALITY, 4);
+			Freshness.stampFresh(cookies, world.getTime());
+			check(ctx, ShopManager.serve(p, customer, cookies), "the baker brings the order to the table");
+			check(ctx, customer.state() == com.bakery.cafe.CustomerEntity.EATING && customer.hasVehicle() && customer.getMainHandStack().isOf(BakeryItems.COOKIES),
+					"and they eat it right there");
+			check(ctx, counter.getOrders().isEmpty(), "the order is done");
+			ctx.complete();
+		});
+	}
+
+	@GameTest(templateName = EMPTY, tickLimit = 1000)
 	public void dinersLingerAndChatAtTheirTable(TestContext ctx) {
 		ServerWorld world = ctx.getWorld();
 		fill(ctx, 0, 0, 0, 6, 0, 6, Blocks.STONE.getDefaultState());
@@ -706,6 +741,7 @@ public class BakeryGameTests implements FabricGameTest {
 		a.chatWith(b, 200);
 		check(ctx, a.chatPartnerId() == b.getId() && b.chatPartnerId() == a.getId(), "diners at the same table chat with each other");
 		check(ctx, a.isTalking() != b.isTalking(), "they take turns talking");
+		// Eating takes 400-899 ticks; they stay at least 1800.
 		ctx.runAtTick(950, () -> {
 			check(ctx, a.isEating() && a.hasVehicle() && b.isEating(), "they stay at the table for a good while, not just a few seconds");
 			check(ctx, a.getMainHandStack().isEmpty(), "the treat is long finished; they linger anyway");
@@ -825,7 +861,8 @@ public class BakeryGameTests implements FabricGameTest {
 		table.use(p, Hand.MAIN_HAND, new ItemStack(BakeryItems.CAKE), top);
 		check(ctx, table.design().tierCount() == 2, "another cake stacks on as a second tier");
 		table.use(p, Hand.MAIN_HAND, new ItemStack(BakeryItems.HEART_CAKE_MOLD), top);
-		check(ctx, table.design().shape() == com.bakery.sweet.CakeGeometry.HEART, "the heart mould makes a heart cake");
+		check(ctx, table.design().shapes().contains(com.bakery.sweet.CakeGeometry.HEART) && table.design().distinctShapes() == 2,
+				"the heart mould reshapes the tier it is pressed on (and only that one)");
 
 		click(ctx, p, at);
 		check(ctx, table.getAngle() == 45, "an empty hand gives the turntable a spin");
@@ -882,6 +919,65 @@ public class BakeryGameTests implements FabricGameTest {
 		p.setSneaking(false);
 		check(ctx, table.design().dabs().isEmpty() && table.design().toppers().isEmpty() && p.getInventory().count(BakeryItems.FONDANT_HEART) == 1,
 				"the scraper cleans the tier and hands back the topper");
+		ctx.complete();
+	}
+
+	@GameTest(templateName = EMPTY)
+	public void cakeTiersKeepDecorationsAndTheirOwnShapes(TestContext ctx) {
+		com.bakery.sweet.CakeDesign one = com.bakery.sweet.CakeDesign.PLAIN;
+		float side = com.bakery.sweet.CakeGeometry.top(0, 1) / 2;
+		com.bakery.sweet.CakeDesign.Dab onSide = new com.bakery.sweet.CakeDesign.Dab(com.bakery.sweet.CakeDesign.Dab.DOT, 0xFFAACC, 14, Math.round(side * 2), 0);
+		com.bakery.sweet.CakeDesign.Dab onRim = new com.bakery.sweet.CakeDesign.Dab(com.bakery.sweet.CakeDesign.Dab.ROSETTE, 0xFFAACC, 12,
+				Math.round((com.bakery.sweet.CakeGeometry.top(0, 1) + 0.3f) * 2), 0);
+		com.bakery.sweet.CakeDesign.Dab inMiddle = new com.bakery.sweet.CakeDesign.Dab(com.bakery.sweet.CakeDesign.Dab.DOT, 0xFFAACC, 0,
+				Math.round((com.bakery.sweet.CakeGeometry.top(0, 1) + 0.3f) * 2), 0);
+		one = one.withDabs(List.of(onSide, onRim, inMiddle));
+		com.bakery.sweet.CakeDesign two = one.withTier(-1, com.bakery.sweet.CakeGeometry.STAR);
+		check(ctx, two.tierCount() == 2 && two.shapeOf(0) == com.bakery.sweet.CakeGeometry.ROUND && two.shapeOf(1) == com.bakery.sweet.CakeGeometry.STAR,
+				"each tier keeps its own shape");
+		check(ctx, two.dabs().size() == 2, "stacking a tier keeps the icing on the side and the outer rim; only what it covers comes off, kept " + two.dabs().size());
+		float newRim = (com.bakery.sweet.CakeGeometry.top(0, 2) + 0.3f) * 2;
+		check(ctx, two.dabs().stream().anyMatch(d -> d.x() == 12 && Math.abs(d.y() - newRim) <= 1), "the rim icing moves down with the shorter bottom tier");
+		com.bakery.sweet.CakeDesign reshaped = two.reshape(1, com.bakery.sweet.CakeGeometry.BUNNY);
+		check(ctx, reshaped.shapeOf(0) == com.bakery.sweet.CakeGeometry.ROUND && reshaped.shapeOf(1) == com.bakery.sweet.CakeGeometry.BUNNY,
+				"a mould reshapes only the tier it is pressed on");
+		check(ctx, reshaped.dabs().size() == two.dabs().size(), "and the other tier keeps its icing");
+		for (int shape = 0; shape < com.bakery.sweet.CakeGeometry.SHAPES; shape++) {
+			check(ctx, com.bakery.sweet.CakeGeometry.inside(shape, 0, 0, 6.5f) && !com.bakery.sweet.CakeGeometry.inside(shape, 9, 9, 6.5f),
+					"shape " + shape + " has a middle and an edge");
+			check(ctx, TurntableBlockEntity.mouldShape(new ItemStack(BakeryItems.CAKE_MOLDS[shape])) == shape, "mould " + shape + " presses its own shape");
+		}
+		check(ctx, com.bakery.sweet.CakeDesign.isTopper(new ItemStack(BakeryItems.SUGAR_RAINBOW)), "the new sugar decals are toppers");
+		ctx.complete();
+	}
+
+	@GameTest(templateName = EMPTY)
+	public void cakesSellAtTheCounter(TestContext ctx) {
+		FakePlayer p = player(ctx);
+		long now = ctx.getWorld().getTime();
+		ItemStack plain = new ItemStack(BakeryItems.CAKE);
+		plain.set(BakeryComponents.QUALITY, 2);
+		Freshness.stampFresh(plain, now);
+		ItemStack fancy = new ItemStack(BakeryItems.CAKE);
+		fancy.set(BakeryComponents.QUALITY, 5);
+		Freshness.stampFresh(fancy, now);
+		List<com.bakery.sweet.CakeDesign.Topper> toppers = new java.util.ArrayList<>();
+		Item[] kinds = {BakeryItems.SUGAR_BOW, BakeryItems.SUGAR_DAISY, BakeryItems.FONDANT_HEART, BakeryItems.SUGAR_BOW};
+		for (int i = 0; i < kinds.length; i++) toppers.add(new com.bakery.sweet.CakeDesign.Topper(kinds[i], (i - 2) * 4, 18, 0, 0));
+		List<com.bakery.sweet.CakeDesign.Dab> dabs = new java.util.ArrayList<>();
+		for (int i = 0; i < 16; i++) dabs.add(new com.bakery.sweet.CakeDesign.Dab(i % 2, i % 3 == 0 ? 0xFFAACC : 0xAADDFF, i, 18, 0));
+		fancy.set(BakeryComponents.CAKE_DESIGN, new com.bakery.sweet.CakeDesign(com.bakery.sweet.CakeGeometry.HEART, List.of(Icing.PINK.color(), Icing.WHITE.color()),
+				dabs, toppers, List.of(com.bakery.sweet.CakeGeometry.HEART, com.bakery.sweet.CakeGeometry.STAR)));
+		int plainScore = com.bakery.sweet.CakeAppraisal.judge(plain, now)[0], fancyScore = com.bakery.sweet.CakeAppraisal.judge(fancy, now)[0];
+		check(ctx, fancyScore > plainScore + 10, "a well-baked, decorated cake is rated a lot higher than a plain one: " + fancyScore + " vs " + plainScore);
+		check(ctx, com.bakery.sweet.CakeAppraisal.verdict(5) == com.bakery.sweet.CakeAppraisal.GOOD && com.bakery.sweet.CakeAppraisal.verdict(3)
+				== com.bakery.sweet.CakeAppraisal.NEUTRAL && com.bakery.sweet.CakeAppraisal.verdict(2) == com.bakery.sweet.CakeAppraisal.MID, "good, neutral or mid");
+
+		BlockPos counterPos = new BlockPos(2, 1, 2);
+		ctx.setBlockState(counterPos, BakeryBlocks.BAKERY_COUNTER.getDefaultState().with(CounterBlock.FACING, Direction.SOUTH));
+		use(ctx, p, counterPos, fancy.copy(), false);
+		check(ctx, p.getInventory().count(BakeryItems.CAKE) == 0, "the cake is sold");
+		check(ctx, p.getInventory().count(BakeryItems.SWEET_COIN) >= 10, "and paid for in Sweet Coins, got " + p.getInventory().count(BakeryItems.SWEET_COIN));
 		ctx.complete();
 	}
 

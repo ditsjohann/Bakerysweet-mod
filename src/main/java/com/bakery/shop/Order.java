@@ -19,6 +19,8 @@ public final class Order {
 	public final boolean dineIn;
 	public int patience;
 	public boolean waiting;
+	/** Ordered and sitting at a table, waiting for it to be brought over. */
+	public boolean seated;
 
 	public Order(UUID customer, int regular, ItemStack wanted, boolean flavorRequested, int patience, boolean dineIn) {
 		this.customer = customer;
@@ -44,6 +46,7 @@ public final class Order {
 		nbt.putInt("patience", patience);
 		nbt.putBoolean("waiting", waiting);
 		nbt.putBoolean("dineIn", dineIn);
+		nbt.putBoolean("seated", seated);
 		return nbt;
 	}
 
@@ -52,6 +55,7 @@ public final class Order {
 				nbt.getBoolean("flavor"), nbt.getInt("max"), nbt.getBoolean("dineIn"));
 		order.patience = nbt.getInt("patience");
 		order.waiting = nbt.getBoolean("waiting");
+		order.seated = nbt.getBoolean("seated");
 		return order;
 	}
 }

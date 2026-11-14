@@ -62,22 +62,25 @@ public final class BakeryDemo {
 
 	public static CakeDesign showCake() {
 		int pink = Icing.PINK.color(), white = Icing.WHITE.color(), mint = Icing.MINT.color(), lilac = Icing.LILAC.color();
+		// Every tier its own shape: a flower at the bottom, a star in the middle, a heart on top.
+		int[] shapes = {CakeGeometry.FLOWER, CakeGeometry.STAR, CakeGeometry.HEART};
 		List<CakeDesign.Dab> dabs = new ArrayList<>();
 		int tiers = 3;
 		for (int t = 0; t < tiers; t++) {
 			float r = CakeGeometry.radius(t, tiers), top = CakeGeometry.top(t, tiers);
-			int c = t == 1 ? white : pink;
-			for (float[] e : CakeGeometry.perimeter(CakeGeometry.HEART, r - 0.6f, 1.6f)) {
+			for (float[] e : CakeGeometry.perimeter(shapes[t], r - 0.6f, 1.6f)) {
 				dabs.add(new CakeDesign.Dab(CakeDesign.Dab.ROSETTE, t == 0 ? white : t == 1 ? pink : mint, Math.round(e[0] * 2), Math.round((top + 0.3f) * 2), Math.round(e[1] * 2)));
 			}
 			int i = 0;
-			for (float[] e : CakeGeometry.perimeter(CakeGeometry.HEART, r + 0.25f, 1.3f)) {
+			for (float[] e : CakeGeometry.perimeter(shapes[t], r + 0.25f, 1.3f)) {
 				if (t == 1) dabs.add(new CakeDesign.Dab(CakeDesign.Dab.DRIP + (i * 7 % 4), lilac, Math.round(e[0] * 2), Math.round(top * 2), Math.round(e[1] * 2)));
 				i++;
 			}
 			if (t == 0) {
-				for (float[] e : CakeGeometry.perimeter(CakeGeometry.HEART, r + 0.35f, 1.8f)) {
-					dabs.add(new CakeDesign.Dab(CakeDesign.Dab.DOT, c == pink ? white : pink, Math.round(e[0] * 2), Math.round(2.5f * 2), Math.round(e[1] * 2)));
+				// A dotted belt round the side of the bottom tier.
+				for (float[] e : CakeGeometry.perimeter(shapes[t], r, 1.8f)) {
+					float out = CakeGeometry.edge(shapes[t], e[2], e[3], r) + 0.35f;
+					dabs.add(new CakeDesign.Dab(CakeDesign.Dab.DOT, pink, Math.round(e[2] * out * 2), Math.round(1.2f * 2), Math.round(e[3] * out * 2)));
 				}
 			}
 		}
@@ -85,14 +88,18 @@ public final class BakeryDemo {
 		float top = CakeGeometry.top(2, tiers) * 2;
 		toppers.add(new CakeDesign.Topper(BakeryItems.FONDANT_BUNNY, 0, Math.round(top), 0, 0, CakeDesign.defaultScale(BakeryItems.FONDANT_BUNNY)));
 		float mid = CakeGeometry.top(1, tiers) * 2, low = CakeGeometry.top(0, tiers) * 2;
-		toppers.add(new CakeDesign.Topper(BakeryItems.SUGAR_FLOWER, -7, Math.round(mid), 3, -30, CakeDesign.defaultScale(BakeryItems.SUGAR_FLOWER)));
-		toppers.add(new CakeDesign.Topper(BakeryItems.SUGAR_FLOWER, 7, Math.round(mid), 3, 30, CakeDesign.defaultScale(BakeryItems.SUGAR_FLOWER)));
-		toppers.add(new CakeDesign.Topper(BakeryItems.STRAWBERRY, -10, Math.round(low), 6, 0, CakeDesign.defaultScale(BakeryItems.STRAWBERRY)));
-		toppers.add(new CakeDesign.Topper(BakeryItems.STRAWBERRY, 10, Math.round(low), 6, 0, CakeDesign.defaultScale(BakeryItems.STRAWBERRY)));
-		toppers.add(new CakeDesign.Topper(BakeryItems.FONDANT_HEART, 0, Math.round(low), 10, 0, CakeDesign.defaultScale(BakeryItems.FONDANT_HEART)));
-		toppers.add(new CakeDesign.Topper(BakeryItems.MINI_MACARON, -5, Math.round(low), -7, 0, CakeDesign.defaultScale(BakeryItems.MINI_MACARON)));
-		toppers.add(new CakeDesign.Topper(BakeryItems.MINI_MACARON, 5, Math.round(low), -7, 0, CakeDesign.defaultScale(BakeryItems.MINI_MACARON)));
-		return new CakeDesign(CakeGeometry.HEART, List.of(pink, white, pink), dabs, toppers);
+		toppers.add(new CakeDesign.Topper(BakeryItems.SUGAR_DAISY, -6, Math.round(mid), 3, 0));
+		toppers.add(new CakeDesign.Topper(BakeryItems.SUGAR_DAISY, 6, Math.round(mid), 3, 0));
+		toppers.add(new CakeDesign.Topper(BakeryItems.SUGAR_STRAWBERRY, -9, Math.round(low), 6, 0));
+		toppers.add(new CakeDesign.Topper(BakeryItems.SUGAR_STRAWBERRY, 9, Math.round(low), 6, 0));
+		toppers.add(new CakeDesign.Topper(BakeryItems.FONDANT_HEART, 0, Math.round(low), 10, 0));
+		toppers.add(new CakeDesign.Topper(BakeryItems.SUGAR_BOW, -6, Math.round(low), -8, 0));
+		toppers.add(new CakeDesign.Topper(BakeryItems.SUGAR_BOW, 6, Math.round(low), -8, 0));
+		// Decals pressed on the side of the bottom tier, facing out.
+		float side = CakeGeometry.bottom(0, tiers) + 2.6f;
+		float front = CakeGeometry.edge(shapes[0], 0, 1, CakeGeometry.radius(0, tiers)) + 0.35f;
+		toppers.add(new CakeDesign.Topper(BakeryItems.SUGAR_RAINBOW, 0, Math.round(side * 2), Math.round(front * 2), 0));
+		return new CakeDesign(shapes[0], List.of(pink, white, pink), dabs, toppers, List.of(shapes[0], shapes[1], shapes[2]));
 	}
 
 	public static void build(ServerWorld world, BlockPos o) {

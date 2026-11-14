@@ -19,7 +19,7 @@ import java.util.Deque;
  * wait &lt;ticks&gt;       wait
  * cam x y z yaw pitch  move the player (spectator) there
  * shot &lt;name&gt;        save run/screenshots/&lt;name&gt;.png
- * gui catalog|guide|menu   open a screen; key left|right|up|down [n]   press keys on it; close
+ * gui catalog|guide|menu [served]   open a screen; key left|right|up|down [n]   press keys on it; click x y; close
  * quit
  * </pre>
  */

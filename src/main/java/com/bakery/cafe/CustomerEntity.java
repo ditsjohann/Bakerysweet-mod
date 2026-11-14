@@ -53,13 +53,15 @@ import java.util.Optional;
 
 /**
  * A café customer. Walks in through the bakery's entrance along the path the baker laid (see
- * {@link com.bakery.shop.CustomerPath}), joins the line on it showing what they'd like, moves up as the people in
- * front are served, and waits
- * (not forever). Once served they either take it to go, or find a free café chair, sit down and eat or drink,
- * leave a little tip on the table and head home.
+ * {@link com.bakery.shop.CustomerPath}), joins the line on it showing what they'd like and moves up as the people in
+ * front are done. At the front they place their order: take-away customers wait right there, dine-in customers
+ * find a free café chair, sit down and wait for the baker to bring it over (their wish bubble goes with them).
+ * Nobody waits forever. Once served they eat or drink, leave a little tip on the table and head home.
  */
 public class CustomerEntity extends PathAwareEntity {
-	public static final int ARRIVING = 0, WAITING = 1, TO_SEAT = 2, EATING = 3, LEAVING = 4;
+	public static final int ARRIVING = 0, WAITING = 1, TO_SEAT = 2, EATING = 3, LEAVING = 4, SEATED = 5;
+	/** How long a customer at the front of the line takes to place their order before going to sit down. */
+	private static final int ORDER_TICKS = 50;
 	private static final TrackedData<Integer> REGULAR = DataTracker.registerData(CustomerEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	private static final TrackedData<Integer> STATE = DataTracker.registerData(CustomerEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	/** Who this customer is chatting with (entity id, -1 for nobody) and what about (picks the little speech-bubble faces). */
@@ -86,6 +88,8 @@ public class CustomerEntity extends PathAwareEntity {
 	private int eatTicks;
 	private int stayTicks;
 	private int chatTicks;
+	/** Ordered and sitting down (or on the way) before being served: the food is still to come. */
+	private boolean waitingForFood;
 
 	public CustomerEntity(EntityType<? extends PathAwareEntity> type, World world) {
 		super(type, world);
@@ -160,6 +164,16 @@ public class CustomerEntity extends PathAwareEntity {
 
 	public boolean atCounter() {
 		return state() == WAITING;
+	}
+
+	/** Has ordered and is sitting at a table (or walking to one) waiting for the food to be brought over. */
+	public boolean isSeatedWaiting() {
+		return state() == SEATED || (state() == TO_SEAT && waitingForFood);
+	}
+
+	/** At a table, waiting or eating. */
+	private boolean atTable() {
+		return state() == SEATED || state() == EATING;
 	}
 
 	public BlockPos counter() {
@@ -298,15 +312,48 @@ public class CustomerEntity extends PathAwareEntity {
 				else getNavigation().stop();
 				if (chatPartnerId() < 0) getLookControl().lookAt(counter.getX() + 0.5, counter.getY() + 1.2, counter.getZ() + 0.5);
 				socialize(world);
+				// At the front of the line: say what they'd like, then (eating in) find a table to wait at.
+				if (queueIndex == 0 && timer >= ORDER_TICKS && timer % 20 == 10 && squaredDistanceTo(Vec3d.ofBottomCenter(spot)) < 1.2) {
+					Order order = currentOrder();
+					BlockPos chair = order != null && order.dineIn ? freeChair(world) : null;
+					if (chair != null) {
+						seat = chair;
+						waitingForFood = true;
+						stopChat();
+						world.playSound(null, getBlockPos(), SoundEvents.ENTITY_VILLAGER_YES, SoundCategory.NEUTRAL, 0.5f, 1.7f);
+						world.spawnParticles(ParticleTypes.NOTE, getX(), getY() + 2.1, getZ(), 1, 0, 0, 0, 0.6);
+						setState(TO_SEAT);
+					}
+				}
 			}
 			case TO_SEAT -> {
-				if (seat == null || !(world.getBlockState(seat).getBlock() instanceof ChairBlock) || timer > 900) {
+				if (waitingForFood && !counterStillWants()) {
 					leave();
+				} else if (seat == null || !(world.getBlockState(seat).getBlock() instanceof ChairBlock) || timer > 900) {
+					giveUp();
 				} else if (squaredDistanceTo(Vec3d.ofBottomCenter(seat)) < 2.2) {
 					sitDown(world);
 				} else {
 					walkTo(seat, true);
 				}
+			}
+			case SEATED -> {
+				// Sitting at a table, waiting for the order to be brought over.
+				if (!counterStillWants()) {
+					stopRiding();
+					leave();
+					return;
+				}
+				if (!hasVehicle()) {
+					giveUp();
+					return;
+				}
+				if (chatPartnerId() < 0 && timer % 80 == 0 && random.nextFloat() < 0.6f) {
+					// Glance toward the counter, hoping the treat is on its way.
+					if (counter != null && random.nextBoolean()) getLookControl().lookAt(counter.getX() + 0.5, counter.getY() + 1, counter.getZ() + 0.5);
+					else getLookControl().lookAt(getX() + random.nextGaussian() * 3, getEyeY() + random.nextGaussian() * 0.4, getZ() + random.nextGaussian() * 3);
+				}
+				socialize(world);
 			}
 			case EATING -> {
 				if (!hasVehicle()) {
@@ -359,8 +406,19 @@ public class CustomerEntity extends PathAwareEntity {
 	}
 
 	private boolean counterStillWants() {
-		if (counter == null || !(getWorld().getBlockEntity(counter) instanceof CounterBlockEntity table)) return false;
-		return table.find(getUuid()) != null;
+		return currentOrder() != null;
+	}
+
+	private Order currentOrder() {
+		if (counter == null || !(getWorld().getBlockEntity(counter) instanceof CounterBlockEntity table)) return null;
+		return table.find(getUuid());
+	}
+
+	/** Could not get to a seat: drops the order and goes home. */
+	private void giveUp() {
+		if (counter != null && getWorld().getBlockEntity(counter) instanceof CounterBlockEntity table) table.cancel(getUuid());
+		stopRiding();
+		leave();
 	}
 
 	private double horizontalDistance(BlockPos target) {
@@ -392,6 +450,12 @@ public class CustomerEntity extends PathAwareEntity {
 		setStackInHand(Hand.MAIN_HAND, food.copyWithCount(1));
 		setEquipmentDropChance(net.minecraft.entity.EquipmentSlot.MAINHAND, 0);
 		tip = tipCoins;
+		if (waitingForFood) {
+			// Brought to the table: eat right here (or once they reach their chair).
+			waitingForFood = false;
+			if (state() == SEATED && hasVehicle()) startEating();
+			return;
+		}
 		BlockPos chair = order.dineIn ? freeChair(world) : null;
 		if (chair != null) {
 			seat = chair;
@@ -479,7 +543,7 @@ public class CustomerEntity extends PathAwareEntity {
 		CustomerEntity partner = chatPartner();
 		if (partner != null || chatPartnerId() >= 0) {
 			if (partner == null || !partner.isAlive() || partner.chatPartnerId() != getId() || squaredDistanceTo(partner) > 20
-					|| partner.state() != state()) {
+					|| (partner.state() != state() && !(atTable() && partner.atTable()))) {
 				stopChat();
 				return;
 			}
@@ -503,7 +567,7 @@ public class CustomerEntity extends PathAwareEntity {
 		}
 		if (timer % 40 != 0 || random.nextFloat() > 0.2f) return;
 		for (CustomerEntity other : world.getEntitiesByClass(CustomerEntity.class, getBoundingBox().expand(3.2), c -> c != this && c.chatPartnerId() < 0)) {
-			boolean pair = state() == EATING ? other.state() == EATING
+			boolean pair = atTable() ? other.atTable()
 					: state() == WAITING && other.state() == WAITING && counter != null && counter.equals(other.counter) && Math.abs(other.queueIndex - queueIndex) == 1;
 			if (!pair) continue;
 			chatWith(other, 90 + random.nextInt(180));
@@ -513,6 +577,10 @@ public class CustomerEntity extends PathAwareEntity {
 
 	private void sitDown(ServerWorld world) {
 		BlockState chair = world.getBlockState(seat);
+		if (!(chair.getBlock() instanceof ChairBlock)) {
+			leave();
+			return;
+		}
 		if (!world.getEntitiesByClass(SeatEntity.class, new Box(seat), s -> true).isEmpty()) {
 			BlockPos other = freeChair(world);
 			if (other == null) leave();
@@ -530,6 +598,11 @@ public class CustomerEntity extends PathAwareEntity {
 		setYaw(yaw);
 		setHeadYaw(yaw);
 		setBodyYaw(yaw);
+		if (waitingForFood) setState(SEATED);
+		else startEating();
+	}
+
+	private void startEating() {
 		setState(EATING);
 		eatTicks = EAT_MIN + random.nextInt(EAT_RANDOM);
 		stayTicks = Math.max(eatTicks + 200, STAY_MIN + random.nextInt(STAY_RANDOM));
@@ -569,7 +642,7 @@ public class CustomerEntity extends PathAwareEntity {
 			com.bakery.sweet.Friendship.giveGift(serverPlayer, this, stack);
 			return ActionResult.SUCCESS;
 		}
-		if (state() == WAITING || state() == ARRIVING) {
+		if (state() == WAITING || state() == ARRIVING || isSeatedWaiting()) {
 			if (!stack.isEmpty() && ShopManager.serve(serverPlayer, this, stack)) return ActionResult.SUCCESS;
 			Order order = counter != null && getWorld().getBlockEntity(counter) instanceof CounterBlockEntity table ? table.find(getUuid()) : null;
 			if (order != null) {
@@ -600,12 +673,12 @@ public class CustomerEntity extends PathAwareEntity {
 
 	@Override
 	protected void pushAway(net.minecraft.entity.Entity entity) {
-		if (state() != EATING) super.pushAway(entity);
+		if (!atTable()) super.pushAway(entity);
 	}
 
 	@Override
 	public boolean isPushable() {
-		return state() != EATING;
+		return !atTable();
 	}
 
 	@Override
@@ -629,6 +702,7 @@ public class CustomerEntity extends PathAwareEntity {
 		nbt.putInt("RouteIndex", routeIndex);
 		nbt.putInt("ExitIndex", exitIndex);
 		nbt.putInt("QueueIndex", queueIndex);
+		nbt.putBoolean("WaitingForFood", waitingForFood);
 	}
 
 	@Override
@@ -648,12 +722,23 @@ public class CustomerEntity extends PathAwareEntity {
 		routeIndex = nbt.getInt("RouteIndex");
 		exitIndex = nbt.getInt("ExitIndex");
 		queueIndex = nbt.contains("QueueIndex") ? nbt.getInt("QueueIndex") : -1;
-		// Seats are not saved, so someone who was eating gets up and goes home.
-		dataTracker.set(STATE, state == EATING || state == TO_SEAT ? LEAVING : state);
+		waitingForFood = nbt.getBoolean("WaitingForFood");
+		// Seats are not saved: someone still waiting for their order walks back to the line, a diner goes home.
+		if ((state == SEATED || state == TO_SEAT) && waitingForFood) {
+			waitingForFood = false;
+			queueIndex = -1;
+			route.clear();
+			routeIndex = 0;
+			state = ARRIVING;
+		}
+		dataTracker.set(STATE, state == EATING || state == TO_SEAT || state == SEATED ? LEAVING : state);
 	}
 
 	/** Showroom helper: sit straight down on a chair with something to eat. */
 	public void demoSit(ServerWorld world, BlockPos chair, ItemStack food) {
+		if (!(world.getBlockState(chair).getBlock() instanceof ChairBlock)) {
+			world.setBlockState(chair, BakeryBlocks.CAFE_CHAIR.getDefaultState().with(ChairBlock.FACING, Direction.NORTH));
+		}
 		setStackInHand(Hand.MAIN_HAND, food);
 		seat = chair.toImmutable();
 		sitDown(world);

@@ -601,10 +601,14 @@ def wallpaper_strawberries():
 def wallpaper_polka():
     arr = paper("#bfe2f4", 42)
     X, Y = grid_xy()
-    for (cx, cy) in ((6, 6), (22, 6), (14, 22), (30, 22), (14, -10)):
-        d = np.sqrt((X - cx) ** 2 + (Y - cy) ** 2)
+    # distances wrap around the tile, so a dot cut by one block edge continues on the next block
+    for (cx, cy) in ((7.5, 7.5), (23.5, 7.5), (15.5, 23.5), (31.5, 23.5)):
+        dx = np.abs(X - cx); dx = np.minimum(dx, S - dx)
+        dy = np.abs(Y - cy); dy = np.minimum(dy, S - dy)
+        d = np.sqrt(dx ** 2 + dy ** 2)
+        below = ((Y - cy) % S) < S / 2
         arr[d < 3.2, :3] = (255, 255, 255)
-        arr[(d >= 2.2) & (d < 3.2) & (Y > cy), :3] = (232, 244, 252)
+        arr[(d >= 2.2) & (d < 3.2) & below, :3] = (232, 244, 252)
     return arr
 
 

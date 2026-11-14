@@ -113,6 +113,10 @@ public final class ShopManager {
 		int charmTip = counter.getCharm() / 2 + (stars == 5 ? 1 : 0);
 		int outfitTip = Outfit.sweetBaker(player) ? Outfit.TIP : 0;
 		price += outfitTip + (order.dineIn ? 0 : charmTip);
+		// Level perks: a Grand bakery earns a coin more on every sale, and from Cozy Corner diners tip a coin extra.
+		CafeLevel perks = counter.getLevel();
+		if (perks.rushHour()) price += 1;
+		if (perks.tableTips()) charmTip += 1;
 
 		ItemStack tasted = stack.copyWithCount(1);
 		stack.decrementUnlessCreative(1, player);

@@ -39,6 +39,8 @@ public final class BakeryBlockEntities {
 			BlockEntityType.Builder.create(PastryBoardBlockEntity::new, BakeryBlocks.PASTRY_BOARD).build(null));
 	public static final BlockEntityType<CounterBlockEntity> COUNTER = register("bakery_counter",
 			BlockEntityType.Builder.create(CounterBlockEntity::new, BakeryBlocks.BAKERY_COUNTER).build(null));
+	public static final BlockEntityType<com.bakery.shop.OrderNotebookBlockEntity> ORDER_NOTEBOOK = register("order_notebook",
+			BlockEntityType.Builder.create(com.bakery.shop.OrderNotebookBlockEntity::new, BakeryBlocks.ORDER_NOTEBOOK).build(null));
 	public static final BlockEntityType<DisplayCaseBlockEntity> DISPLAY_CASE = register("display_case",
 			BlockEntityType.Builder.create(DisplayCaseBlockEntity::new, BakeryBlocks.DISPLAY_CASE).build(null));
 	public static final BlockEntityType<com.bakery.shop.DisplayStandBlockEntity> DISPLAY_STAND = register("display_stand",

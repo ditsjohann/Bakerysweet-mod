@@ -45,7 +45,7 @@ public class CustomerRenderer extends BipedEntityRenderer<CustomerEntity, Custom
 	/** What a chat looks like from outside: little faces and notes, a different set for each topic. */
 	private static final String[][] TOPICS = {{"…", "☺", "♪"}, {"♥", "☺", "♥"}, {"?", "!", "☺"}, {"✿", "♥", "✿"}, {"…", "!!", "☺"}, {"♪", "♫", "☺"}};
 
-	/** A small speech bubble beside the head of whoever is talking right now. */
+	/** A small speech bubble just beside the head of whoever is talking right now (clear of the name and the order wish). */
 	private void chatBubble(CustomerEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider consumers) {
 		String[] topic = TOPICS[Math.floorMod(entity.chatTopic(), TOPICS.length)];
 		float t = entity.age + tickDelta;
@@ -53,9 +53,10 @@ public class CustomerRenderer extends BipedEntityRenderer<CustomerEntity, Custom
 		float pop = MathHelper.clamp((t % 34) / 4f, 0, 1);
 		TextRenderer text = getTextRenderer();
 		matrices.push();
-		matrices.translate(0, entity.getHeight() + 0.25 + MathHelper.sin(t * 0.3f) * 0.02, 0);
+		// Head height (the model is drawn at 15/16 scale), beside the face on the viewer's right.
+		matrices.translate(0, entity.getHeight() * 0.9375f - 0.2f + MathHelper.sin(t * 0.3f) * 0.02, 0);
 		matrices.multiply(dispatcher.getRotation());
-		matrices.translate(-0.42, 0, 0);
+		matrices.translate(-0.5, 0, 0);
 		float s = 0.03f * pop;
 		matrices.scale(s, -s, s);
 		Matrix4f m = matrices.peek().getPositionMatrix();
@@ -96,8 +97,8 @@ public class CustomerRenderer extends BipedEntityRenderer<CustomerEntity, Custom
 				rightSleeve.copyTransform(rightArm);
 				leftSleeve.copyTransform(leftArm);
 				hat.copyTransform(head);
-			} else if (entity.isEating()) {
-				// Done eating: hands resting in the lap while they sit and chat.
+			} else if (entity.hasVehicle()) {
+				// Sitting with empty hands (waiting for their order, or done eating): hands resting in the lap.
 				rightArm.pitch = -0.55f;
 				leftArm.pitch = -0.55f;
 				rightArm.yaw = 0.25f;

@@ -31,6 +31,10 @@ public class CatalogScreen extends Screen {
 			BakeryItems.TULIP_POT, BakeryItems.BUNNY_EARS};
 	private static final int[] TAB_COLORS = {0xFFFFE08A, 0xFFFFD6A8, 0xFFA8E6CF, 0xFFF7A8C6, 0xFFA8D8F7, 0xFFCDB4F0};
 	private static final int CARD_H = 34;
+	/** Tabs after the shop categories: the recipe book, then the guide (which opens its own screen). */
+	private static final int RECIPE_TAB = TAB_ICONS.length, GUIDE_TAB = TAB_ICONS.length + 1;
+	/** A brand-new baker sees "Your first bake" the first time the catalog opens in a session. */
+	private static boolean welcomed;
 
 	private final BlockPos pos;
 	private final SweetPayloads.GuideData data;
@@ -42,11 +46,18 @@ public class CatalogScreen extends Screen {
 	private long flashAt;
 	/** Today's stock per entry (-1 = unlimited), counted down locally as the baker buys. */
 	private final List<Integer> stock;
+	private final RecipePane recipes = new RecipePane();
 
 	public CatalogScreen(BlockPos pos, SweetPayloads.GuideData data) {
 		super(Text.translatable("screen.bakery.catalog"));
 		this.pos = pos;
 		this.data = data;
+		RecipeBook.reset();
+		if (!welcomed && data.served() == 0) {
+			welcomed = true;
+			tab = RECIPE_TAB;
+			RecipePane.showFirstBake();
+		}
 		this.stock = new ArrayList<>(data.stockLeft());
 	}
 
@@ -61,11 +72,11 @@ public class CatalogScreen extends Screen {
 	// ------------------------------------------------------------------ layout
 
 	private int panelW() {
-		return Math.min(width - 12, 460);
+		return Math.min(width - 12, 500);
 	}
 
 	private int panelH() {
-		return Math.min(height - 12, 270);
+		return Math.min(height - 12, 290);
 	}
 
 	private int left() {
@@ -162,7 +173,7 @@ public class CatalogScreen extends Screen {
 	}
 
 	private int tabCount() {
-		return TAB_ICONS.length + 1;
+		return TAB_ICONS.length + 2;
 	}
 
 	private int tabW() {
@@ -204,19 +215,32 @@ public class CatalogScreen extends Screen {
 		int tw = tabW();
 		for (int t = 0; t < tabCount(); t++) {
 			int tx = x + 10 + t * tw, ty = y + 30;
-			boolean read = t == TAB_ICONS.length;
+			boolean read = t == GUIDE_TAB, book = t == RECIPE_TAB;
 			boolean active = !read && tab == t;
 			boolean hover = SweetUi.inside(mouseX, mouseY, tx, ty, tw - 3, 18);
-			int color = read ? 0xFFFFF3C4 : TAB_COLORS[t];
+			int color = read ? 0xFFFFF3C4 : book ? 0xFFFFC2D6 : TAB_COLORS[t];
 			SweetUi.card(context, tx, ty, tw - 3, 18, active ? color : hover ? 0xFFFFF7FA : 0xFFFFFFFF, active ? SweetUi.DEEP_PINK : color);
-			Text name = read ? Text.translatable("screen.bakery.catalog.guide_tab") : Catalog.Category.values()[t].displayName();
-			boolean label = tw >= 56;
+			Text name = read ? Text.translatable("screen.bakery.catalog.guide_tab") : book ? Text.translatable("screen.bakery.catalog.recipes_tab")
+					: Catalog.Category.values()[t].displayName();
+			boolean label = tw >= 50;
 			int iconX = label ? tx + 3 : tx + (tw - 3) / 2 - 7;
-			SweetUi.item(context, new ItemStack(read ? BakeryItems.BAKERY_GUIDE : TAB_ICONS[t]), iconX, ty + 2, 0.85f);
+			SweetUi.item(context, new ItemStack(read ? BakeryItems.BAKERY_GUIDE : book ? BakeryItems.BREAD_LOAF : TAB_ICONS[t]), iconX, ty + 2, 0.85f);
 			if (label) {
-				Text fitted = Text.literal(textRenderer.trimToWidth(name.getString(), tw - 24));
-				context.drawText(textRenderer, fitted, tx + 19, ty + 5, active ? SweetUi.INK : 0xFF8A6A76, false);
+				// Small text so all eight tab names fit
+				context.getMatrices().push();
+				context.getMatrices().translate(tx + 18, ty + 6, 0);
+				context.getMatrices().scale(0.8f, 0.8f, 1);
+				Text fitted = Text.literal(textRenderer.trimToWidth(name.getString(), (int) ((tw - 22) / 0.8f)));
+				context.drawText(textRenderer, fitted, 0, 0, active ? SweetUi.INK : 0xFF8A6A76, false);
+				context.getMatrices().pop();
 			}
+		}
+
+		if (tab == RECIPE_TAB) {
+			List<Text> tip = recipes.render(context, textRenderer, x + 10, gridY(), w - 20, gridH() + 2, mouseX, mouseY);
+			drawFooter(context, level, x, y, w, h);
+			if (tip != null) context.drawTooltip(textRenderer, tip, mouseX, mouseY);
+			return;
 		}
 
 		// Daily Special card
@@ -264,19 +288,7 @@ public class CatalogScreen extends Screen {
 			context.fill(sx, ty, sx + 4, ty + thumb, SweetUi.DEEP_PINK);
 		}
 
-		// Footer: progress to the next level.
-		CafeLevel next = level.next();
-		int fy = y + h - 18;
-		if (next == null) {
-			context.drawText(textRenderer, Text.translatable("screen.bakery.catalog.max_level"), x + 12, fy + 3, SweetUi.DEEP_PINK, false);
-		} else {
-			Text footer = Text.translatable("screen.bakery.catalog.next_level", next.served() - data.served(), next.displayName());
-			int barX = x + 12, barW = Math.min(140, w / 3);
-			float progress = MathHelper.clamp((data.served() - level.served()) / (float) Math.max(1, next.served() - level.served()), 0, 1);
-			SweetUi.card(context, barX, fy + 2, barW, 9, 0xFFFFFFFF, 0xFFF3DDE6);
-			context.fill(barX + 2, fy + 4, barX + 2 + Math.round((barW - 4) * progress), fy + 9, SweetUi.DEEP_PINK);
-			context.drawText(textRenderer, footer, barX + barW + 6, fy + 3, SweetUi.SOFT, false);
-		}
+		drawFooter(context, level, x, y, w, h);
 
 		if (hovered != null) {
 			Catalog.Entry entry = Catalog.entries().get(hovered);
@@ -295,7 +307,24 @@ public class CatalogScreen extends Screen {
 							.formatted(Formatting.GRAY));
 				}
 			}
+			if (RecipeBook.indexOf(entry.item()) >= 0) lines.add(Text.translatable("screen.bakery.catalog.has_recipe").formatted(Formatting.GRAY));
 			context.drawTooltip(textRenderer, lines, mouseX, mouseY);
+		}
+	}
+
+	/** Footer: progress to the next level. */
+	private void drawFooter(DrawContext context, CafeLevel level, int x, int y, int w, int h) {
+		CafeLevel next = level.next();
+		int fy = y + h - 18;
+		if (next == null) {
+			context.drawText(textRenderer, Text.translatable("screen.bakery.catalog.max_level"), x + 12, fy + 3, SweetUi.DEEP_PINK, false);
+		} else {
+			Text footer = Text.translatable("screen.bakery.catalog.next_level", next.served() - data.served(), next.displayName());
+			int barX = x + 12, barW = Math.min(140, w / 3);
+			float progress = MathHelper.clamp((data.served() - level.served()) / (float) Math.max(1, next.served() - level.served()), 0, 1);
+			SweetUi.card(context, barX, fy + 2, barW, 9, 0xFFFFFFFF, 0xFFF3DDE6);
+			context.fill(barX + 2, fy + 4, barX + 2 + Math.round((barW - 4) * progress), fy + 9, SweetUi.DEEP_PINK);
+			context.drawText(textRenderer, footer, barX + barW + 6, fy + 3, SweetUi.SOFT, false);
 		}
 	}
 
@@ -382,7 +411,7 @@ public class CatalogScreen extends Screen {
 		int tw = tabW();
 		for (int t = 0; t < tabCount(); t++) {
 			if (SweetUi.inside(mouseX, mouseY, x + 10 + t * tw, y + 30, tw - 3, 18)) {
-				if (t == TAB_ICONS.length) {
+				if (t == GUIDE_TAB) {
 					sound(SoundEvents.ITEM_BOOK_PAGE_TURN, 0.9f);
 					MinecraftClient.getInstance().setScreen(new GuideScreen(data));
 					return true;
@@ -393,6 +422,9 @@ public class CatalogScreen extends Screen {
 				sound(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.2f);
 				return true;
 			}
+		}
+		if (tab == RECIPE_TAB) {
+			return recipes.click(mouseX, mouseY) || super.mouseClicked(mouseX, mouseY, button);
 		}
 		List<String> shelves = shelves();
 		int sx = gridX();
@@ -447,6 +479,7 @@ public class CatalogScreen extends Screen {
 
 	@Override
 	public boolean mouseScrolled(double mouseX, double mouseY, double horizontal, double vertical) {
+		if (tab == RECIPE_TAB) return recipes.scroll(mouseX, mouseY, vertical);
 		scroll = MathHelper.clamp(scroll - (int) Math.signum(vertical), 0, maxScroll());
 		return true;
 	}

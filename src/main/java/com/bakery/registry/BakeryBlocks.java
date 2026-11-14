@@ -82,6 +82,8 @@ public final class BakeryBlocks {
 
 	// Shop
 	public static final Block BAKERY_COUNTER = register("bakery_counter", new CounterBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).nonOpaque()));
+	public static final Block ORDER_NOTEBOOK = register("order_notebook", new com.bakery.shop.OrderNotebookBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL)
+			.nonOpaque().noCollision().strength(0.3f), box(2, 1, 15, 14, 15, 16)));
 	public static final Block DISPLAY_CASE = register("display_case", new DisplayCaseBlock(AbstractBlock.Settings.copy(Blocks.GLASS).strength(1f)
 			.sounds(BlockSoundGroup.GLASS).nonOpaque()));
 	public static final Block SERVICE_BELL = register("service_bell", new ServiceBellBlock(AbstractBlock.Settings.create().mapColor(MapColor.GOLD)

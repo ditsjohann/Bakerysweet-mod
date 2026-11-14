@@ -22,9 +22,9 @@ import org.joml.Matrix4f;
 import java.util.List;
 
 /**
- * Draws a hand-decorated cake the soft way: smooth round (or rounded-square, or heart) tiers with a pillowy rounded
- * top edge, glossy round dollops of icing, swirled rosettes, teardrop drips, and the toppers standing on top or
- * pressed onto the sides. Matrices sit at the cake's bottom centre, one unit per block.
+ * Draws a hand-decorated cake the soft way: smooth tiers (each in its own shape) with a pillowy rounded top edge,
+ * glossy round dollops of icing, swirled rosettes, teardrop drips, and the toppers as flat sugar decals lying on the
+ * icing or pressed onto the sides (candles stand up). Matrices sit at the cake's bottom centre, one unit per block.
  */
 public final class CakeRenderer {
 	private static final float PX = 1 / 16f;
@@ -53,13 +53,11 @@ public final class CakeRenderer {
 		for (int i = 0; i < tiers; i++) {
 			int color = design.tiers().get(i) == -1 ? flavor : design.tiers().get(i);
 			boolean frosted = design.tiers().get(i) != -1;
-			tier(buffer, matrices, design.shape(), CakeGeometry.radius(i, tiers), CakeGeometry.bottom(i, tiers), CakeGeometry.top(i, tiers),
+			tier(buffer, matrices, design.shapeOf(i), CakeGeometry.radius(i, tiers), CakeGeometry.bottom(i, tiers), CakeGeometry.top(i, tiers),
 					color, frosted ? frosting : sponge, frosting, light, overlay);
 		}
 
-		for (CakeDesign.Dab dab : design.dabs()) {
-			dab(buffer, matrices, dab.kind(), dab.color(), 255, dab.x() / 2f, dab.y() / 2f, dab.z() / 2f, piping, light, overlay);
-		}
+		for (CakeDesign.Dab dab : design.dabs()) dab(buffer, matrices, dab, dab.color(), piping, light, overlay);
 
 		for (CakeDesign.Topper topper : design.toppers()) {
 			topper(new ItemStack(topper.item()), topper.x() / 2f, topper.y() / 2f, topper.z() / 2f, topper.yaw(), topper.scale() / 100f,
@@ -67,49 +65,51 @@ public final class CakeRenderer {
 		}
 	}
 
-	/**
-	 * One piece of piped icing at (x, y, z) pixels. {@code alpha} below 255 draws a see-through ghost (the preview);
-	 * the buffer must then be a translucent one.
-	 */
-	public static void dab(VertexConsumer buffer, MatrixStack matrices, int kind, int color, int alpha, float x, float y, float z, Sprite piping,
-						   int light, int overlay) {
-		int a = alpha << 24;
-		int c = a | (color & 0xFFFFFF);
-		if (kind >= CakeDesign.Dab.DRIP && kind < CakeDesign.Dab.STAR) {
-			// A teardrop running down the side: a thin round stream ending in a plump bead.
-			float len = (kind - CakeDesign.Dab.DRIP + 1) * 0.9f;
-			PixelBox.tube(buffer, matrices, x, z, 0.42f, y - len, y + 0.15f, 8, c, piping, light, overlay);
-			PixelBox.blob(buffer, matrices, x, y - len, z, 0.6f, 0.7f, 0.6f, 4, 8, 0, c, piping, light, overlay);
-			PixelBox.blob(buffer, matrices, x, y + 0.1f, z, 0.5f, 0.3f, 0.5f, 2, 8, 0.5f, c, piping, light, overlay);
-		} else if (kind == CakeDesign.Dab.PEARL) {
-			// A tiny glossy pearl with a bright highlight.
-			PixelBox.blob(buffer, matrices, x, y - 0.15f, z, 0.38f, 0.38f, 0.38f, 3, 8, 0.4f, c, piping, light, overlay);
-			PixelBox.blob(buffer, matrices, x - 0.12f, y + 0.08f, z - 0.12f, 0.12f, 0.12f, 0.12f, 2, 5, 0.3f, a | lighten(c, 40), piping, light, overlay);
-		} else if (kind == CakeDesign.Dab.STAR) {
-			// A star-tip swirl: five ridges around a little peak.
-			for (int k = 0; k < 5; k++) {
-				double ang = Math.PI * 2 * k / 5;
-				float ox = (float) Math.cos(ang) * 0.38f, oz = (float) Math.sin(ang) * 0.38f;
-				PixelBox.blob(buffer, matrices, x + ox, y - 0.25f, z + oz, 0.32f, 0.6f, 0.32f, 3, 6, 0.45f, k % 2 == 0 ? c : a | lighten(c, 10), piping, light, overlay);
+	/** The piping tip's sprite (for the preview, which draws ghost dabs with the same shapes). */
+	public static Sprite pipingSprite() {
+		return sprite("cake_piping");
+	}
+
+	/** One bit of piped icing: a dollop, a rosette or a drip, in colour {@code c} (ARGB; alpha 0 means opaque). */
+	public static void dab(VertexConsumer buffer, MatrixStack matrices, CakeDesign.Dab dab, int c, Sprite piping, int light, int overlay) {
+		float x = dab.x() / 2f, y = dab.y() / 2f, z = dab.z() / 2f;
+		{
+			if (dab.isDrip()) {
+				// A teardrop running down the side: a thin round stream ending in a plump bead.
+				float len = dab.dripLength() * 0.9f;
+				PixelBox.tube(buffer, matrices, x, z, 0.42f, y - len, y + 0.15f, 8, c, piping, light, overlay);
+				PixelBox.blob(buffer, matrices, x, y - len, z, 0.6f, 0.7f, 0.6f, 4, 8, 0, c, piping, light, overlay);
+				PixelBox.blob(buffer, matrices, x, y + 0.1f, z, 0.5f, 0.3f, 0.5f, 2, 8, 0.5f, c, piping, light, overlay);
+			} else if (dab.kind() == CakeDesign.Dab.PEARL) {
+				// A tiny glossy pearl with a bright highlight.
+				PixelBox.blob(buffer, matrices, x, y - 0.15f, z, 0.38f, 0.38f, 0.38f, 3, 8, 0.4f, c, piping, light, overlay);
+				PixelBox.blob(buffer, matrices, x - 0.12f, y + 0.08f, z - 0.12f, 0.12f, 0.12f, 0.12f, 2, 5, 0.3f, lighten(c, 40), piping, light, overlay);
+			} else if (dab.kind() == CakeDesign.Dab.STAR) {
+				// A star-tip swirl: five ridges around a little peak.
+				for (int k = 0; k < 5; k++) {
+					double ang = Math.PI * 2 * k / 5;
+					float ox = (float) Math.cos(ang) * 0.38f, oz = (float) Math.sin(ang) * 0.38f;
+					PixelBox.blob(buffer, matrices, x + ox, y - 0.25f, z + oz, 0.32f, 0.6f, 0.32f, 3, 6, 0.45f, k % 2 == 0 ? c : lighten(c, 10), piping, light, overlay);
+				}
+				PixelBox.blob(buffer, matrices, x, y + 0.2f, z, 0.3f, 0.45f, 0.3f, 3, 6, 0.4f, lighten(c, 22), piping, light, overlay);
+			} else if (dab.kind() == CakeDesign.Dab.SHELL) {
+				// A shell lying along the tier's edge: a plump head tapering into a tail toward the next shell.
+				float len = (float) Math.sqrt(x * x + z * z);
+				float tx = len < 0.01f ? 1 : -z / len, tz = len < 0.01f ? 0 : x / len;
+				PixelBox.blob(buffer, matrices, x - tx * 0.25f, y - 0.1f, z - tz * 0.25f, 0.62f, 0.55f, 0.62f, 3, 8, 0.45f, c, piping, light, overlay);
+				PixelBox.blob(buffer, matrices, x + tx * 0.35f, y - 0.25f, z + tz * 0.35f, 0.38f, 0.32f, 0.38f, 2, 6, 0.4f, lighten(c, 12), piping, light, overlay);
+				PixelBox.blob(buffer, matrices, x + tx * 0.7f, y - 0.35f, z + tz * 0.7f, 0.22f, 0.2f, 0.22f, 2, 6, 0.4f, lighten(c, 18), piping, light, overlay);
+			} else if (dab.kind() == CakeDesign.Dab.ROSETTE) {
+				// A piped swirl: three softly stacked rings getting smaller, with a lighter kiss on top.
+				PixelBox.blob(buffer, matrices, x, y - 0.35f, z, 1.15f, 0.55f, 1.15f, 3, 10, 0.5f, c, piping, light, overlay);
+				PixelBox.blob(buffer, matrices, x + 0.08f, y + 0.1f, z - 0.05f, 0.85f, 0.5f, 0.85f, 3, 10, 0.5f, lighten(c, 10), piping, light, overlay);
+				PixelBox.blob(buffer, matrices, x - 0.05f, y + 0.55f, z + 0.06f, 0.55f, 0.45f, 0.55f, 3, 8, 0.5f, lighten(c, 18), piping, light, overlay);
+				PixelBox.blob(buffer, matrices, x, y + 0.95f, z, 0.25f, 0.35f, 0.25f, 2, 6, 0.4f, lighten(c, 28), piping, light, overlay);
+			} else {
+				// A round dollop with a little peak.
+				PixelBox.blob(buffer, matrices, x, y - 0.3f, z, 0.7f, 0.65f, 0.7f, 4, 10, 0.45f, c, piping, light, overlay);
+				PixelBox.blob(buffer, matrices, x, y + 0.2f, z, 0.25f, 0.3f, 0.25f, 2, 6, 0.4f, lighten(c, 20), piping, light, overlay);
 			}
-			PixelBox.blob(buffer, matrices, x, y + 0.2f, z, 0.3f, 0.45f, 0.3f, 3, 6, 0.4f, a | lighten(c, 22), piping, light, overlay);
-		} else if (kind == CakeDesign.Dab.SHELL) {
-			// A shell lying along the tier's edge: a plump head tapering into a tail toward the next shell.
-			float len = (float) Math.sqrt(x * x + z * z);
-			float tx = len < 0.01f ? 1 : -z / len, tz = len < 0.01f ? 0 : x / len;
-			PixelBox.blob(buffer, matrices, x - tx * 0.25f, y - 0.1f, z - tz * 0.25f, 0.62f, 0.55f, 0.62f, 3, 8, 0.45f, c, piping, light, overlay);
-			PixelBox.blob(buffer, matrices, x + tx * 0.35f, y - 0.25f, z + tz * 0.35f, 0.38f, 0.32f, 0.38f, 2, 6, 0.4f, a | lighten(c, 12), piping, light, overlay);
-			PixelBox.blob(buffer, matrices, x + tx * 0.7f, y - 0.35f, z + tz * 0.7f, 0.22f, 0.2f, 0.22f, 2, 6, 0.4f, a | lighten(c, 18), piping, light, overlay);
-		} else if (kind == CakeDesign.Dab.ROSETTE) {
-			// A piped swirl: three softly stacked rings getting smaller, with a lighter kiss on top.
-			PixelBox.blob(buffer, matrices, x, y - 0.35f, z, 1.15f, 0.55f, 1.15f, 3, 10, 0.5f, c, piping, light, overlay);
-			PixelBox.blob(buffer, matrices, x + 0.08f, y + 0.1f, z - 0.05f, 0.85f, 0.5f, 0.85f, 3, 10, 0.5f, a | lighten(c, 10), piping, light, overlay);
-			PixelBox.blob(buffer, matrices, x - 0.05f, y + 0.55f, z + 0.06f, 0.55f, 0.45f, 0.55f, 3, 8, 0.5f, a | lighten(c, 18), piping, light, overlay);
-			PixelBox.blob(buffer, matrices, x, y + 0.95f, z, 0.25f, 0.35f, 0.25f, 2, 6, 0.4f, a | lighten(c, 28), piping, light, overlay);
-		} else {
-			// A round dollop with a little peak.
-			PixelBox.blob(buffer, matrices, x, y - 0.3f, z, 0.7f, 0.65f, 0.7f, 4, 10, 0.45f, c, piping, light, overlay);
-			PixelBox.blob(buffer, matrices, x, y + 0.2f, z, 0.25f, 0.3f, 0.25f, 2, 6, 0.4f, a | lighten(c, 20), piping, light, overlay);
 		}
 	}
 
@@ -122,27 +122,51 @@ public final class CakeRenderer {
 		return true;
 	}
 
-	/** Draws one topper at (x, y, z) pixels: standing on a tier, or pressed flat against a tier's side. */
+	/**
+	 * Draws one topper at (x, y, z) pixels as a flat sugar decal: lying on the icing of a tier (its top toward the
+	 * back, so it reads right from where it was put), or pressed against a tier's side. Candles still stand up.
+	 */
+	public static void topper(ItemStack stack, float x, float y, float z, float yaw, boolean side, MatrixStack matrices, VertexConsumerProvider consumers, int light) {
+		topper(stack, x, y, z, yaw, CakeDesign.defaultScale(stack.getItem()) / 100f, side, matrices, consumers, light);
+	}
+
+	/**
+	 * Draws one topper at (x, y, z) pixels and {@code scale} times its usual size: a flat sugar decal on a tier's top
+	 * or side, a pick (flag, butterfly) standing tall with its stick in the icing, or a candle standing up.
+	 */
 	public static void topper(ItemStack stack, float x, float y, float z, float yaw, float scale, boolean side, MatrixStack matrices,
 							  VertexConsumerProvider consumers, int light) {
 		MinecraftClient client = MinecraftClient.getInstance();
 		matrices.push();
 		matrices.translate(x * PX, y * PX, z * PX);
 		matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(yaw));
-		// Sculpted toppers are little 3D figurines; fruit and petals are flat cut-outs, candles are blocks.
-		boolean figurine = java.util.Arrays.asList(com.bakery.registry.BakeryItems.TOPPERS).contains(stack.getItem());
 		boolean block = stack.getItem() instanceof net.minecraft.item.BlockItem;
-		boolean pick = CakeDesign.isPick(stack.getItem());
-		float size = (side ? 0.24f : pick ? 0.5f : figurine || block ? 0.42f : 0.28f) * scale;
-		if (side) {
-			matrices.translate(0, 0, 0.02f);
-		} else if (pick) {
-			// Picks stand tall on their stick, pushed a little way into the icing.
-			matrices.translate(0, size * 0.5f - 1.6f * PX * scale, 0);
-		} else {
-			matrices.translate(0, size * 0.5f - 0.01f, 0);
+		if (block) {
+			float b = 0.42f * scale;
+			matrices.translate(0, b * 0.5f - 0.01f, 0);
+			matrices.scale(b, b, b);
+			client.getItemRenderer().renderItem(stack, ModelTransformationMode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, consumers, client.world, 0);
+			matrices.pop();
+			return;
 		}
-		matrices.scale(size, size, size);
+		if (CakeDesign.isPick(stack.getItem()) && !side) {
+			// A pick stands tall on its stick, pushed a little way into the icing.
+			float size = 0.5f * scale;
+			matrices.translate(0, size * 0.5f - 1.6f * PX * scale, 0);
+			matrices.scale(size, size, size);
+			client.getItemRenderer().renderItem(stack, ModelTransformationMode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, consumers, client.world, 0);
+			matrices.pop();
+			return;
+		}
+		float size = (side ? 0.22f : 0.25f) * scale;
+		if (side) {
+			matrices.translate(0, 0, 0.015f);
+		} else {
+			// Lay it down flat on the icing.
+			matrices.translate(0, 0.012f, 0);
+			matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(90));
+		}
+		matrices.scale(size, size, 0.06f);
 		client.getItemRenderer().renderItem(stack, ModelTransformationMode.FIXED, light, OverlayTexture.DEFAULT_UV, matrices, consumers, client.world, 0);
 		matrices.pop();
 	}
@@ -214,11 +238,11 @@ public final class CakeRenderer {
 
 	private static int lighten(int c, int amount) {
 		int r = Math.min(255, (c >> 16 & 255) + amount), g = Math.min(255, (c >> 8 & 255) + amount), b = Math.min(255, (c & 255) + amount);
-		return r << 16 | g << 8 | b;
+		return (c & 0xFF000000) | r << 16 | g << 8 | b;  // keeps a ghost's see-through alpha
 	}
 
 	/** For the renderers' bounding boxes. */
 	public static List<float[]> footprint(CakeDesign design) {
-		return CakeGeometry.strips(design.shape(), CakeGeometry.radius(0, design.tierCount()));
+		return CakeGeometry.strips(design.shapeOf(0), CakeGeometry.radius(0, design.tierCount()));
 	}
 }

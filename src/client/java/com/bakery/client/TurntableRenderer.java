@@ -70,18 +70,13 @@ public class TurntableRenderer implements BlockEntityRenderer<TurntableBlockEnti
 			if (sneaking) {
 				ring(ghost, matrices, aim, top, 2.4f, 0xE06070, pulse, piping);
 			} else {
+				// Exactly what the next squeeze pipes (shared with the server), as a see-through ghost.
 				IcingBagItem.Tip tip = IcingBagItem.tip(held);
-				float[] at = TurntableBlockEntity.surface(new float[]{aim[0], aim[1], aim[2]}, top, tier, design);
-				List<CakeDesign.Dab> dabs = tip == IcingBagItem.Tip.LINE ? List.of(new CakeDesign.Dab(CakeDesign.Dab.DOT, color,
-						Math.round(at[0] * 2), Math.round(at[1] * 2), Math.round(at[2] * 2))) : TurntableBlockEntity.piped(tip, color, design, at, tier, top);
-				for (CakeDesign.Dab d : dabs) {
-					CakeRenderer.dab(ghost, matrices, d.kind(), d.color(), 150, d.x() / 2f, d.y() / 2f, d.z() / 2f, piping, FULL, OverlayTexture.DEFAULT_UV);
-				}
-				if (tip == IcingBagItem.Tip.FROST) {
-					// Frosting covers the whole tier: outline its top edge in the new colour.
-					for (float[] e : CakeGeometry.perimeter(design.shape(), CakeGeometry.radius(tier, design.tierCount()) - 0.3f, 1.2f)) {
-						PixelBox.blob(ghost, matrices, e[0], CakeGeometry.top(tier, design.tierCount()) + 0.1f, e[1], 0.35f, 0.25f, 0.35f, 2, 6, 0.4f,
-								pulse << 24 | color, piping, FULL, OverlayTexture.DEFAULT_UV);
+				TurntableBlockEntity.Plan plan = TurntableBlockEntity.plan(design, new float[]{aim[0], aim[1], aim[2]},
+						top ? net.minecraft.util.math.Direction.UP : net.minecraft.util.math.Direction.NORTH, tip, color, null);
+				if (plan != null) {
+					for (CakeDesign.Dab d : plan.dabs()) {
+						CakeRenderer.dab(ghost, matrices, d, pulse << 24 | (d.color() & 0xFFFFFF), piping, FULL, OverlayTexture.DEFAULT_UV);
 					}
 				}
 				ring(ghost, matrices, aim, top, 0.9f, 0xFFFFFF, pulse, piping);
@@ -90,7 +85,7 @@ public class TurntableRenderer implements BlockEntityRenderer<TurntableBlockEnti
 			if (sneaking) {
 				// The whole tier will be scraped: ring its top edge and its foot.
 				int n = design.tierCount();
-				for (float[] e : CakeGeometry.perimeter(design.shape(), CakeGeometry.radius(tier, n) + 0.4f, 1.4f)) {
+				for (float[] e : CakeGeometry.perimeter(design.shapeOf(tier), CakeGeometry.radius(tier, n) + 0.4f, 1.4f)) {
 					for (float y : new float[]{CakeGeometry.top(tier, n) + 0.2f, CakeGeometry.bottom(tier, n) + 0.3f}) {
 						PixelBox.blob(ghost, matrices, e[0], y, e[1], 0.22f, 0.22f, 0.22f, 2, 5, 0.3f, pulse << 24 | 0xE06070, piping, FULL, OverlayTexture.DEFAULT_UV);
 					}

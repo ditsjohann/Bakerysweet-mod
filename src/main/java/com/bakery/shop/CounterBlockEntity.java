@@ -45,7 +45,17 @@ import java.util.UUID;
  * from a display case. How many come and what they ask for grows with the owner's {@link CafeLevel}.
  */
 public class CounterBlockEntity extends BlockEntity {
-	public static final int MAX_CUSTOMERS = 3;
+	public static final int MAX_CUSTOMERS = 6;
+	/** Counters that have ticked recently, per world, so an Order Notebook can find them all. */
+	private static final java.util.Map<net.minecraft.registry.RegistryKey<World>, Set<BlockPos>> ACTIVE = new java.util.concurrent.ConcurrentHashMap<>();
+
+	/** Every counter in this world that is loaded and ticking. */
+	public static Set<BlockPos> active(ServerWorld world) {
+		Set<BlockPos> set = ACTIVE.get(world.getRegistryKey());
+		if (set == null) return Set.of();
+		set.removeIf(p -> !world.isChunkLoaded(p) || !(world.getBlockEntity(p) instanceof CounterBlockEntity));
+		return Set.copyOf(set);
+	}
 
 	private final List<Order> orders = new ArrayList<>();
 	/** Dishes the baker took off the menu (item ids). */
@@ -202,6 +212,23 @@ public class CounterBlockEntity extends BlockEntity {
 		return amount;
 	}
 
+	/** A customer gave up (could not get to their seat): their order is dropped. */
+	public void cancel(UUID customer) {
+		Order order = find(customer);
+		if (order != null) {
+			orders.remove(order);
+			walkouts++;
+			sync();
+			broadcast();
+		}
+	}
+
+	/** Patience a seated customer loses every half second. */
+	int seatedPatienceCost() {
+		int cost = Math.max(2, 6 - charm / 2);
+		return getLevel().patientGuests() ? Math.max(1, cost * 2 / 3) : cost;
+	}
+
 	/** A customer got what they wanted from the player. */
 	public void complete(Order order) {
 		orders.remove(order);
@@ -244,16 +271,17 @@ public class CounterBlockEntity extends BlockEntity {
 		if (!(world instanceof ServerWorld server) || world.getTime() % 10 != 0) {
 			return;
 		}
+		ACTIVE.computeIfAbsent(world.getRegistryKey(), k -> java.util.concurrent.ConcurrentHashMap.newKeySet()).add(pos.toImmutable());
 		boolean changed = false;
 		if (world.getTime() % 200 == 0) {
 			counter.updateCharm();
 			counter.refreshOwner();
 		}
 
-		// Everyone moves up the line as the people in front are served.
+		// Everyone moves up the line as the people in front are served or go to sit down.
 		int place = 0;
 		for (Order order : counter.orders) {
-			if (server.getEntity(order.customer) instanceof CustomerEntity customer && counter.hasPath()) {
+			if (server.getEntity(order.customer) instanceof CustomerEntity customer && counter.hasPath() && !customer.isSeatedWaiting()) {
 				customer.queueAt(place++, counter.path);
 			}
 		}
@@ -272,9 +300,14 @@ public class CounterBlockEntity extends BlockEntity {
 				continue;
 			}
 			boolean close = customer.atCounter();
-			order.waiting = close;
-			// Customers are happy to wait a little longer in a charming bakery.
-			order.patience -= close ? 10 - counter.charm : 3;
+			boolean seated = customer.isSeatedWaiting();
+			order.waiting = close || seated;
+			if (order.seated != seated) {
+				order.seated = seated;
+				changed = true;
+			}
+			// Customers are happy to wait a little longer in a charming bakery, and longer still sitting down.
+			order.patience -= close ? 10 - counter.charm : seated ? counter.seatedPatienceCost() : 3;
 
 			if (close && world.getTime() % 40 == 0 && counter.selfServe(server, customer, order)) {
 				it.remove();
@@ -297,9 +330,14 @@ public class CounterBlockEntity extends BlockEntity {
 			changed = true;
 		}
 
-		// Customers come by during the day; a charming, well-known bakery gets them more often.
-		if (counter.isOpen() && counter.hasPath() && server.isDay() && counter.orders.size() < counter.maxCustomers()
-				&& server.random.nextInt(Math.max(4, 36 - counter.charm * 4 - counter.getLevel().ordinal() * 2)) == 0) {
+		// Customers come by during the day (and the evening, for a famous bakery); a charming, well-known bakery
+		// gets them more often, and a Grand one has a rush hour.
+		CafeLevel level = counter.getLevel();
+		boolean hours = server.isDay() || (level.eveningService() && server.getTimeOfDay() % 24000 < 18000);
+		int odds = Math.max(4, 36 - counter.charm * 4 - level.ordinal() * 2);
+		if (level.rushHour()) odds = Math.max(2, odds / 2);
+		if (counter.isOpen() && counter.hasPath() && hours && counter.orders.size() < counter.maxCustomers()
+				&& server.random.nextInt(odds) == 0) {
 			changed |= counter.recruit(server);
 		}
 		if (changed) {
@@ -342,7 +380,7 @@ public class CounterBlockEntity extends BlockEntity {
 			}
 			int stars = ShopManager.rate(customer.regular(), taken, server.getTime());
 			boolean favorite = BakeryFoods.flavor(taken) == customer.regular().favorite();
-			till += Math.max(1, Menu.price(order, stars, favorite) - 1) + charm / 2;
+			till += Math.max(1, Menu.price(order, stars, favorite) - 1) + charm / 2 + (getLevel().rushHour() ? 1 : 0);
 			maybeReview(server, Review.served(customer.regular().name(), net.minecraft.registry.Registries.ITEM.getId(taken.getItem()).toString(), stars,
 					order.patienceFraction(), charm, server.getTimeOfDay() / 24000L, server.random));
 			served++;

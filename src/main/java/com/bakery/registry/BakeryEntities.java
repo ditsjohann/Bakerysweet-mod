@@ -16,6 +16,8 @@ public final class BakeryEntities {
 	/** The café's customers. */
 	public static final EntityType<CustomerEntity> CUSTOMER = Registry.register(Registries.ENTITY_TYPE, Bakery.id("customer"),
 			EntityType.Builder.<CustomerEntity>create(CustomerEntity::new, SpawnGroup.MISC).dimensions(0.6f, 1.8f).eyeHeight(1.62f)
+					// Sit down into a chair like a player does (feet 0.6 below the seat point), not on top of it.
+					.vehicleAttachment(new net.minecraft.util.math.Vec3d(0, 0.6, 0))
 					.maxTrackingRange(10).build("customer"));
 
 	private BakeryEntities() {

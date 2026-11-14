@@ -28,6 +28,7 @@ public final class BakeryNetworking {
 		PayloadTypeRegistry.playC2S().register(ShapeDoughPayload.ID, ShapeDoughPayload.CODEC);
 
 		PayloadTypeRegistry.playS2C().register(BakeResultPayload.ID, BakeResultPayload.CODEC);
+		PayloadTypeRegistry.playS2C().register(AppraisalPayload.ID, AppraisalPayload.CODEC);
 
 		PayloadTypeRegistry.playS2C().register(StickerPayload.ID, StickerPayload.CODEC);
 		PayloadTypeRegistry.playS2C().register(SweetPayloads.GuideData.ID, SweetPayloads.GuideData.CODEC);
@@ -36,15 +37,14 @@ public final class BakeryNetworking {
 		PayloadTypeRegistry.playC2S().register(SweetPayloads.Buy.ID, SweetPayloads.Buy.CODEC);
 		PayloadTypeRegistry.playC2S().register(SweetPayloads.ToggleDish.ID, SweetPayloads.ToggleDish.CODEC);
 		PayloadTypeRegistry.playS2C().register(SweetPayloads.OpenCounter.ID, SweetPayloads.OpenCounter.CODEC);
+		PayloadTypeRegistry.playS2C().register(SweetPayloads.OpenNotebook.ID, SweetPayloads.OpenNotebook.CODEC);
 		PayloadTypeRegistry.playC2S().register(SweetPayloads.CounterAction.ID, SweetPayloads.CounterAction.CODEC);
 		ServerPlayNetworking.registerGlobalReceiver(SweetPayloads.CounterAction.ID, (payload, context) -> context.server().execute(() -> {
 			ServerPlayerEntity player = context.player();
-			net.minecraft.server.world.ServerWorld world = player.getServerWorld();
-			if (player.squaredDistanceTo(Vec3d.ofCenter(payload.counter())) > 64) return;
-			net.minecraft.block.BlockState state = world.getBlockState(payload.counter());
-			if (!(state.getBlock() instanceof com.bakery.shop.CounterBlock)) return;
-			if (payload.action() == 0) com.bakery.shop.CounterBlock.toggleOpen(state, world, payload.counter(), player);
-			else com.bakery.shop.CounterBlock.collect(world, payload.counter(), player);
+			ServerWorld world = player.getServerWorld();
+			if (player.squaredDistanceTo(Vec3d.ofCenter(payload.counter())) < 64 && world.getBlockState(payload.counter()).getBlock() instanceof com.bakery.shop.CounterBlock) {
+				com.bakery.shop.CounterBlock.act(world, payload.counter(), player, payload.action());
+			}
 		}));
 		ServerPlayNetworking.registerGlobalReceiver(SweetPayloads.Buy.ID, (payload, context) ->
 				context.server().execute(() -> com.bakery.sweet.Catalog.buy(context.player(), payload.pos(), payload.index())));

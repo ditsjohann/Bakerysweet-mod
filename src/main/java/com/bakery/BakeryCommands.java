@@ -40,7 +40,12 @@ public final class BakeryCommands {
 						}))
 						.then(CommandManager.literal("demo").requires(source -> source.hasPermissionLevel(2))
 								.then(CommandManager.argument("at", BlockPosArgumentType.blockPos()).executes(context -> {
-									BakeryDemo.build(context.getSource().getWorld(), BlockPosArgumentType.getLoadedBlockPos(context, "at"));
+									try {
+										BakeryDemo.build(context.getSource().getWorld(), BlockPosArgumentType.getLoadedBlockPos(context, "at"));
+									} catch (RuntimeException e) {
+										Bakery.LOGGER.error("The bakery showroom could not be built", e);
+										throw e;
+									}
 									return 1;
 								})))
 						.then(CommandManager.literal("build").requires(source -> source.hasPermissionLevel(2))

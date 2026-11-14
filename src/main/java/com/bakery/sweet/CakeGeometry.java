@@ -10,8 +10,8 @@ import java.util.List;
  * Shared by the turntable (where clicks land) and the renderer (what is drawn), so piping always sits on the icing.
  */
 public final class CakeGeometry {
-	public static final int ROUND = 0, SQUARE = 1, HEART = 2;
-	public static final int SHAPES = 3;
+	public static final int ROUND = 0, SQUARE = 1, HEART = 2, STAR = 3, FLOWER = 4, HEXAGON = 5, BUNNY = 6;
+	public static final int SHAPES = 7;
 	public static final int MAX_TIERS = 3;
 
 	private static final float[][] RADII = {{6.5f}, {6.5f, 4.5f}, {6.5f, 4.5f, 3f}};
@@ -57,6 +57,33 @@ public final class CakeGeometry {
 				float zt = z + r * 0.25f;
 				float half = r * 1.04f * (1 - zt / (r * 1.25f));
 				yield zt >= 0 && Math.abs(x) <= half;
+			}
+			case STAR -> {
+				// A plump five-pointed star (soft points, so piping still fits), one point toward the front.
+				double a = Math.atan2(x, z);
+				double wave = Math.cos(5 * a);
+				double edge = r * (0.74 + 0.26 * Math.signum(wave) * Math.pow(Math.abs(wave), 0.6));
+				yield x * x + z * z <= edge * edge;
+			}
+			case FLOWER -> {
+				// Six round petals.
+				double a = Math.atan2(x, z);
+				double edge = r * (0.86 + 0.14 * Math.abs(Math.cos(3 * a)));
+				yield x * x + z * z <= edge * edge;
+			}
+			case HEXAGON -> {
+				float ax = Math.abs(x), az = Math.abs(z), h = r * 0.95f;
+				yield az <= h * 0.866f && ax * 0.866f + az * 0.5f <= h * 0.866f;
+			}
+			case BUNNY -> {
+				// A round face with two long ears toward the back (-z).
+				float face = r * 0.78f, fz = z - r * 0.18f;
+				if (x * x + fz * fz <= face * face) yield true;
+				for (float ex : new float[]{-r * 0.36f, r * 0.36f}) {
+					float dx = (x - ex) / (r * 0.24f), dz = (z + r * 0.55f) / (r * 0.5f);
+					if (dx * dx + dz * dz <= 1) yield true;
+				}
+				yield false;
 			}
 			default -> x * x + z * z <= r * r;
 		};
@@ -112,12 +139,14 @@ public final class CakeGeometry {
 	 * tiers, not their bounding boxes - and returns {x, y, z, tier, 1 if it landed on the tier's top else 0},
 	 * or null if it misses. This is what makes piping land exactly under the crosshair.
 	 */
-	public static float[] raycast(int shape, int tiers, float[] origin, float[] dir, float maxDistance) {
+	public static float[] raycast(CakeDesign design, float[] origin, float[] dir, float maxDistance) {
+		int tiers = design.tierCount();
 		float step = 0.06f;
 		float px = origin[0], py = origin[1], pz = origin[2];
 		for (float t = 0; t <= maxDistance; t += step) {
 			float x = origin[0] + dir[0] * t, y = origin[1] + dir[1] * t, z = origin[2] + dir[2] * t;
 			for (int i = tiers - 1; i >= 0; i--) {
+				int shape = design.shapeOf(i);
 				if (y < bottom(i, tiers) || y > top(i, tiers) || !inside(shape, x, z, radius(i, tiers))) continue;
 				// Entered through the top if the previous sample was above this tier (and over it).
 				boolean fromTop = py > top(i, tiers) - 0.02f && inside(shape, px, pz, radius(i, tiers));

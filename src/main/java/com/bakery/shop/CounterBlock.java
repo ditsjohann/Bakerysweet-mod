@@ -30,13 +30,16 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 /**
- * The bakery counter. Right-click to flip the sign between Open and Closed; sneak + right-click to empty the till.
+ * The bakery counter. Right-click to open the counter screen (open or close up, empty the till, edit the menu, see
+ * the orders and your level's perks); sneak + right-click to empty the till straight away.
  * Customers line up on the side it faces. It is also the Baker villager's job site.
  */
 public class CounterBlock extends BlockWithEntity {
 	public static final MapCodec<CounterBlock> CODEC = createCodec(CounterBlock::new);
 	public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 	public static final BooleanProperty OPEN = Properties.OPEN;
+	/** Counter screen buttons. */
+	public static final int OPEN_SIGN = 0, COLLECT = 1;
 	private static final VoxelShape SHAPE = Block.createCuboidShape(0, 0, 0, 16, 15, 16);
 
 	public CounterBlock(Settings settings) {
@@ -87,6 +90,14 @@ public class CounterBlock extends BlockWithEntity {
 		if (stack.isOf(com.bakery.registry.BakeryItems.PATH_RIBBON)) return net.minecraft.util.ItemActionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
 		net.minecraft.util.ItemActionResult dyed = com.bakery.deco.Dyeable.use(stack, state, world, pos, player);
 		if (dyed != null) return dyed;
+		// A finished cake on the counter is sold: someone from town rates it, says what they think and pays.
+		if (stack.isOf(com.bakery.registry.BakeryItems.CAKE) && world.getBlockEntity(pos) instanceof CounterBlockEntity counter) {
+			if (!world.isClient && player instanceof net.minecraft.server.network.ServerPlayerEntity serverPlayer) {
+				if (counter.getOwner() == null) counter.setOwner(player.getUuid());
+				com.bakery.sweet.CakeAppraisal.sell(serverPlayer, counter, stack);
+			}
+			return net.minecraft.util.ItemActionResult.success(world.isClient);
+		}
 		return net.minecraft.util.ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
@@ -101,33 +112,33 @@ public class CounterBlock extends BlockWithEntity {
 		if (counter.getOwner() == null) {
 			counter.setOwner(player.getUuid());
 		}
-		if (player.isSneaking()) {
-			collect(world, pos, player);
+		if (!player.isSneaking()) {
+			if (player instanceof net.minecraft.server.network.ServerPlayerEntity serverPlayer) {
+				net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(serverPlayer, new com.bakery.network.SweetPayloads.OpenCounter(pos));
+			}
 			return ActionResult.CONSUME;
 		}
-		// Everything else (open sign, till, the review board) is on the counter's screen.
-		if (player instanceof net.minecraft.server.network.ServerPlayerEntity serverPlayer) {
-			net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(serverPlayer, new com.bakery.network.SweetPayloads.OpenCounter(pos));
-		}
+		act(world, pos, player, COLLECT);
 		return ActionResult.CONSUME;
 	}
 
-	/** Empties the till into the player's purse. */
-	public static void collect(World world, BlockPos pos, PlayerEntity player) {
+	/** Does what a counter screen button asks: flip the Open sign, or empty the till into the player's purse. */
+	public static void act(World world, BlockPos pos, PlayerEntity player, int action) {
+		BlockState state = world.getBlockState(pos);
 		if (!(world.getBlockEntity(pos) instanceof CounterBlockEntity counter)) return;
-		int coins = counter.collectTill();
-		if (coins > 0) {
-			if (player instanceof net.minecraft.server.network.ServerPlayerEntity serverPlayer) com.bakery.sweet.Coins.pay(serverPlayer, coins);
-			world.playSound(null, pos, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 0.8f, 1.1f);
-			player.sendMessage(Text.translatable("message.bakery.shop.till", coins).formatted(Formatting.LIGHT_PURPLE), true);
-		} else {
-			player.sendMessage(Text.translatable("message.bakery.shop.till_empty"), true);
+		if (counter.getOwner() == null) counter.setOwner(player.getUuid());
+		if (action == COLLECT) {
+			int coins = counter.collectTill();
+			if (coins > 0) {
+				if (player instanceof net.minecraft.server.network.ServerPlayerEntity serverPlayer) com.bakery.sweet.Coins.pay(serverPlayer, coins);
+				world.playSound(null, pos, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 0.8f, 1.1f);
+				player.sendMessage(Text.translatable("message.bakery.shop.till", coins).formatted(Formatting.LIGHT_PURPLE), true);
+			} else {
+				player.sendMessage(Text.translatable("message.bakery.shop.till_empty"), true);
+			}
+			return;
 		}
-	}
-
-	/** Flips the OPEN sign (a shop can only open once customers have a path to walk in on). */
-	public static void toggleOpen(BlockState state, World world, BlockPos pos, PlayerEntity player) {
-		if (!(world.getBlockEntity(pos) instanceof CounterBlockEntity counter)) return;
+		if (action != OPEN_SIGN) return;
 		boolean open = !state.get(OPEN);
 		if (open && !counter.hasPath()) {
 			player.sendMessage(Text.translatable("message.bakery.shop.needs_path").formatted(Formatting.GOLD), false);

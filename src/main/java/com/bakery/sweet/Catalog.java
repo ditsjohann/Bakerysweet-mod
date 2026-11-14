@@ -100,6 +100,7 @@ public final class Catalog {
 			add(list, c, BakeryItems.BAKERY_COUNTER, 1, 6, l1);
 			add(list, c, BakeryItems.PATH_RIBBON, 1, 1, l1);
 			add(list, c, BakeryItems.SERVICE_BELL, 1, 5, l1);
+			add(list, c, BakeryItems.ORDER_NOTEBOOK, 1, 4, l1);
 			add(list, c, BakeryItems.DISPLAY_CASE, 1, 14, l2);
 			add(list, c, BakeryItems.PASTRY_SHELF, 1, 10, l1);
 			add(list, c, BakeryItems.TIERED_STAND, 1, 12, l2);
@@ -115,10 +116,15 @@ public final class Catalog {
 			add(list, c, BakeryItems.ROUND_CAKE_MOLD, 1, 6, l4);
 			add(list, c, BakeryItems.SQUARE_CAKE_MOLD, 1, 8, l4);
 			add(list, c, BakeryItems.HEART_CAKE_MOLD, 1, 12, l5);
+			add(list, c, BakeryItems.STAR_CAKE_MOLD, 1, 10, l4);
+			add(list, c, BakeryItems.FLOWER_CAKE_MOLD, 1, 10, l4);
+			add(list, c, BakeryItems.HEXAGON_CAKE_MOLD, 1, 9, l4);
+			add(list, c, BakeryItems.BUNNY_CAKE_MOLD, 1, 14, l5);
 			for (Icing icing : Icing.values()) add(list, c, icing.bag(), 1, 5, l2);
+			// Sugar decals and toppers: a few to start, the fancier ones as the bakery grows.
 			int t = 0;
 			for (Item topper : BakeryItems.TOPPERS) {
-				add(list, c, topper, 4, 4 + t / 3, t < 4 ? l4 : l5);
+				add(list, c, topper, 4, 3 + t / 6, t < 6 ? l2 : t < 14 ? l3 : l4);
 				t++;
 			}
 
@@ -144,6 +150,14 @@ public final class Catalog {
 			stock(list, c, BakeryItems.MATCHA_POWDER, 1, 7, l3, 1);
 			add(list, c, BakeryItems.SPRINKLES, 4, 4, l3);
 			stock(list, c, Items.ICE, 4, 3, l4, 3);
+			stock(list, c, BakeryItems.COCOA_POWDER, 2, 4, l2, 2);
+			stock(list, c, BakeryItems.RASPBERRY, 2, 5, l2, 1);
+			stock(list, c, BakeryItems.ORANGE, 1, 5, l2, 1);
+			stock(list, c, BakeryItems.PEACH, 1, 5, l3, 1);
+			stock(list, c, BakeryItems.CORNMEAL, 2, 4, l3, 2);
+			stock(list, c, BakeryItems.PEANUT_BUTTER, 1, 5, l3, 1);
+			stock(list, c, BakeryItems.COCONUT_FLAKES, 2, 5, l3, 1);
+			stock(list, c, BakeryItems.CANDIED_PETALS, 2, 6, l4, 1);
 			stock(list, c, BakeryItems.STAR_PETALS, 1, 10, l5, 1);
 
 			c = Category.GARDEN;
@@ -197,7 +211,15 @@ public final class Catalog {
 			add(list, c, BakeryItems.HEART_RUG, 4, 5, l2);
 			add(list, c, BakeryItems.CLOUD_RUG, 4, 5, l2);
 			add(list, c, BakeryItems.LACE_CURTAINS, 2, 5, l2);
+			add(list, c, BakeryItems.PINK_TILES, 8, 4, l1);
+			add(list, c, BakeryItems.MINT_TILES, 8, 4, l1);
+			add(list, c, BakeryItems.LAVENDER_TILES, 8, 4, l1);
+			add(list, c, BakeryItems.CREAM_TILES, 8, 4, l1);
 			sub = "touches";
+			add(list, c, BakeryItems.FLOUR_SACK, 1, 4, l1);
+			add(list, c, BakeryItems.BREAD_BASKET, 1, 5, l1);
+			add(list, c, BakeryItems.CAKE_STAND, 1, 6, l2);
+			add(list, c, BakeryItems.JAR_SHELF, 1, 8, l3);
 			add(list, c, BakeryItems.BUNTING, 4, 4, l1);
 			add(list, c, BakeryItems.TULIP_VASE, 1, 4, l1);
 			add(list, c, BakeryItems.TIP_JAR, 1, 3, l1);

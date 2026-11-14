@@ -76,6 +76,8 @@ def build():
         # Start from the plain variants (drop any dyed=... keys from an earlier run).
         plain = {}
         for k, v in variants.items():
+            if "dyed=true" in k:
+                continue  # the painted variants are rebuilt from the plain ones below
             parts = [p for p in k.split(",") if p and not p.startswith("dyed=")]
             plain[",".join(parts)] = v
         painted = {}

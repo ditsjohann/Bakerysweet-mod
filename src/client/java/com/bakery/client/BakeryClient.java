@@ -75,7 +75,9 @@ public class BakeryClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(BakeryBlocks.GLASS_CLOCHE, RenderLayer.getTranslucent());
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BakeryBlocks.TIERED_STAND, BakeryBlocks.PASTRY_SHELF);
 		for (WoodSet set : BakeryBlocks.WOODS) {
-			BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), set.door, set.trapdoor, set.sapling);
+			BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), set.trapdoor, set.sapling);
+			// Doors are translucent so their window panes are real see-through glass.
+			BlockRenderLayerMap.INSTANCE.putBlock(set.door, RenderLayer.getTranslucent());
 			BlockRenderLayerMap.INSTANCE.putBlock(set.leaves, RenderLayer.getCutoutMipped());
 		}
 

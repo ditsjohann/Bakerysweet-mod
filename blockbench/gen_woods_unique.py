@@ -423,16 +423,23 @@ def door(name, w):
     fill_noise(img, pal, 2, 4, seed, 2, 6)
     frame(img, 0, 0, 15, 31, pal[1], pal[4])
     frame(img, 1, 1, 14, 30, pal[2], pal[4])
-    glass = (196, 228, 238)
+    # Window glass is see-through: a faint blue tint you can look through, and a brighter glint in one corner.
+    glass, glass_a = (214, 238, 248), 64
+    shine, shine_a = (255, 255, 255), 150
+
+    def pane(x1, y1, x2, y2):
+        for yy in range(y1, y2 + 1):
+            for xx in range(x1, x2 + 1):
+                put(img, xx, yy, glass, glass_a)
+
     if style == "classic":
         # Orangewood: a proper cottage door - four-pane window on top, two sunken panels below, a brass knob.
         fill_noise(img, pal, 3, 4, seed, 2, 8, region=lambda x, y: 2 <= x <= 13 and 2 <= y <= 29)
         frame(img, 0, 0, 15, 31, pal[1], pal[4])
         frame(img, 1, 1, 14, 30, pal[2], pal[5])
         for (x1, y1) in ((3, 3), (9, 3), (3, 8), (9, 8)):
-            rect(img, x1, y1, x1 + 3, y1 + 3, glass)
-            put(img, x1, y1, (236, 248, 252)); put(img, x1 + 1, y1, (236, 248, 252)); put(img, x1, y1 + 1, (236, 248, 252))
-            put(img, x1 + 3, y1 + 3, (164, 204, 220))
+            pane(x1, y1, x1 + 3, y1 + 3)
+            put(img, x1, y1, shine, shine_a); put(img, x1 + 1, y1, shine, shine_a); put(img, x1, y1 + 1, shine, shine_a)
         for y in range(3, 12):
             put(img, 7, y, pal[4]); put(img, 8, y, pal[2])
         for x in range(3, 13):
@@ -447,12 +454,13 @@ def door(name, w):
         for j, row in enumerate(heart):
             for i, ch in enumerate(row):
                 if ch == "1":
-                    put(img, 4 + i, 4 + j, glass, 150)
+                    put(img, 4 + i, 4 + j, shine if (i, j) in ((1, 1), (2, 1), (1, 2)) else glass, shine_a if (i, j) in ((1, 1), (2, 1), (1, 2)) else glass_a)
         frame(img, 3, 13, 12, 28, pal[4], pal[1])
         for (x, y) in ((7, 19), (6, 20), (8, 20), (7, 21), (7, 20)):
             put(img, x, y, pal[5] if (x, y) == (7, 20) else pal[1])
     elif style == "slats":
-        rect(img, 4, 4, 11, 9, glass)
+        pane(4, 4, 11, 9)
+        put(img, 4, 4, shine, shine_a); put(img, 5, 4, shine, shine_a); put(img, 4, 5, shine, shine_a)
         frame(img, 3, 3, 12, 10, pal[1], pal[4])
         for y in range(13, 29, 3):
             for x in range(3, 13):
@@ -462,7 +470,8 @@ def door(name, w):
             for x in range(3, 13):
                 d = math.hypot(x - 7.5, y - 7)
                 if d < 3.6:
-                    put(img, x, y, glass, 160)
+                    glint = (x - 7.5) + (y - 7) < -2.5 and d > 1.8
+                    put(img, x, y, shine if glint else glass, shine_a if glint else glass_a)
                 elif d < 4.6:
                     put(img, x, y, pal[1] if y > 7 else pal[4])
         frame(img, 3, 15, 12, 21, pal[4], pal[1])

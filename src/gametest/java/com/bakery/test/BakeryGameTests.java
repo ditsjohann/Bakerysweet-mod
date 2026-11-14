@@ -206,6 +206,23 @@ public class BakeryGameTests implements FabricGameTest {
 	}
 
 	@GameTest(templateName = EMPTY)
+	public void displayStandsHoldBakesCustomersCanBuy(TestContext ctx) {
+		FakePlayer p = player(ctx);
+		BlockPos at = new BlockPos(1, 1, 1);
+		ctx.setBlockState(at, BakeryBlocks.TIERED_STAND.getDefaultState());
+		for (int i = 0; i < 6; i++) use(ctx, p, at, BakeryItems.CUPCAKE);
+		com.bakery.shop.DisplayStandBlockEntity stand = ctx.getBlockEntity(at);
+		int held = 0;
+		for (int i = 0; i < com.bakery.shop.DisplayStandBlockEntity.MAX_SLOTS; i++) if (!stand.getSlot(i).isEmpty()) held++;
+		check(ctx, held == 5, "the tiered stand holds five bakes, got " + held);
+		com.bakery.shop.Order order = new com.bakery.shop.Order(java.util.UUID.randomUUID(), 0, new ItemStack(BakeryItems.CUPCAKE), false, 100, false);
+		check(ctx, stand instanceof com.bakery.shop.SelfServe && !stand.takeMatching(order).isEmpty(), "a customer can take a cupcake from it");
+		click(ctx, p, at);
+		check(ctx, p.getInventory().count(BakeryItems.CUPCAKE) >= 1, "an empty hand takes one back");
+		ctx.complete();
+	}
+
+	@GameTest(templateName = EMPTY)
 	public void catalogPantryHasDailyStock(TestContext ctx) {
 		FakePlayer p = player(ctx);
 		BlockPos at = new BlockPos(2, 1, 1);

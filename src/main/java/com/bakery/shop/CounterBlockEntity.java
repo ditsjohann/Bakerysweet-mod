@@ -333,7 +333,7 @@ public class CounterBlockEntity extends BlockEntity {
 	/** If a nearby display case has what the customer wants, they take it and leave the money in the till. */
 	private boolean selfServe(ServerWorld server, CustomerEntity customer, Order order) {
 		for (BlockPos p : BlockPos.iterate(pos.add(-6, -2, -6), pos.add(6, 2, 6))) {
-			if (!(server.getBlockEntity(p) instanceof DisplayCaseBlockEntity display)) {
+			if (!(server.getBlockEntity(p) instanceof SelfServe display)) {
 				continue;
 			}
 			ItemStack taken = display.takeMatching(order);

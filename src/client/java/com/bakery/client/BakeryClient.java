@@ -72,6 +72,8 @@ public class BakeryClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BakeryBlocks.CROPS);
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BakeryBlocks.FRUIT_BLOCKS);
 		BlockRenderLayerMap.INSTANCE.putBlock(BakeryBlocks.DISPLAY_CASE, RenderLayer.getTranslucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(BakeryBlocks.GLASS_CLOCHE, RenderLayer.getTranslucent());
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BakeryBlocks.TIERED_STAND, BakeryBlocks.PASTRY_SHELF);
 		for (WoodSet set : BakeryBlocks.WOODS) {
 			BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), set.door, set.trapdoor, set.sapling);
 			BlockRenderLayerMap.INSTANCE.putBlock(set.leaves, RenderLayer.getCutoutMipped());
@@ -145,6 +147,7 @@ public class BakeryClient implements ClientModInitializer {
 
 		BlockEntityRendererFactories.register(BakeryBlockEntities.GRAND_OVEN, GrandOvenRenderer::new);
 		BlockEntityRendererFactories.register(BakeryBlockEntities.DISPLAY_CASE, DisplayCaseRenderer::new);
+		BlockEntityRendererFactories.register(BakeryBlockEntities.DISPLAY_STAND, DisplayStandRenderer::new);
 		BlockEntityRendererFactories.register(BakeryBlockEntities.TURNTABLE, TurntableRenderer::new);
 		BlockEntityRendererFactories.register(BakeryBlockEntities.PLACED_FOOD, PlacedCakeRenderer::new);
 		BlockEntityRendererFactories.register(BakeryBlockEntities.JUICER, KitchenRenderers.Juicer::new);

@@ -91,6 +91,15 @@ public final class BakeryBlocks {
 	public static final Block CAFE_TABLE = register("cafe_table", new com.bakery.deco.DyeableDecoBlock(wood(), box(0, 0, 0, 16, 15, 16), false));
 	public static final Block CAFE_CHAIR = register("cafe_chair", new com.bakery.deco.DyeableChairBlock(wood(), VoxelShapes.union(box(2, 0, 2, 14, 9, 14), box(2, 9, 12, 14, 18, 14))));
 	public static final Block FLOUR_SACK = register("flour_sack", new DecoBlock(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL).nonOpaque(), box(2, 0, 3, 14, 13, 13), false));
+	/** Display furniture customers buy from: spots are {x, y, z, size} for the north-facing model. */
+	public static final Block TIERED_STAND = register("tiered_stand", new com.bakery.shop.DisplayStandBlock(
+			AbstractBlock.Settings.copy(Blocks.WHITE_TERRACOTTA).nonOpaque().strength(0.6f), box(1, 0, 1, 15, 14, 15),
+			new float[][]{{4.6f, 2.2f, 4.8f, 0.3f}, {11.4f, 2.2f, 4.8f, 0.3f}, {5.6f, 7.2f, 5.8f, 0.27f}, {10.4f, 7.2f, 5.8f, 0.27f}, {8f, 11.8f, 6.6f, 0.25f}}));
+	public static final Block PASTRY_SHELF = register("pastry_shelf", new com.bakery.shop.DisplayStandBlock(wood(), box(0, 0, 3.5, 16, 16, 16),
+			new float[][]{{3.6f, 1.2f, 8f, 0.3f}, {8f, 1.2f, 8f, 0.3f}, {12.4f, 1.2f, 8f, 0.3f}, {3.6f, 8.2f, 8f, 0.3f}, {8f, 8.2f, 8f, 0.3f}, {12.4f, 8.2f, 8f, 0.3f}}));
+	public static final Block GLASS_CLOCHE = register("glass_cloche", new com.bakery.shop.DisplayStandBlock(
+			AbstractBlock.Settings.copy(Blocks.GLASS).nonOpaque().strength(0.4f), box(1, 0, 1, 15, 12.5, 15),
+			new float[][]{{8f, 1.2f, 8f, 0.5f}}));
 	public static final Block BREAD_BASKET = register("bread_basket", new DecoBlock(wood(), box(2, 0, 3, 14, 9, 13), false));
 	public static final Block CAKE_STAND = register("cake_stand", new DecoBlock(AbstractBlock.Settings.copy(Blocks.WHITE_TERRACOTTA).nonOpaque(), box(2, 0, 2, 14, 15, 14), false));
 	public static final Block MENU_BOARD = register("menu_board", new com.bakery.shop.MenuBoardBlock(wood(), box(1, 0, 13, 15, 16, 16)));

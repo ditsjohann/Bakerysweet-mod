@@ -1163,5 +1163,8 @@
 	"hud.bakery.tip.shells": "A shell border round the bottom",
 	"hud.bakery.tip.drips": "Drips down the side you aim at (top middle: all round)",
 	"hud.bakery.tip.frost": "Covers the whole tier in this colour",
-	"guide.bakery.piping.s4": "14 colours: dye, cocoa or a gold nugget + paper and sugar"
+	"guide.bakery.piping.s4": "14 colours: dye, cocoa or a gold nugget + paper and sugar",
+	"block.bakery.tiered_stand": "Tiered Cake Stand",
+	"block.bakery.pastry_shelf": "Pastry Shelf",
+	"block.bakery.glass_cloche": "Glass Cloche"
 }

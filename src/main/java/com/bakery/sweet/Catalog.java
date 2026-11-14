@@ -101,6 +101,9 @@ public final class Catalog {
 			add(list, c, BakeryItems.PATH_RIBBON, 1, 1, l1);
 			add(list, c, BakeryItems.SERVICE_BELL, 1, 5, l1);
 			add(list, c, BakeryItems.DISPLAY_CASE, 1, 14, l2);
+			add(list, c, BakeryItems.PASTRY_SHELF, 1, 10, l1);
+			add(list, c, BakeryItems.TIERED_STAND, 1, 12, l2);
+			add(list, c, BakeryItems.GLASS_CLOCHE, 1, 9, l3);
 			add(list, c, BakeryItems.GIFT_BOX, 3, 4, l2);
 			add(list, c, BakeryItems.MUG, 4, 3, l2);
 			add(list, c, BakeryItems.GLASS_JAR, 4, 3, l3);

@@ -13,7 +13,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 
 /** Four bakes on show. Customers can buy straight from here; the money goes to the counter's till. */
-public class DisplayCaseBlockEntity extends BlockEntity {
+public class DisplayCaseBlockEntity extends BlockEntity implements SelfServe {
 	public static final int SLOTS = 4;
 	private final ItemStack[] slots = {ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY};
 
@@ -48,6 +48,7 @@ public class DisplayCaseBlockEntity extends BlockEntity {
 		return ItemStack.EMPTY;
 	}
 
+	@Override
 	public ItemStack takeMatching(Order order) {
 		for (int i = 0; i < SLOTS; i++) {
 			if (!slots[i].isEmpty() && Menu.matches(order, slots[i])) {

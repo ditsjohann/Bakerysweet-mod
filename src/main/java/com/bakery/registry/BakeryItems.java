@@ -265,6 +265,9 @@ public final class BakeryItems {
 
 	public static final Item BAKERY_COUNTER = block(BakeryBlocks.BAKERY_COUNTER);
 	public static final Item DISPLAY_CASE = block(BakeryBlocks.DISPLAY_CASE);
+	public static final Item TIERED_STAND = block(BakeryBlocks.TIERED_STAND);
+	public static final Item PASTRY_SHELF = block(BakeryBlocks.PASTRY_SHELF);
+	public static final Item GLASS_CLOCHE = block(BakeryBlocks.GLASS_CLOCHE);
 	public static final Item SERVICE_BELL = block(BakeryBlocks.SERVICE_BELL);
 	public static final Item CAFE_TABLE = block(BakeryBlocks.CAFE_TABLE);
 	public static final Item CAFE_CHAIR = block(BakeryBlocks.CAFE_CHAIR);

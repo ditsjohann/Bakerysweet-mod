@@ -100,6 +100,12 @@ public final class Showcase {
 					}
 					wait = 5;
 				}
+				case "click" -> {
+					// Clicks the open screen at a point given in scaled GUI pixels: "click 120 64".
+					String[] c = arg.split(" ");
+					if (client.currentScreen != null) client.currentScreen.mouseClicked(Double.parseDouble(c[0]), Double.parseDouble(c[1]), 0);
+					wait = 5;
+				}
 				case "close" -> {
 					client.setScreen(null);
 					client.options.hudHidden = true;

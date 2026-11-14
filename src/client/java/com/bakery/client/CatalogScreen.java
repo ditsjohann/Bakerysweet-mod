@@ -35,6 +35,8 @@ public class CatalogScreen extends Screen {
 	private final BlockPos pos;
 	private final SweetPayloads.GuideData data;
 	private int tab;
+	/** The shelf inside the current tab (Kitchen: tools, stations, shop, cakes ...). */
+	private int shelf;
 	private int scroll;
 	private int flash = -1;
 	private long flashAt;
@@ -83,8 +85,16 @@ public class CatalogScreen extends Screen {
 		return left() + (wide() ? 112 : 10);
 	}
 
-	private int gridY() {
+	private List<String> shelves() {
+		return tab < Catalog.Category.values().length ? Catalog.subs(Catalog.Category.values()[tab]) : List.of();
+	}
+
+	private int shelfY() {
 		return top() + 52;
+	}
+
+	private int gridY() {
+		return top() + 52 + (shelves().isEmpty() ? 0 : 19);
 	}
 
 	private int gridW() {
@@ -92,7 +102,7 @@ public class CatalogScreen extends Screen {
 	}
 
 	private int gridH() {
-		return panelH() - 52 - 24;
+		return panelH() - (gridY() - top()) - 24;
 	}
 
 	private int cols() {
@@ -134,6 +144,8 @@ public class CatalogScreen extends Screen {
 		List<Catalog.Entry> all = Catalog.entries();
 		for (int i = 0; i < all.size(); i++) {
 			if (all.get(i).category().ordinal() != tab) continue;
+			List<String> shelves = shelves();
+			if (!shelves.isEmpty() && !shelves.get(Math.min(shelf, shelves.size() - 1)).equals(all.get(i).sub())) continue;
 			(isLocked(i) ? locked : open).add(i);
 		}
 		open.addAll(locked);
@@ -209,7 +221,22 @@ public class CatalogScreen extends Screen {
 
 		// Daily Special card
 		int featured = Catalog.featured(day());
-		if (wide()) drawSpecial(context, featured, x + 10, gridY(), 96, gridH(), mouseX, mouseY);
+		if (wide()) drawSpecial(context, featured, x + 10, shelfY(), 96, panelH() - 52 - 24, mouseX, mouseY);
+
+		// Shelves: little chips that split a big tab into sections.
+		List<String> shelves = shelves();
+		if (!shelves.isEmpty()) {
+			int sx = gridX();
+			for (int i = 0; i < shelves.size(); i++) {
+				Text name = Text.translatable("catalog.bakery.shelf." + shelves.get(i));
+				int cw = textRenderer.getWidth(name) + 12;
+				boolean active = i == Math.min(shelf, shelves.size() - 1);
+				boolean hover = SweetUi.inside(mouseX, mouseY, sx, shelfY(), cw, 15);
+				SweetUi.card(context, sx, shelfY(), cw, 15, active ? TAB_COLORS[tab] : hover ? 0xFFFFF7FA : 0xFFFFFFFF, active ? SweetUi.DEEP_PINK : SweetUi.LINE);
+				context.drawText(textRenderer, name, sx + 6, shelfY() + 4, active ? SweetUi.INK : 0xFF8A6A76, false);
+				sx += cw + 3;
+			}
+		}
 
 		// The goods
 		List<Integer> shown = shown();
@@ -361,16 +388,29 @@ public class CatalogScreen extends Screen {
 					return true;
 				}
 				tab = t;
+				shelf = 0;
 				scroll = 0;
 				sound(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.2f);
 				return true;
 			}
 		}
+		List<String> shelves = shelves();
+		int sx = gridX();
+		for (int i = 0; i < shelves.size(); i++) {
+			int cw = textRenderer.getWidth(Text.translatable("catalog.bakery.shelf." + shelves.get(i))) + 12;
+			if (SweetUi.inside(mouseX, mouseY, sx, shelfY(), cw, 15)) {
+				shelf = i;
+				scroll = 0;
+				sound(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.4f);
+				return true;
+			}
+			sx += cw + 3;
+		}
 		if (wide()) {
 			int featured = Catalog.featured(day());
-			int sx = x + 10, sw = 96;
+			int spx = x + 10, sw = 96;
 			// The special's Buy button sits under its name; accept any click in the lower part of the card.
-			if (SweetUi.inside(mouseX, mouseY, sx, gridY() + 70, sw, gridH() - 74)) {
+			if (SweetUi.inside(mouseX, mouseY, spx, shelfY() + 70, sw, panelH() - 52 - 24 - 74)) {
 				buy(featured);
 				return true;
 			}

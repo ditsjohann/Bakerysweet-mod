@@ -1035,5 +1035,16 @@
 	"screen.bakery.catalog.sold_out": "Sold out",
 	"screen.bakery.catalog.left_hint": "%s left today - restocks each morning",
 	"screen.bakery.catalog.sold_out_hint": "Sold out today - restocks each morning",
-	"screen.bakery.catalog.store_hint": "Store-bought: bakes made only from your own ingredients sell for more"
+	"screen.bakery.catalog.store_hint": "Store-bought: bakes made only from your own ingredients sell for more",
+	"catalog.bakery.shelf.tools": "Tools",
+	"catalog.bakery.shelf.stations": "Stations",
+	"catalog.bakery.shelf.shop": "Shop & Serving",
+	"catalog.bakery.shelf.cakes": "Cake Decorating",
+	"catalog.bakery.shelf.basics": "Basics",
+	"catalog.bakery.shelf.flavours": "Fruit & Flavours",
+	"catalog.bakery.shelf.seeds": "Seeds",
+	"catalog.bakery.shelf.trees": "Trees",
+	"catalog.bakery.shelf.furniture": "Furniture",
+	"catalog.bakery.shelf.walls": "Walls & Floors",
+	"catalog.bakery.shelf.touches": "Little Touches"
 }

@@ -37,7 +37,7 @@ public final class Catalog {
 	}
 
 	/** {@code stock}: how many times a day each baker can buy it (0 = as often as they like). */
-	public record Entry(Category category, Item item, int count, int price, CafeLevel level, int stock) {
+	public record Entry(Category category, Item item, int count, int price, CafeLevel level, int stock, String sub) {
 		public ItemStack stack() {
 			ItemStack stack = new ItemStack(item, count);
 			if (storeBought()) stack.set(com.bakery.registry.BakeryComponents.STORE_BOUGHT, true);
@@ -52,6 +52,17 @@ public final class Catalog {
 	}
 
 	private static List<Entry> entries;
+	/** The shelf (sub-tab) entries are being added to while the list is built; null = none. */
+	private static String sub;
+
+	/** The shelves of a category, in order (empty when the category has no sub-tabs). */
+	public static List<String> subs(Category category) {
+		List<String> out = new ArrayList<>();
+		for (Entry e : entries()) {
+			if (e.category() == category && e.sub() != null && !out.contains(e.sub())) out.add(e.sub());
+		}
+		return out;
+	}
 
 	private Catalog() {
 	}
@@ -61,45 +72,56 @@ public final class Catalog {
 			List<Entry> list = new ArrayList<>();
 			CafeLevel l1 = CafeLevel.STALL, l2 = CafeLevel.CORNER, l3 = CafeLevel.CAFE, l4 = CafeLevel.PATISSERIE, l5 = CafeLevel.GRAND;
 
+			// Kitchen, in four shelves: hand tools, the big stations, shop supplies, and cake decorating.
 			Category c = Category.KITCHEN;
-			add(list, c, BakeryItems.BAKERY_COUNTER, 1, 6, l1);
+			sub = "tools";
 			add(list, c, BakeryItems.MIXING_BOWL, 1, 4, l1);
+			add(list, c, BakeryItems.WHISK, 1, 3, l1);
 			add(list, c, BakeryItems.PASTRY_BOARD, 1, 4, l1);
 			add(list, c, BakeryItems.ROLLING_PIN, 1, 3, l1);
-			add(list, c, BakeryItems.WHISK, 1, 3, l1);
-			add(list, c, BakeryItems.OVEN_HEART, 1, 8, l1);
-			add(list, c, Items.BRICKS, 21, 7, l1);
-			add(list, c, BakeryItems.BELLOWS, 1, 4, l1);
 			add(list, c, BakeryItems.SPATULA, 1, 2, l1);
-			add(list, c, BakeryItems.MILLSTONE_CORE, 1, 8, l1);
-			add(list, c, Items.STONE_BRICKS, 9, 3, l1);
-			add(list, c, Items.COBBLESTONE_WALL, 4, 2, l1);
-			add(list, c, BakeryItems.PATH_RIBBON, 1, 1, l1);
-			add(list, c, BakeryItems.SERVICE_BELL, 1, 5, l1);
-			add(list, c, BakeryItems.JUICER, 1, 10, l2);
-			add(list, c, BakeryItems.DISPLAY_CASE, 1, 14, l2);
+			add(list, c, BakeryItems.BELLOWS, 1, 4, l1);
 			add(list, c, BakeryItems.HEART_CUTTER, 1, 6, l2);
 			add(list, c, BakeryItems.STAR_CUTTER, 1, 6, l2);
 			add(list, c, BakeryItems.BUNNY_CUTTER, 1, 6, l2);
 			add(list, c, BakeryItems.FLOWER_CUTTER, 1, 6, l2);
-			for (Icing icing : Icing.values()) add(list, c, icing.bag(), 1, 5, l2);
-			add(list, c, BakeryItems.GIFT_BOX, 3, 4, l2);
-			add(list, c, BakeryItems.MUG, 4, 3, l2);
+			sub = "stations";
+			add(list, c, BakeryItems.OVEN_HEART, 1, 8, l1);
+			add(list, c, Items.BRICKS, 21, 7, l1);
+			add(list, c, BakeryItems.MILLSTONE_CORE, 1, 8, l1);
+			add(list, c, Items.STONE_BRICKS, 9, 3, l1);
+			add(list, c, Items.COBBLESTONE_WALL, 4, 2, l1);
+			add(list, c, BakeryItems.JUICER, 1, 10, l2);
 			add(list, c, BakeryItems.PROOFING_BASKET, 1, 10, l3);
 			add(list, c, BakeryItems.JAM_POT, 1, 12, l3);
-			add(list, c, BakeryItems.GLASS_JAR, 4, 3, l3);
-			add(list, c, BakeryItems.WAX_PAPER, 8, 4, l3);
 			add(list, c, BakeryItems.ICE_CREAM_CHURN, 1, 16, l4);
 			add(list, c, BakeryItems.CHOCOLATE_FOUNTAIN, 1, 22, l4);
+			sub = "shop";
+			add(list, c, BakeryItems.BAKERY_COUNTER, 1, 6, l1);
+			add(list, c, BakeryItems.PATH_RIBBON, 1, 1, l1);
+			add(list, c, BakeryItems.SERVICE_BELL, 1, 5, l1);
+			add(list, c, BakeryItems.DISPLAY_CASE, 1, 14, l2);
+			add(list, c, BakeryItems.GIFT_BOX, 3, 4, l2);
+			add(list, c, BakeryItems.MUG, 4, 3, l2);
+			add(list, c, BakeryItems.GLASS_JAR, 4, 3, l3);
+			add(list, c, BakeryItems.WAX_PAPER, 8, 4, l3);
 			add(list, c, BakeryItems.FROST_WRAP, 8, 6, l4);
+			sub = "cakes";
 			add(list, c, BakeryItems.CAKE_TURNTABLE, 1, 15, l4);
 			add(list, c, BakeryItems.ROUND_CAKE_MOLD, 1, 6, l4);
 			add(list, c, BakeryItems.SQUARE_CAKE_MOLD, 1, 8, l4);
 			add(list, c, BakeryItems.HEART_CAKE_MOLD, 1, 12, l5);
+			for (Icing icing : Icing.values()) add(list, c, icing.bag(), 1, 5, l2);
+			int t = 0;
+			for (Item topper : BakeryItems.TOPPERS) {
+				add(list, c, topper, 4, 4 + t / 3, t < 4 ? l4 : l5);
+				t++;
+			}
 
 			// Pantry basics are pricey and only a few come in each day: growing, milling and churning your own is the way
 			// to keep a bakery stocked (and dishes made only from your own ingredients sell for more).
 			c = Category.PANTRY;
+			sub = "basics";
 			stock(list, c, BakeryItems.FLOUR, 2, 4, l1, 3);
 			stock(list, c, Items.WHEAT, 3, 3, l1, 2);
 			stock(list, c, Items.SUGAR, 2, 3, l1, 3);
@@ -108,6 +130,7 @@ public final class Catalog {
 			stock(list, c, Items.MILK_BUCKET, 1, 3, l1, 2);
 			add(list, c, Items.WATER_BUCKET, 1, 1, l1);
 			stock(list, c, Items.CHARCOAL, 8, 3, l1, 4);
+			sub = "flavours";
 			stock(list, c, BakeryItems.STRAWBERRY, 2, 5, l1, 1);
 			stock(list, c, BakeryItems.BLUEBERRY, 2, 5, l2, 1);
 			stock(list, c, BakeryItems.LEMON, 1, 5, l2, 1);
@@ -120,6 +143,7 @@ public final class Catalog {
 			stock(list, c, BakeryItems.STAR_PETALS, 1, 10, l5, 1);
 
 			c = Category.GARDEN;
+			sub = "seeds";
 			add(list, c, Items.WHEAT_SEEDS, 8, 1, l1);
 			add(list, c, Items.SUGAR_CANE, 4, 2, l1);
 			add(list, c, BakeryItems.STRAWBERRY_SEEDS, 4, 3, l1);
@@ -142,15 +166,21 @@ public final class Catalog {
 			add(list, c, BakeryItems.PINEAPPLE_SEEDS, 2, 7, l4);
 			add(list, c, BakeryItems.CANDYFLOSS_SEEDS, 1, 12, l4);
 			add(list, c, BakeryItems.STARBLOOM_SEEDS, 1, 15, l5);
+			sub = "trees";
 			int sapling = 0;
 			for (WoodSet set : BakeryBlocks.WOODS) add(list, c, set.sapling.asItem(), 1, 10, sapling++ < 3 ? l2 : l3);
 			add(list, c, Items.BONE_MEAL, 8, 3, l1);
 
 			c = Category.DECOR;
+			sub = "furniture";
 			add(list, c, BakeryItems.CAFE_TABLE, 1, 5, l1);
 			add(list, c, BakeryItems.CAFE_CHAIR, 2, 5, l1);
 			add(list, c, BakeryItems.MENU_BOARD, 1, 4, l1);
-			add(list, c, BakeryItems.BUNTING, 4, 4, l1);
+			add(list, c, BakeryItems.CASH_REGISTER, 1, 8, l1);
+			add(list, c, BakeryItems.MACARON_POUF, 1, 7, l2);
+			add(list, c, BakeryItems.PINK_COUCH, 1, 8, l2);
+			add(list, c, BakeryItems.CAKE_SHELF, 1, 12, l3);
+			sub = "walls";
 			add(list, c, BakeryItems.PINK_CHECKER_TILES, 8, 5, l1);
 			add(list, c, BakeryItems.MINT_CHECKER_TILES, 8, 5, l1);
 			add(list, c, BakeryItems.LILAC_CHECKER_TILES, 8, 5, l1);
@@ -160,25 +190,23 @@ public final class Catalog {
 			add(list, c, BakeryItems.HEART_WALLPAPER, 8, 5, l2);
 			add(list, c, BakeryItems.POLKA_DOT_WALLPAPER, 8, 5, l2);
 			add(list, c, BakeryItems.BOW_WALLPAPER, 8, 6, l3);
-			add(list, c, BakeryItems.TULIP_VASE, 1, 4, l1);
-			add(list, c, BakeryItems.CASH_REGISTER, 1, 8, l1);
-			add(list, c, BakeryItems.TIP_JAR, 1, 3, l1);
-			add(list, c, BakeryItems.OPEN_SIGN, 1, 3, l1);
 			add(list, c, BakeryItems.HEART_RUG, 4, 5, l2);
 			add(list, c, BakeryItems.CLOUD_RUG, 4, 5, l2);
+			add(list, c, BakeryItems.LACE_CURTAINS, 2, 5, l2);
+			sub = "touches";
+			add(list, c, BakeryItems.BUNTING, 4, 4, l1);
+			add(list, c, BakeryItems.TULIP_VASE, 1, 4, l1);
+			add(list, c, BakeryItems.TIP_JAR, 1, 3, l1);
+			add(list, c, BakeryItems.OPEN_SIGN, 1, 3, l1);
 			add(list, c, BakeryItems.FAIRY_LIGHTS, 4, 6, l2);
 			add(list, c, BakeryItems.STAR_LIGHTS, 4, 6, l2);
-			add(list, c, BakeryItems.LACE_CURTAINS, 2, 5, l2);
-			add(list, c, BakeryItems.MACARON_POUF, 1, 7, l2);
 			add(list, c, BakeryItems.BUNNY_PLUSH, 1, 8, l2);
 			add(list, c, BakeryItems.BEAR_PLUSH, 1, 8, l2);
 			add(list, c, BakeryItems.TEA_SET, 1, 7, l2);
 			add(list, c, BakeryItems.COOKIE_JAR, 1, 6, l2);
 			add(list, c, BakeryItems.CUPCAKE_LAMP, 1, 8, l3);
-			add(list, c, BakeryItems.PINK_COUCH, 1, 8, l2);
 			add(list, c, BakeryItems.HEART_MIRROR, 1, 10, l3);
 			add(list, c, BakeryItems.DONUT_WALL, 1, 10, l3);
-			add(list, c, BakeryItems.CAKE_SHELF, 1, 12, l3);
 			add(list, c, BakeryItems.PINK_HEART_BALLOON, 1, 4, l3);
 			add(list, c, BakeryItems.LILAC_HEART_BALLOON, 1, 4, l3);
 			add(list, c, BakeryItems.MINT_HEART_BALLOON, 1, 4, l3);
@@ -186,6 +214,7 @@ public final class Catalog {
 			add(list, c, BakeryItems.NEON_HEART_SIGN, 1, 16, l4);
 
 			c = Category.OUTDOOR;
+			sub = null;
 			add(list, c, BakeryItems.WELCOME_MAT, 1, 3, l1);
 			add(list, c, BakeryItems.CHALKBOARD_SIGN, 1, 4, l1);
 			add(list, c, BakeryItems.PINK_PICKET_FENCE, 8, 5, l1);
@@ -213,23 +242,18 @@ public final class Catalog {
 			add(list, c, BakeryItems.CAT_EARS, 1, 30, l3);
 			add(list, c, BakeryItems.BAKERY_GUIDE, 1, 2, l1);
 
-			// Fancy cake toppers live with the cake things in the kitchen.
-			int i = 0;
-			for (Item topper : BakeryItems.TOPPERS) {
-				add(list, Category.KITCHEN, topper, 4, 4 + i / 3, i < 4 ? l4 : l5);
-				i++;
-			}
+			sub = null;
 			entries = List.copyOf(list);
 		}
 		return entries;
 	}
 
 	private static void add(List<Entry> list, Category category, ItemConvertible item, int count, int price, CafeLevel level) {
-		list.add(new Entry(category, item.asItem(), count, price, level, 0));
+		list.add(new Entry(category, item.asItem(), count, price, level, 0, sub));
 	}
 
 	private static void stock(List<Entry> list, Category category, ItemConvertible item, int count, int price, CafeLevel level, int perDay) {
-		list.add(new Entry(category, item.asItem(), count, price, level, perDay));
+		list.add(new Entry(category, item.asItem(), count, price, level, perDay, sub));
 	}
 
 	/** How many more of entry {@code index} this baker can buy today, or -1 for no limit. */

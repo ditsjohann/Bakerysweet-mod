@@ -142,6 +142,53 @@ def bunting():
     return img
 
 
+# ------------------------------------------------------------------ wrapped pottery (columns go round, rows go down)
+
+def vase_wrap():
+    """The tulip vase, unrolled: a gold lip, a pink neck, a white scalloped shoulder, a belly of white polka dots
+    in staggered rows, a fine white line and a deeper pink foot. Rows run from the lip (top) to the foot."""
+    pink = [hx(c) for c in ("#c8607e", "#e07c98", "#f29ab2", "#fbc0d0")]
+    white, gold, gold_d = hx("#fff8f6"), hx("#f2c94c"), hx("#c89a30")
+    img = canvas()
+    for y in range(16):
+        for x in range(16):
+            k = 2 if y < 11 else 1
+            if y in (4, 13, 14, 15):
+                k = 1
+            put(img, x, y, pink[k])
+    for x in range(16):
+        put(img, x, 0, gold); put(img, x, 1, gold_d)          # lip
+        put(img, x, 5, white if x % 2 == 0 else pink[3])     # scalloped shoulder
+        put(img, x, 6, white if x % 4 == 1 else pink[2])
+        put(img, x, 12, white)                                # a fine line above the foot
+    for y, off in ((8, 0), (10, 2)):
+        for x in range(off, 16, 4):
+            put(img, x, y, white); put(img, x + 1, y, white)  # polka dots
+            put(img, x, y + 1, pink[3])
+    for x in range(1, 16, 4):
+        put(img, x, 3, pink[3])                               # a glint on the neck
+    return img
+
+
+def pot_wrap():
+    """The tulip pot, unrolled: a lighter rolled rim with a shadow under it, a painted band of little white hearts,
+    then the terracotta body with soft throwing rings."""
+    t = [hx(c) for c in ("#a8583a", "#c87250", "#e08e66", "#f2aa82")]
+    white, rose = hx("#fff4ec"), hx("#f28aa6")
+    img = canvas()
+    for y in range(16):
+        for x in range(16):
+            k = 3 if y < 2 else 2 if y < 4 else 1 if y == 4 else 2 if y < 12 else 1
+            if y in (10, 14) and x % 5 != 2:
+                k = 1                                         # throwing rings
+            put(img, x, y, t[k])
+    heart = ((0, 0), (2, 0), (0, 1), (1, 1), (2, 1), (1, 2))
+    for x0 in range(0, 16, 4):
+        for (dx, dy) in heart:
+            put(img, x0 + dx, 6 + dy, white if (x0 // 4) % 2 == 0 else rose)
+    return img
+
+
 # ------------------------------------------------------------------ 3D heart balloons
 
 HEART = ["0110110", "1111111", "1111111", "1111111", "0111110", "0011100", "0001000"]
@@ -189,7 +236,7 @@ def balloon_model(name):
 
 
 def build():
-    textures = {"tulips": tulips(), "box_flowers": box_flowers(), "trailing_flowers": trailing_flowers(),
+    textures = {"tulip_vase_wrap": vase_wrap(), "tulip_pot_wrap": pot_wrap(), "tulips": tulips(), "box_flowers": box_flowers(), "trailing_flowers": trailing_flowers(),
                 "fairy_lights": lights("fairy"), "star_lights": lights("star"), "bunting": bunting()}
     balloons = {"pink_heart_balloon": ("#b82a64", "#e84c88", "#f674a6", "#ffa8c8"),
                 "lilac_heart_balloon": ("#6a3a9a", "#9256c6", "#b07ae0", "#d4aef6"),

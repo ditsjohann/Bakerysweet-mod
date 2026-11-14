@@ -103,7 +103,7 @@ mill_runner().save(path("part/millstone_runner"))
 # (The Bakery Catalog has its own script: gen_catalog.py)
 
 # ---- Tulip pot: a round terracotta-peach pot with a rolled rim, soil, and the tulip bunch
-POT_TEX = {"pot": "bakery:block/flower_pot_peach", "soil": "bakery:block/soil", "flowers": "bakery:block/tulips",
+POT_TEX = {"pot": "bakery:block/tulip_pot_wrap", "soil": "bakery:block/soil", "flowers": "bakery:block/tulips",
            "particle": "bakery:block/flower_pot_peach"}
 
 
@@ -117,6 +117,29 @@ def tulip_pot():
     return m
 
 
+def wrap_uvs(m, tex, y_top):
+    """Wraps a texture round a turned (round) shape: each side face takes the texture column for the direction it
+    faces (16 columns = 16 sides) and the rows for its height (row 0 at the top). Painted patterns then go all the
+    way round instead of every side showing the same middle strip."""
+    import math as _m
+    normals = {"north": (0, -1), "south": (0, 1), "east": (1, 0), "west": (-1, 0)}
+    for e in m.data["elements"]:
+        rot = e.get("rotation") or {}
+        ang = _m.radians(rot.get("angle", 0)) if rot.get("axis") == "y" else 0
+        for fname, f in e["faces"].items():
+            if f.get("texture") != "#" + tex or fname not in normals:
+                continue
+            nx, nz = normals[fname]
+            # Minecraft turns elements clockwise (seen from above) for positive angles.
+            rx, rz = nx * _m.cos(ang) + nz * _m.sin(ang), -nx * _m.sin(ang) + nz * _m.cos(ang)
+            col = round((_m.degrees(_m.atan2(rz, rx)) % 360) / 22.5) % 16
+            y1, y2 = e["from"][1], e["to"][1]
+            v1 = max(0.0, min(16.0, (y_top - y2) / y_top * 16))
+            v2 = max(0.0, min(16.0, (y_top - y1) / y_top * 16))
+            f["uv"] = [col, round(v1, 3), col + 1, round(max(v2, v1 + 0.5), 3)]
+    return m
+
+
 def fix_flowers(m):
     # Flat cross planes need full-texture uvs.
     for e in m.data["elements"]:
@@ -126,9 +149,9 @@ def fix_flowers(m):
     return m
 
 
-fix_flowers(tulip_pot()).save(path("tulip_pot"))
+fix_flowers(wrap_uvs(tulip_pot(), "pot", 7.2)).save(path("tulip_pot"))
 
-VASE_TEX = {"vase": "bakery:block/ceramic_pink", "flowers": "bakery:block/tulips", "particle": "bakery:block/ceramic_pink"}
+VASE_TEX = {"vase": "bakery:block/tulip_vase_wrap", "flowers": "bakery:block/tulips", "particle": "bakery:block/ceramic_pink"}
 
 
 def tulip_vase():
@@ -144,5 +167,5 @@ def tulip_vase():
     return m
 
 
-fix_flowers(tulip_vase()).save(path("tulip_vase"))
+fix_flowers(wrap_uvs(tulip_vase(), "vase", 9.4)).save(path("tulip_vase"))
 print("kitchen models written")

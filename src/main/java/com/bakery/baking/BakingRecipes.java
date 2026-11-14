@@ -126,6 +126,14 @@ public final class BakingRecipes {
 		return recipes;
 	}
 
+	/** What the bowl needs for a dough (item -> how many), for the guide's recipe pages. */
+	public static Map<Item, Integer> needs(DoughType type) {
+		for (MixRecipe recipe : recipes()) {
+			if (recipe.result() == type) return recipe.needs();
+		}
+		return Map.of();
+	}
+
 	/** Base ingredients (not flavorings) that the mixing bowl accepts. */
 	public static boolean isBaseIngredient(ItemStack stack) {
 		for (MixRecipe recipe : recipes()) {

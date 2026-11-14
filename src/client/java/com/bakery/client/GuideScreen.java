@@ -63,12 +63,17 @@ public class GuideScreen extends Screen {
 					new Chapter("start", BakeryItems.CUPCAKE, 0xFFF7A8C6, List.of(
 							Page.of("welcome", hero(BakeryItems.CUPCAKE, BakeryItems.CAKE, BakeryItems.MATCHA_LATTE),
 									BakeryItems.BAKERY_CATALOG, BakeryItems.FLOUR, BakeryItems.BAKERY_COUNTER, BakeryItems.SWEET_COIN),
+							Page.of("first_bake", hero(BakeryItems.BREAD_DOUGH, BakeryItems.BREAD_LOAF),
+									BakeryItems.MIXING_BOWL, BakeryItems.WHISK, BakeryItems.ROLLING_PIN, BakeryItems.OVEN_HEART, BakeryItems.BREAD_LOAF),
 							Page.of("progress", hero()),
 							Page.of("first_day", hero(BakeryItems.BREAD_LOAF, BakeryItems.COOKIES),
 									BakeryItems.BAKERY_CATALOG, BakeryItems.OVEN_HEART, BakeryItems.PATH_RIBBON, BakeryItems.BREAD_LOAF),
 							Page.of("starter_shopping", hero(BakeryItems.BAKERY_CATALOG, BakeryItems.SWEET_COIN),
 									BakeryItems.MIXING_BOWL, Items.BRICKS, BakeryItems.FLOUR, BakeryItems.STRAWBERRY_SEEDS))),
+					new Chapter("recipes", BakeryItems.BREAD_LOAF, 0xFFF9C98A, recipePages()),
 					new Chapter("garden", BakeryItems.STRAWBERRY, 0xFFA8E6CF, List.of(
+							Page.of("homegrown", hero(Items.WHEAT, BakeryItems.STRAWBERRY, BakeryItems.BUTTER),
+									Items.WHEAT, BakeryItems.MILLSTONE_CORE, Items.COW_SPAWN_EGG, BakeryItems.SWEET_COIN),
 							Page.of("farming", hero(BakeryItems.STRAWBERRY, BakeryItems.BLUEBERRY, BakeryItems.STAR_PETALS),
 									Items.SHORT_GRASS, Items.WOODEN_HOE, BakeryItems.STARBLOOM_SEEDS, BakeryItems.STRAWBERRY_SEEDS),
 							Page.of("trees", hero(BakeryItems.LEMON, BakeryItems.COCONUT, BakeryItems.PEACH),
@@ -151,6 +156,28 @@ public class GuideScreen extends Screen {
 					new Chapter("stickers", BakeryItems.STAR_PETALS, 0xFFFFD27A, stickers));
 		}
 		return chapters;
+	}
+
+	/** One page per dough (generated from the real recipes), then the flavours, two pages of them. */
+	private static List<Page> recipePages() {
+		List<Page> pages = new ArrayList<>();
+		for (com.bakery.baking.BakingRecipes.DoughType type : com.bakery.baking.BakingRecipes.DoughType.values()) {
+			pages.add(Page.of("recipe_" + type.name().toLowerCase(), hero(type.dough())));
+		}
+		for (int i = 0; i * FLAVOURS_PER_PAGE < flavourItems().size(); i++) pages.add(Page.of("flavours_" + i, hero()));
+		return pages;
+	}
+
+	private static final int FLAVOURS_PER_PAGE = 14;
+
+	/** One ingredient per flavour, in the flavour list's order. */
+	private static List<Item> flavourItems() {
+		Item[] candidates = {BakeryItems.VANILLA_POD, BakeryItems.CHOCOLATE_BAR, BakeryItems.STRAWBERRY, BakeryItems.BLUEBERRY, BakeryItems.MATCHA_POWDER,
+				BakeryItems.LAVENDER, BakeryItems.ROSE_PETALS, BakeryItems.STAR_PETALS, BakeryItems.LEMON, BakeryItems.COCONUT_FLAKES, BakeryItems.RASPBERRY,
+				BakeryItems.MINT_LEAVES, BakeryItems.PINEAPPLE, BakeryItems.CHERRIES, BakeryItems.ORANGE, BakeryItems.PEACH, BakeryItems.MANGO, BakeryItems.PLUM,
+				BakeryItems.CRANBERRY, BakeryItems.PEANUT, BakeryItems.CANDYFLOSS, BakeryItems.HIBISCUS, BakeryItems.SWEET_POTATO, BakeryItems.ZUCCHINI,
+				BakeryItems.RHUBARB, BakeryItems.CORN, BakeryItems.PEA_POD};
+		return List.of(candidates);
 	}
 
 	// ------------------------------------------------------------------ layout
@@ -237,6 +264,14 @@ public class GuideScreen extends Screen {
 		if (pg.key().startsWith("stickers_")) {
 			cy = header(context, Text.translatable("guide.bakery.stickers.title"), pg, px, cy, pw, ch.color());
 			drawStickers(context, Integer.parseInt(pg.key().substring(9)), px, cy, pw);
+		} else if (pg.key().startsWith("recipe_")) {
+			com.bakery.baking.BakingRecipes.DoughType type = com.bakery.baking.BakingRecipes.DoughType.valueOf(pg.key().substring(7).toUpperCase());
+			cy = header(context, Text.translatable("guide.bakery." + pg.key() + ".title"), pg, px, cy, pw, ch.color());
+			cy = drawRecipe(context, type, px, cy, pw);
+			drawTip(context, pg, px, cy + 3, pw, y + h - 26);
+		} else if (pg.key().startsWith("flavours_")) {
+			cy = header(context, Text.translatable("guide.bakery.flavours.title"), pg, px, cy, pw, ch.color());
+			drawFlavours(context, Integer.parseInt(pg.key().substring(9)), px, cy, pw);
 		} else if (pg.key().equals("progress")) {
 			cy = header(context, Text.translatable("guide.bakery.progress.title"), pg, px, cy, pw, ch.color());
 			drawProgress(context, px, cy, pw);
@@ -343,6 +378,62 @@ public class GuideScreen extends Screen {
 			ty += 10;
 		}
 		return y + hgt;
+	}
+
+	/** A recipe card: what goes in the bowl, the dough it makes, then every shape it rolls into and what that bakes into. */
+	private int drawRecipe(DrawContext context, com.bakery.baking.BakingRecipes.DoughType type, int x, int y, int w) {
+		SweetUi.card(context, x, y, w, 30, 0xFFFFFFFF, 0xFFF3DDE6);
+		context.drawText(textRenderer, Text.translatable("guide.bakery.recipe.bowl"), x + 6, y + 3, 0xFFB07A3C, false);
+		int ix = x + 6;
+		for (var e : com.bakery.baking.BakingRecipes.needs(type).entrySet()) {
+			context.drawItem(new ItemStack(e.getKey()), ix, y + 12);
+			if (e.getValue() > 1) context.drawText(textRenderer, "×" + e.getValue(), ix + 16, y + 18, SweetUi.INK, false);
+			ix += e.getValue() > 1 ? 34 : 20;
+		}
+		context.drawText(textRenderer, Text.literal("+"), ix + 1, y + 16, 0xFFB0A0A6, false);
+		context.getMatrices().push();
+		context.drawItem(new ItemStack(BakeryItems.STRAWBERRY), ix + 9, y + 12);
+		context.getMatrices().pop();
+		context.drawText(textRenderer, Text.literal("?"), ix + 22, y + 18, 0xFFB0A0A6, false);
+		int ax = x + w - 60;
+		context.drawText(textRenderer, Text.translatable("guide.bakery.recipe.whisk"), ax - 4, y + 3, 0xFFB0A0A6, false);
+		context.drawText(textRenderer, Text.literal("→"), ax + 4, y + 16, SweetUi.DEEP_PINK, false);
+		context.drawItem(new ItemStack(type.dough()), ax + 18, y + 12);
+		y += 34;
+		context.drawText(textRenderer, Text.translatable("guide.bakery.recipe.shapes"), x + 2, y, 0xFFB07A3C, false);
+		y += 11;
+		int colW = w / 2;
+		int i = 0;
+		for (com.bakery.baking.BakingRecipes.Shape shape : type.shapes()) {
+			int cx = x + (i % 2) * colW, cy = y + (i / 2) * 26;
+			SweetUi.card(context, cx, cy, colW - 3, 23, i % 2 == 0 ? 0xFFFFFFFF : 0xFFFFF6F9, 0xFFF3DDE6);
+			context.drawItem(new ItemStack(shape.raw()), cx + 3, cy + 3);
+			context.drawText(textRenderer, Text.literal("→"), cx + 21, cy + 8, SweetUi.DEEP_PINK, false);
+			ItemStack baked = new ItemStack(shape.baked(), shape.count());
+			context.drawItem(baked, cx + 30, cy + 3);
+			context.drawItemInSlot(textRenderer, baked, cx + 30, cy + 3);
+			context.drawText(textRenderer, shape.baked().getName(), cx + 54, cy + 3, SweetUi.INK, false);
+			context.drawText(textRenderer, Text.translatable("guide.bakery.recipe.bake", shape.bakeTicks() / 20, shape.idealHeat()), cx + 54, cy + 13, 0xFF9C7C88, false);
+			i++;
+		}
+		return y + ((i + 1) / 2) * 26;
+	}
+
+	/** Every flavour and what to put in the bowl for it. */
+	private void drawFlavours(DrawContext context, int part, int x, int y, int w) {
+		List<Item> items = flavourItems();
+		int colW = w / 2;
+		for (int k = 0; k < FLAVOURS_PER_PAGE; k++) {
+			int index = part * FLAVOURS_PER_PAGE + k;
+			if (index >= items.size()) break;
+			ItemStack stack = new ItemStack(items.get(index));
+			com.bakery.food.Flavor flavor = com.bakery.food.Flavor.fromIngredient(stack);
+			int cx = x + (k % 2) * colW, cy = y + (k / 2) * 21;
+			SweetUi.card(context, cx, cy, colW - 3, 19, 0xFFFFFFFF, 0xFFF3DDE6);
+			context.fill(cx + 2, cy + 2, cx + 5, cy + 17, 0xFF000000 | flavor.color());
+			context.drawItem(stack, cx + 7, cy + 1);
+			context.drawText(textRenderer, flavor.displayName(), cx + 26, cy + 6, SweetUi.INK, false);
+		}
 	}
 
 	private void drawProgress(DrawContext context, int x, int y, int w) {

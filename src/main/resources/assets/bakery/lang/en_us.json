@@ -796,7 +796,7 @@
 	"cafe_level.bakery.patisserie": "Pâtisserie",
 	"cafe_level.bakery.grand": "Grand Bakery",
 	"cafe_level.bakery.up": "Your bakery grew!",
-	"message.bakery.welcome": "♥ Welcome, baker! Place your Bakery Catalog to buy your first kitchen - you have 40 Sweet Coins. Its Read tab has the whole guide.",
+	"message.bakery.welcome": "♥ Welcome, baker! Place your Bakery Catalog and open it: \"Your First Bake\" walks you through your first loaf, step by step. You have 40 Sweet Coins to start.",
 	"message.bakery.catalog.locked": "Unlocks when your bakery becomes a %s",
 	"catalog.bakery.pantry": "Pantry",
 	"catalog.bakery.outdoor": "Outside",

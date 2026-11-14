@@ -89,6 +89,7 @@ public class GrandOvenRenderer implements BlockEntityRenderer<GrandOvenBlockEnti
 		renderDoor(matrices, consumers, door, lit, light, overlay);
 		renderFire(oven, tickDelta, matrices, consumers, light, overlay);
 		renderGauge(oven, matrices, consumers, light, overlay);
+		renderEmbers(oven, time, matrices, consumers, light, overlay);
 		matrices.pop();
 	}
 
@@ -226,6 +227,45 @@ public class GrandOvenRenderer implements BlockEntityRenderer<GrandOvenBlockEnti
 		PixelBox.box(vc, matrices, cx - 0.2f, cy - 0.2f, -16.6f, cx + 0.2f, cy + 2.6f, -16.45f, 0xE0405A, metal, metal, light, overlay);
 		matrices.pop();
 		PixelBox.box(vc, matrices, cx - 0.4f, cy - 0.4f, -16.7f, cx + 0.4f, cy + 0.4f, -16.45f, 0x6A4A3A, metal, metal, light, overlay);
+	}
+
+	/**
+	 * The ash-pit grate under the mouth: four coal lumps that glow while there's fuel, going dark one by one as it
+	 * burns down, and blinking red when it's almost out.
+	 */
+	private void renderEmbers(GrandOvenBlockEntity oven, float time, MatrixStack matrices, VertexConsumerProvider consumers, int light, int overlay) {
+		VertexConsumer vc = PixelBox.solid(consumers);
+		Sprite metal = PixelBox.sprite("metal");
+		Sprite coal = PixelBox.sprite("cake_piping");
+		float z = -16.35f, y1 = -5.6f, y2 = -1.6f;
+		// Iron grate frame with bars
+		PixelBox.box(vc, matrices, 3.6f, y1, z, 12.4f, y1 + 0.6f, -15.9f, 0x3E3A44, metal, metal, light, overlay);
+		PixelBox.box(vc, matrices, 3.6f, y2 - 0.6f, z, 12.4f, y2, -15.9f, 0x3E3A44, metal, metal, light, overlay);
+		PixelBox.box(vc, matrices, 3.6f, y1, z, 4.2f, y2, -15.9f, 0x3E3A44, metal, metal, light, overlay);
+		PixelBox.box(vc, matrices, 11.8f, y1, z, 12.4f, y2, -15.9f, 0x3E3A44, metal, metal, light, overlay);
+		PixelBox.box(vc, matrices, 4.2f, y1 + 0.6f, -16.0f, 11.8f, y2 - 0.6f, -15.95f, 0x1C1A20, metal, metal, light, overlay);
+		int fuel = oven.getFuel();
+		boolean low = fuel > 0 && fuel < GrandOvenBlockEntity.LOW_FUEL;
+		float pulse = 0.6f + 0.4f * MathHelper.sin(time * (low ? 0.5f : 0.12f));
+		int lumps = fuel <= 0 ? 0 : low ? 1 : 1 + Math.min(3, fuel * 4 / GrandOvenBlockEntity.MAX_FUEL);
+		for (int i = 0; i < 4; i++) {
+			float x = 4.8f + i * 1.8f;
+			boolean on = i < lumps;
+			int glow = !on ? 0x2A2628 : low ? lerpColor(0x8A2010, 0xFF4030, pulse) : lerpColor(0xC8501C, 0xFFB040, pulse);
+			PixelBox.box(vc, matrices, x, y1 + 1.1f, -16.25f, x + 1.3f, y2 - 1.1f, -15.95f, glow, coal, coal,
+					on ? LightmapTextureManager.MAX_LIGHT_COORDINATE : light, overlay);
+		}
+		// Bars in front of the coals
+		for (float x = 5.9f; x < 11.5f; x += 1.8f) {
+			PixelBox.box(vc, matrices, x, y1 + 0.6f, -16.4f, x + 0.4f, y2 - 0.6f, -16.25f, 0x4A4650, metal, metal, light, overlay);
+		}
+	}
+
+	private static int lerpColor(int a, int b, float t) {
+		int r = (int) MathHelper.lerp(t, a >> 16 & 255, b >> 16 & 255);
+		int g = (int) MathHelper.lerp(t, a >> 8 & 255, b >> 8 & 255);
+		int bl = (int) MathHelper.lerp(t, a & 255, b & 255);
+		return r << 16 | g << 8 | bl;
 	}
 
 	@Override

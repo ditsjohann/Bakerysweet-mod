@@ -930,11 +930,11 @@
 	"guide.bakery.oven_build.s3": "Tap the heart with the spatula",
 	"guide.bakery.oven_build.tip": "Pink sparkles show any missing bricks.",
 	"guide.bakery.oven_use.title": "Using the Oven",
-	"guide.bakery.oven_use.s1": "Feed the fire coal or wood",
+	"guide.bakery.oven_use.s1": "Feed coal: click with it, or toss it through the open door",
 	"guide.bakery.oven_use.s2": "Click the oven: the door swings down",
 	"guide.bakery.oven_use.s3": "Click again: the rack slides out",
 	"guide.bakery.oven_use.s4": "Set bakes on the rack - big ones take more room",
-	"guide.bakery.oven_use.tip": "Click the oven to slide the rack back in, sneak-click to shut the door. It only bakes with the rack inside!",
+	"guide.bakery.oven_use.tip": "The glowing coals under the door show the fuel left; they blink red when it's nearly gone. The fire slowly burns down even when idle. Sneak-click shuts the door.",
 	"guide.bakery.flipping.title": "Flip & Take Out",
 	"guide.bakery.flipping.s1": "Cookies and donuts sizzle halfway",
 	"guide.bakery.flipping.s2": "Pull the rack out and click them to flip",
@@ -1121,5 +1121,7 @@
 	"screen.bakery.counter.board": "Review Board",
 	"screen.bakery.counter.part.speed": "Speed",
 	"screen.bakery.counter.part.taste": "Taste",
-	"screen.bakery.counter.part.charm": "Charm"
+	"screen.bakery.counter.part.charm": "Charm",
+	"message.bakery.oven.out_of_fuel": "The oven fire went out - feed it coal or charcoal",
+	"message.bakery.oven.low_fuel": "The oven is running low on fuel (the embers under the door blink red)"
 }

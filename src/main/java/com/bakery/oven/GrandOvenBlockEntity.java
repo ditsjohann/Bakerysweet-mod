@@ -59,6 +59,8 @@ import java.util.List;
 public class GrandOvenBlockEntity extends BlockEntity implements Multiblock.MachineContents {
 	public static final int COLS = 3, ROWS = 3;
 	public static final int MAX_FUEL = 24000;
+	/** Below this the embers under the mouth blink red. */
+	public static final int LOW_FUEL = 1600;
 	public static final int HEAT_ZONE = 12;
 	public static final int ACTION_FAN = 0;
 	public static final int ACTION_VENT = 1;
@@ -591,8 +593,25 @@ public class GrandOvenBlockEntity extends BlockEntity implements Multiblock.Mach
 				bake.progress += Math.round(oven.temperature.speed() * 100);
 			}
 		}
+		// The fire eats coal while baking, and keeps smouldering slowly even when the oven stands idle.
+		int before = oven.fuel;
 		if (anyBaking) {
 			oven.fuel = Math.max(0, oven.fuel - oven.temperature.fuelPerTick());
+		} else if (oven.fuel > 0 && world.getTime() % 4 == 0) {
+			oven.fuel--;
+		}
+		if (!world.isClient && before > 0) {
+			if (oven.fuel == 0) {
+				world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.9f, 0.7f);
+				for (PlayerEntity p : world.getPlayers()) {
+					if (p.squaredDistanceTo(pos.toCenterPos()) < 144) p.sendMessage(Text.translatable("message.bakery.oven.out_of_fuel").formatted(Formatting.GOLD), true);
+				}
+			} else if (before >= LOW_FUEL && oven.fuel < LOW_FUEL) {
+				world.playSound(null, pos, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, 1f, 0.6f);
+				for (PlayerEntity p : world.getPlayers()) {
+					if (p.squaredDistanceTo(pos.toCenterPos()) < 144) p.sendMessage(Text.translatable("message.bakery.oven.low_fuel"), true);
+				}
+			}
 		}
 
 		// The fire: drifts toward the dial's target, with a slow wander so it needs tending. An open door lets the heat out.
@@ -610,6 +629,23 @@ public class GrandOvenBlockEntity extends BlockEntity implements Multiblock.Mach
 		}
 
 		boolean changed = false;
+		// Coal tossed through the open door lands in the firebox.
+		if (oven.doorOpen && world.getTime() % 5 == 0 && oven.fuel < MAX_FUEL - 200) {
+			net.minecraft.util.math.Box mouth = new net.minecraft.util.math.Box(oven.rackPos()).expand(0.7, 1.2, 0.7);
+			for (net.minecraft.entity.ItemEntity drop : world.getEntitiesByClass(net.minecraft.entity.ItemEntity.class, mouth, e -> true)) {
+				ItemStack thrown = drop.getStack();
+				Integer burn = FuelRegistry.INSTANCE.get(thrown.getItem());
+				if (burn == null || burn <= 0 || thrown.getItem().getRecipeRemainder() != null) continue;
+				while (!thrown.isEmpty() && oven.fuel < MAX_FUEL - 200) {
+					oven.fuel = Math.min(MAX_FUEL, oven.fuel + burn);
+					thrown.decrement(1);
+				}
+				if (thrown.isEmpty()) drop.discard();
+				world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 0.6f, 1.2f);
+				((ServerWorld) world).spawnParticles(net.minecraft.particle.ParticleTypes.FLAME, drop.getX(), drop.getY() + 0.3, drop.getZ(), 6, 0.2, 0.2, 0.2, 0.02);
+				changed = true;
+			}
+		}
 		for (int i = 0; i < oven.bakes.size(); i++) {
 			Bake bake = oven.bakes.get(i);
 			if (!oven.isBaking(bake)) continue;

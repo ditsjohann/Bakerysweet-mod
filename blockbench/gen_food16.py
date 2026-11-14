@@ -603,6 +603,34 @@ def jam_frames():
     return out
 
 
+def cloud_rug():
+    """A sky-blue rug with a pale border and two puffy clouds, each shaded underneath."""
+    sky, edge = hx("#a8d4f2"), hx("#d8eefc")
+    px = Px(sky)
+    for i in range(S):
+        px.set(i, 0, edge); px.set(i, 15, edge); px.set(0, i, edge); px.set(15, i, edge)
+    cloud = ["..###...", ".#####.#", "########", ".######."]
+    for (ox, oy) in ((2, 3), (6, 9)):
+        for dy, row in enumerate(cloud):
+            for dx, ch in enumerate(row):
+                if ch == "#":
+                    px.set(ox + dx, oy + dy, hx("#ffffff") if dy < 3 else hx("#d6e8f6"))
+    return px
+
+
+def porcelain_floral():
+    """White porcelain with little painted sprigs: a pink five-dot flower and two green leaves, set in a lattice."""
+    px = Px(hx("#fdf8f6"))
+    for (x, y) in ((3, 3), (11, 11), (11, 3), (3, 11)):
+        for (dx, dy) in ((0, -1), (-1, 0), (1, 0), (0, 1)):
+            px.set(x + dx, y + dy, hx("#f2a2bc"))
+        px.set(x, y, hx("#f6d06a"))
+        px.set(x + 2, y + 1, hx("#8ac27a")); px.set(x - 2, y + 1, hx("#a6d48e"))
+    for i in range(S):
+        px.set(i, 7, hx("#f6eae8"))
+    return px
+
+
 def build():
     big = {
         "oven/bricks": brick_sheet(8, 4, ("#ead8c2", "#c9b49a"), ("#c4573f", "#b84e38", "#cc6248"), "#dc7a5e", "#9a3e2c"),
@@ -613,7 +641,7 @@ def build():
         px.img.save(os.path.join(os.path.dirname(__file__), "..", "src/main/resources/assets/bakery/textures/block", name + ".png"))
     jam_frames().save(os.path.join(os.path.dirname(__file__), "..", "src/main/resources/assets/bakery/textures/block/jam_surface.png"))
     jobs = {
-        "catalog_wood": catalog_wood(), "soil": soil(), "juice_liquid": liquid(),
+        "catalog_wood": catalog_wood(), "soil": soil(), "juice_liquid": liquid(), "cloud_rug": cloud_rug(), "porcelain_floral": porcelain_floral(),
         "leaf": leaf("#5aa64e"), "petal": petal("#f6a8c4"), "lemon_skin": dimpled("#f6dc4a"), "lemon_peel": dimpled("#f8e46a"),
         "lemon_young": dimpled("#a8d05a"), "coconut_shell": fibres("#7a5232"), "coconut_young": ridged("#7ab05a"),
         "stone_cream": pebbled("#ece2d4"), "macaron_pouf_shell": macaron_shell_pink(),

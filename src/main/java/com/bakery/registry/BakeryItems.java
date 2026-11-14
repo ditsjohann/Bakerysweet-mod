@@ -355,6 +355,14 @@ public final class BakeryItems {
 	public static final Item PINK_MAILBOX = block(BakeryBlocks.PINK_MAILBOX);
 	public static final Item PASTRY_CART = block(BakeryBlocks.PASTRY_CART);
 	public static final Item WELCOME_MAT = block(BakeryBlocks.WELCOME_MAT);
+	public static final Item MUSHROOM_LAMP = block(BakeryBlocks.MUSHROOM_LAMP);
+	public static final Item POTTED_SUCCULENT = block(BakeryBlocks.POTTED_SUCCULENT);
+	public static final Item POTTED_FERN = block(BakeryBlocks.POTTED_FERN);
+	public static final Item BIRD_BATH = block(BakeryBlocks.BIRD_BATH);
+	public static final Item WILDFLOWER_PATCH = block(BakeryBlocks.WILDFLOWER_PATCH);
+	public static final Item HANGING_IVY = block(BakeryBlocks.HANGING_IVY);
+	public static final Item STEPPING_STONES = block(BakeryBlocks.STEPPING_STONES);
+	public static final Item STUMP_STOOL = block(BakeryBlocks.STUMP_STOOL);
 
 	static {
 		for (WoodSet set : BakeryBlocks.WOODS) {

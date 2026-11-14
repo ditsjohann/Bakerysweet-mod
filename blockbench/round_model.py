@@ -142,6 +142,29 @@ class Model:
             rr = r * math.sqrt(max(0.0, 1 - t * t))
             self.disc(f"{name}_{s}", max(0.4, rr), y1 + s * h, y1 + (s + 1) * h, tex, cx, cz)
 
+    def wrap(self, tex, y_bottom, y_top, plain=(4, 13, 8, 15)):
+        """Wraps texture `tex` round the round shapes that use it: each side face takes the column for the way it
+        faces (16 columns = 16 sides) and the rows for its height (row 0 at y_top). Tops and bottoms take the plain
+        patch. Painted bands and spots then go all the way round instead of repeating one middle strip."""
+        normals = {"north": (0, -1), "south": (0, 1), "east": (1, 0), "west": (-1, 0)}
+        span = max(0.01, y_top - y_bottom)
+        for e in self.data["elements"]:
+            rot = e.get("rotation") or {}
+            ang = math.radians(rot.get("angle", 0)) if rot.get("axis") == "y" else 0
+            for fname, f in e["faces"].items():
+                if f.get("texture") != "#" + tex:
+                    continue
+                if fname in ("up", "down"):
+                    f["uv"] = list(plain)
+                    continue
+                nx, nz = normals[fname]
+                rx, rz = nx * math.cos(ang) + nz * math.sin(ang), -nx * math.sin(ang) + nz * math.cos(ang)
+                col = round((math.degrees(math.atan2(rz, rx)) % 360) / 22.5) % 16
+                v1 = max(0.0, min(16.0, (y_top - e["to"][1]) / span * 16))
+                v2 = max(0.0, min(16.0, (y_top - e["from"][1]) / span * 16))
+                f["uv"] = [col, round(v1, 3), col + 1, round(max(v2, v1 + 0.5), 3)]
+        return self
+
     def save(self, path):
         with open(path, "w") as f:
             json.dump(self.data, f, indent="\t")

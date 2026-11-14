@@ -1313,5 +1313,13 @@
 	"block.bakery.glass_cloche": "Glass Cloche",
 	"screen.bakery.counter.tab_shop": "Shop",
 	"screen.bakery.counter.tab_reviews": "Reviews",
-	"screen.bakery.counter.tab_reviews_score": "Reviews ★%s"
+	"screen.bakery.counter.tab_reviews_score": "Reviews ★%s",
+	"block.bakery.mushroom_lamp": "Mushroom Lamp",
+	"block.bakery.potted_succulent": "Potted Succulent",
+	"block.bakery.potted_fern": "Potted Fern",
+	"block.bakery.bird_bath": "Bird Bath",
+	"block.bakery.wildflower_patch": "Wildflower Patch",
+	"block.bakery.hanging_ivy": "Hanging Ivy",
+	"block.bakery.stepping_stones": "Stepping Stones",
+	"block.bakery.stump_stool": "Stump Stool"
 }

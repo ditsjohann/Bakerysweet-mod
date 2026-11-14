@@ -1,0 +1,43 @@
+{
+	"parent": "block/block",
+	"textures": {
+		"ivy": "bakery:block/nature/ivy",
+		"particle": "bakery:block/nature/ivy"
+	},
+	"elements": [
+		{
+			"name": "ivy",
+			"from": [
+				0,
+				0,
+				15.6
+			],
+			"to": [
+				16,
+				16,
+				15.6
+			],
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#ivy"
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#ivy"
+				}
+			}
+		}
+	],
+	"ambientocclusion": false
+}

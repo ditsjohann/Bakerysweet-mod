@@ -1,0 +1,20 @@
+{
+	"variants": {
+		"facing=north": {
+			"model": "bakery:block/potted_fern",
+			"y": 0
+		},
+		"facing=east": {
+			"model": "bakery:block/potted_fern",
+			"y": 90
+		},
+		"facing=south": {
+			"model": "bakery:block/potted_fern",
+			"y": 180
+		},
+		"facing=west": {
+			"model": "bakery:block/potted_fern",
+			"y": 270
+		}
+	}
+}

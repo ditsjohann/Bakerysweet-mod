@@ -184,10 +184,23 @@ public final class BakeryBlocks {
 			.sounds(BlockSoundGroup.LANTERN), box(5, 0, 4, 11, 16, 12), false));
 	public static final Block PASTRY_CART = register("pastry_cart", new DecoBlock(wood(), box(0, 0, 2, 16, 16, 14), false));
 	public static final Block WELCOME_MAT = register("welcome_mat", new DecoBlock(AbstractBlock.Settings.copy(Blocks.PINK_CARPET).nonOpaque(), box(0, 0, 1, 16, 1, 15), false));
+	// Nature decorations
+	public static final Block MUSHROOM_LAMP = register("mushroom_lamp", new DecoBlock(AbstractBlock.Settings.copy(Blocks.RED_MUSHROOM_BLOCK).strength(0.5f).nonOpaque()
+			.luminance(state -> 12), box(2.5, 0, 2.5, 13.5, 12, 13.5), false));
+	public static final Block POTTED_SUCCULENT = register("potted_succulent", new DecoBlock(AbstractBlock.Settings.copy(Blocks.FLOWER_POT).nonOpaque(), box(4, 0, 4, 12, 9, 12), false));
+	public static final Block POTTED_FERN = register("potted_fern", new DecoBlock(AbstractBlock.Settings.copy(Blocks.FLOWER_POT).nonOpaque(), box(3, 0, 3, 13, 14, 13), false));
+	public static final Block BIRD_BATH = register("bird_bath", new DecoBlock(AbstractBlock.Settings.copy(Blocks.STONE).strength(1f).nonOpaque(), box(1.5, 0, 1.5, 14.5, 11.5, 14.5), false));
+	public static final Block WILDFLOWER_PATCH = register("wildflower_patch", new DecoBlock(AbstractBlock.Settings.copy(Blocks.PINK_PETALS).noCollision().nonOpaque()
+			.strength(0.1f), box(0, 0, 0, 16, 3, 16), false));
+	public static final Block HANGING_IVY = register("hanging_ivy", new DecoBlock(AbstractBlock.Settings.copy(Blocks.VINE).noCollision().nonOpaque()
+			.strength(0.2f), box(0, 0, 15, 16, 16, 16), true));
+	public static final Block STEPPING_STONES = register("stepping_stones", new DecoBlock(AbstractBlock.Settings.copy(Blocks.STONE).strength(1f).nonOpaque(), box(0, 0, 0, 16, 1.5, 16), false));
+	public static final Block STUMP_STOOL = register("stump_stool", new ChairBlock(wood(), box(2.5, 0, 2.5, 13.5, 9, 13.5)));
 	/** Every Cozy update decor piece (render layers, Charm, catalog). */
 	public static final Block[] COZY_DECOR = {PINK_COUCH, MACARON_POUF, HEART_MIRROR, NEON_HEART_SIGN, BUNNY_PLUSH, BEAR_PLUSH, TULIP_VASE, TEA_SET,
 			CAKE_SHELF, DONUT_WALL, LACE_CURTAINS, STAR_LIGHTS, CASH_REGISTER, TIP_JAR, OPEN_SIGN, CHALKBOARD_SIGN, PASTEL_BENCH, FLOWER_BOX,
-			HEART_LAMP_POST, PARASOL_TABLE, TULIP_POT, HANGING_FLOWERS, BUNNY_STATUE, PINK_MAILBOX, PASTRY_CART, WELCOME_MAT};
+			HEART_LAMP_POST, PARASOL_TABLE, TULIP_POT, HANGING_FLOWERS, BUNNY_STATUE, PINK_MAILBOX, PASTRY_CART, WELCOME_MAT,
+			MUSHROOM_LAMP, POTTED_SUCCULENT, POTTED_FERN, BIRD_BATH, WILDFLOWER_PATCH, HANGING_IVY, STEPPING_STONES, STUMP_STOOL};
 
 	// Placed food
 	public static final Block BREAD_LOAF = register("bread_loaf", new SimpleFoodBlock(food(), box(2, 0, 3, 14, 7, 13)));

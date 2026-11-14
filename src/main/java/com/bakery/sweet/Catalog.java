@@ -258,6 +258,14 @@ public final class Catalog {
 			add(list, c, BakeryItems.STRAWBERRY_CRATE, 1, 5, l2);
 			add(list, c, BakeryItems.LEMON_CRATE, 1, 5, l2);
 			add(list, c, BakeryItems.COCONUT_CRATE, 1, 5, l3);
+			add(list, c, BakeryItems.WILDFLOWER_PATCH, 2, 2, l1);
+			add(list, c, BakeryItems.STEPPING_STONES, 3, 3, l1);
+			add(list, c, BakeryItems.POTTED_SUCCULENT, 1, 4, l1);
+			add(list, c, BakeryItems.HANGING_IVY, 2, 4, l2);
+			add(list, c, BakeryItems.POTTED_FERN, 1, 5, l2);
+			add(list, c, BakeryItems.STUMP_STOOL, 1, 7, l2);
+			add(list, c, BakeryItems.MUSHROOM_LAMP, 1, 10, l3);
+			add(list, c, BakeryItems.BIRD_BATH, 1, 12, l3);
 
 			c = Category.WARDROBE;
 			add(list, c, BakeryItems.RIBBON_BOW, 1, 12, l1);

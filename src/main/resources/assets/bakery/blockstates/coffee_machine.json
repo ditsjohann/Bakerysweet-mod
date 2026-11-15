@@ -1,0 +1,120 @@
+{
+	"multipart": [
+		{
+			"when": {
+				"facing": "north"
+			},
+			"apply": {
+				"model": "bakery:block/coffee_machine",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"level": "1|3"
+			},
+			"apply": {
+				"model": "bakery:block/coffee_machine_beans",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"level": "2|3"
+			},
+			"apply": {
+				"model": "bakery:block/coffee_machine_milk",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "east"
+			},
+			"apply": {
+				"model": "bakery:block/coffee_machine",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"level": "1|3"
+			},
+			"apply": {
+				"model": "bakery:block/coffee_machine_beans",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"level": "2|3"
+			},
+			"apply": {
+				"model": "bakery:block/coffee_machine_milk",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "south"
+			},
+			"apply": {
+				"model": "bakery:block/coffee_machine",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"level": "1|3"
+			},
+			"apply": {
+				"model": "bakery:block/coffee_machine_beans",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"level": "2|3"
+			},
+			"apply": {
+				"model": "bakery:block/coffee_machine_milk",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "west"
+			},
+			"apply": {
+				"model": "bakery:block/coffee_machine",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"level": "1|3"
+			},
+			"apply": {
+				"model": "bakery:block/coffee_machine_beans",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"level": "2|3"
+			},
+			"apply": {
+				"model": "bakery:block/coffee_machine_milk",
+				"y": 270
+			}
+		}
+	]
+}

@@ -78,6 +78,8 @@ public final class BakeryItems {
 	public static final Item BLUEBERRY_SEEDS = seeds("blueberry_seeds", BakeryBlocks.BLUEBERRY_CROP);
 	public static final Item RASPBERRY_SEEDS = seeds("raspberry_seeds", BakeryBlocks.RASPBERRY_CROP);
 	public static final Item TEA_SEEDS = seeds("tea_seeds", BakeryBlocks.TEA_CROP);
+	public static final Item COFFEE_SEEDS = seeds("coffee_seeds", BakeryBlocks.COFFEE_CROP);
+	public static final Item CINNAMON_SEEDS = seeds("cinnamon_seeds", BakeryBlocks.CINNAMON_CROP);
 	public static final Item MINT_SEEDS = seeds("mint_seeds", BakeryBlocks.MINT_CROP);
 	public static final Item VANILLA_SEEDS = seeds("vanilla_seeds", BakeryBlocks.VANILLA_CROP);
 	public static final Item LAVENDER_SEEDS = seeds("lavender_seeds", BakeryBlocks.LAVENDER_CROP);
@@ -100,6 +102,15 @@ public final class BakeryItems {
 	public static final Item BLUEBERRY = register("blueberry", new BakeryItem(new Item.Settings().food(snack(2, 0.3f)), 6 * DAY));
 	public static final Item RASPBERRY = register("raspberry", new BakeryItem(new Item.Settings().food(snack(2, 0.3f)), 4 * DAY));
 	public static final Item TEA_LEAVES = register("tea_leaves", new BakeryItem(new Item.Settings(), 4 * DAY));
+	// Coffee corner
+	public static final Item COFFEE_CHERRIES = register("coffee_cherries", new BakeryItem(new Item.Settings(), 4 * DAY));
+	public static final Item ROASTED_COFFEE_BEANS = register("roasted_coffee_beans", new Item(new Item.Settings()));
+	public static final Item CINNAMON = register("cinnamon", new Item(new Item.Settings()));
+	public static final Item CARAMEL_SYRUP = register("caramel_syrup", new com.bakery.item.SyrupItem(com.bakery.food.Flavor.CARAMEL, new Item.Settings()));
+	public static final Item MOCHA_SYRUP = register("mocha_syrup", new com.bakery.item.SyrupItem(com.bakery.food.Flavor.MOCHA, new Item.Settings()));
+	public static final Item SPECULOOS_SYRUP = register("speculoos_syrup", new com.bakery.item.SyrupItem(com.bakery.food.Flavor.SPECULOOS, new Item.Settings()));
+	public static final Item PUMPKIN_SPICE_SYRUP = register("pumpkin_spice_syrup", new com.bakery.item.SyrupItem(com.bakery.food.Flavor.PUMPKIN_SPICE, new Item.Settings()));
+	public static final Item VANILLA_SYRUP = register("vanilla_syrup", new com.bakery.item.SyrupItem(com.bakery.food.Flavor.VANILLA, new Item.Settings()));
 	public static final Item MINT_LEAVES = register("mint_leaves", new BakeryItem(new Item.Settings(), 4 * DAY));
 	public static final Item VANILLA_POD = register("vanilla_pod", new Item(new Item.Settings()));
 	public static final Item LAVENDER = register("lavender", new Item(new Item.Settings()));
@@ -190,6 +201,8 @@ public final class BakeryItems {
 	public static final Item LEMONADE = drink("lemonade", Drink.LEMONADE, new StatusEffectInstance(StatusEffects.SPEED, 1800), new StatusEffectInstance(StatusEffects.WATER_BREATHING, 1200));
 	public static final Item COCONUT_MILK = drink("coconut_milk", Drink.COCONUT_MILK, new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 1200), new StatusEffectInstance(StatusEffects.RESISTANCE, 600));
 	public static final Item MINT_TEA = drink("mint_tea", Drink.MINT_TEA, new StatusEffectInstance(StatusEffects.HASTE, 1200), new StatusEffectInstance(StatusEffects.REGENERATION, 200));
+	public static final Item COFFEE = drink("coffee", Drink.COFFEE, new StatusEffectInstance(StatusEffects.SPEED, 1800), new StatusEffectInstance(StatusEffects.HASTE, 1800));
+	public static final Item LATTE = drink("latte", Drink.LATTE, new StatusEffectInstance(StatusEffects.HASTE, 2400), new StatusEffectInstance(StatusEffects.REGENERATION, 100));
 	public static final Item PINEAPPLE_SMOOTHIE = drink("pineapple_smoothie", Drink.PINEAPPLE_SMOOTHIE, new StatusEffectInstance(StatusEffects.SATURATION, 20), new StatusEffectInstance(StatusEffects.JUMP_BOOST, 1800));
 
 	// ---- Sweet Life tab: coins, the catalog, cookie and cake decorating, gifts and outfits ----
@@ -363,6 +376,8 @@ public final class BakeryItems {
 	public static final Item HANGING_IVY = block(BakeryBlocks.HANGING_IVY);
 	public static final Item STEPPING_STONES = block(BakeryBlocks.STEPPING_STONES);
 	public static final Item STUMP_STOOL = block(BakeryBlocks.STUMP_STOOL);
+	public static final Item COFFEE_MACHINE = block(BakeryBlocks.COFFEE_MACHINE);
+	public static final Item SYRUP_RACK = block(BakeryBlocks.SYRUP_RACK);
 	public static final Item DAISIES = block(BakeryBlocks.DAISIES);
 	public static final Item PINK_COSMOS = block(BakeryBlocks.PINK_COSMOS);
 	public static final Item FORGET_ME_NOTS = block(BakeryBlocks.FORGET_ME_NOTS);
@@ -526,14 +541,14 @@ public final class BakeryItems {
 	}
 
 	public static void init() {
-		for (Item compostable : new Item[]{STRAWBERRY_SEEDS, BLUEBERRY_SEEDS, RASPBERRY_SEEDS, TEA_SEEDS, MINT_SEEDS, VANILLA_SEEDS, LAVENDER_SEEDS, ROSE_SEEDS, PINEAPPLE_SEEDS}) {
+		for (Item compostable : new Item[]{COFFEE_SEEDS, CINNAMON_SEEDS, STRAWBERRY_SEEDS, BLUEBERRY_SEEDS, RASPBERRY_SEEDS, TEA_SEEDS, MINT_SEEDS, VANILLA_SEEDS, LAVENDER_SEEDS, ROSE_SEEDS, PINEAPPLE_SEEDS}) {
 			CompostingChanceRegistry.INSTANCE.add(compostable, 0.3f);
 		}
 		for (Item compostable : new Item[]{DAISIES, PINK_COSMOS, FORGET_ME_NOTS, LILY_OF_THE_VALLEY, BLUEBELLS, BUTTERCUPS, FOXGLOVE, CATTAILS, WILD_FERN,
 				CLOVER_PATCH, ROSE_BUSH, HYDRANGEA_BUSH, BLOSSOM_LILY_PAD}) {
 			CompostingChanceRegistry.INSTANCE.add(compostable, 0.65f);
 		}
-		for (Item compostable : new Item[]{STRAWBERRY, BLUEBERRY, RASPBERRY, TEA_LEAVES, MINT_LEAVES, LAVENDER, ROSE_PETALS, LEMON, PINEAPPLE, BURNT_PASTRY}) {
+		for (Item compostable : new Item[]{COFFEE_CHERRIES, STRAWBERRY, BLUEBERRY, RASPBERRY, TEA_LEAVES, MINT_LEAVES, LAVENDER, ROSE_PETALS, LEMON, PINEAPPLE, BURNT_PASTRY}) {
 			CompostingChanceRegistry.INSTANCE.add(compostable, 0.65f);
 		}
 		for (Item compostable : new Item[]{BREAD_LOAF, BAGUETTE, CROISSANT, CUPCAKE, DONUT, COOKIES, MACARONS}) {

@@ -14,7 +14,9 @@ public enum Drink implements StringIdentifiable {
 	LEMONADE("lemonade", 0xFFF29A),
 	COCONUT_MILK("coconut_milk", 0xF8F4EC),
 	MINT_TEA("mint_tea", 0x9FDDB5),
-	PINEAPPLE_SMOOTHIE("pineapple_smoothie", 0xFFD66B);
+	PINEAPPLE_SMOOTHIE("pineapple_smoothie", 0xFFD66B),
+	COFFEE("coffee", 0x4A2C1C),
+	LATTE("latte", 0xC8996A);
 
 	private final String name;
 	private final int color;

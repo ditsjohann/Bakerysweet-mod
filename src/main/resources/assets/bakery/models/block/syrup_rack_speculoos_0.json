@@ -1,0 +1,132 @@
+{
+	"parent": "block/block",
+	"ambientocclusion": false,
+	"textures": {
+		"liquid": "bakery:block/coffee/syrup_speculoos",
+		"white": "bakery:block/coffee/milk",
+		"glass": "bakery:block/coffee/chrome",
+		"particle": "bakery:block/coffee/syrup_speculoos"
+	},
+	"elements": [
+		{
+			"name": "bottle",
+			"from": [
+				12.5,
+				1.5,
+				6.5
+			],
+			"to": [
+				15.5,
+				7.5,
+				9.5
+			],
+			"faces": {
+				"north": {
+					"texture": "#liquid"
+				},
+				"south": {
+					"texture": "#liquid"
+				},
+				"east": {
+					"texture": "#liquid"
+				},
+				"west": {
+					"texture": "#liquid"
+				},
+				"up": {
+					"texture": "#liquid"
+				}
+			}
+		},
+		{
+			"name": "neck",
+			"from": [
+				13.3,
+				7.5,
+				7.3
+			],
+			"to": [
+				14.7,
+				8.4,
+				8.7
+			],
+			"faces": {
+				"north": {
+					"texture": "#glass"
+				},
+				"south": {
+					"texture": "#glass"
+				},
+				"east": {
+					"texture": "#glass"
+				},
+				"west": {
+					"texture": "#glass"
+				},
+				"up": {
+					"texture": "#glass"
+				}
+			}
+		},
+		{
+			"name": "pump",
+			"from": [
+				13.4,
+				8.4,
+				7.4
+			],
+			"to": [
+				14.6,
+				10,
+				8.6
+			],
+			"faces": {
+				"north": {
+					"texture": "#white"
+				},
+				"south": {
+					"texture": "#white"
+				},
+				"east": {
+					"texture": "#white"
+				},
+				"west": {
+					"texture": "#white"
+				},
+				"up": {
+					"texture": "#white"
+				}
+			}
+		},
+		{
+			"name": "nozzle",
+			"from": [
+				13.65,
+				9.3,
+				5.8
+			],
+			"to": [
+				14.35,
+				9.9,
+				7.4
+			],
+			"faces": {
+				"north": {
+					"texture": "#white"
+				},
+				"east": {
+					"texture": "#white"
+				},
+				"west": {
+					"texture": "#white"
+				},
+				"up": {
+					"texture": "#white"
+				},
+				"down": {
+					"texture": "#white"
+				}
+			}
+		}
+	]
+}

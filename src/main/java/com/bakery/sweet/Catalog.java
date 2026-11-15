@@ -91,6 +91,8 @@ public final class Catalog {
 			add(list, c, BakeryItems.MILLSTONE_CORE, 1, 8, l1);
 			add(list, c, Items.STONE_BRICKS, 9, 3, l1);
 			add(list, c, Items.COBBLESTONE_WALL, 4, 2, l1);
+			add(list, c, BakeryItems.COFFEE_MACHINE, 1, 8, l1);
+			add(list, c, BakeryItems.SYRUP_RACK, 1, 3, l1);
 			add(list, c, BakeryItems.JUICER, 1, 10, l2);
 			add(list, c, BakeryItems.PROOFING_BASKET, 1, 10, l3);
 			add(list, c, BakeryItems.JAM_POT, 1, 12, l3);
@@ -106,7 +108,7 @@ public final class Catalog {
 			add(list, c, BakeryItems.TIERED_STAND, 1, 12, l2);
 			add(list, c, BakeryItems.GLASS_CLOCHE, 1, 9, l3);
 			add(list, c, BakeryItems.GIFT_BOX, 3, 4, l2);
-			add(list, c, BakeryItems.MUG, 4, 3, l2);
+			add(list, c, BakeryItems.MUG, 4, 3, l1);
 			add(list, c, BakeryItems.GLASS_JAR, 4, 3, l3);
 			add(list, c, BakeryItems.WAX_PAPER, 8, 4, l3);
 			add(list, c, BakeryItems.FROST_WRAP, 8, 6, l4);
@@ -159,6 +161,14 @@ public final class Catalog {
 			stock(list, c, BakeryItems.COCONUT_FLAKES, 2, 5, l3, 1);
 			stock(list, c, BakeryItems.CANDIED_PETALS, 2, 6, l4, 1);
 			stock(list, c, BakeryItems.STAR_PETALS, 1, 10, l5, 1);
+			sub = "coffee";
+			stock(list, c, BakeryItems.ROASTED_COFFEE_BEANS, 2, 3, l1, 3);
+			stock(list, c, BakeryItems.CARAMEL_SYRUP, 1, 5, l1, 1);
+			stock(list, c, BakeryItems.VANILLA_SYRUP, 1, 5, l1, 1);
+			stock(list, c, BakeryItems.MOCHA_SYRUP, 1, 5, l1, 1);
+			stock(list, c, BakeryItems.SPECULOOS_SYRUP, 1, 6, l2, 1);
+			stock(list, c, BakeryItems.PUMPKIN_SPICE_SYRUP, 1, 6, l2, 1);
+			stock(list, c, BakeryItems.CINNAMON, 2, 4, l1, 1);
 
 			c = Category.GARDEN;
 			sub = "seeds";
@@ -168,6 +178,8 @@ public final class Catalog {
 			add(list, c, BakeryItems.BLUEBERRY_SEEDS, 4, 3, l1);
 			add(list, c, BakeryItems.RASPBERRY_SEEDS, 4, 3, l2);
 			add(list, c, BakeryItems.SUGAR_BEET_SEEDS, 4, 3, l2);
+			add(list, c, BakeryItems.COFFEE_SEEDS, 4, 3, l1);
+			add(list, c, BakeryItems.CINNAMON_SEEDS, 4, 3, l1);
 			add(list, c, BakeryItems.TEA_SEEDS, 4, 4, l2);
 			add(list, c, BakeryItems.MINT_SEEDS, 4, 4, l2);
 			add(list, c, BakeryItems.ROSE_SEEDS, 4, 4, l2);

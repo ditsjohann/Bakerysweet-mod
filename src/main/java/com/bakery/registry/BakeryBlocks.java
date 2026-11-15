@@ -75,6 +75,9 @@ public final class BakeryBlocks {
 			.mapColor(MapColor.OAK_TAN).strength(1.0f).sounds(BlockSoundGroup.WOOD).nonOpaque()));
 	public static final Block JUICER = register("juicer", new KitchenBlock(AbstractBlock.Settings.copy(Blocks.WHITE_TERRACOTTA).strength(1f).nonOpaque(),
 			box(3, 0, 3, 13, 14, 13), JuicerBlockEntity::new, () -> BakeryBlockEntities.JUICER));
+	public static final Block COFFEE_MACHINE = register("coffee_machine", new KitchenBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(1.5f).nonOpaque()
+			.sounds(BlockSoundGroup.LANTERN), box(2, 0, 2, 14, 15, 14), com.bakery.kitchen.CoffeeMachineBlockEntity::new, () -> BakeryBlockEntities.COFFEE_MACHINE));
+	public static final Block SYRUP_RACK = register("syrup_rack", new com.bakery.kitchen.SyrupRackBlock(wood().strength(0.8f)));
 	public static final Block ICE_CREAM_CHURN = register("ice_cream_churn", new KitchenBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1f).nonOpaque(),
 			box(2, 0, 2, 14, 15, 14), ChurnBlockEntity::new, () -> BakeryBlockEntities.CHURN));
 	public static final Block JAM_POT = register("jam_pot", new KitchenBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(1.5f).nonOpaque()
@@ -251,6 +254,8 @@ public final class BakeryBlocks {
 	public static final Block RASPBERRY_CROP = crop("raspberry_crop", () -> BakeryItems.RASPBERRY_SEEDS, 0);
 	public static final Block MINT_CROP = crop("mint_crop", () -> BakeryItems.MINT_SEEDS, 0);
 	public static final Block PINEAPPLE_CROP = crop("pineapple_crop", () -> BakeryItems.PINEAPPLE_SEEDS, 0);
+	public static final Block COFFEE_CROP = crop("coffee_crop", () -> BakeryItems.COFFEE_SEEDS, 0);
+	public static final Block CINNAMON_CROP = crop("cinnamon_crop", () -> BakeryItems.CINNAMON_SEEDS, 0);
 
 	// Vegetables and special crops: each grows its own way
 	public static final Block CORN_CROP = register("corn_crop", new TallCropBlock(AbstractBlock.Settings.copy(Blocks.WHEAT), 3, () -> BakeryItems.CORN));
@@ -270,7 +275,7 @@ public final class BakeryBlocks {
 			RegistryKey.of(RegistryKeys.ITEM, Bakery.id("zucchini_seeds")), AbstractBlock.Settings.copy(Blocks.ATTACHED_MELON_STEM)));
 
 	public static final Block[] CROPS = {STRAWBERRY_CROP, BLUEBERRY_CROP, TEA_CROP, VANILLA_CROP, LAVENDER_CROP, ROSE_CROP, STARBLOOM_CROP,
-			RASPBERRY_CROP, MINT_CROP, PINEAPPLE_CROP, CORN_CROP, PEA_CROP, SWEET_POTATO_CROP, PEANUT_CROP, RHUBARB_CROP, HIBISCUS_CROP,
+			RASPBERRY_CROP, MINT_CROP, PINEAPPLE_CROP, COFFEE_CROP, CINNAMON_CROP, CORN_CROP, PEA_CROP, SWEET_POTATO_CROP, PEANUT_CROP, RHUBARB_CROP, HIBISCUS_CROP,
 			CRANBERRY_CROP, CANDYFLOSS_CROP, SUGAR_BEET_CROP, ZUCCHINI_STEM, ATTACHED_ZUCCHINI_STEM, ZUCCHINI};
 
 	// Fruit trees: each with its own shape, wood and fruit

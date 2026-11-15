@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "minecraft:glass_bottle"
+		},
+		{
+			"item": "minecraft:sugar"
+		},
+		{
+			"item": "bakery:cinnamon"
+		},
+		{
+			"item": "minecraft:pumpkin"
+		}
+	],
+	"result": {
+		"id": "bakery:pumpkin_spice_syrup",
+		"count": 1
+	}
+}

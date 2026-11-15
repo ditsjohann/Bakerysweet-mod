@@ -38,7 +38,7 @@
 		},
 		{
 			"when": {
-				"drink": "matcha_latte|hot_chocolate|strawberry_milk|lavender_tea|rose_tea|starlight_tea|lemonade|coconut_milk|mint_tea|pineapple_smoothie"
+				"drink": "matcha_latte|hot_chocolate|strawberry_milk|lavender_tea|rose_tea|starlight_tea|lemonade|coconut_milk|mint_tea|pineapple_smoothie|coffee|latte"
 			},
 			"apply": {
 				"model": "bakery:block/mug_liquid"

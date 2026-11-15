@@ -27,6 +27,10 @@ public final class BakeryBlockEntities {
 			BlockEntityType.Builder.create(FountainBlockEntity::new, BakeryBlocks.CHOCOLATE_FOUNTAIN).build(null));
 	public static final BlockEntityType<JuicerBlockEntity> JUICER = register("juicer",
 			BlockEntityType.Builder.create(JuicerBlockEntity::new, BakeryBlocks.JUICER).build(null));
+	public static final BlockEntityType<com.bakery.kitchen.CoffeeMachineBlockEntity> COFFEE_MACHINE = register("coffee_machine",
+			BlockEntityType.Builder.create(com.bakery.kitchen.CoffeeMachineBlockEntity::new, BakeryBlocks.COFFEE_MACHINE).build(null));
+	public static final BlockEntityType<com.bakery.kitchen.SyrupRackBlockEntity> SYRUP_RACK = register("syrup_rack",
+			BlockEntityType.Builder.create(com.bakery.kitchen.SyrupRackBlockEntity::new, BakeryBlocks.SYRUP_RACK).build(null));
 	public static final BlockEntityType<ChurnBlockEntity> CHURN = register("ice_cream_churn",
 			BlockEntityType.Builder.create(ChurnBlockEntity::new, BakeryBlocks.ICE_CREAM_CHURN).build(null));
 	public static final BlockEntityType<JamPotBlockEntity> JAM_POT = register("jam_pot",

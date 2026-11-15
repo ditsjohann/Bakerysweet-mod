@@ -35,7 +35,15 @@ public enum Flavor implements StringIdentifiable {
 	ZUCCHINI("zucchini", 0x8CBF5A),
 	RHUBARB("rhubarb", 0xE85A78),
 	CORN("corn", 0xF6D45A),
-	GARDEN("garden", 0x9CCB6A);
+	GARDEN("garden", 0x9CCB6A),
+	CARAMEL("caramel", 0xD9924A),
+	MOCHA("mocha", 0x7A4A32),
+	SPECULOOS("speculoos", 0xC07A3E),
+	PUMPKIN_SPICE("pumpkin_spice", 0xE8843A),
+	CINNAMON("cinnamon", 0xB8703C);
+
+	/** The syrups a coffee can be pumped with (and that customers ask for in their coffee). */
+	public static final Flavor[] SYRUPS = {CARAMEL, MOCHA, SPECULOOS, PUMPKIN_SPICE, VANILLA};
 
 	private final String name;
 	private final int color;
@@ -56,6 +64,16 @@ public enum Flavor implements StringIdentifiable {
 
 	public Text displayName() {
 		return Text.translatable("flavor.bakery." + name);
+	}
+
+	public boolean isSyrup() {
+		for (Flavor f : SYRUPS) if (f == this) return true;
+		return false;
+	}
+
+	/** Flavours that only come from a syrup bottle, not something you grow or bake with every day. */
+	public boolean coffeeOnly() {
+		return this == CARAMEL || this == MOCHA || this == SPECULOOS || this == PUMPKIN_SPICE;
 	}
 
 	public static Flavor byName(String name) {
@@ -96,6 +114,8 @@ public enum Flavor implements StringIdentifiable {
 		if (stack.isOf(BakeryItems.RHUBARB)) return RHUBARB;
 		if (stack.isOf(BakeryItems.CORN) || stack.isOf(BakeryItems.CORNMEAL)) return CORN;
 		if (stack.isOf(BakeryItems.PEA_POD)) return GARDEN;
+		if (stack.getItem() instanceof com.bakery.item.SyrupItem syrup) return syrup.flavor();
+		if (stack.isOf(BakeryItems.CINNAMON)) return CINNAMON;
 		return null;
 	}
 }

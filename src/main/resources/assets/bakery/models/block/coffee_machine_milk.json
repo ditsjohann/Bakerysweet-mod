@@ -1,0 +1,68 @@
+{
+	"parent": "block/block",
+	"ambientocclusion": false,
+	"textures": {
+		"chrome": "bakery:block/coffee/chrome",
+		"milk": "bakery:block/coffee/milk",
+		"particle": "bakery:block/coffee/milk"
+	},
+	"elements": [
+		{
+			"name": "pitcher",
+			"from": [
+				10.2,
+				1,
+				2
+			],
+			"to": [
+				12.8,
+				4.2,
+				4.6
+			],
+			"faces": {
+				"north": {
+					"texture": "#chrome"
+				},
+				"south": {
+					"texture": "#chrome"
+				},
+				"east": {
+					"texture": "#chrome"
+				},
+				"west": {
+					"texture": "#chrome"
+				},
+				"up": {
+					"texture": "#milk"
+				}
+			}
+		},
+		{
+			"name": "spout",
+			"from": [
+				10.8,
+				3.6,
+				1.6
+			],
+			"to": [
+				11.6,
+				4.2,
+				2
+			],
+			"faces": {
+				"north": {
+					"texture": "#chrome"
+				},
+				"east": {
+					"texture": "#chrome"
+				},
+				"west": {
+					"texture": "#chrome"
+				},
+				"up": {
+					"texture": "#chrome"
+				}
+			}
+		}
+	]
+}

@@ -90,7 +90,9 @@ public class BakeryGameTests implements FabricGameTest {
 		if (!previous.isEmpty()) {
 			p.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
 			for (int slot = 9; slot < 36 && !previous.isEmpty(); slot++) {
-				p.getInventory().insertStack(slot, previous);
+				// Only into an empty slot or onto the same item: insertStack(slot, ..) stacks onto anything.
+				ItemStack there = p.getInventory().getStack(slot);
+				if (there.isEmpty() || ItemStack.areItemsAndComponentsEqual(there, previous)) p.getInventory().insertStack(slot, previous);
 			}
 		}
 		p.setStackInHand(Hand.MAIN_HAND, stack);
@@ -522,6 +524,53 @@ public class BakeryGameTests implements FabricGameTest {
 	}
 
 	@GameTest(templateName = EMPTY)
+	public void coffeeMachineAndSyrupRackMakeACaramelLatte(TestContext ctx) {
+		FakePlayer p = player(ctx);
+		BlockPos machine = new BlockPos(1, 1, 1), rack = new BlockPos(3, 1, 1);
+		ctx.setBlockState(machine, BakeryBlocks.COFFEE_MACHINE.getDefaultState());
+		ctx.setBlockState(rack, BakeryBlocks.SYRUP_RACK.getDefaultState());
+		use(ctx, p, machine, BakeryItems.MUG);
+		check(ctx, p.getInventory().count(BakeryItems.LATTE) + p.getInventory().count(BakeryItems.COFFEE) == 0, "no beans, no coffee");
+		use(ctx, p, machine, BakeryItems.ROASTED_COFFEE_BEANS);
+		use(ctx, p, machine, Items.MILK_BUCKET);
+		check(ctx, p.getInventory().count(Items.BUCKET) == 1, "the milk bucket comes back empty");
+		check(ctx, ctx.getBlockState(machine).get(com.bakery.kitchen.KitchenBlock.LEVEL) == 3, "the model shows beans and milk");
+		use(ctx, p, machine, BakeryItems.MUG);
+		check(ctx, p.getInventory().count(BakeryItems.LATTE) == 1, "a mug under the machine pulls a latte while there is milk");
+		click(ctx, p, machine);
+		use(ctx, p, machine, BakeryItems.MUG);
+		check(ctx, p.getInventory().count(BakeryItems.COFFEE) == 1, "with the steam wand off it pulls a plain coffee (lattes kept: " + p.getInventory().count(BakeryItems.LATTE) + ")");
+		com.bakery.kitchen.CoffeeMachineBlockEntity be = ctx.getBlockEntity(machine);
+		check(ctx, be.shots() == 2 && be.milk() == 7, "two shots and one latte of milk used");
+
+		// The rack: put the caramel syrup in the leftmost spot, then hold the latte against it.
+		BlockPos abs = ctx.getAbsolutePos(rack);
+		java.util.function.BiConsumer<ItemStack, Integer> rackClick = (stack, slot) -> {
+			ItemStack previous = p.getMainHandStack();
+			p.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
+			for (int i = 9; i < 36 && !previous.isEmpty(); i++) {
+				if (p.getInventory().getStack(i).isEmpty()) p.getInventory().insertStack(i, previous);
+			}
+			p.setStackInHand(Hand.MAIN_HAND, stack);
+			// facing north: spot 0 (left, seen from the front) is on the east side
+			Vec3d at = new Vec3d(abs.getX() + 0.875 - slot * 0.25, abs.getY() + 0.4, abs.getZ() + 0.3);
+			p.interactionManager.interactBlock(p, ctx.getWorld(), stack, Hand.MAIN_HAND, new BlockHitResult(at, Direction.NORTH, abs, false));
+		};
+		rackClick.accept(new ItemStack(BakeryItems.CARAMEL_SYRUP), 0);
+		check(ctx, ctx.getBlockState(rack).get(com.bakery.kitchen.SyrupRackBlock.SLOTS[0]) == 1, "the caramel bottle stands in the first spot");
+		ItemStack latte = find(p, BakeryItems.LATTE).copy();
+		find(p, BakeryItems.LATTE).setCount(0);
+		rackClick.accept(latte, 0);
+		ItemStack flavoured = p.getMainHandStack();
+		check(ctx, flavoured.isOf(BakeryItems.LATTE) && BakeryFoods.flavor(flavoured) == Flavor.CARAMEL, "a pump of caramel makes a caramel latte");
+		com.bakery.kitchen.SyrupRackBlockEntity r = ctx.getBlockEntity(rack);
+		check(ctx, com.bakery.item.SyrupItem.pumpsLeft(r.bottle(0)) == 3, "the bottle has three pumps left");
+		check(ctx, com.bakery.shop.Menu.available(com.bakery.cafe.CafeLevel.STALL, java.util.Set.of()).stream()
+				.anyMatch(d -> d.item() == BakeryItems.LATTE), "lattes are on the menu from the very first stall");
+		ctx.complete();
+	}
+
+	@GameTest(templateName = EMPTY)
 	public void kitchenMachinesIgnoreUnrelatedItems(TestContext ctx) {
 		FakePlayer p = player(ctx);
 		BlockPos at = new BlockPos(1, 1, 1);
@@ -780,7 +829,7 @@ public class BakeryGameTests implements FabricGameTest {
 				"a grand bakery gets cake orders");
 		check(ctx, com.bakery.cafe.CafeLevel.of(0) == com.bakery.cafe.CafeLevel.STALL && com.bakery.cafe.CafeLevel.of(70) == com.bakery.cafe.CafeLevel.GRAND,
 				"levels follow customers served");
-		java.util.Set<String> noBread = java.util.Set.of("bread_loaf", "baguette");
+		java.util.Set<String> noBread = java.util.Set.of("bread_loaf", "baguette", "coffee", "latte");
 		check(ctx, com.bakery.shop.Menu.available(com.bakery.cafe.CafeLevel.STALL, noBread).stream().allMatch(d -> d.item() == BakeryItems.COOKIES),
 				"taking dishes off the menu board leaves only the rest");
 		ctx.complete();

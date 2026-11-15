@@ -1,0 +1,13 @@
+{
+	"type": "minecraft:campfire_cooking",
+	"category": "food",
+	"ingredient": {
+		"item": "bakery:coffee_cherries"
+	},
+	"result": {
+		"id": "bakery:roasted_coffee_beans",
+		"count": 1
+	},
+	"experience": 0.3,
+	"cookingtime": 600
+}

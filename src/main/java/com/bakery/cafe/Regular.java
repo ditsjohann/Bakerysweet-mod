@@ -21,7 +21,8 @@ public record Regular(int index, String name, int skin, boolean slim, Flavor fav
 	private static final Regular[] ALL = new Regular[NAMES.length];
 
 	static {
-		Flavor[] flavors = Flavor.values();
+		// Only the original flavours, so every regular keeps the favourite they always had.
+		Flavor[] flavors = java.util.Arrays.copyOf(Flavor.values(), Flavor.GARDEN.ordinal() + 1);
 		for (int i = 0; i < NAMES.length; i++) {
 			// Spread skins so neighbours in the list look different; most regulars are cute girls in slim skins.
 			int skin = (i * 5) % SKINS;

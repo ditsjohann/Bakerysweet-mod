@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shapeless",
+	"category": "misc",
+	"ingredients": [
+		{
+			"item": "minecraft:glass_bottle"
+		},
+		{
+			"item": "minecraft:sugar"
+		},
+		{
+			"item": "minecraft:cocoa_beans"
+		}
+	],
+	"result": {
+		"id": "bakery:mocha_syrup",
+		"count": 1
+	}
+}

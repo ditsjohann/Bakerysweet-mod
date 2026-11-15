@@ -67,6 +67,7 @@ public class BakeryClient implements ClientModInitializer {
 				BakeryBlocks.CUPCAKE_LAMP, BakeryBlocks.COOKIE_JAR, BakeryBlocks.MACARON_TOWER, BakeryBlocks.PINK_AWNING, BakeryBlocks.MINT_AWNING);
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BakeryBlocks.COZY_DECOR);
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BakeryBlocks.NATURE);
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BakeryBlocks.COFFEE_MACHINE, BakeryBlocks.SYRUP_RACK);
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BakeryBlocks.PINK_PICKET_FENCE);
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTranslucent(), BakeryBlocks.TIP_JAR, BakeryBlocks.COOKIE_JAR);
 		BlockRenderLayerMap.INSTANCE.putBlock(BakeryBlocks.JUICER, RenderLayer.getTranslucent());
@@ -129,6 +130,12 @@ public class BakeryClient implements ClientModInitializer {
 				BakeryItems.PEA_POD, BakeryItems.SWEET_POTATO, BakeryItems.BAKED_SWEET_POTATO, BakeryItems.ZUCCHINI, BakeryItems.RHUBARB,
 				BakeryItems.SUGAR_BEET, BakeryItems.CRANBERRY};
 		ColorProviderRegistry.ITEM.register(BakeryClient::itemColor, tinted);
+		// Coffee: layer 1 is the syrup drizzle, hidden in the drink's own colour until a syrup is pumped in.
+		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> {
+			if (tintIndex != 1) return itemColor(stack, tintIndex);
+			if (stack.contains(BakeryComponents.FLAVOR)) return OPAQUE | BakeryFoods.flavor(stack).color();
+			return OPAQUE | (stack.isOf(BakeryItems.LATTE) ? 0xF4E6D2 : 0x4A2C1C);
+		}, BakeryItems.COFFEE, BakeryItems.LATTE);
 
 		// Sweet Life: icing bags show their colour, cookies their icing, gifts their ribbon.
 		ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 1 && stack.getItem() instanceof com.bakery.sweet.IcingBagItem bag

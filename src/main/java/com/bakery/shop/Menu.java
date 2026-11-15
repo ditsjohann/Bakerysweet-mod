@@ -39,6 +39,8 @@ public final class Menu {
 					new Dish(BakeryItems.BREAD_LOAF, 2, 10, true, CafeLevel.STALL, false),
 					new Dish(BakeryItems.COOKIES, 1, 9, true, CafeLevel.STALL, false),
 					new Dish(BakeryItems.BAGUETTE, 2, 6, false, CafeLevel.STALL, false),
+					new Dish(BakeryItems.COFFEE, 2, 8, true, CafeLevel.STALL, true),
+					new Dish(BakeryItems.LATTE, 3, 8, true, CafeLevel.STALL, true),
 					new Dish(BakeryItems.CUPCAKE, 3, 10, true, CafeLevel.CORNER, false),
 					new Dish(BakeryItems.JUICE, 2, 6, true, CafeLevel.CORNER, true),
 					new Dish(BakeryItems.SUGAR_COOKIE, 2, 6, false, CafeLevel.CORNER, false),
@@ -95,13 +97,33 @@ public final class Menu {
 		ItemStack wanted = new ItemStack(dish.item());
 		boolean flavorRequested = dish.flavored() && random.nextFloat() < level.flavorChance();
 		if (flavorRequested) {
-			Flavor flavor = random.nextFloat() < 0.6f ? regular.favorite() : Flavor.values()[1 + random.nextInt(Flavor.values().length - 1)];
+			Flavor flavor;
+			if (isCoffee(dish.item())) {
+				// Coffee comes with a pump of syrup: their favourite if it is one, otherwise any syrup.
+				flavor = regular.favorite().isSyrup() && random.nextFloat() < 0.5f ? regular.favorite()
+						: Flavor.SYRUPS[random.nextInt(Flavor.SYRUPS.length)];
+			} else {
+				flavor = random.nextFloat() < 0.6f && !regular.favorite().coffeeOnly() ? regular.favorite() : randomBakeFlavor(random);
+			}
 			wanted.set(BakeryComponents.FLAVOR, flavor.asString());
 		}
 		// Customers wait two and a half to four minutes (longer at a small stall), so there is time to bake to order.
 		int patience = Math.round(20 * (150 + random.nextInt(90)) * level.patience());
 		boolean dineIn = random.nextFloat() < regular.dineIn();
 		return new Order(customer, regular.index(), wanted, flavorRequested, patience, dineIn);
+	}
+
+	public static boolean isCoffee(Item item) {
+		return item == BakeryItems.COFFEE || item == BakeryItems.LATTE;
+	}
+
+	/** Any flavour but plain and the coffee syrups. */
+	private static Flavor randomBakeFlavor(Random random) {
+		Flavor flavor;
+		do {
+			flavor = Flavor.values()[1 + random.nextInt(Flavor.values().length - 1)];
+		} while (flavor.coffeeOnly());
+		return flavor;
 	}
 
 	public static boolean matches(Order order, ItemStack offered) {

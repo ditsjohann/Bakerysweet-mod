@@ -1,0 +1,840 @@
+{
+	"multipart": [
+		{
+			"when": {
+				"facing": "north"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"slot0": "1"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_caramel_0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"slot0": "2"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_mocha_0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"slot0": "3"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_speculoos_0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"slot0": "4"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_pumpkin_spice_0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"slot0": "5"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_vanilla_0",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"slot1": "1"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_caramel_1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"slot1": "2"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_mocha_1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"slot1": "3"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_speculoos_1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"slot1": "4"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_pumpkin_spice_1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"slot1": "5"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_vanilla_1",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"slot2": "1"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_caramel_2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"slot2": "2"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_mocha_2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"slot2": "3"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_speculoos_2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"slot2": "4"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_pumpkin_spice_2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"slot2": "5"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_vanilla_2",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"slot3": "1"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_caramel_3",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"slot3": "2"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_mocha_3",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"slot3": "3"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_speculoos_3",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"slot3": "4"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_pumpkin_spice_3",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "north",
+				"slot3": "5"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_vanilla_3",
+				"y": 0
+			}
+		},
+		{
+			"when": {
+				"facing": "east"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"slot0": "1"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_caramel_0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"slot0": "2"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_mocha_0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"slot0": "3"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_speculoos_0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"slot0": "4"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_pumpkin_spice_0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"slot0": "5"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_vanilla_0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"slot1": "1"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_caramel_1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"slot1": "2"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_mocha_1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"slot1": "3"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_speculoos_1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"slot1": "4"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_pumpkin_spice_1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"slot1": "5"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_vanilla_1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"slot2": "1"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_caramel_2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"slot2": "2"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_mocha_2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"slot2": "3"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_speculoos_2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"slot2": "4"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_pumpkin_spice_2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"slot2": "5"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_vanilla_2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"slot3": "1"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_caramel_3",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"slot3": "2"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_mocha_3",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"slot3": "3"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_speculoos_3",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"slot3": "4"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_pumpkin_spice_3",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "east",
+				"slot3": "5"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_vanilla_3",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"facing": "south"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"slot0": "1"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_caramel_0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"slot0": "2"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_mocha_0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"slot0": "3"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_speculoos_0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"slot0": "4"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_pumpkin_spice_0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"slot0": "5"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_vanilla_0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"slot1": "1"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_caramel_1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"slot1": "2"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_mocha_1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"slot1": "3"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_speculoos_1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"slot1": "4"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_pumpkin_spice_1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"slot1": "5"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_vanilla_1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"slot2": "1"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_caramel_2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"slot2": "2"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_mocha_2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"slot2": "3"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_speculoos_2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"slot2": "4"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_pumpkin_spice_2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"slot2": "5"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_vanilla_2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"slot3": "1"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_caramel_3",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"slot3": "2"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_mocha_3",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"slot3": "3"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_speculoos_3",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"slot3": "4"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_pumpkin_spice_3",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "south",
+				"slot3": "5"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_vanilla_3",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"facing": "west"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"slot0": "1"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_caramel_0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"slot0": "2"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_mocha_0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"slot0": "3"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_speculoos_0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"slot0": "4"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_pumpkin_spice_0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"slot0": "5"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_vanilla_0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"slot1": "1"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_caramel_1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"slot1": "2"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_mocha_1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"slot1": "3"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_speculoos_1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"slot1": "4"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_pumpkin_spice_1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"slot1": "5"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_vanilla_1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"slot2": "1"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_caramel_2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"slot2": "2"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_mocha_2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"slot2": "3"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_speculoos_2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"slot2": "4"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_pumpkin_spice_2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"slot2": "5"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_vanilla_2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"slot3": "1"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_caramel_3",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"slot3": "2"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_mocha_3",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"slot3": "3"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_speculoos_3",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"slot3": "4"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_pumpkin_spice_3",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"facing": "west",
+				"slot3": "5"
+			},
+			"apply": {
+				"model": "bakery:block/syrup_rack_vanilla_3",
+				"y": 270
+			}
+		}
+	]
+}

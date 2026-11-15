@@ -1,0 +1,103 @@
+{
+	"parent": "block/block",
+	"ambientocclusion": false,
+	"textures": {
+		"wood": "bakery:block/citrus_planks",
+		"particle": "bakery:block/citrus_planks"
+	},
+	"elements": [
+		{
+			"name": "tray",
+			"from": [
+				0,
+				0,
+				4
+			],
+			"to": [
+				16,
+				1.5,
+				12
+			],
+			"faces": {
+				"north": {
+					"texture": "#wood"
+				},
+				"south": {
+					"texture": "#wood"
+				},
+				"east": {
+					"texture": "#wood"
+				},
+				"west": {
+					"texture": "#wood"
+				},
+				"up": {
+					"texture": "#wood"
+				},
+				"down": {
+					"texture": "#wood"
+				}
+			}
+		},
+		{
+			"name": "back",
+			"from": [
+				0.5,
+				1.5,
+				4
+			],
+			"to": [
+				15.5,
+				4,
+				5
+			],
+			"faces": {
+				"north": {
+					"texture": "#wood"
+				},
+				"south": {
+					"texture": "#wood"
+				},
+				"east": {
+					"texture": "#wood"
+				},
+				"west": {
+					"texture": "#wood"
+				},
+				"up": {
+					"texture": "#wood"
+				}
+			}
+		},
+		{
+			"name": "rail",
+			"from": [
+				0.5,
+				1.5,
+				11
+			],
+			"to": [
+				15.5,
+				2.5,
+				12
+			],
+			"faces": {
+				"north": {
+					"texture": "#wood"
+				},
+				"south": {
+					"texture": "#wood"
+				},
+				"east": {
+					"texture": "#wood"
+				},
+				"west": {
+					"texture": "#wood"
+				},
+				"up": {
+					"texture": "#wood"
+				}
+			}
+		}
+	]
+}

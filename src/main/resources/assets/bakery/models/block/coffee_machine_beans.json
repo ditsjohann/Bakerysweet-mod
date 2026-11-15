@@ -1,0 +1,40 @@
+{
+	"parent": "block/block",
+	"ambientocclusion": false,
+	"textures": {
+		"beans": "bakery:block/coffee/beans",
+		"particle": "bakery:block/coffee/beans"
+	},
+	"elements": [
+		{
+			"name": "beans",
+			"from": [
+				6.3,
+				13,
+				8.3
+			],
+			"to": [
+				9.7,
+				15.2,
+				11.7
+			],
+			"faces": {
+				"north": {
+					"texture": "#beans"
+				},
+				"south": {
+					"texture": "#beans"
+				},
+				"east": {
+					"texture": "#beans"
+				},
+				"west": {
+					"texture": "#beans"
+				},
+				"up": {
+					"texture": "#beans"
+				}
+			}
+		}
+	]
+}

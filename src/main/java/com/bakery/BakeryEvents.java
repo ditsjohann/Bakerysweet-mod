@@ -85,6 +85,8 @@ public final class BakeryEvents {
 			if (player.getCommandTags().add("bakery_starter")) {
 				player.getInventory().offerOrDrop(new ItemStack(BakeryItems.BAKERY_CATALOG));
 				player.getInventory().offerOrDrop(new ItemStack(BakeryItems.PATH_RIBBON));
+				// Everyone drinks coffee: a couple of mugs to get the coffee corner going.
+				player.getInventory().offerOrDrop(new ItemStack(BakeryItems.MUG, 2));
 				player.getInventory().offerOrDrop(new ItemStack(BakeryItems.SWEET_COIN, STARTING_COINS));
 				player.sendMessage(Text.translatable("message.bakery.welcome").formatted(Formatting.LIGHT_PURPLE), false);
 			}

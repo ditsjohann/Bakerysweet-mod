@@ -20,10 +20,16 @@ public final class BakeryEntities {
 					.vehicleAttachment(new net.minecraft.util.math.Vec3d(0, 0.6, 0))
 					.maxTrackingRange(10).build("customer"));
 
+	/** The café cats that live around a cat bed. */
+	public static final EntityType<com.bakery.pets.CafeCatEntity> CAFE_CAT = Registry.register(Registries.ENTITY_TYPE, Bakery.id("cafe_cat"),
+			EntityType.Builder.<com.bakery.pets.CafeCatEntity>create(com.bakery.pets.CafeCatEntity::new, SpawnGroup.CREATURE).dimensions(0.6f, 0.7f)
+					.maxTrackingRange(8).build("cafe_cat"));
+
 	private BakeryEntities() {
 	}
 
 	public static void init() {
 		FabricDefaultAttributeRegistry.register(CUSTOMER, CustomerEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(CAFE_CAT, net.minecraft.entity.passive.CatEntity.createCatAttributes());
 	}
 }

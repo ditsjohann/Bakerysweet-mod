@@ -271,6 +271,10 @@ public final class Catalog {
 			add(list, c, BakeryItems.MACARON_TOWER, 1, 10, l4);
 			add(list, c, BakeryItems.NEON_HEART_SIGN, 1, 16, l4);
 
+			sub = "pets";
+			add(list, c, BakeryItems.KITTEN_BASKET, 1, 12, l1);
+			add(list, c, BakeryItems.CAT_BED, 1, 5, l1);
+
 			c = Category.OUTDOOR;
 			sub = null;
 			add(list, c, BakeryItems.WELCOME_MAT, 1, 3, l1);

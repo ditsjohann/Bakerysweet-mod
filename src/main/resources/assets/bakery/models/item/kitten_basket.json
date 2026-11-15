@@ -1,0 +1,14 @@
+{
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "bakery:item/kitten_basket"
+	},
+	"overrides": [
+		{
+			"predicate": {
+				"bakery:empty": 1
+			},
+			"model": "bakery:item/kitten_basket_empty"
+		}
+	]
+}

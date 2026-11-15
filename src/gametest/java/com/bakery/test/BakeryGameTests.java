@@ -570,6 +570,40 @@ public class BakeryGameTests implements FabricGameTest {
 		ctx.complete();
 	}
 
+	@GameTest(templateName = EMPTY, tickLimit = 400)
+	public void kittenMovesInWithTheCatBedAndStaysInItsArea(TestContext ctx) {
+		FakePlayer p = player(ctx);
+		fill(ctx, 0, 0, 0, 8, 0, 8, Blocks.SMOOTH_STONE.getDefaultState());
+		BlockPos bed = new BlockPos(4, 1, 4);
+		ctx.setBlockState(bed, BakeryBlocks.CAT_BED.getDefaultState());
+		click(ctx, p, bed);
+		click(ctx, p, bed);
+		click(ctx, p, bed);
+		check(ctx, com.bakery.pets.CatBedBlock.radius(ctx.getBlockState(bed)) == 4, "clicking the bed cycles its area (8 -> 12 -> 16 -> 4)");
+		ItemStack basket = new ItemStack(BakeryItems.KITTEN_BASKET);
+		p.setStackInHand(Hand.MAIN_HAND, basket);
+		BlockPos floor = ctx.getAbsolutePos(new BlockPos(2, 0, 2));
+		p.interactionManager.interactBlock(p, ctx.getWorld(), basket, Hand.MAIN_HAND,
+				new BlockHitResult(Vec3d.ofCenter(floor).add(0, 0.5, 0), Direction.UP, floor, false));
+		List<com.bakery.pets.CafeCatEntity> cats = ctx.getWorld().getEntitiesByClass(com.bakery.pets.CafeCatEntity.class,
+				new Box(ctx.getAbsolutePos(bed)).expand(8), e -> true);
+		check(ctx, cats.size() == 1, "a kitten comes out of the basket");
+		check(ctx, com.bakery.pets.KittenBasketItem.isEmpty(p.getMainHandStack()), "the basket is empty now");
+		com.bakery.pets.CafeCatEntity cat = cats.getFirst();
+		check(ctx, cat.home().equals(ctx.getAbsolutePos(bed)) && cat.radius() == 4, "it moves in with the cat bed");
+		check(ctx, cat.isTamed(), "it is the baker's cat (and wears a collar)");
+		check(ctx, com.bakery.sweet.Charm.count(ctx.getWorld(), ctx.getAbsolutePos(bed)) >= 4, "a cat makes the bakery more charming");
+		ctx.runAtTick(300, () -> {
+			BlockPos at = cat.getBlockPos(), home = ctx.getAbsolutePos(bed);
+			check(ctx, Math.abs(at.getX() - home.getX()) <= 5 && Math.abs(at.getZ() - home.getZ()) <= 5, "the cat stays in its area");
+			p.setStackInHand(Hand.MAIN_HAND, p.getMainHandStack());
+			p.interact(cat, Hand.MAIN_HAND);
+			check(ctx, cat.isRemoved(), "the empty basket picks the cat up");
+			check(ctx, !com.bakery.pets.KittenBasketItem.isEmpty(p.getMainHandStack()), "and the basket holds it");
+			ctx.complete();
+		});
+	}
+
 	@GameTest(templateName = EMPTY)
 	public void kitchenMachinesIgnoreUnrelatedItems(TestContext ctx) {
 		FakePlayer p = player(ctx);

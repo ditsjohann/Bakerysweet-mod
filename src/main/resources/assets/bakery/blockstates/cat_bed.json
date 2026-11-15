@@ -1,0 +1,84 @@
+{
+	"variants": {
+		"area=0,facing=north": {
+			"model": "bakery:block/cat_bed",
+			"y": 0
+		},
+		"area=1,facing=north": {
+			"model": "bakery:block/cat_bed",
+			"y": 0
+		},
+		"area=2,facing=north": {
+			"model": "bakery:block/cat_bed",
+			"y": 0
+		},
+		"area=3,facing=north": {
+			"model": "bakery:block/cat_bed",
+			"y": 0
+		},
+		"area=4,facing=north": {
+			"model": "bakery:block/cat_bed",
+			"y": 0
+		},
+		"area=0,facing=east": {
+			"model": "bakery:block/cat_bed",
+			"y": 90
+		},
+		"area=1,facing=east": {
+			"model": "bakery:block/cat_bed",
+			"y": 90
+		},
+		"area=2,facing=east": {
+			"model": "bakery:block/cat_bed",
+			"y": 90
+		},
+		"area=3,facing=east": {
+			"model": "bakery:block/cat_bed",
+			"y": 90
+		},
+		"area=4,facing=east": {
+			"model": "bakery:block/cat_bed",
+			"y": 90
+		},
+		"area=0,facing=south": {
+			"model": "bakery:block/cat_bed",
+			"y": 180
+		},
+		"area=1,facing=south": {
+			"model": "bakery:block/cat_bed",
+			"y": 180
+		},
+		"area=2,facing=south": {
+			"model": "bakery:block/cat_bed",
+			"y": 180
+		},
+		"area=3,facing=south": {
+			"model": "bakery:block/cat_bed",
+			"y": 180
+		},
+		"area=4,facing=south": {
+			"model": "bakery:block/cat_bed",
+			"y": 180
+		},
+		"area=0,facing=west": {
+			"model": "bakery:block/cat_bed",
+			"y": 270
+		},
+		"area=1,facing=west": {
+			"model": "bakery:block/cat_bed",
+			"y": 270
+		},
+		"area=2,facing=west": {
+			"model": "bakery:block/cat_bed",
+			"y": 270
+		},
+		"area=3,facing=west": {
+			"model": "bakery:block/cat_bed",
+			"y": 270
+		},
+		"area=4,facing=west": {
+			"model": "bakery:block/cat_bed",
+			"y": 270
+		}
+	}
+}

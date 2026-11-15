@@ -25,6 +25,11 @@ public final class Charm {
 		for (BlockPos p : BlockPos.iterate(center.add(-RADIUS, -1, -RADIUS), center.add(RADIUS, 3, RADIUS))) {
 			if (world.getBlockState(p).isIn(COZY)) count++;
 		}
+		// A café cat or two (up to three) charms customers as much as a few decorations each.
+		if (world instanceof net.minecraft.world.World w) {
+			int cats = w.getEntitiesByClass(com.bakery.pets.CafeCatEntity.class, new net.minecraft.util.math.Box(center).expand(RADIUS + 2, 3, RADIUS + 2), e -> true).size();
+			count += 3 * Math.min(3, cats);
+		}
 		return count;
 	}
 

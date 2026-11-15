@@ -1,0 +1,36 @@
+{
+	"variants": {
+		"facing=north,playing=false": {
+			"model": "bakery:block/cafe_jukebox",
+			"y": 0
+		},
+		"facing=north,playing=true": {
+			"model": "bakery:block/cafe_jukebox_on",
+			"y": 0
+		},
+		"facing=east,playing=false": {
+			"model": "bakery:block/cafe_jukebox",
+			"y": 90
+		},
+		"facing=east,playing=true": {
+			"model": "bakery:block/cafe_jukebox_on",
+			"y": 90
+		},
+		"facing=south,playing=false": {
+			"model": "bakery:block/cafe_jukebox",
+			"y": 180
+		},
+		"facing=south,playing=true": {
+			"model": "bakery:block/cafe_jukebox_on",
+			"y": 180
+		},
+		"facing=west,playing=false": {
+			"model": "bakery:block/cafe_jukebox",
+			"y": 270
+		},
+		"facing=west,playing=true": {
+			"model": "bakery:block/cafe_jukebox_on",
+			"y": 270
+		}
+	}
+}

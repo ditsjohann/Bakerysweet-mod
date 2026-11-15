@@ -1,0 +1,42 @@
+{
+	"music.morning_pastries": {
+		"sounds": [
+			{
+				"name": "bakery:music/morning_pastries",
+				"stream": true,
+				"attenuation_distance": 28
+			}
+		],
+		"subtitle": "subtitles.bakery.music"
+	},
+	"music.sugar_and_sprinkles": {
+		"sounds": [
+			{
+				"name": "bakery:music/sugar_and_sprinkles",
+				"stream": true,
+				"attenuation_distance": 28
+			}
+		],
+		"subtitle": "subtitles.bakery.music"
+	},
+	"music.rainy_window_latte": {
+		"sounds": [
+			{
+				"name": "bakery:music/rainy_window_latte",
+				"stream": true,
+				"attenuation_distance": 28
+			}
+		],
+		"subtitle": "subtitles.bakery.music"
+	},
+	"music.kitten_lullaby": {
+		"sounds": [
+			{
+				"name": "bakery:music/kitten_lullaby",
+				"stream": true,
+				"attenuation_distance": 28
+			}
+		],
+		"subtitle": "subtitles.bakery.music"
+	}
+}

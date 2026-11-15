@@ -77,6 +77,8 @@ public final class BakeryBlocks {
 			box(3, 0, 3, 13, 14, 13), JuicerBlockEntity::new, () -> BakeryBlockEntities.JUICER));
 	public static final Block COFFEE_MACHINE = register("coffee_machine", new KitchenBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).strength(1.5f).nonOpaque()
 			.sounds(BlockSoundGroup.LANTERN), box(2, 0, 2, 14, 15, 14), com.bakery.kitchen.CoffeeMachineBlockEntity::new, () -> BakeryBlockEntities.COFFEE_MACHINE));
+	public static final Block CAFE_JUKEBOX = register("cafe_jukebox", new com.bakery.deco.CafeJukeboxBlock(wood().strength(1.5f)
+			.luminance(state -> state.get(com.bakery.deco.CafeJukeboxBlock.PLAYING) ? 7 : 0)));
 	public static final Block CAT_BED = register("cat_bed", new com.bakery.pets.CatBedBlock(fabric().strength(0.4f)));
 	public static final Block SYRUP_RACK = register("syrup_rack", new com.bakery.kitchen.SyrupRackBlock(wood().strength(0.8f)));
 	public static final Block ICE_CREAM_CHURN = register("ice_cream_churn", new KitchenBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS).strength(1f).nonOpaque(),
@@ -226,7 +228,7 @@ public final class BakeryBlocks {
 	public static final Block[] COZY_DECOR = {PINK_COUCH, MACARON_POUF, HEART_MIRROR, NEON_HEART_SIGN, BUNNY_PLUSH, BEAR_PLUSH, TULIP_VASE, TEA_SET,
 			CAKE_SHELF, DONUT_WALL, LACE_CURTAINS, STAR_LIGHTS, CASH_REGISTER, TIP_JAR, OPEN_SIGN, CHALKBOARD_SIGN, PASTEL_BENCH, FLOWER_BOX,
 			HEART_LAMP_POST, PARASOL_TABLE, TULIP_POT, HANGING_FLOWERS, BUNNY_STATUE, PINK_MAILBOX, PASTRY_CART, WELCOME_MAT,
-			MUSHROOM_LAMP, POTTED_SUCCULENT, POTTED_FERN, BIRD_BATH, WILDFLOWER_PATCH, HANGING_IVY, STEPPING_STONES, STUMP_STOOL, CAT_BED};
+			MUSHROOM_LAMP, POTTED_SUCCULENT, POTTED_FERN, BIRD_BATH, WILDFLOWER_PATCH, HANGING_IVY, STEPPING_STONES, STUMP_STOOL, CAT_BED, CAFE_JUKEBOX};
 
 	// Placed food
 	public static final Block BREAD_LOAF = register("bread_loaf", new SimpleFoodBlock(food(), box(2, 0, 3, 14, 7, 13)));

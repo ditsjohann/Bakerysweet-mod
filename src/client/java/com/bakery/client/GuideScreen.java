@@ -67,6 +67,8 @@ public class GuideScreen extends Screen {
 									BakeryItems.MIXING_BOWL, BakeryItems.WHISK, BakeryItems.ROLLING_PIN, BakeryItems.OVEN_HEART, BakeryItems.BREAD_LOAF),
 							Page.of("coffee", hero(BakeryItems.COFFEE_MACHINE, BakeryItems.LATTE, BakeryItems.CARAMEL_SYRUP),
 									BakeryItems.COFFEE_SEEDS, BakeryItems.ROASTED_COFFEE_BEANS, Items.MILK_BUCKET, BakeryItems.MUG, BakeryItems.SYRUP_RACK),
+							Page.of("cafe_cats", hero(BakeryItems.KITTEN_BASKET, BakeryItems.CAT_BED, BakeryItems.CAFE_JUKEBOX),
+									BakeryItems.KITTEN_BASKET, BakeryItems.CAT_BED, Items.COD, BakeryItems.CAFE_JUKEBOX),
 							Page.of("progress", hero()),
 							Page.of("first_day", hero(BakeryItems.BREAD_LOAF, BakeryItems.COOKIES),
 									BakeryItems.BAKERY_CATALOG, BakeryItems.OVEN_HEART, BakeryItems.PATH_RIBBON, BakeryItems.BREAD_LOAF),

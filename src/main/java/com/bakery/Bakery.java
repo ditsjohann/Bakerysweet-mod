@@ -24,6 +24,7 @@ public class Bakery implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		BakeryComponents.init();
+		com.bakery.registry.BakerySounds.init();
 		BakeryBlocks.init();
 		BakeryItems.init();
 		BakeryBlockEntities.init();

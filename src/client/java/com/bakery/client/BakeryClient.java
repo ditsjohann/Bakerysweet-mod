@@ -173,6 +173,7 @@ public class BakeryClient implements ClientModInitializer {
 		EntityRendererRegistry.register(BakeryEntities.SEAT, EmptyEntityRenderer::new);
 
 		EntityRendererRegistry.register(BakeryEntities.CUSTOMER, CustomerRenderer::new);
+		JukeboxMusic.init();
 		EntityRendererRegistry.register(BakeryEntities.CAFE_CAT, net.minecraft.client.render.entity.CatEntityRenderer::new);
 		net.minecraft.client.item.ModelPredicateProviderRegistry.register(BakeryItems.KITTEN_BASKET, com.bakery.Bakery.id("empty"),
 				(stack, world, entity, seed) -> com.bakery.pets.KittenBasketItem.isEmpty(stack) ? 1f : 0f);

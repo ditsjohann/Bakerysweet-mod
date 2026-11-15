@@ -379,6 +379,7 @@ public final class BakeryItems {
 	public static final Item COFFEE_MACHINE = block(BakeryBlocks.COFFEE_MACHINE);
 	public static final Item SYRUP_RACK = block(BakeryBlocks.SYRUP_RACK);
 	public static final Item CAT_BED = block(BakeryBlocks.CAT_BED);
+	public static final Item CAFE_JUKEBOX = block(BakeryBlocks.CAFE_JUKEBOX);
 	public static final Item KITTEN_BASKET = register("kitten_basket", new com.bakery.pets.KittenBasketItem(new Item.Settings().maxCount(1)));
 	public static final Item DAISIES = block(BakeryBlocks.DAISIES);
 	public static final Item PINK_COSMOS = block(BakeryBlocks.PINK_COSMOS);

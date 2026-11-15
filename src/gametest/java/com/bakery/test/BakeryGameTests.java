@@ -605,6 +605,21 @@ public class BakeryGameTests implements FabricGameTest {
 	}
 
 	@GameTest(templateName = EMPTY)
+	public void cafeJukeboxCyclesThroughItsTunes(TestContext ctx) {
+		FakePlayer p = player(ctx);
+		BlockPos at = new BlockPos(1, 1, 1);
+		ctx.setBlockState(at, BakeryBlocks.CAFE_JUKEBOX.getDefaultState());
+		com.bakery.deco.CafeJukeboxBlockEntity jukebox = ctx.getBlockEntity(at);
+		click(ctx, p, at);
+		check(ctx, jukebox.track() == 1 && ctx.getBlockState(at).get(com.bakery.deco.CafeJukeboxBlock.PLAYING), "a click plays the first tune");
+		for (int i = 1; i < com.bakery.registry.BakerySounds.TRACKS.length; i++) click(ctx, p, at);
+		check(ctx, jukebox.track() == com.bakery.registry.BakerySounds.TRACKS.length, "each click plays the next tune");
+		click(ctx, p, at);
+		check(ctx, jukebox.track() == 0 && !ctx.getBlockState(at).get(com.bakery.deco.CafeJukeboxBlock.PLAYING), "one more click switches it off");
+		ctx.complete();
+	}
+
+	@GameTest(templateName = EMPTY)
 	public void kitchenMachinesIgnoreUnrelatedItems(TestContext ctx) {
 		FakePlayer p = player(ctx);
 		BlockPos at = new BlockPos(1, 1, 1);

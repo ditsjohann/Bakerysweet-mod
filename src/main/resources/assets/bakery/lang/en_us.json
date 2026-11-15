@@ -1407,5 +1407,19 @@
 	"cat_breed.bakery.ragdoll": "a ragdoll kitten",
 	"cat_breed.bakery.white": "a white kitten",
 	"cat_breed.bakery.jellie": "a jellie kitten",
-	"cat_breed.bakery.all_black": "a black kitten"
+	"cat_breed.bakery.all_black": "a black kitten",
+	"block.bakery.cafe_jukebox": "Café Jukebox",
+	"music.bakery.morning_pastries": "Morning Pastries",
+	"music.bakery.sugar_and_sprinkles": "Sugar & Sprinkles",
+	"music.bakery.rainy_window_latte": "Rainy Window Latte",
+	"music.bakery.kitten_lullaby": "Kitten Lullaby",
+	"message.bakery.jukebox.playing": "♪ Now playing: %s",
+	"message.bakery.jukebox.off": "The jukebox is quiet",
+	"subtitles.bakery.music": "Café music plays",
+	"guide.bakery.cafe_cats.title": "Cats & Music",
+	"guide.bakery.cafe_cats.s1": "Let a kitten out of its basket near a Cat Bed",
+	"guide.bakery.cafe_cats.s2": "Click the bed to set how far your cats roam",
+	"guide.bakery.cafe_cats.s3": "Pet them, feed them fish, dye their collar",
+	"guide.bakery.cafe_cats.s4": "Click the Café Jukebox for the next tune",
+	"guide.bakery.cafe_cats.tip": "Cats near the counter make your bakery more charming!"
 }

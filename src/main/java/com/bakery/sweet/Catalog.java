@@ -274,6 +274,8 @@ public final class Catalog {
 			sub = "pets";
 			add(list, c, BakeryItems.KITTEN_BASKET, 1, 12, l1);
 			add(list, c, BakeryItems.CAT_BED, 1, 5, l1);
+			sub = "touches";
+			add(list, c, BakeryItems.CAFE_JUKEBOX, 1, 10, l1);
 
 			c = Category.OUTDOOR;
 			sub = null;

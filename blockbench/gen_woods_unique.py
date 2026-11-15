@@ -877,12 +877,33 @@ def sapling_v2(name, w):
     return img
 
 
+def stripped_side(name, w):
+    """The side of a stripped log: calm, like the planks - a soft even base, a few long vertical grain lines with small
+    gaps, and two lighter strands. No speckle."""
+    pal = ramp(w[2], w[3], 6)
+    img = canvas()
+    base, grain, lite, edge = pal[3], pal[2], pal[4], pal[2]
+    for y in range(S):
+        for x in range(S):
+            put(img, x, y, base)
+    # long grain lines (x, start, end) - each broken once, so they read as wood fibre, not stripes
+    for (x, gaps) in ((2, (5, 6)), (6, (11, 12)), (10, (2, 3)), (13, (8, 9))):
+        for y in range(S):
+            if not (gaps[0] <= y <= gaps[1]):
+                put(img, x, y, grain)
+    for (x, y0, y1) in ((4, 1, 9), (8, 6, 15), (11, 9, 14), (15, 0, 6)):
+        for y in range(y0, y1 + 1):
+            put(img, x, y, lite)
+    return img
+
+
 def build():
     n = 0
     for name, w in WOODS.items():
         bark(name, w).save(os.path.join(TEX, f"{name}_log.png"))
         log_top(name, w).save(os.path.join(TEX, f"{name}_log_top.png"))
         log_top(name, w, stripped=True).save(os.path.join(TEX, f"stripped_{name}_log_top.png"))
+        stripped_side(name, w).save(os.path.join(TEX, f"stripped_{name}_log.png"))
         planks(name, w).save(os.path.join(TEX, f"{name}_planks.png"))
         top, bottom = door(name, w)
         top.save(os.path.join(TEX, f"{name}_door_top.png"))

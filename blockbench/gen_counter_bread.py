@@ -254,12 +254,13 @@ def build():
     for sign, name in (("sign_open", "bakery_counter_open"), ("sign_closed", "bakery_counter_closed")):
         path = os.path.join(A, "models/block", name + ".json")
         counter_model(sign).save(path)
-        # The sign shows its whole picture (not just the middle a small box would get).
+        # The sign shows its whole picture (not just the middle a small box would get), reading the right way round on
+        # both sides: Minecraft already draws every face as seen from outside, so the back needs no flip.
         model = json.load(open(path))
         for el in model["elements"]:
             if el.get("name") == "sign":
                 el["faces"]["north"]["uv"] = [0, 0, 16, 16]
-                el["faces"]["south"]["uv"] = [16, 0, 0, 16]
+                el["faces"]["south"]["uv"] = [0, 0, 16, 16]
         json.dump(model, open(path, "w"), indent="\t")
     loaf_model().save(os.path.join(A, "models/block/bread_loaf.json"))
     baguette_model().save(os.path.join(A, "models/block/baguette.json"))

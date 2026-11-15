@@ -91,6 +91,19 @@ def succulent_top():
     return img
 
 
+def succulent_plant():
+    """A succulent seen from the side (the lower half of the texture is used): plump leaves fanning out from the
+    middle, back leaves darker, blush-pink tips."""
+    img = canvas()
+    for (cx, cy, l, w, a, back) in ((4.0, 12.5, 5.2, 2.6, 2.75, True), (12.0, 12.5, 5.2, 2.6, 0.4, True), (8.0, 10.6, 4.6, 2.6, 1.57, True),
+                                    (5.2, 13.6, 4.8, 2.8, 2.45, False), (10.8, 13.6, 4.8, 2.8, 0.7, False), (8.0, 12.2, 4.2, 2.8, 1.57, False),
+                                    (3.0, 14.6, 4.0, 2.4, 3.05, False), (13.0, 14.6, 4.0, 2.4, 0.1, False)):
+        sap_leaf(img, cx, cy, l, w, a, SUCC, back=back)
+    for (x, y) in ((1, 14), (14, 14), (2, 11), (13, 11), (8, 8)):
+        put(img, x, y, hx("#f2a2c0"))
+    return img
+
+
 def succulent_side():
     img = canvas()
     ramp_fill(img, ["#f2a2c0"] * 2 + ["#9ad2b8"] * 6 + ["#7ab8a0"] * 8)
@@ -243,23 +256,18 @@ def mushroom_lamp():
 
 
 def potted_succulent():
-    m = Model(tex(("pot", "nature/pot_mint"), ("leaves", "nature/succulent_side"), ("top", "nature/succulent_top"), ("soil", "soil")))
+    m = Model(tex(("pot", "nature/pot_mint"), ("soil", "soil"), ("plant", "nature/succulent_plant")))
     m.disc("pot", 3.4, 0, 4.6, "pot")
     m.ring("rim", 3.9, 3.0, 4.6, 5.6, "pot")
     m.disc("soil", 3.1, 4.4, 5.2, "soil", top="soil")
-    m.disc("rosette0", 3.6, 5.0, 6.4, "leaves", top="top")
-    m.disc("rosette1", 2.6, 6.4, 7.6, "leaves", top="top")
-    m.disc("rosette2", 1.4, 7.6, 8.6, "leaves", top="top")
     m.wrap("pot", 0, 5.6)
-    m.wrap("leaves", 5.0, 8.6)
+    rot = {"angle": 45, "axis": "y", "origin": [8, 8, 8]}
+    m.box("leaves_a", (2.5, 4.6, 8), (13.5, 10.1, 8), "plant", faces=["north", "south"], rotation=rot)
+    m.box("leaves_b", (8, 4.6, 2.5), (8, 10.1, 13.5), "plant", faces=["east", "west"], rotation=rot)
     for e in m.data["elements"]:
-        f = e["faces"].get("up")
-        if f and f.get("texture") == "#top":
-            r = max(e["to"][0] - e["from"][0], e["to"][2] - e["from"][2]) / 2
-            hw, hd = (e["to"][0] - e["from"][0]) / 2 * 8 / r, (e["to"][2] - e["from"][2]) / 2 * 8 / r
-            # smaller tiers show the inner part of the rosette
-            k = r / 3.6
-            f["uv"] = [round(8 - hw * k, 3), round(8 - hd * k, 3), round(8 + hw * k, 3), round(8 + hd * k, 3)]
+        if e["name"].startswith("leaves"):
+            for f in e["faces"].values():
+                f["uv"] = [0, 8, 16, 16]
     return m
 
 
@@ -335,7 +343,7 @@ MODELS = {"mushroom_lamp": mushroom_lamp, "potted_succulent": potted_succulent, 
 
 def build():
     textures = {"mushroom_cap": mushroom_cap(), "mushroom_cap_top": mushroom_cap_top(), "mushroom_gills": mushroom_gills(), "mushroom_stem": mushroom_stem(),
-                "succulent_top": succulent_top(), "succulent_side": succulent_side(), "pot_mint": pot_mint(), "fern": fern(),
+                "succulent_top": succulent_top(), "succulent_side": succulent_side(), "succulent_plant": succulent_plant(), "pot_mint": pot_mint(), "fern": fern(),
                 "wildflowers_top": wildflowers_top(), "wildflowers_side": wildflowers_side(), "ivy": ivy(), "stone": stone(),
                 "water": water(), "bird": bird(), "bark_wrap": bark_wrap(), "stump_top": stump_top()}
     os.makedirs(os.path.join(TEX, "nature"), exist_ok=True)

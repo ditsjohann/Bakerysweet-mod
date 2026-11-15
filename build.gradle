@@ -45,7 +45,7 @@ loom {
 			client()
 			name "Showcase"
 			vmArg "-Dbakery.showcase=showcase.txt"
-			programArgs "--quickPlaySingleplayer", "bakery_showcase", "--width", "1280", "--height", "720"
+			programArgs "--quickPlaySingleplayer", "bakery_showcase", "--width", "1280", "--height", "720", "--username", "Mia"
 			runDir "run"
 		}
 	}

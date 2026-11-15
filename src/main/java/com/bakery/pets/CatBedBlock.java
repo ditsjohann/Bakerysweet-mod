@@ -23,8 +23,8 @@ import net.minecraft.world.World;
 import org.joml.Vector3f;
 
 /**
- * A round, cushioned cat bed: the home of the café cats nearby. Click it with an empty hand to change how far they
- * may roam from it (4 to 16 blocks); a ring of pink dust shows the edge.
+ * A round, cushioned cat bed: the home of the café cats nearby. Click it with an empty hand to see how far they may
+ * roam (pink dust shows the edge); sneak-click to change it (4 to 16 blocks).
  */
 public class CatBedBlock extends HorizontalFacingBlock {
 	public static final int[] RADII = {4, 6, 8, 12, 16};
@@ -64,11 +64,12 @@ public class CatBedBlock extends HorizontalFacingBlock {
 	protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
 		if (!player.getMainHandStack().isEmpty()) return ActionResult.PASS;
 		if (world.isClient) return ActionResult.SUCCESS;
-		BlockState next = state.cycle(AREA);
-		world.setBlockState(pos, next, Block.NOTIFY_ALL);
+		// A click shows the area; only a sneak-click changes it (so petting around the bed never shrinks it).
+		BlockState next = player.isSneaking() ? state.cycle(AREA) : state;
+		if (next != state) world.setBlockState(pos, next, Block.NOTIFY_ALL);
 		int r = radius(next);
-		world.playSound(null, pos, SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.BLOCKS, 0.8f, 1.2f);
-		player.sendMessage(Text.translatable("message.bakery.cat_bed.area", r * 2 + 1, r * 2 + 1), true);
+		world.playSound(null, pos, SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.BLOCKS, 0.8f, next != state ? 1.2f : 1.6f);
+		player.sendMessage(Text.translatable(next != state ? "message.bakery.cat_bed.area" : "message.bakery.cat_bed.shown", r * 2 + 1, r * 2 + 1), true);
 		showArea((ServerWorld) world, pos, r);
 		return ActionResult.SUCCESS;
 	}

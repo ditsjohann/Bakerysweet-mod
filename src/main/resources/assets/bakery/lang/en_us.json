@@ -1084,7 +1084,7 @@
 	"recipe.bakery.source.wheat": "Grow it from wheat seeds (break grass)",
 	"recipe.bakery.source.buy": "Sold in the Catalog: %s tab (Lv %s)",
 	"recipe.bakery.source.click": "Click to see how to make it",
-	"oven.bakery.card.header": "Oven · %s heat",
+	"oven.bakery.card.header": "Oven · %s",
 	"oven.bakery.card.rack_out": "Rack out · not baking",
 	"oven.bakery.card.no_fuel": "No fuel · add coal or wood",
 	"oven.bakery.card.burnt": "Burnt - lift it off",
@@ -1418,8 +1418,10 @@
 	"subtitles.bakery.music": "Café music plays",
 	"guide.bakery.cafe_cats.title": "Cats & Music",
 	"guide.bakery.cafe_cats.s1": "Let a kitten out of its basket near a Cat Bed",
-	"guide.bakery.cafe_cats.s2": "Click the bed to set how far your cats roam",
+	"guide.bakery.cafe_cats.s2": "Sneak-click the bed to set how far your cats roam",
 	"guide.bakery.cafe_cats.s3": "Pet them, feed them fish, dye their collar",
 	"guide.bakery.cafe_cats.s4": "Click the Café Jukebox for the next tune",
-	"guide.bakery.cafe_cats.tip": "Cats near the counter make your bakery more charming!"
+	"guide.bakery.cafe_cats.tip": "Cats near the counter make your bakery more charming!",
+	"message.bakery.oven.fed": "The fire crackles ♥ fuel in the oven: about %s coal",
+	"message.bakery.cat_bed.shown": "Cats roam a %s x %s area around this bed (sneak-click to change it)"
 }

@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"P P",
+		"PWP"
+	],
+	"key": {
+		"P": {
+			"item": "minecraft:pink_wool"
+		},
+		"W": {
+			"item": "minecraft:white_wool"
+		}
+	},
+	"result": {
+		"id": "bakery:cat_bed",
+		"count": 1
+	}
+}

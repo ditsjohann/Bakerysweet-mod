@@ -134,8 +134,9 @@ public final class ShopManager {
 		// A delighted customer sometimes leaves a little present.
 		if (stars == 5 && world.random.nextFloat() < 0.3f) {
 			ItemStack gift = gift(world);
+			Text giftName = gift.getName();
 			player.getInventory().offerOrDrop(gift);
-			player.sendMessage(Text.translatable("message.bakery.shop.gift", regular.displayName(), gift.getName()).formatted(Formatting.GOLD), false);
+			player.sendMessage(Text.translatable("message.bakery.shop.gift", regular.displayName(), giftName).formatted(Formatting.GOLD), false);
 		}
 		world.spawnParticles(stars >= 4 ? ParticleTypes.HEART : stars >= 3 ? ParticleTypes.HAPPY_VILLAGER : ParticleTypes.ANGRY_VILLAGER,
 				customer.getX(), customer.getY() + 2.1, customer.getZ(), stars >= 4 ? stars : 3, 0.3, 0.15, 0.3, 0);

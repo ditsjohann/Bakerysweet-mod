@@ -41,8 +41,9 @@ public class WrappedGiftItem extends Item {
 			ItemStack inside = contents(gift).copy();
 			gift.decrement(1);
 			if (!inside.isEmpty()) {
+				Text insideName = inside.getName();
 				user.getInventory().offerOrDrop(inside);
-				user.sendMessage(Text.translatable("message.bakery.gift.opened", inside.getName()), true);
+				user.sendMessage(Text.translatable("message.bakery.gift.opened", insideName), true);
 			}
 			world.playSound(null, user.getBlockPos(), SoundEvents.ENTITY_FIREWORK_ROCKET_TWINKLE, SoundCategory.PLAYERS, 0.7f, 1.4f);
 			world.playSound(null, user.getBlockPos(), SoundEvents.ITEM_BUNDLE_DROP_CONTENTS, SoundCategory.PLAYERS, 1f, 1.2f);

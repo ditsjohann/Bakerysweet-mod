@@ -92,9 +92,10 @@ public final class BakeryNetworking {
 		raw.set(BakeryComponents.HOMEMADE, dough.get(BakeryComponents.HOMEMADE));
 		Freshness.stampFresh(raw, world.getTime());
 		board.setDough(ItemStack.EMPTY);
+		Text shapedName = raw.getName();
 		player.getInventory().offerOrDrop(raw);
 		player.getStackInHand(pinHand).damage(1, player, pinHand == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
 		world.playSound(null, payload.pos(), SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.BLOCKS, 1f, 0.8f);
-		player.sendMessage(Text.translatable("message.bakery.board.shaped", raw.getName()), true);
+		player.sendMessage(Text.translatable("message.bakery.board.shaped", shapedName), true);
 	}
 }

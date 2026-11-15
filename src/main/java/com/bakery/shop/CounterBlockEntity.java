@@ -196,6 +196,17 @@ public class CounterBlockEntity extends BlockEntity {
 		return getCachedState().get(CounterBlock.OPEN);
 	}
 
+	/** The first waiting customer (at the counter or at a table) who ordered what the baker is holding, if any. */
+	public CustomerEntity waitingFor(ServerWorld server, ItemStack stack) {
+		for (Order order : orders) {
+			if (Menu.matches(order, stack) && server.getEntity(order.customer) instanceof CustomerEntity customer
+					&& (customer.atCounter() || customer.isSeatedWaiting())) {
+				return customer;
+			}
+		}
+		return null;
+	}
+
 	public Order find(UUID customer) {
 		for (Order order : orders) {
 			if (order.customer.equals(customer)) {

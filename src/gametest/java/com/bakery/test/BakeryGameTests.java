@@ -577,9 +577,9 @@ public class BakeryGameTests implements FabricGameTest {
 		BlockPos bed = new BlockPos(4, 1, 4);
 		ctx.setBlockState(bed, BakeryBlocks.CAT_BED.getDefaultState());
 		click(ctx, p, bed);
-		click(ctx, p, bed);
-		click(ctx, p, bed);
-		check(ctx, com.bakery.pets.CatBedBlock.radius(ctx.getBlockState(bed)) == 4, "clicking the bed cycles its area (8 -> 12 -> 16 -> 4)");
+		check(ctx, com.bakery.pets.CatBedBlock.radius(ctx.getBlockState(bed)) == 8, "a plain click only shows the area");
+		for (int i = 0; i < 3; i++) use(ctx, p, bed, ItemStack.EMPTY, true);
+		check(ctx, com.bakery.pets.CatBedBlock.radius(ctx.getBlockState(bed)) == 4, "sneak-clicking the bed cycles its area (8 -> 12 -> 16 -> 4)");
 		ItemStack basket = new ItemStack(BakeryItems.KITTEN_BASKET);
 		p.setStackInHand(Hand.MAIN_HAND, basket);
 		BlockPos floor = ctx.getAbsolutePos(new BlockPos(2, 0, 2));
@@ -694,6 +694,37 @@ public class BakeryGameTests implements FabricGameTest {
 	}
 
 	// ---------------------------------------------------------------- restaurant
+
+	@GameTest(templateName = EMPTY, tickLimit = 300)
+	public void ordersCanBeHandedOverAcrossTheCounter(TestContext ctx) {
+		FakePlayer p = player(ctx);
+		ctx.getWorld().setTimeOfDay(1000);
+		fill(ctx, 0, 0, 0, 6, 0, 6, Blocks.STONE.getDefaultState());
+		BlockPos counterPos = new BlockPos(3, 1, 2);
+		ctx.setBlockState(counterPos, BakeryBlocks.BAKERY_COUNTER.getDefaultState().with(CounterBlock.FACING, Direction.SOUTH).with(CounterBlock.OPEN, true));
+		CounterBlockEntity counter = ctx.getBlockEntity(counterPos);
+		counter.setOwner(p.getUuid());
+		ItemStack ribbon = new ItemStack(BakeryItems.PATH_RIBBON);
+		use(ctx, p, new BlockPos(3, 0, 5), ribbon, false);
+		use(ctx, p, counterPos, p.getMainHandStack().copy(), false);
+		check(ctx, counter.hasPath(), "the path is tied");
+		use(ctx, p, counterPos, new ItemStack(BakeryItems.PATH_RIBBON), false);
+		check(ctx, com.bakery.shop.PathRibbonItem.points(p.getMainHandStack()).isEmpty(), "a plain click with the ribbon does not pick the path up");
+		use(ctx, p, counterPos, new ItemStack(BakeryItems.PATH_RIBBON), true);
+		check(ctx, !com.bakery.shop.PathRibbonItem.points(p.getMainHandStack()).isEmpty(), "a sneak-click picks it up to change it");
+		check(ctx, counter.callCustomer(), "a customer is called");
+		Order order = counter.getOrders().getFirst();
+		ctx.runAtTick(220, () -> {
+			com.bakery.cafe.CustomerEntity customer = (com.bakery.cafe.CustomerEntity) ctx.getWorld().getEntity(order.customer);
+			check(ctx, customer != null && customer.atCounter(), "the customer has reached the counter");
+			ItemStack wanted = order.wanted.copy();
+			wanted.set(BakeryComponents.QUALITY, 4);
+			Freshness.stampFresh(wanted, ctx.getWorld().getTime());
+			use(ctx, p, counterPos, wanted, false);
+			check(ctx, counter.getOrders().isEmpty() && counter.getServed() == 1, "holding the order and clicking the counter serves it");
+			ctx.complete();
+		});
+	}
 
 	@GameTest(templateName = EMPTY, tickLimit = 200)
 	public void customerOrdersAndPaysWhenServed(TestContext ctx) {

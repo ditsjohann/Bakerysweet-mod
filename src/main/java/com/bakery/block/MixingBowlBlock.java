@@ -118,8 +118,10 @@ public class MixingBowlBlock extends BlockWithEntity {
 			player.sendMessage(Text.translatable("message.bakery.bowl.wrong").formatted(Formatting.RED), true);
 			world.playSound(null, pos, SoundEvents.BLOCK_MUD_BREAK, SoundCategory.BLOCKS, 1f, 0.8f);
 		} else if (!result.isEmpty()) {
+			// Name it before handing it over: once in the inventory the stack is emptied (it would read "Air").
+			Text made = result.getName();
 			player.getInventory().offerOrDrop(result);
-			player.sendMessage(Text.translatable("message.bakery.bowl.done", result.getName()).formatted(Formatting.GREEN), true);
+			player.sendMessage(Text.translatable("message.bakery.bowl.done", made).formatted(Formatting.GREEN), true);
 			world.playSound(null, pos, SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.BLOCKS, 0.4f, 1.8f);
 			whisk.damage(1, player, hand == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
 		}

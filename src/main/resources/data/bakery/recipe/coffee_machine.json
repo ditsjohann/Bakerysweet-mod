@@ -1,0 +1,24 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"D D",
+		"IBI",
+		"III"
+	],
+	"key": {
+		"D": {
+			"item": "minecraft:pink_dye"
+		},
+		"I": {
+			"item": "minecraft:iron_ingot"
+		},
+		"B": {
+			"item": "minecraft:bucket"
+		}
+	},
+	"result": {
+		"id": "bakery:coffee_machine",
+		"count": 1
+	}
+}

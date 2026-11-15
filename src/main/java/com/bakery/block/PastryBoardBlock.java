@@ -108,9 +108,10 @@ public class PastryBoardBlock extends BlockWithEntity {
 				tray.set(com.bakery.registry.BakeryComponents.HOMEMADE, dough.get(com.bakery.registry.BakeryComponents.HOMEMADE));
 				com.bakery.food.Freshness.stampFresh(tray, world.getTime());
 				board.setDough(ItemStack.EMPTY);
+				net.minecraft.text.Text shapedName = tray.getName();
 				player.getInventory().offerOrDrop(tray);
 				world.playSound(null, pos, SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.BLOCKS, 1f, 1.4f);
-				player.sendMessage(Text.translatable("message.bakery.board.shaped", tray.getName()), true);
+				player.sendMessage(Text.translatable("message.bakery.board.shaped", shapedName), true);
 			}
 			return ItemActionResult.success(world.isClient);
 		}

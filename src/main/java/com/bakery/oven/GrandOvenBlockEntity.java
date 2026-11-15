@@ -60,7 +60,8 @@ public class GrandOvenBlockEntity extends BlockEntity implements Multiblock.Mach
 	public static final int COLS = 3, ROWS = 3;
 	public static final int MAX_FUEL = 24000;
 	/** Below this the embers under the mouth blink red. */
-	public static final int LOW_FUEL = 1600;
+	/** Below half a coal's worth the embers blink and the baker is warned (one coal is 1600). */
+	public static final int LOW_FUEL = 800;
 	public static final int HEAT_ZONE = 12;
 	public static final int ACTION_FAN = 0;
 	public static final int ACTION_VENT = 1;
@@ -370,6 +371,7 @@ public class GrandOvenBlockEntity extends BlockEntity implements Multiblock.Mach
 			player.getInventory().offerOrDrop(remainder);
 		}
 		world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 0.6f, 1.2f);
+		player.sendMessage(Text.translatable("message.bakery.oven.fed", Math.max(1, Math.round(fuel / 1600f))), true);
 		sync();
 	}
 

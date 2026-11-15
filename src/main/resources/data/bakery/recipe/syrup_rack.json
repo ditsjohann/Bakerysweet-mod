@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"pattern": [
+		"G G",
+		"SSS"
+	],
+	"key": {
+		"G": {
+			"item": "minecraft:glass_bottle"
+		},
+		"S": {
+			"tag": "minecraft:wooden_slabs"
+		}
+	},
+	"result": {
+		"id": "bakery:syrup_rack",
+		"count": 1
+	}
+}

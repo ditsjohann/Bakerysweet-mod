@@ -86,8 +86,22 @@ public class CounterBlock extends BlockWithEntity {
 	@Override
 	protected net.minecraft.util.ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player,
 															  net.minecraft.util.Hand hand, BlockHitResult hit) {
-		// A Path Ribbon ties its path to the counter (the item handles it) instead of flipping the sign.
-		if (stack.isOf(com.bakery.registry.BakeryItems.PATH_RIBBON)) return net.minecraft.util.ItemActionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+		// A Path Ribbon with points ties its path to the counter, and a sneak-click picks the path back up (the item
+		// handles both); a plain click with an empty ribbon just opens the counter like an empty hand.
+		if (stack.isOf(com.bakery.registry.BakeryItems.PATH_RIBBON)) {
+			boolean ribbonAction = player.isSneaking() || !com.bakery.shop.PathRibbonItem.points(stack).isEmpty();
+			return ribbonAction ? net.minecraft.util.ItemActionResult.SKIP_DEFAULT_BLOCK_INTERACTION
+					: net.minecraft.util.ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		}
+		// Holding what a waiting customer ordered: hand it over across the counter.
+		if (!stack.isEmpty() && world.getBlockEntity(pos) instanceof CounterBlockEntity waiting) {
+			if (world.isClient) return net.minecraft.util.ItemActionResult.SUCCESS;
+			com.bakery.cafe.CustomerEntity customer = waiting.waitingFor((net.minecraft.server.world.ServerWorld) world, stack);
+			if (customer != null && player instanceof net.minecraft.server.network.ServerPlayerEntity serverPlayer
+					&& ShopManager.serve(serverPlayer, customer, stack)) {
+				return net.minecraft.util.ItemActionResult.SUCCESS;
+			}
+		}
 		net.minecraft.util.ItemActionResult dyed = com.bakery.deco.Dyeable.use(stack, state, world, pos, player);
 		if (dyed != null) return dyed;
 		// A finished cake on the counter is sold: someone from town rates it, says what they think and pays.

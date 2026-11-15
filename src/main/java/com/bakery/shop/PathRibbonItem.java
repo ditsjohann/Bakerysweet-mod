@@ -23,7 +23,8 @@ import java.util.List;
 /**
  * Lays the path customers walk. Click the floor at your bakery's door (the entrance), then at every turn on the
  * way in, then click the counter to tie the ribbon to it. Customers come in along it and queue on its last
- * stretch. Sneak-use in the air to start over. Holding it shows the paths around you.
+ * stretch. Sneak-click the counter to pick its path back up and change it; sneak-use in the air to start over.
+ * Holding it shows the paths around you.
  */
 public class PathRibbonItem extends Item {
 	public PathRibbonItem(Settings settings) {
@@ -70,8 +71,8 @@ public class PathRibbonItem extends Item {
 	private ActionResult link(World world, PlayerEntity player, ItemStack stack, CounterBlockEntity counter) {
 		List<BlockPos> points = new ArrayList<>(points(stack));
 		if (points.isEmpty()) {
-			if (counter.hasPath()) {
-				// Pick the counter's path back up to change it.
+			if (counter.hasPath() && player != null && player.isSneaking()) {
+				// Sneak-click: pick the counter's path back up to change it.
 				stack.set(BakeryComponents.PATH_POINTS, counter.getPath().subList(0, Math.max(1, counter.getPath().size() - 1)));
 				tell(player, Text.translatable("message.bakery.path.picked_up").formatted(Formatting.LIGHT_PURPLE));
 				return ActionResult.SUCCESS;

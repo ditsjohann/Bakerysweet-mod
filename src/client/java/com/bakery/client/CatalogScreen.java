@@ -27,14 +27,17 @@ import java.util.List;
  * Fancier goodies show a little lock until the bakery reaches their level.
  */
 public class CatalogScreen extends Screen {
-	private static final Item[] TAB_ICONS = {BakeryItems.MIXING_BOWL, BakeryItems.FLOUR, BakeryItems.STRAWBERRY_SEEDS, BakeryItems.PINK_HEART_BALLOON,
-			BakeryItems.TULIP_POT, BakeryItems.BUNNY_EARS};
-	private static final int[] TAB_COLORS = {0xFFFFE08A, 0xFFFFD6A8, 0xFFA8E6CF, 0xFFF7A8C6, 0xFFA8D8F7, 0xFFCDB4F0};
+	/** One icon and colour per shop: Bake, Café, Pantry, Garden, Decor, Outfits. */
+	private static final Item[] TAB_ICONS = {BakeryItems.MIXING_BOWL, BakeryItems.LATTE, BakeryItems.FLOUR, BakeryItems.TULIP_POT,
+			BakeryItems.PINK_HEART_BALLOON, BakeryItems.BUNNY_EARS};
+	private static final int[] TAB_COLORS = {0xFFFFE08A, 0xFFA8D8F7, 0xFFFFD6A8, 0xFFA8E6CF, 0xFFF7A8C6, 0xFFCDB4F0};
 	private static final int CARD_H = 34;
 	/** Tabs after the shop categories: the recipe book, then the guide (which opens its own screen). */
 	private static final int RECIPE_TAB = TAB_ICONS.length, GUIDE_TAB = TAB_ICONS.length + 1;
 	/** A brand-new baker sees "Your first bake" the first time the catalog opens in a session. */
 	private static boolean welcomed;
+	/** The Quick Tour plays the first time the catalog is opened on this computer (checked once per session). */
+	private static boolean tourChecked;
 
 	private final BlockPos pos;
 	private final SweetPayloads.GuideData data;
@@ -59,6 +62,15 @@ public class CatalogScreen extends Screen {
 			RecipePane.showFirstBake();
 		}
 		this.stock = new ArrayList<>(data.stockLeft());
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
+		if (!tourChecked && client != null) {
+			tourChecked = true;
+			if (!TourScreen.seen()) client.setScreen(new TourScreen(this));
+		}
 	}
 
 	private int left(int index) {

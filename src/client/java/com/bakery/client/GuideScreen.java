@@ -59,104 +59,62 @@ public class GuideScreen extends Screen {
 		if (chapters == null) {
 			List<Page> stickers = new ArrayList<>();
 			for (int i = 0; i * STICKERS_PER_PAGE < Sticker.values().length; i++) stickers.add(Page.of("stickers_" + i, hero()));
+			// In the order you play: start, recipes, the kitchen and oven, coffee, the café, then the garden, sweets and style.
 			chapters = List.of(
 					new Chapter("start", BakeryItems.CUPCAKE, 0xFFF7A8C6, List.of(
-							Page.of("welcome", hero(BakeryItems.CUPCAKE, BakeryItems.CAKE, BakeryItems.MATCHA_LATTE),
-									BakeryItems.BAKERY_CATALOG, BakeryItems.FLOUR, BakeryItems.BAKERY_COUNTER, BakeryItems.SWEET_COIN),
-							Page.of("first_bake", hero(BakeryItems.BREAD_DOUGH, BakeryItems.BREAD_LOAF),
-									BakeryItems.MIXING_BOWL, BakeryItems.WHISK, BakeryItems.ROLLING_PIN, BakeryItems.OVEN_HEART, BakeryItems.BREAD_LOAF),
-							Page.of("coffee", hero(BakeryItems.COFFEE_MACHINE, BakeryItems.LATTE, BakeryItems.CARAMEL_SYRUP),
-									BakeryItems.COFFEE_SEEDS, BakeryItems.ROASTED_COFFEE_BEANS, Items.MILK_BUCKET, BakeryItems.MUG, BakeryItems.SYRUP_RACK),
-							Page.of("cafe_cats", hero(BakeryItems.KITTEN_BASKET, BakeryItems.CAT_BED, BakeryItems.CAFE_JUKEBOX),
-									BakeryItems.KITTEN_BASKET, BakeryItems.CAT_BED, Items.COD, BakeryItems.CAFE_JUKEBOX),
-							Page.of("progress", hero()),
-							Page.of("first_day", hero(BakeryItems.BREAD_LOAF, BakeryItems.COOKIES),
-									BakeryItems.BAKERY_CATALOG, BakeryItems.OVEN_HEART, BakeryItems.PATH_RIBBON, BakeryItems.BREAD_LOAF),
-							Page.of("starter_shopping", hero(BakeryItems.BAKERY_CATALOG, BakeryItems.SWEET_COIN),
-									BakeryItems.MIXING_BOWL, Items.BRICKS, BakeryItems.FLOUR, BakeryItems.STRAWBERRY_SEEDS))),
+							Page.of("welcome", hero(BakeryItems.CUPCAKE, BakeryItems.CAKE, BakeryItems.MATCHA_LATTE), BakeryItems.BAKERY_CATALOG, BakeryItems.FLOUR, BakeryItems.BAKERY_COUNTER, BakeryItems.SWEET_COIN),
+							Page.of("first_bake", hero(BakeryItems.BREAD_DOUGH, BakeryItems.BREAD_LOAF), BakeryItems.MIXING_BOWL, BakeryItems.WHISK, BakeryItems.ROLLING_PIN, BakeryItems.OVEN_HEART, BakeryItems.BREAD_LOAF),
+							Page.of("first_day", hero(BakeryItems.BREAD_LOAF, BakeryItems.COOKIES), BakeryItems.BAKERY_CATALOG, BakeryItems.OVEN_HEART, BakeryItems.PATH_RIBBON, BakeryItems.BREAD_LOAF),
+							Page.of("starter_shopping", hero(BakeryItems.BAKERY_CATALOG, BakeryItems.SWEET_COIN), BakeryItems.MIXING_BOWL, Items.BRICKS, BakeryItems.FLOUR, BakeryItems.STRAWBERRY_SEEDS),
+							Page.of("progress", hero()))),
 					new Chapter("recipes", BakeryItems.BREAD_LOAF, 0xFFF9C98A, recipePages()),
-					new Chapter("garden", BakeryItems.STRAWBERRY, 0xFFA8E6CF, List.of(
-							Page.of("homegrown", hero(Items.WHEAT, BakeryItems.STRAWBERRY, BakeryItems.BUTTER),
-									Items.WHEAT, BakeryItems.MILLSTONE_CORE, Items.COW_SPAWN_EGG, BakeryItems.SWEET_COIN),
-							Page.of("farming", hero(BakeryItems.STRAWBERRY, BakeryItems.BLUEBERRY, BakeryItems.STAR_PETALS),
-									Items.SHORT_GRASS, Items.WOODEN_HOE, BakeryItems.STARBLOOM_SEEDS, BakeryItems.STRAWBERRY_SEEDS),
-							Page.of("trees", hero(BakeryItems.LEMON, BakeryItems.COCONUT, BakeryItems.PEACH),
-									BakeryBlocks.PALM.sapling, BakeryItems.LEMON, BakeryItems.COCONUT, BakeryBlocks.BLOSSOM.planks),
-							Page.of("veggies", hero(BakeryItems.CORN, BakeryItems.SWEET_POTATO, BakeryItems.ZUCCHINI),
-									BakeryItems.CORN, BakeryItems.PEA_POD, BakeryItems.SWEET_POTATO, BakeryItems.ZUCCHINI),
-							Page.of("special_crops", hero(BakeryItems.CRANBERRY, BakeryItems.RHUBARB, BakeryItems.CANDYFLOSS),
-									BakeryItems.RHUBARB, Items.WATER_BUCKET, BakeryItems.CANDYFLOSS))),
 					new Chapter("kitchen", BakeryItems.WHISK, 0xFFFFE08A, List.of(
-							Page.of("pantry", hero(BakeryItems.FLOUR, BakeryItems.BUTTER, Items.SUGAR, Items.EGG),
-									BakeryItems.FLOUR, BakeryItems.BUTTER, BakeryItems.WHIPPED_CREAM, BakeryItems.MATCHA_POWDER),
-							Page.of("mixing", hero(BakeryItems.MIXING_BOWL, BakeryItems.WHISK),
-									BakeryItems.MIXING_BOWL, BakeryItems.WHISK, BakeryItems.SWEET_DOUGH, BakeryItems.STRAWBERRY),
-							Page.of("rolling", hero(BakeryItems.PASTRY_BOARD, BakeryItems.ROLLING_PIN),
-									BakeryItems.PASTRY_BOARD, BakeryItems.ROLLING_PIN, Items.GOLD_NUGGET, BakeryItems.RAW_CUPCAKE),
-							Page.of("proofing", hero(BakeryItems.PROOFING_BASKET, BakeryItems.BREAD_DOUGH),
-									BakeryItems.PROOFING_BASKET, BakeryItems.BREAD_DOUGH, Items.CLOCK),
-							Page.of("juicer", hero(BakeryItems.JUICER, BakeryItems.ORANGE),
-									BakeryItems.ORANGE, Items.LEVER, Items.GLASS_BOTTLE),
-							Page.of("churn", hero(BakeryItems.ICE_CREAM_CHURN, BakeryItems.ICE_CREAM),
-									BakeryItems.WHIPPED_CREAM, BakeryItems.STRAWBERRY, BakeryItems.ICE_CREAM),
-							Page.of("jam_pot", hero(BakeryItems.JAM_POT, BakeryItems.FRUIT_JAM),
-									Items.CAMPFIRE, BakeryItems.STRAWBERRY, BakeryItems.WHISK, BakeryItems.GLASS_JAR),
-							Page.of("freshness", hero(BakeryItems.WAX_PAPER, BakeryItems.FROST_WRAP, BakeryItems.GLASS_JAR),
-									BakeryItems.WAX_PAPER, BakeryItems.FROST_WRAP, BakeryItems.GLASS_JAR),
-							Page.of("drinks", hero(BakeryItems.MUG, BakeryItems.HOT_CHOCOLATE, BakeryItems.LEMONADE),
-									BakeryItems.MUG, BakeryItems.MATCHA_LATTE, BakeryItems.CAFE_TABLE))),
+							Page.of("pantry", hero(BakeryItems.FLOUR, BakeryItems.BUTTER, Items.SUGAR, Items.EGG), BakeryItems.FLOUR, BakeryItems.BUTTER, BakeryItems.WHIPPED_CREAM, BakeryItems.MATCHA_POWDER),
+							Page.of("mixing", hero(BakeryItems.MIXING_BOWL, BakeryItems.WHISK), BakeryItems.MIXING_BOWL, BakeryItems.WHISK, BakeryItems.SWEET_DOUGH, BakeryItems.STRAWBERRY),
+							Page.of("rolling", hero(BakeryItems.PASTRY_BOARD, BakeryItems.ROLLING_PIN), BakeryItems.PASTRY_BOARD, BakeryItems.ROLLING_PIN, Items.GOLD_NUGGET, BakeryItems.RAW_CUPCAKE),
+							Page.of("proofing", hero(BakeryItems.PROOFING_BASKET, BakeryItems.BREAD_DOUGH), BakeryItems.PROOFING_BASKET, BakeryItems.BREAD_DOUGH, Items.CLOCK),
+							Page.of("freshness", hero(BakeryItems.WAX_PAPER, BakeryItems.FROST_WRAP, BakeryItems.GLASS_JAR), BakeryItems.WAX_PAPER, BakeryItems.FROST_WRAP, BakeryItems.GLASS_JAR))),
 					new Chapter("oven", BakeryItems.OVEN_HEART, 0xFFF4B183, List.of(
-							Page.of("oven_build", hero(BakeryItems.OVEN_HEART, BakeryItems.SPATULA),
-									Items.BRICKS, BakeryItems.OVEN_HEART, BakeryItems.SPATULA),
-							Page.of("oven_use", hero(Items.COAL, BakeryItems.RAW_LOAF),
-									Items.COAL, Items.IRON_DOOR, Items.IRON_BARS, BakeryItems.RAW_PIE),
-							Page.of("flipping", hero(BakeryItems.RAW_COOKIES, BakeryItems.COOKIES),
-									BakeryItems.RAW_COOKIES, BakeryItems.SPATULA, Items.BELL, BakeryItems.CUPCAKE),
-							Page.of("heat", hero(BakeryItems.BELLOWS),
-									BakeryItems.BELLOWS, Items.IRON_DOOR, BakeryItems.SPATULA),
-							Page.of("millstone_build", hero(BakeryItems.MILLSTONE_CORE, Items.WHEAT, BakeryItems.FLOUR),
-									Items.STONE_BRICKS, BakeryItems.MILLSTONE_CORE, Items.WHEAT),
-							Page.of("fountain", hero(BakeryItems.CHOCOLATE_FOUNTAIN, BakeryItems.CHOCOLATE_TREAT),
-									BakeryItems.CHOCOLATE_FOUNTAIN, BakeryItems.CHOCOLATE_BAR, BakeryItems.STRAWBERRY))),
-					new Chapter("sweets", BakeryItems.SUGAR_COOKIE, 0xFFCDB4F0, List.of(
-							Page.of("decorating", hero(BakeryItems.SPRINKLES, BakeryItems.WHIPPED_CREAM, BakeryItems.STAR_PETALS),
-									BakeryItems.CUPCAKE, BakeryItems.SPRINKLES, BakeryItems.STAR_PETALS),
-							Page.of("cookies", hero(BakeryItems.HEART_CUTTER, BakeryItems.STAR_CUTTER, BakeryItems.BUNNY_CUTTER),
-									BakeryItems.COOKIE_DOUGH, BakeryItems.HEART_CUTTER, BakeryItems.RAW_SUGAR_COOKIE),
-							Page.of("icing", hero(BakeryItems.PINK_ICING, BakeryItems.SKY_ICING, BakeryItems.MINT_ICING),
-									BakeryItems.SUGAR_COOKIE, BakeryItems.PINK_ICING),
-							Page.of("cake_studio", hero(BakeryItems.CAKE_TURNTABLE, BakeryItems.CAKE),
-									BakeryItems.CAKE_TURNTABLE, BakeryItems.CAKE, BakeryItems.HEART_CAKE_MOLD, BakeryItems.CAKE_TURNTABLE),
-							Page.of("piping", hero(BakeryItems.PINK_ICING, BakeryItems.CHOCOLATE_ICING, BakeryItems.CAKE_SCRAPER),
-									BakeryItems.PINK_ICING, BakeryItems.MINT_ICING, BakeryItems.LILAC_ICING, BakeryItems.CHOCOLATE_ICING),
-							Page.of("toppers", hero(BakeryItems.FONDANT_BUNNY, BakeryItems.SUGAR_FLOWER, BakeryItems.GOLDEN_CROWN),
-									BakeryItems.FONDANT_BUNNY, BakeryItems.SUGAR_FLOWER, BakeryItems.SPATULA, BakeryItems.GOLDEN_CROWN),
-							Page.of("gifts", hero(BakeryItems.GIFT_BOX, BakeryItems.WRAPPED_GIFT),
-									BakeryItems.GIFT_BOX, BakeryItems.WRAPPED_GIFT))),
+							Page.of("oven_build", hero(BakeryItems.OVEN_HEART, BakeryItems.SPATULA), Items.BRICKS, BakeryItems.OVEN_HEART, BakeryItems.SPATULA),
+							Page.of("oven_use", hero(Items.COAL, BakeryItems.RAW_LOAF), Items.COAL, Items.IRON_DOOR, Items.IRON_BARS, BakeryItems.RAW_PIE),
+							Page.of("flipping", hero(BakeryItems.RAW_COOKIES, BakeryItems.COOKIES), BakeryItems.RAW_COOKIES, BakeryItems.SPATULA, Items.BELL, BakeryItems.CUPCAKE),
+							Page.of("heat", hero(BakeryItems.BELLOWS), BakeryItems.BELLOWS, Items.IRON_DOOR, BakeryItems.SPATULA),
+							Page.of("millstone_build", hero(BakeryItems.MILLSTONE_CORE, Items.WHEAT, BakeryItems.FLOUR), Items.STONE_BRICKS, BakeryItems.MILLSTONE_CORE, Items.WHEAT),
+							Page.of("churn", hero(BakeryItems.ICE_CREAM_CHURN, BakeryItems.ICE_CREAM), BakeryItems.WHIPPED_CREAM, BakeryItems.STRAWBERRY, BakeryItems.ICE_CREAM),
+							Page.of("jam_pot", hero(BakeryItems.JAM_POT, BakeryItems.FRUIT_JAM), Items.CAMPFIRE, BakeryItems.STRAWBERRY, BakeryItems.WHISK, BakeryItems.GLASS_JAR),
+							Page.of("fountain", hero(BakeryItems.CHOCOLATE_FOUNTAIN, BakeryItems.CHOCOLATE_TREAT), BakeryItems.CHOCOLATE_FOUNTAIN, BakeryItems.CHOCOLATE_BAR, BakeryItems.STRAWBERRY))),
+					new Chapter("coffee", BakeryItems.LATTE, 0xFFD9B08C, List.of(
+							Page.of("coffee", hero(BakeryItems.COFFEE_MACHINE, BakeryItems.LATTE, BakeryItems.CARAMEL_SYRUP), BakeryItems.COFFEE_SEEDS, BakeryItems.ROASTED_COFFEE_BEANS, Items.MILK_BUCKET, BakeryItems.MUG, BakeryItems.SYRUP_RACK),
+							Page.of("drinks", hero(BakeryItems.MUG, BakeryItems.HOT_CHOCOLATE, BakeryItems.LEMONADE), BakeryItems.MUG, BakeryItems.MATCHA_LATTE, BakeryItems.CAFE_TABLE),
+							Page.of("juicer", hero(BakeryItems.JUICER, BakeryItems.ORANGE), BakeryItems.ORANGE, Items.LEVER, Items.GLASS_BOTTLE))),
 					new Chapter("cafe", BakeryItems.BAKERY_COUNTER, 0xFFA8D8F7, List.of(
-							Page.of("shop", hero(BakeryItems.BAKERY_COUNTER, BakeryItems.PATH_RIBBON, BakeryItems.SERVICE_BELL),
-									BakeryItems.BAKERY_COUNTER, BakeryItems.PATH_RIBBON, BakeryItems.BAKERY_COUNTER, BakeryItems.SERVICE_BELL),
-							Page.of("customers", hero(BakeryItems.CAFE_CHAIR, BakeryItems.CAFE_TABLE),
-									BakeryItems.PATH_RIBBON, BakeryItems.CUPCAKE, BakeryItems.CAFE_CHAIR),
-							Page.of("levels", hero(BakeryItems.BREAD_LOAF, BakeryItems.CUPCAKE, BakeryItems.CAKE),
-									BakeryItems.BREAD_LOAF, BakeryItems.CUPCAKE, BakeryItems.CAKE),
-							Page.of("menu", hero(BakeryItems.MENU_BOARD),
-									BakeryItems.MENU_BOARD, BakeryItems.COOKIES),
-							Page.of("coins", hero(BakeryItems.SWEET_COIN, BakeryItems.DISPLAY_CASE),
-									BakeryItems.SWEET_COIN, BakeryItems.DISPLAY_CASE, BakeryItems.BAKERY_COUNTER),
-							Page.of("charm", hero(BakeryItems.FAIRY_LIGHTS, BakeryItems.CUPCAKE_LAMP, BakeryItems.HEART_RUG),
-									BakeryItems.BUNNY_PLUSH, BakeryItems.FAIRY_LIGHTS, BakeryItems.SWEET_COIN),
-							Page.of("friends", hero(BakeryItems.WRAPPED_GIFT, BakeryItems.CAKE),
-									BakeryItems.CUPCAKE, BakeryItems.WRAPPED_GIFT, BakeryItems.STAR_PETALS))),
+							Page.of("shop", hero(BakeryItems.BAKERY_COUNTER, BakeryItems.PATH_RIBBON, BakeryItems.SERVICE_BELL), BakeryItems.BAKERY_COUNTER, BakeryItems.PATH_RIBBON, BakeryItems.BAKERY_COUNTER, BakeryItems.SERVICE_BELL),
+							Page.of("customers", hero(BakeryItems.CAFE_CHAIR, BakeryItems.CAFE_TABLE), BakeryItems.PATH_RIBBON, BakeryItems.CUPCAKE, BakeryItems.CAFE_CHAIR),
+							Page.of("menu", hero(BakeryItems.MENU_BOARD), BakeryItems.MENU_BOARD, BakeryItems.COOKIES),
+							Page.of("coins", hero(BakeryItems.SWEET_COIN, BakeryItems.DISPLAY_CASE), BakeryItems.SWEET_COIN, BakeryItems.DISPLAY_CASE, BakeryItems.BAKERY_COUNTER),
+							Page.of("levels", hero(BakeryItems.BREAD_LOAF, BakeryItems.CUPCAKE, BakeryItems.CAKE), BakeryItems.BREAD_LOAF, BakeryItems.CUPCAKE, BakeryItems.CAKE),
+							Page.of("charm", hero(BakeryItems.FAIRY_LIGHTS, BakeryItems.CUPCAKE_LAMP, BakeryItems.HEART_RUG), BakeryItems.BUNNY_PLUSH, BakeryItems.FAIRY_LIGHTS, BakeryItems.SWEET_COIN),
+							Page.of("friends", hero(BakeryItems.WRAPPED_GIFT, BakeryItems.CAKE), BakeryItems.CUPCAKE, BakeryItems.WRAPPED_GIFT, BakeryItems.STAR_PETALS))),
+					new Chapter("garden", BakeryItems.STRAWBERRY, 0xFFA8E6CF, List.of(
+							Page.of("homegrown", hero(Items.WHEAT, BakeryItems.STRAWBERRY, BakeryItems.BUTTER), Items.WHEAT, BakeryItems.MILLSTONE_CORE, Items.COW_SPAWN_EGG, BakeryItems.SWEET_COIN),
+							Page.of("farming", hero(BakeryItems.STRAWBERRY, BakeryItems.BLUEBERRY, BakeryItems.STAR_PETALS), Items.SHORT_GRASS, Items.WOODEN_HOE, BakeryItems.STARBLOOM_SEEDS, BakeryItems.STRAWBERRY_SEEDS),
+							Page.of("trees", hero(BakeryItems.LEMON, BakeryItems.COCONUT, BakeryItems.PEACH), BakeryBlocks.PALM.sapling, BakeryItems.LEMON, BakeryItems.COCONUT, BakeryBlocks.BLOSSOM.planks),
+							Page.of("veggies", hero(BakeryItems.CORN, BakeryItems.SWEET_POTATO, BakeryItems.ZUCCHINI), BakeryItems.CORN, BakeryItems.PEA_POD, BakeryItems.SWEET_POTATO, BakeryItems.ZUCCHINI),
+							Page.of("special_crops", hero(BakeryItems.CRANBERRY, BakeryItems.RHUBARB, BakeryItems.CANDYFLOSS), BakeryItems.RHUBARB, Items.WATER_BUCKET, BakeryItems.CANDYFLOSS))),
+					new Chapter("sweets", BakeryItems.SUGAR_COOKIE, 0xFFCDB4F0, List.of(
+							Page.of("decorating", hero(BakeryItems.SPRINKLES, BakeryItems.WHIPPED_CREAM, BakeryItems.STAR_PETALS), BakeryItems.CUPCAKE, BakeryItems.SPRINKLES, BakeryItems.STAR_PETALS),
+							Page.of("cookies", hero(BakeryItems.HEART_CUTTER, BakeryItems.STAR_CUTTER, BakeryItems.BUNNY_CUTTER), BakeryItems.COOKIE_DOUGH, BakeryItems.HEART_CUTTER, BakeryItems.RAW_SUGAR_COOKIE),
+							Page.of("icing", hero(BakeryItems.PINK_ICING, BakeryItems.SKY_ICING, BakeryItems.MINT_ICING), BakeryItems.SUGAR_COOKIE, BakeryItems.PINK_ICING),
+							Page.of("cake_studio", hero(BakeryItems.CAKE_TURNTABLE, BakeryItems.CAKE), BakeryItems.CAKE_TURNTABLE, BakeryItems.CAKE, BakeryItems.HEART_CAKE_MOLD, BakeryItems.CAKE_TURNTABLE),
+							Page.of("piping", hero(BakeryItems.PINK_ICING, BakeryItems.CHOCOLATE_ICING, BakeryItems.CAKE_SCRAPER), BakeryItems.PINK_ICING, BakeryItems.MINT_ICING, BakeryItems.LILAC_ICING, BakeryItems.CHOCOLATE_ICING),
+							Page.of("toppers", hero(BakeryItems.FONDANT_BUNNY, BakeryItems.SUGAR_FLOWER, BakeryItems.GOLDEN_CROWN), BakeryItems.FONDANT_BUNNY, BakeryItems.SUGAR_FLOWER, BakeryItems.SPATULA, BakeryItems.GOLDEN_CROWN),
+							Page.of("gifts", hero(BakeryItems.GIFT_BOX, BakeryItems.WRAPPED_GIFT), BakeryItems.GIFT_BOX, BakeryItems.WRAPPED_GIFT))),
 					new Chapter("style", BakeryItems.BUNNY_EARS, 0xFFFFB3C7, List.of(
-							Page.of("wardrobe", hero(BakeryItems.CHEF_HAT, BakeryItems.BUNNY_EARS, BakeryItems.FRILLY_APRON),
-									BakeryItems.CHEF_HAT, BakeryItems.FRILLY_APRON, BakeryItems.SWEET_COIN),
-							Page.of("decor", hero(BakeryItems.PINK_CHECKER_TILES, BakeryItems.STRAWBERRY_WALLPAPER, BakeryItems.PINK_HEART_BALLOON),
-									BakeryItems.PINK_CHECKER_TILES, BakeryItems.STRAWBERRY_WALLPAPER, BakeryItems.FAIRY_LIGHTS),
-							Page.of("cozy_decor", hero(BakeryItems.PINK_COUCH, BakeryItems.NEON_HEART_SIGN, BakeryItems.TEA_SET),
-									BakeryItems.PINK_COUCH, BakeryItems.BUNNY_PLUSH, BakeryItems.TEA_SET),
-							Page.of("outdoor", hero(BakeryItems.PARASOL_TABLE, BakeryItems.HEART_LAMP_POST, BakeryItems.PINK_PICKET_FENCE),
-									BakeryItems.PINK_AWNING, BakeryItems.PARASOL_TABLE, BakeryItems.PINK_PICKET_FENCE))),
+							Page.of("decor", hero(BakeryItems.PINK_CHECKER_TILES, BakeryItems.STRAWBERRY_WALLPAPER, BakeryItems.PINK_HEART_BALLOON), BakeryItems.PINK_CHECKER_TILES, BakeryItems.STRAWBERRY_WALLPAPER, BakeryItems.FAIRY_LIGHTS),
+							Page.of("cozy_decor", hero(BakeryItems.PINK_COUCH, BakeryItems.NEON_HEART_SIGN, BakeryItems.TEA_SET), BakeryItems.PINK_COUCH, BakeryItems.BUNNY_PLUSH, BakeryItems.TEA_SET),
+							Page.of("outdoor", hero(BakeryItems.PARASOL_TABLE, BakeryItems.HEART_LAMP_POST, BakeryItems.PINK_PICKET_FENCE), BakeryItems.PINK_AWNING, BakeryItems.PARASOL_TABLE, BakeryItems.PINK_PICKET_FENCE),
+							Page.of("cafe_cats", hero(BakeryItems.KITTEN_BASKET, BakeryItems.CAT_BED, BakeryItems.CAFE_JUKEBOX), BakeryItems.KITTEN_BASKET, BakeryItems.CAT_BED, Items.COD, BakeryItems.CAFE_JUKEBOX),
+							Page.of("wardrobe", hero(BakeryItems.CHEF_HAT, BakeryItems.BUNNY_EARS, BakeryItems.FRILLY_APRON), BakeryItems.CHEF_HAT, BakeryItems.FRILLY_APRON, BakeryItems.SWEET_COIN))),
 					new Chapter("stickers", BakeryItems.STAR_PETALS, 0xFFFFD27A, stickers));
 		}
 		return chapters;
@@ -283,8 +241,17 @@ public class GuideScreen extends Screen {
 			boolean shelf = pg.hero().length > 0 && !pg.key().endsWith("_build") && room(pg, pw) >= 48;
 			cy = header(context, Text.translatable("guide.bakery." + pg.key() + ".title"), shelf ? Page.of("", hero(ch.icon())) : pg, px, cy, pw, ch.color());
 			cy = drawSteps(context, pg, px, cy, pw);
+			if (pg.key().equals("welcome")) {
+				// The first page offers the picture tour instead of a tip.
+				tourButton = new int[]{px, cy + 4, pw, 20};
+				boolean over = SweetUi.inside(mouseX, mouseY, px, cy + 4, pw, 20);
+				SweetUi.card(context, px, cy + 4, pw, 20, over ? 0xFFFFE0EC : 0xFFFFF0F5, SweetUi.DEEP_PINK);
+				SweetUi.centered(context, textRenderer, Text.translatable("guide.bakery.play_tour"), px + pw / 2, cy + 10, SweetUi.DEEP_PINK);
+				cy += 26;
+				shelf = false;
+			}
 			if (pg.key().endsWith("_build")) cy = drawDiagram(context, pg.key(), px, cy + 2, pw);
-			cy = drawTip(context, pg, px, cy + 3, pw, y + h - 26);
+			if (!pg.key().equals("welcome")) cy = drawTip(context, pg, px, cy + 3, pw, y + h - 26);
 			if (shelf) drawShelf(context, pg, px, cy + 4, pw, y + h - 24, ch.color());
 		}
 
@@ -528,9 +495,17 @@ public class GuideScreen extends Screen {
 
 	// ------------------------------------------------------------------ input
 
+	/** Where the "Watch the Quick Tour" button was drawn (only on the first page). */
+	private int[] tourButton;
+
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int button) {
 		int x = left(), y = top(), w = panelW(), h = panelH();
+		if (tourButton != null && currentPage().key().equals("welcome")
+				&& SweetUi.inside(mouseX, mouseY, tourButton[0], tourButton[1], tourButton[2], tourButton[3])) {
+			if (client != null) client.setScreen(new TourScreen(this));
+			return true;
+		}
 		int rowH = Math.max(16, Math.min(22, (h - 44) / chapters().size()));
 		for (int i = 0; i < chapters().size(); i++) {
 			if (SweetUi.inside(mouseX, mouseY, x + 7, y + 32 + i * rowH, SIDEBAR - 10, rowH - 2)) {

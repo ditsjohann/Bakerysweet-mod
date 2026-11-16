@@ -48,6 +48,14 @@ loom {
 			programArgs "--quickPlaySingleplayer", "bakery_showcase", "--width", "1280", "--height", "720", "--username", "Mia"
 			runDir "run"
 		}
+		// Dev only: builds the downloadable showcase world (run/saves/sweetheart_showcase) from run/showcase_world.txt.
+		showcaseWorld {
+			client()
+			name "Showcase World"
+			vmArg "-Dbakery.showcase=showcase_world.txt"
+			programArgs "--quickPlaySingleplayer", "sweetheart_showcase", "--width", "1280", "--height", "720", "--username", "Baker"
+			runDir "run"
+		}
 	}
 }
 

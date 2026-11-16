@@ -68,6 +68,8 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 21
+	// Sources use symbols like ♥ and →: read them as UTF-8 on every computer (Windows may default to another encoding).
+	it.options.encoding = "UTF-8"
 }
 
 java {

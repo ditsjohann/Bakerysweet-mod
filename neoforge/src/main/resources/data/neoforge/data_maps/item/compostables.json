@@ -1,0 +1,241 @@
+{
+	"values": {
+		"bakery:coffee_seeds": {
+			"chance": 0.3
+		},
+		"bakery:cinnamon_seeds": {
+			"chance": 0.3
+		},
+		"bakery:strawberry_seeds": {
+			"chance": 0.3
+		},
+		"bakery:blueberry_seeds": {
+			"chance": 0.3
+		},
+		"bakery:raspberry_seeds": {
+			"chance": 0.3
+		},
+		"bakery:tea_seeds": {
+			"chance": 0.3
+		},
+		"bakery:mint_seeds": {
+			"chance": 0.3
+		},
+		"bakery:vanilla_seeds": {
+			"chance": 0.3
+		},
+		"bakery:lavender_seeds": {
+			"chance": 0.3
+		},
+		"bakery:rose_seeds": {
+			"chance": 0.3
+		},
+		"bakery:pineapple_seeds": {
+			"chance": 0.3
+		},
+		"bakery:daisies": {
+			"chance": 0.65
+		},
+		"bakery:pink_cosmos": {
+			"chance": 0.65
+		},
+		"bakery:forget_me_nots": {
+			"chance": 0.65
+		},
+		"bakery:lily_of_the_valley": {
+			"chance": 0.65
+		},
+		"bakery:bluebells": {
+			"chance": 0.65
+		},
+		"bakery:buttercups": {
+			"chance": 0.65
+		},
+		"bakery:foxglove": {
+			"chance": 0.65
+		},
+		"bakery:cattails": {
+			"chance": 0.65
+		},
+		"bakery:wild_fern": {
+			"chance": 0.65
+		},
+		"bakery:clover_patch": {
+			"chance": 0.65
+		},
+		"bakery:rose_bush": {
+			"chance": 0.65
+		},
+		"bakery:hydrangea_bush": {
+			"chance": 0.65
+		},
+		"bakery:blossom_lily_pad": {
+			"chance": 0.65
+		},
+		"bakery:coffee_cherries": {
+			"chance": 0.65
+		},
+		"bakery:strawberry": {
+			"chance": 0.65
+		},
+		"bakery:blueberry": {
+			"chance": 0.65
+		},
+		"bakery:raspberry": {
+			"chance": 0.65
+		},
+		"bakery:tea_leaves": {
+			"chance": 0.65
+		},
+		"bakery:mint_leaves": {
+			"chance": 0.65
+		},
+		"bakery:lavender": {
+			"chance": 0.65
+		},
+		"bakery:rose_petals": {
+			"chance": 0.65
+		},
+		"bakery:lemon": {
+			"chance": 0.65
+		},
+		"bakery:pineapple": {
+			"chance": 0.65
+		},
+		"bakery:burnt_pastry": {
+			"chance": 0.65
+		},
+		"bakery:bread_loaf": {
+			"chance": 0.85
+		},
+		"bakery:baguette": {
+			"chance": 0.85
+		},
+		"bakery:croissant": {
+			"chance": 0.85
+		},
+		"bakery:cupcake": {
+			"chance": 0.85
+		},
+		"bakery:donut": {
+			"chance": 0.85
+		},
+		"bakery:cookies": {
+			"chance": 0.85
+		},
+		"bakery:macarons": {
+			"chance": 0.85
+		},
+		"bakery:corn_seeds": {
+			"chance": 0.3
+		},
+		"bakery:pea_seeds": {
+			"chance": 0.3
+		},
+		"bakery:sweet_potato_seeds": {
+			"chance": 0.3
+		},
+		"bakery:zucchini_seeds": {
+			"chance": 0.3
+		},
+		"bakery:rhubarb_seeds": {
+			"chance": 0.3
+		},
+		"bakery:sugar_beet_seeds": {
+			"chance": 0.3
+		},
+		"bakery:cranberry_seeds": {
+			"chance": 0.3
+		},
+		"bakery:peanut_seeds": {
+			"chance": 0.3
+		},
+		"bakery:hibiscus_seeds": {
+			"chance": 0.3
+		},
+		"bakery:candyfloss_seeds": {
+			"chance": 0.3
+		},
+		"bakery:cherries": {
+			"chance": 0.65
+		},
+		"bakery:orange": {
+			"chance": 0.65
+		},
+		"bakery:peach": {
+			"chance": 0.65
+		},
+		"bakery:mango": {
+			"chance": 0.65
+		},
+		"bakery:plum": {
+			"chance": 0.65
+		},
+		"bakery:corn": {
+			"chance": 0.65
+		},
+		"bakery:pea_pod": {
+			"chance": 0.65
+		},
+		"bakery:sweet_potato": {
+			"chance": 0.65
+		},
+		"bakery:zucchini": {
+			"chance": 0.65
+		},
+		"bakery:rhubarb": {
+			"chance": 0.65
+		},
+		"bakery:sugar_beet": {
+			"chance": 0.65
+		},
+		"bakery:cranberry": {
+			"chance": 0.65
+		},
+		"bakery:hibiscus": {
+			"chance": 0.65
+		},
+		"bakery:palm_leaves": {
+			"chance": 0.3
+		},
+		"bakery:palm_sapling": {
+			"chance": 0.3
+		},
+		"bakery:citrus_leaves": {
+			"chance": 0.3
+		},
+		"bakery:citrus_sapling": {
+			"chance": 0.3
+		},
+		"bakery:blossom_leaves": {
+			"chance": 0.3
+		},
+		"bakery:blossom_sapling": {
+			"chance": 0.3
+		},
+		"bakery:orangewood_leaves": {
+			"chance": 0.3
+		},
+		"bakery:orangewood_sapling": {
+			"chance": 0.3
+		},
+		"bakery:peachwood_leaves": {
+			"chance": 0.3
+		},
+		"bakery:peachwood_sapling": {
+			"chance": 0.3
+		},
+		"bakery:mangowood_leaves": {
+			"chance": 0.3
+		},
+		"bakery:mangowood_sapling": {
+			"chance": 0.3
+		},
+		"bakery:plumwood_leaves": {
+			"chance": 0.3
+		},
+		"bakery:plumwood_sapling": {
+			"chance": 0.3
+		}
+	}
+}

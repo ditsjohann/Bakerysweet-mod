@@ -160,9 +160,9 @@ public final class ShopManager {
 	}
 
 	private static void levelUp(ServerPlayerEntity player, CafeLevel level) {
-		player.networkHandler.sendPacket(new TitleFadeS2CPacket(10, 70, 20));
-		player.networkHandler.sendPacket(new TitleS2CPacket(level.displayName().copy().formatted(Formatting.LIGHT_PURPLE)));
-		player.networkHandler.sendPacket(new SubtitleS2CPacket(Text.translatable("cafe_level.bakery.up")));
+		com.bakery.platform.Platform.get().sendVanillaPacket(player, new TitleFadeS2CPacket(10, 70, 20));
+		com.bakery.platform.Platform.get().sendVanillaPacket(player, new TitleS2CPacket(level.displayName().copy().formatted(Formatting.LIGHT_PURPLE)));
+		com.bakery.platform.Platform.get().sendVanillaPacket(player, new SubtitleS2CPacket(Text.translatable("cafe_level.bakery.up")));
 		player.sendMessage(Text.translatable("message.bakery.level.unlocked", level.displayName()).formatted(Formatting.GOLD), false);
 		for (Menu.Dish dish : Menu.dishes()) {
 			if (dish.level() == level) {

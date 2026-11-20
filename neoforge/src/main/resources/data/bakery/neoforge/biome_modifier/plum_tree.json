@@ -1,0 +1,10 @@
+{
+	"type": "neoforge:add_features",
+	"biomes": [
+		"minecraft:dark_forest",
+		"minecraft:swamp",
+		"minecraft:old_growth_birch_forest"
+	],
+	"features": "bakery:plum_tree",
+	"step": "vegetal_decoration"
+}

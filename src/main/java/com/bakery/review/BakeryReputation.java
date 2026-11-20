@@ -104,9 +104,9 @@ public class BakeryReputation extends PersistentState {
 		Stats after = reputation.record(player.getUuid(), stars);
 		if (after.rankKey().equals("star_patissier")) com.bakery.sweet.Stickers.award(player, com.bakery.sweet.Sticker.STAR_PATISSIER);
 		if (!after.rankKey().equals(before)) {
-			player.networkHandler.sendPacket(new TitleFadeS2CPacket(10, 60, 20));
-			player.networkHandler.sendPacket(new TitleS2CPacket(after.rank().copy().formatted(Formatting.LIGHT_PURPLE)));
-			player.networkHandler.sendPacket(new SubtitleS2CPacket(Text.translatable("rank.bakery.up")));
+			com.bakery.platform.Platform.get().sendVanillaPacket(player, new TitleFadeS2CPacket(10, 60, 20));
+			com.bakery.platform.Platform.get().sendVanillaPacket(player, new TitleS2CPacket(after.rank().copy().formatted(Formatting.LIGHT_PURPLE)));
+			com.bakery.platform.Platform.get().sendVanillaPacket(player, new SubtitleS2CPacket(Text.translatable("rank.bakery.up")));
 			player.getServerWorld().playSound(null, player.getBlockPos(), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundCategory.PLAYERS, 0.8f, 1.2f);
 			player.getServerWorld().spawnParticles(ParticleTypes.HEART, player.getX(), player.getY() + 2, player.getZ(), 12, 0.6, 0.4, 0.6, 0.02);
 		}

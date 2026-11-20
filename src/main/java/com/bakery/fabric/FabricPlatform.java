@@ -24,6 +24,11 @@ public final class FabricPlatform implements Platform {
 	}
 
 	@Override
+	public void sendVanillaPacket(ServerPlayerEntity player, net.minecraft.network.packet.Packet<?> packet) {
+		player.networkHandler.sendPacket(packet);
+	}
+
+	@Override
 	public int fuelTime(ItemStack stack) {
 		Integer burn = FuelRegistry.INSTANCE.get(stack.getItem());
 		return burn == null ? 0 : burn;

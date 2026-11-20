@@ -27,6 +27,9 @@ public interface Platform {
 	/** Sends one of the mod's packets to a player. */
 	void sendToPlayer(ServerPlayerEntity player, CustomPayload payload);
 
+	/** Sends a plain Minecraft packet (titles and the like) to a player. */
+	void sendVanillaPacket(ServerPlayerEntity player, net.minecraft.network.packet.Packet<?> packet);
+
 	/** How long an item burns in a furnace, in ticks (0 = not a fuel). */
 	int fuelTime(ItemStack stack);
 

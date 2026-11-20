@@ -1,0 +1,8 @@
+{
+	"type": "neoforge:add_features",
+	"biomes": [
+		"minecraft:beach"
+	],
+	"features": "bakery:palm_tree",
+	"step": "vegetal_decoration"
+}

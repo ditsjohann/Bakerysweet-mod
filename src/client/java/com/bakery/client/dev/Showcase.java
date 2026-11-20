@@ -32,6 +32,7 @@ public final class Showcase {
 	private static final Deque<String> STEPS = new ArrayDeque<>();
 	private static int wait = 100;
 	private static boolean loaded;
+	private static int waitingTicks;
 
 	private Showcase() {
 	}
@@ -92,7 +93,17 @@ public final class Showcase {
 	}
 
 	private static void tick(MinecraftClient client, String script) {
-		if (client.world == null || client.player == null || client.getServer() == null) return;
+		if (client.world == null || client.player == null || client.getServer() == null) {
+			// Not in the world yet: every 15 seconds, note which screen is up (and photograph it) so a run that hangs
+			// on a confirmation screen can be diagnosed.
+			if (++waitingTicks % 300 == 0 && client.currentScreen != null) {
+				String name = client.currentScreen.getClass().getSimpleName();
+				log("NOTE still waiting for the world; screen: " + name + " / " + client.currentScreen.getTitle().getString());
+				ScreenshotRecorder.saveScreenshot(client.runDirectory, "waiting_" + name + ".png", client.getFramebuffer(), text -> {
+				});
+			}
+			return;
+		}
 		if (!loaded) {
 			loaded = true;
 			try {

@@ -1,0 +1,70 @@
+// Sweetheart Bakery for NeoForge 1.21.1. Compiles the shared sources and assets from ../src (everything but the
+// Fabric-only folders) together with the NeoForge entry points in src/. Build with: ./gradlew -p neoforge build
+plugins {
+	id "dev.architectury.loom" version "1.17.493"
+}
+
+base { archivesName = "sweetheart-bakery-neoforge" }
+version = project.mod_version
+group = "com.bakery"
+
+repositories {
+	maven { url = "https://maven.neoforged.net/releases/" }
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings loom.layered {
+		it.mappings("net.fabricmc:yarn:${project.yarn_mappings}:v2")
+		it.mappings("dev.architectury:yarn-mappings-patch-neoforge:${project.yarn_patch}")
+	}
+	neoForge "net.neoforged:neoforge:${project.neoforge_version}"
+}
+
+def shared = rootProject.file("../src")
+sourceSets {
+	main {
+		java {
+			srcDirs = ["src/main/java", "${shared}/main/java", "${shared}/client/java"]
+			exclude "com/bakery/fabric/**"
+		}
+		resources {
+			srcDirs = ["src/main/resources", "${shared}/main/resources"]
+			exclude "fabric.mod.json"
+		}
+	}
+}
+
+processResources {
+	inputs.property "version", project.version
+	filesMatching("META-INF/neoforge.mods.toml") {
+		expand "version": project.version
+	}
+}
+
+loom {
+	runs {
+		client {
+			runDir "run"
+		}
+		server {
+			runDir "run-server"
+		}
+		// Dev only: opens the showcase world and plays run/showcase.txt (camera moves and screenshots), then quits.
+		showcase {
+			inherit client
+			name "Showcase"
+			runDir "run"
+			vmArg "-Dbakery.showcase=showcase.txt"
+			programArgs "--quickPlaySingleplayer", "sweetheart_showcase", "--width", "1280", "--height", "720"
+		}
+	}
+}
+
+java {
+	toolchain { languageVersion = JavaLanguageVersion.of(21) }
+}
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 21
+	it.options.encoding = "UTF-8"
+}

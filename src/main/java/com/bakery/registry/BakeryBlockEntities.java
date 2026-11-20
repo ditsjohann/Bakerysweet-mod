@@ -63,7 +63,7 @@ public final class BakeryBlockEntities {
 	}
 
 	private static <T extends BlockEntity> BlockEntityType<T> register(String name, BlockEntityType<T> type) {
-		return Registry.register(Registries.BLOCK_ENTITY_TYPE, Bakery.id(name), type);
+		return com.bakery.platform.Platform.get().register(Registries.BLOCK_ENTITY_TYPE, Bakery.id(name), type);
 	}
 
 	public static void init() {

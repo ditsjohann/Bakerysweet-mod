@@ -44,7 +44,7 @@ public final class BakeryComponents {
 	}
 
 	private static <T> ComponentType<T> register(String name, Codec<T> codec, PacketCodec<? super net.minecraft.network.RegistryByteBuf, T> packetCodec) {
-		return Registry.register(Registries.DATA_COMPONENT_TYPE, Bakery.id(name),
+		return com.bakery.platform.Platform.get().register(Registries.DATA_COMPONENT_TYPE, Bakery.id(name),
 				ComponentType.<T>builder().codec(codec).packetCodec(packetCodec).build());
 	}
 

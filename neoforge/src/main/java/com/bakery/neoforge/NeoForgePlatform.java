@@ -46,7 +46,7 @@ public final class NeoForgePlatform implements Platform {
 	@Override
 	public PointOfInterestType registerPoi(Identifier id, int tickets, int searchDistance, Block block) {
 		// NeoForge maps the block's states to the new point of interest when it is registered.
-		return Registry.register(Registries.POINT_OF_INTEREST_TYPE, id,
+		return register(Registries.POINT_OF_INTEREST_TYPE, id,
 				new PointOfInterestType(ImmutableSet.copyOf(block.getStateManager().getStates()), tickets, searchDistance));
 	}
 }

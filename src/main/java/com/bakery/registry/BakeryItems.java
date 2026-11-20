@@ -238,7 +238,7 @@ public final class BakeryItems {
 	public static final Item BUNNY_EARS = hat("bunny_ears");
 	public static final Item CAT_EARS = hat("cat_ears");
 	public static final Item RIBBON_BOW = hat("ribbon_bow");
-	public static final RegistryEntry<ArmorMaterial> APRON_MATERIAL = Registry.registerReference(Registries.ARMOR_MATERIAL, Bakery.id("frilly_apron"),
+	public static final RegistryEntry<ArmorMaterial> APRON_MATERIAL = com.bakery.platform.Platform.get().registerReference(Registries.ARMOR_MATERIAL, Bakery.id("frilly_apron"),
 			new ArmorMaterial(Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 				for (ArmorItem.Type type : ArmorItem.Type.values()) map.put(type, 1);
 			}), 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> Ingredient.ofItems(Items.PINK_WOOL),
@@ -404,7 +404,7 @@ public final class BakeryItems {
 		current = KITCHEN;
 	}
 
-	public static final ItemGroup GROUP = Registry.register(Registries.ITEM_GROUP, Bakery.id("bakery"), com.bakery.platform.Platform.get().itemGroup()
+	public static final ItemGroup GROUP = com.bakery.platform.Platform.get().register(Registries.ITEM_GROUP, Bakery.id("bakery"), com.bakery.platform.Platform.get().itemGroup()
 			.icon(() -> new ItemStack(CUPCAKE))
 			.displayName(Text.translatable("itemGroup.bakery"))
 			.entries((context, entries) -> {
@@ -426,13 +426,13 @@ public final class BakeryItems {
 			})
 			.build());
 
-	public static final ItemGroup DECOR_GROUP = Registry.register(Registries.ITEM_GROUP, Bakery.id("decor"), com.bakery.platform.Platform.get().itemGroup()
+	public static final ItemGroup DECOR_GROUP = com.bakery.platform.Platform.get().register(Registries.ITEM_GROUP, Bakery.id("decor"), com.bakery.platform.Platform.get().itemGroup()
 			.icon(() -> new ItemStack(BAKERY_COUNTER))
 			.displayName(Text.translatable("itemGroup.bakery.decor"))
 			.entries((context, entries) -> DECOR.forEach(entries::add))
 			.build());
 
-	public static final ItemGroup SWEET_GROUP = Registry.register(Registries.ITEM_GROUP, Bakery.id("sweet_life"), com.bakery.platform.Platform.get().itemGroup()
+	public static final ItemGroup SWEET_GROUP = com.bakery.platform.Platform.get().register(Registries.ITEM_GROUP, Bakery.id("sweet_life"), com.bakery.platform.Platform.get().itemGroup()
 			.icon(() -> new ItemStack(SWEET_COIN))
 			.displayName(Text.translatable("itemGroup.bakery.sweet_life"))
 			.entries((context, entries) -> {
@@ -538,7 +538,7 @@ public final class BakeryItems {
 
 	private static Item register(String name, Item item) {
 		current.add(item);
-		return Registry.register(Registries.ITEM, Bakery.id(name), item);
+		return com.bakery.platform.Platform.get().register(Registries.ITEM, Bakery.id(name), item);
 	}
 
 	public static void init() {

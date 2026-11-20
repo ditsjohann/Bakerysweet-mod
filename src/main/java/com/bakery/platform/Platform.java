@@ -24,6 +24,19 @@ public interface Platform {
 		Holder.instance = platform;
 	}
 
+	/**
+	 * Registers {@code value} under {@code id}. Plain Minecraft on Fabric and NeoForge; Forge only accepts entries
+	 * through its own registry objects for the registries it manages.
+	 */
+	default <V, T extends V> T register(net.minecraft.registry.Registry<V> registry, Identifier id, T value) {
+		return net.minecraft.registry.Registry.register(registry, id, value);
+	}
+
+	/** Like {@link #register}, returning the registry entry (holder). */
+	default <T> net.minecraft.registry.entry.RegistryEntry<T> registerReference(net.minecraft.registry.Registry<T> registry, Identifier id, T value) {
+		return net.minecraft.registry.Registry.registerReference(registry, id, value);
+	}
+
 	/** Sends one of the mod's packets to a player. */
 	void sendToPlayer(ServerPlayerEntity player, CustomPayload payload);
 

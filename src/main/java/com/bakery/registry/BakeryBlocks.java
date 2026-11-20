@@ -355,7 +355,7 @@ public final class BakeryBlocks {
 	}
 
 	private static Block register(String name, Block block) {
-		return Registry.register(Registries.BLOCK, Bakery.id(name), block);
+		return com.bakery.platform.Platform.get().register(Registries.BLOCK, Bakery.id(name), block);
 	}
 
 	public static void init() {

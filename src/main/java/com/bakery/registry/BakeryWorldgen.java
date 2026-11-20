@@ -25,7 +25,7 @@ public final class BakeryWorldgen {
 
 	@SafeVarargs
 	private static void tree(String name, TreeShapes.Kind kind, Supplier<WoodSet> wood, Supplier<Block> fruit, RegistryKey<Biome>... biomes) {
-		Registry.register(Registries.FEATURE, Bakery.id(name), new FruitTreeFeature(kind, wood, fruit));
+		com.bakery.platform.Platform.get().register(Registries.FEATURE, Bakery.id(name), new FruitTreeFeature(kind, wood, fruit));
 		// Which biomes it grows in: each loader adds the placed feature bakery:<name> to them its own way.
 		com.bakery.platform.Hooks.WILD_TREES.add(new com.bakery.platform.Hooks.WildTree(Bakery.id(name), java.util.List.of(biomes)));
 	}

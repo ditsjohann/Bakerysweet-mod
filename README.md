@@ -53,7 +53,24 @@ Villagers can also become **Bakers** by working at a Brick Oven.
 
 ## Development
 
-- Build: `gradlew build` (the jar ends up in `build/libs`)
+Sweetheart Bakery runs on **Fabric**, **NeoForge** and **Forge** for Minecraft 1.21.1, all from the same code.
+
+| Loader | Build | Jar |
+|---|---|---|
+| Fabric (+ Fabric API) | `./gradlew build` | `build/libs/sweetheart-bakery-1.0.0.jar` |
+| NeoForge 21.1 | `./gradlew -p neoforge build` | `neoforge/build/libs/sweetheart-bakery-neoforge-1.0.0.jar` |
+| Forge 52.1 | `./gradlew -p forge build` | `forge/build/libs/sweetheart-bakery-forge-1.0.0.jar` |
+
+- Shared code and assets live in `src/` and use plain Minecraft. Each loader plugs in through a small adapter:
+  `com.bakery.fabric` (in `src/`), `neoforge/src` and `forge/src`. What a loader has to provide is in
+  `com.bakery.platform.Platform`; content the loaders wire up their own way is collected in `Hooks` (server) and
+  `ClientContent` (client).
+- `neoforge/` and `forge/` are separate Gradle builds (Architectury Loom with yarn names) that compile `../src`
+  minus the Fabric folders. NeoForge's compost data map and wild-tree biome modifiers come from
+  `blockbench/gen_loader_data.py`.
+- On Forge the wild fruit trees do not generate in new worlds (Forge would show an "experimental settings"
+  warning on every world load); their saplings still grow every tree.
 - Every texture and block model was painted and built in Blockbench through the Blockbench MCP. The generator scripts are in `blockbench/`.
 - Round models (fountain, couch, jam pot, juicer, millstone, catalog stand, flower pots) come from `blockbench/round_model.py` and the `gen_*.py` scripts; 32x32 materials from `blockbench/gen_textures.py`; `blockbench/upscale_epx.py` doubles any texture still at 16x16.
-- `./gradlew runGametest` plays through every feature on a headless server.
+- `./gradlew runGametest` plays through every feature on a headless server (Fabric).
+- `./gradlew -p neoforge runClient` / `./gradlew -p forge runClient` start a NeoForge or Forge test game.

@@ -12,7 +12,7 @@ public final class BakerySounds {
 
 	static {
 		for (int i = 0; i < TRACKS.length; i++) {
-			MUSIC[i] = Registry.register(Registries.SOUND_EVENT, Bakery.id("music." + TRACKS[i]), SoundEvent.of(Bakery.id("music." + TRACKS[i])));
+			MUSIC[i] = com.bakery.platform.Platform.get().register(Registries.SOUND_EVENT, Bakery.id("music." + TRACKS[i]), SoundEvent.of(Bakery.id("music." + TRACKS[i])));
 		}
 	}
 

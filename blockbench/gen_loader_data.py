@@ -1,7 +1,8 @@
 """
 Data files that NeoForge and Forge need but Fabric does not (Fabric does the same things in code):
   - NeoForge: the compostables data map (NeoForge's composter only reads data maps), from BakeryItems.init()
-  - NeoForge and Forge: biome modifiers that add the wild fruit trees, from BakeryWorldgen.init()
+  - NeoForge: biome modifiers that add the wild fruit trees, from BakeryWorldgen.init() (the Forge build leaves the
+    wild trees out: Forge treats mod worldgen data as experimental and asks for a backup on every world load)
 Reads the Java sources, so it stays in step when items or trees change.
 Run: python3 blockbench/gen_loader_data.py
 """
@@ -70,7 +71,7 @@ def build():
     dump(os.path.join(ROOT, "neoforge/src/main/resources/data/neoforge/data_maps/item/compostables.json"), {"values": values})
     n = 0
     for name, biomes in trees():
-        for loader in ("neoforge", "forge"):
+        for loader in ("neoforge",):
             dump(os.path.join(ROOT, f"{loader}/src/main/resources/data/bakery/{loader}/biome_modifier/{name}.json"),
                  {"type": f"{loader}:add_features", "biomes": biomes, "features": f"bakery:{name}", "step": "vegetal_decoration"})
         n += 1

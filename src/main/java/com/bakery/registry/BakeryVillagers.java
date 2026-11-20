@@ -23,7 +23,7 @@ import java.util.List;
 public final class BakeryVillagers {
 	public static final RegistryKey<PointOfInterestType> BAKER_POI_KEY = RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, Bakery.id("baker"));
 	public static final PointOfInterestType BAKER_POI = com.bakery.platform.Platform.get().registerPoi(Bakery.id("baker"), 1, 1, BakeryBlocks.BAKERY_COUNTER);
-	public static final VillagerProfession BAKER = Registry.register(Registries.VILLAGER_PROFESSION, Bakery.id("baker"),
+	public static final VillagerProfession BAKER = com.bakery.platform.Platform.get().register(Registries.VILLAGER_PROFESSION, Bakery.id("baker"),
 			new VillagerProfession("baker", entry -> entry.matchesKey(BAKER_POI_KEY), entry -> entry.matchesKey(BAKER_POI_KEY),
 					ImmutableSet.of(Items.WHEAT, BakeryItems.STRAWBERRY), ImmutableSet.of(), SoundEvents.ENTITY_VILLAGER_WORK_BUTCHER));
 

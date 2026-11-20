@@ -3,7 +3,6 @@ package com.bakery.registry;
 import com.bakery.Bakery;
 import com.bakery.cafe.CustomerEntity;
 import com.bakery.deco.SeatEntity;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
@@ -29,7 +28,7 @@ public final class BakeryEntities {
 	}
 
 	public static void init() {
-		FabricDefaultAttributeRegistry.register(CUSTOMER, CustomerEntity.createAttributes());
-		FabricDefaultAttributeRegistry.register(CAFE_CAT, net.minecraft.entity.passive.CatEntity.createCatAttributes());
+		com.bakery.platform.Hooks.attributes(CUSTOMER, CustomerEntity::createAttributes);
+		com.bakery.platform.Hooks.attributes(CAFE_CAT, net.minecraft.entity.passive.CatEntity::createCatAttributes);
 	}
 }

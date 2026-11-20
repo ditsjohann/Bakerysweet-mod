@@ -1,7 +1,6 @@
 package com.bakery.client;
 
 import com.bakery.registry.BakeryItems;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.sound.PositionedSoundInstance;
@@ -67,7 +66,7 @@ public class TourScreen extends Screen {
 	}
 
 	private static Path seenFile() {
-		return FabricLoader.getInstance().getConfigDir().resolve("bakery_tour_seen");
+		return com.bakery.platform.Platform.get().configDir().resolve("bakery_tour_seen");
 	}
 
 	/** Whether this player has watched (or skipped) the tour on this computer. */

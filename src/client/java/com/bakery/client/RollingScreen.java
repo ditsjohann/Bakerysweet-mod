@@ -5,7 +5,6 @@ import com.bakery.baking.BakingRecipes;
 import com.bakery.food.BakeryFoods;
 import com.bakery.network.ShapeDoughPayload;
 import com.bakery.registry.BakeryItems;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -116,7 +115,7 @@ public class RollingScreen extends Screen {
 		if (round >= ROUNDS) {
 			phase = Phase.DONE;
 			doneTicks = 0;
-			ClientPlayNetworking.send(new ShapeDoughPayload(pos, shape.ordinal(), score));
+			ClientContent.sendToServer(new ShapeDoughPayload(pos, shape.ordinal(), score));
 			client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ENTITY_PLAYER_LEVELUP, 1.5f));
 		}
 	}

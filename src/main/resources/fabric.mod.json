@@ -10,8 +10,8 @@
 	"icon": "assets/bakery/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"main": ["com.bakery.Bakery"],
-		"client": ["com.bakery.client.BakeryClient"]
+		"main": ["com.bakery.fabric.BakeryFabric"],
+		"client": ["com.bakery.fabric.client.BakeryFabricClient"]
 	},
 	"depends": {
 		"fabricloader": ">=0.16.0",

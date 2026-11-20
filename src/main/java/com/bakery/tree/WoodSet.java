@@ -1,10 +1,7 @@
 package com.bakery.tree;
 
 import com.bakery.Bakery;
-import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
-import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
-import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
+import com.bakery.platform.Hooks;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSetType;
@@ -34,8 +31,9 @@ public final class WoodSet {
 
 	public WoodSet(String name, MapColor planksColor, MapColor barkColor, TreeShapes.Kind kind, Supplier<WoodSet> self, Supplier<Block> fruit) {
 		this.name = name;
-		this.setType = BlockSetTypeBuilder.copyOf(BlockSetType.OAK).register(Bakery.id(name));
-		this.woodType = WoodTypeBuilder.copyOf(WoodType.OAK).register(Bakery.id(name), setType);
+		// Same sounds and behaviour as oak (what BlockSetType.OAK and WoodType.OAK are made with).
+		this.setType = new BlockSetType(Bakery.id(name).toString());
+		this.woodType = new WoodType(Bakery.id(name).toString(), setType);
 
 		log = register(name + "_log", new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_LOG).mapColor(barkColor)));
 		wood = register(name + "_wood", new PillarBlock(AbstractBlock.Settings.copy(Blocks.OAK_WOOD).mapColor(barkColor)));
@@ -51,12 +49,11 @@ public final class WoodSet {
 		leaves = register(name + "_leaves", new LeavesBlock(AbstractBlock.Settings.copy(Blocks.OAK_LEAVES)));
 		sapling = register(name + "_sapling", new FruitSaplingBlock(AbstractBlock.Settings.copy(Blocks.OAK_SAPLING), kind, self, fruit));
 
-		StrippableBlockRegistry.register(log, strippedLog);
-		StrippableBlockRegistry.register(wood, strippedWood);
-		FlammableBlockRegistry flammable = FlammableBlockRegistry.getDefaultInstance();
-		for (Block b : List.of(log, wood, strippedLog, strippedWood)) flammable.add(b, 5, 5);
-		for (Block b : List.of(planks, stairs, slab, fence, fenceGate)) flammable.add(b, 5, 20);
-		flammable.add(leaves, 30, 60);
+		Hooks.strippable(log, strippedLog);
+		Hooks.strippable(wood, strippedWood);
+		for (Block b : List.of(log, wood, strippedLog, strippedWood)) Hooks.flammable(b, 5, 5);
+		for (Block b : List.of(planks, stairs, slab, fence, fenceGate)) Hooks.flammable(b, 5, 20);
+		Hooks.flammable(leaves, 30, 60);
 	}
 
 	public List<Block> all() {

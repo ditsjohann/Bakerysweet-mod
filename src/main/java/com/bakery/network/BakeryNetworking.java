@@ -5,8 +5,11 @@ import com.bakery.block.PastryBoardBlockEntity;
 import com.bakery.food.Freshness;
 import com.bakery.registry.BakeryComponents;
 import com.bakery.registry.BakeryItems;
-import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import com.bakery.platform.Platform;
+import net.minecraft.entity.Entity;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -17,47 +20,70 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.BiConsumer;
+
 public final class BakeryNetworking {
 	private BakeryNetworking() {
 	}
 
-	public static void init() {
-		PayloadTypeRegistry.playS2C().register(OpenRollingPayload.ID, OpenRollingPayload.CODEC);
-		PayloadTypeRegistry.playS2C().register(ReviewPayload.ID, ReviewPayload.CODEC);
-		PayloadTypeRegistry.playS2C().register(OrdersPayload.ID, OrdersPayload.CODEC);
-		PayloadTypeRegistry.playC2S().register(ShapeDoughPayload.ID, ShapeDoughPayload.CODEC);
+	/** A packet the server sends to players. */
+	public record ToClient<T extends CustomPayload>(CustomPayload.Id<T> id, PacketCodec<RegistryByteBuf, T> codec) {
+	}
 
-		PayloadTypeRegistry.playS2C().register(BakeResultPayload.ID, BakeResultPayload.CODEC);
-		PayloadTypeRegistry.playS2C().register(AppraisalPayload.ID, AppraisalPayload.CODEC);
+	/** A packet players send to the server, with what the server does with it (on the server thread). */
+	public record ToServer<T extends CustomPayload>(CustomPayload.Id<T> id, PacketCodec<RegistryByteBuf, T> codec,
+													 BiConsumer<T, ServerPlayerEntity> handler) {
+	}
 
-		PayloadTypeRegistry.playS2C().register(StickerPayload.ID, StickerPayload.CODEC);
-		PayloadTypeRegistry.playS2C().register(SweetPayloads.GuideData.ID, SweetPayloads.GuideData.CODEC);
-		PayloadTypeRegistry.playS2C().register(SweetPayloads.OpenCatalog.ID, SweetPayloads.OpenCatalog.CODEC);
-		PayloadTypeRegistry.playS2C().register(SweetPayloads.OpenMenu.ID, SweetPayloads.OpenMenu.CODEC);
-		PayloadTypeRegistry.playC2S().register(SweetPayloads.Buy.ID, SweetPayloads.Buy.CODEC);
-		PayloadTypeRegistry.playC2S().register(SweetPayloads.ToggleDish.ID, SweetPayloads.ToggleDish.CODEC);
-		PayloadTypeRegistry.playS2C().register(SweetPayloads.OpenCounter.ID, SweetPayloads.OpenCounter.CODEC);
-		PayloadTypeRegistry.playS2C().register(SweetPayloads.OpenNotebook.ID, SweetPayloads.OpenNotebook.CODEC);
-		PayloadTypeRegistry.playC2S().register(SweetPayloads.CounterAction.ID, SweetPayloads.CounterAction.CODEC);
-		ServerPlayNetworking.registerGlobalReceiver(SweetPayloads.CounterAction.ID, (payload, context) -> context.server().execute(() -> {
-			ServerPlayerEntity player = context.player();
-			ServerWorld world = player.getServerWorld();
-			if (player.squaredDistanceTo(Vec3d.ofCenter(payload.counter())) < 64 && world.getBlockState(payload.counter()).getBlock() instanceof com.bakery.shop.CounterBlock) {
-				com.bakery.shop.CounterBlock.act(world, payload.counter(), player, payload.action());
-			}
-		}));
-		ServerPlayNetworking.registerGlobalReceiver(SweetPayloads.Buy.ID, (payload, context) ->
-				context.server().execute(() -> com.bakery.sweet.Catalog.buy(context.player(), payload.pos(), payload.index())));
-		ServerPlayNetworking.registerGlobalReceiver(SweetPayloads.ToggleDish.ID, (payload, context) -> context.server().execute(() -> {
-			ServerPlayerEntity player = context.player();
-			if (player.squaredDistanceTo(Vec3d.ofCenter(payload.counter())) < 256
-					&& player.getServerWorld().getBlockEntity(payload.counter()) instanceof com.bakery.shop.CounterBlockEntity counter) {
-				counter.toggleDish(payload.dish());
-			}
-		}));
+	public static final List<ToClient<?>> TO_CLIENT = List.of(
+			new ToClient<>(OpenRollingPayload.ID, OpenRollingPayload.CODEC),
+			new ToClient<>(ReviewPayload.ID, ReviewPayload.CODEC),
+			new ToClient<>(OrdersPayload.ID, OrdersPayload.CODEC),
+			new ToClient<>(BakeResultPayload.ID, BakeResultPayload.CODEC),
+			new ToClient<>(AppraisalPayload.ID, AppraisalPayload.CODEC),
+			new ToClient<>(StickerPayload.ID, StickerPayload.CODEC),
+			new ToClient<>(SweetPayloads.GuideData.ID, SweetPayloads.GuideData.CODEC),
+			new ToClient<>(SweetPayloads.OpenCatalog.ID, SweetPayloads.OpenCatalog.CODEC),
+			new ToClient<>(SweetPayloads.OpenMenu.ID, SweetPayloads.OpenMenu.CODEC),
+			new ToClient<>(SweetPayloads.OpenCounter.ID, SweetPayloads.OpenCounter.CODEC),
+			new ToClient<>(SweetPayloads.OpenNotebook.ID, SweetPayloads.OpenNotebook.CODEC));
 
-		ServerPlayNetworking.registerGlobalReceiver(ShapeDoughPayload.ID, (payload, context) ->
-				context.server().execute(() -> shapeDough(context.player(), payload)));
+	public static final List<ToServer<?>> TO_SERVER = List.of(
+			new ToServer<>(ShapeDoughPayload.ID, ShapeDoughPayload.CODEC, (payload, player) -> shapeDough(player, payload)),
+			new ToServer<>(SweetPayloads.Buy.ID, SweetPayloads.Buy.CODEC,
+					(payload, player) -> com.bakery.sweet.Catalog.buy(player, payload.pos(), payload.index())),
+			new ToServer<>(SweetPayloads.ToggleDish.ID, SweetPayloads.ToggleDish.CODEC, (payload, player) -> {
+				if (player.squaredDistanceTo(Vec3d.ofCenter(payload.counter())) < 256
+						&& player.getServerWorld().getBlockEntity(payload.counter()) instanceof com.bakery.shop.CounterBlockEntity counter) {
+					counter.toggleDish(payload.dish());
+				}
+			}),
+			new ToServer<>(SweetPayloads.CounterAction.ID, SweetPayloads.CounterAction.CODEC, (payload, player) -> {
+				ServerWorld world = player.getServerWorld();
+				if (player.squaredDistanceTo(Vec3d.ofCenter(payload.counter())) < 64 && world.getBlockState(payload.counter()).getBlock() instanceof com.bakery.shop.CounterBlock) {
+					com.bakery.shop.CounterBlock.act(world, payload.counter(), player, payload.action());
+				}
+			}));
+
+	/** Sends one of the mod's packets to a player. */
+	public static void send(ServerPlayerEntity player, CustomPayload payload) {
+		Platform.get().sendToPlayer(player, payload);
+	}
+
+	/** Players in {@code world} within {@code radius} blocks of {@code center}. */
+	public static List<ServerPlayerEntity> around(ServerWorld world, Vec3d center, double radius) {
+		List<ServerPlayerEntity> out = new ArrayList<>();
+		for (ServerPlayerEntity player : world.getPlayers()) {
+			if (player.squaredDistanceTo(center) <= radius * radius) out.add(player);
+		}
+		return out;
+	}
+
+	/** Players close enough to see {@code entity} (in its world, within normal entity view range). */
+	public static List<ServerPlayerEntity> watching(Entity entity) {
+		return entity.getWorld() instanceof ServerWorld world ? around(world, entity.getPos(), 80) : List.of();
 	}
 
 	/** Finishes the rolling minigame: turns the dough on the board into a shaped raw bake. Public for the game tests. */

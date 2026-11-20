@@ -4,7 +4,6 @@ import com.bakery.cafe.CafeLevel;
 import com.bakery.network.SweetPayloads;
 import com.bakery.shop.CounterBlockEntity;
 import com.bakery.shop.Menu;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -88,7 +87,7 @@ public class MenuScreen extends Screen {
 				Menu.Dish dish = dishes.get(i);
 				int dx = x + 10 + (i % COLS) * (W / 2 - 6), dy = y + 32 + (i / COLS) * ROW_H;
 				if (dish.level().ordinal() <= c.getLevel().ordinal() && SweetUi.inside(mouseX, mouseY, dx, dy, W / 2 - 12, ROW_H - 1)) {
-					ClientPlayNetworking.send(new SweetPayloads.ToggleDish(counter, dish.id()));
+					ClientContent.sendToServer(new SweetPayloads.ToggleDish(counter, dish.id()));
 					MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK.value(), 1.5f, 0.4f));
 					return true;
 				}

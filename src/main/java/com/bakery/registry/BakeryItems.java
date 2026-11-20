@@ -30,8 +30,6 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Util;
 import java.util.EnumMap;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.component.type.FoodComponent;
@@ -406,7 +404,7 @@ public final class BakeryItems {
 		current = KITCHEN;
 	}
 
-	public static final ItemGroup GROUP = Registry.register(Registries.ITEM_GROUP, Bakery.id("bakery"), FabricItemGroup.builder()
+	public static final ItemGroup GROUP = Registry.register(Registries.ITEM_GROUP, Bakery.id("bakery"), com.bakery.platform.Platform.get().itemGroup()
 			.icon(() -> new ItemStack(CUPCAKE))
 			.displayName(Text.translatable("itemGroup.bakery"))
 			.entries((context, entries) -> {
@@ -428,13 +426,13 @@ public final class BakeryItems {
 			})
 			.build());
 
-	public static final ItemGroup DECOR_GROUP = Registry.register(Registries.ITEM_GROUP, Bakery.id("decor"), FabricItemGroup.builder()
+	public static final ItemGroup DECOR_GROUP = Registry.register(Registries.ITEM_GROUP, Bakery.id("decor"), com.bakery.platform.Platform.get().itemGroup()
 			.icon(() -> new ItemStack(BAKERY_COUNTER))
 			.displayName(Text.translatable("itemGroup.bakery.decor"))
 			.entries((context, entries) -> DECOR.forEach(entries::add))
 			.build());
 
-	public static final ItemGroup SWEET_GROUP = Registry.register(Registries.ITEM_GROUP, Bakery.id("sweet_life"), FabricItemGroup.builder()
+	public static final ItemGroup SWEET_GROUP = Registry.register(Registries.ITEM_GROUP, Bakery.id("sweet_life"), com.bakery.platform.Platform.get().itemGroup()
 			.icon(() -> new ItemStack(SWEET_COIN))
 			.displayName(Text.translatable("itemGroup.bakery.sweet_life"))
 			.entries((context, entries) -> {
@@ -545,29 +543,29 @@ public final class BakeryItems {
 
 	public static void init() {
 		for (Item compostable : new Item[]{COFFEE_SEEDS, CINNAMON_SEEDS, STRAWBERRY_SEEDS, BLUEBERRY_SEEDS, RASPBERRY_SEEDS, TEA_SEEDS, MINT_SEEDS, VANILLA_SEEDS, LAVENDER_SEEDS, ROSE_SEEDS, PINEAPPLE_SEEDS}) {
-			CompostingChanceRegistry.INSTANCE.add(compostable, 0.3f);
+			com.bakery.platform.Hooks.compostable(compostable, 0.3f);
 		}
 		for (Item compostable : new Item[]{DAISIES, PINK_COSMOS, FORGET_ME_NOTS, LILY_OF_THE_VALLEY, BLUEBELLS, BUTTERCUPS, FOXGLOVE, CATTAILS, WILD_FERN,
 				CLOVER_PATCH, ROSE_BUSH, HYDRANGEA_BUSH, BLOSSOM_LILY_PAD}) {
-			CompostingChanceRegistry.INSTANCE.add(compostable, 0.65f);
+			com.bakery.platform.Hooks.compostable(compostable, 0.65f);
 		}
 		for (Item compostable : new Item[]{COFFEE_CHERRIES, STRAWBERRY, BLUEBERRY, RASPBERRY, TEA_LEAVES, MINT_LEAVES, LAVENDER, ROSE_PETALS, LEMON, PINEAPPLE, BURNT_PASTRY}) {
-			CompostingChanceRegistry.INSTANCE.add(compostable, 0.65f);
+			com.bakery.platform.Hooks.compostable(compostable, 0.65f);
 		}
 		for (Item compostable : new Item[]{BREAD_LOAF, BAGUETTE, CROISSANT, CUPCAKE, DONUT, COOKIES, MACARONS}) {
-			CompostingChanceRegistry.INSTANCE.add(compostable, 0.85f);
+			com.bakery.platform.Hooks.compostable(compostable, 0.85f);
 		}
 		for (WoodSet set : BakeryBlocks.WOODS) {
-			CompostingChanceRegistry.INSTANCE.add(set.leaves, 0.3f);
-			CompostingChanceRegistry.INSTANCE.add(set.sapling, 0.3f);
+			com.bakery.platform.Hooks.compostable(set.leaves, 0.3f);
+			com.bakery.platform.Hooks.compostable(set.sapling, 0.3f);
 		}
 		for (Item compostable : new Item[]{CORN_SEEDS, PEA_SEEDS, SWEET_POTATO_SEEDS, ZUCCHINI_SEEDS, RHUBARB_SEEDS, SUGAR_BEET_SEEDS,
 				CRANBERRY_SEEDS, PEANUT_SEEDS, HIBISCUS_SEEDS, CANDYFLOSS_SEEDS}) {
-			CompostingChanceRegistry.INSTANCE.add(compostable, 0.3f);
+			com.bakery.platform.Hooks.compostable(compostable, 0.3f);
 		}
 		for (Item compostable : new Item[]{CHERRIES, ORANGE, PEACH, MANGO, PLUM, CORN, PEA_POD, SWEET_POTATO, ZUCCHINI, RHUBARB, SUGAR_BEET,
 				CRANBERRY, HIBISCUS}) {
-			CompostingChanceRegistry.INSTANCE.add(compostable, 0.65f);
+			com.bakery.platform.Hooks.compostable(compostable, 0.65f);
 		}
 	}
 }

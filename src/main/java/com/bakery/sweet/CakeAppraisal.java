@@ -6,8 +6,6 @@ import com.bakery.food.Freshness;
 import com.bakery.network.AppraisalPayload;
 import com.bakery.registry.BakeryComponents;
 import com.bakery.shop.CounterBlockEntity;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -90,6 +88,6 @@ public final class CakeAppraisal {
 		if (verdict == GOOD && design.cuteness() >= 4) Stickers.award(player, Sticker.CAKE_ARTIST);
 
 		AppraisalPayload payload = new AppraisalPayload(pos, cake, stars, verdict, comment, coins, judged[1], judged[2], judged[3]);
-		for (ServerPlayerEntity viewer : PlayerLookup.around(world, Vec3d.ofCenter(pos), 32)) ServerPlayNetworking.send(viewer, payload);
+		for (ServerPlayerEntity viewer : com.bakery.network.BakeryNetworking.around(world, Vec3d.ofCenter(pos), 32)) com.bakery.network.BakeryNetworking.send(viewer, payload);
 	}
 }

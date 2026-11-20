@@ -16,8 +16,6 @@ import com.bakery.sweet.Friendship;
 import com.bakery.sweet.Outfit;
 import com.bakery.sweet.Sticker;
 import com.bakery.sweet.Stickers;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.SubtitleS2CPacket;
 import net.minecraft.network.packet.s2c.play.TitleFadeS2CPacket;
@@ -150,10 +148,10 @@ public final class ShopManager {
 		BakeryReputation.recordAndCelebrate(player, stars);
 		ReviewPayload review = new ReviewPayload(customer.getId(), tasted, stars, comment(world.random, stars),
 				favorite ? "loved" : regular.favorite().asString(), price, regular.name(), hearts);
-		for (ServerPlayerEntity viewer : PlayerLookup.tracking(customer)) {
-			ServerPlayNetworking.send(viewer, review);
+		for (ServerPlayerEntity viewer : com.bakery.network.BakeryNetworking.watching(customer)) {
+			com.bakery.network.BakeryNetworking.send(viewer, review);
 		}
-		if (!PlayerLookup.tracking(customer).contains(player)) ServerPlayNetworking.send(player, review);
+		if (!com.bakery.network.BakeryNetworking.watching(customer).contains(player)) com.bakery.network.BakeryNetworking.send(player, review);
 		return true;
 	}
 

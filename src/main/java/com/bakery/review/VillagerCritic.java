@@ -6,7 +6,6 @@ import com.bakery.food.Freshness;
 import com.bakery.food.Perishable;
 import com.bakery.item.DrinkItem;
 import com.bakery.network.ReviewPayload;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.item.ItemStack;
@@ -109,6 +108,6 @@ public final class VillagerCritic {
 
 		String hint = BakeryFoods.flavor(tasted) == favorite ? "loved" : favorite.asString();
 		BakeryReputation.recordAndCelebrate(player, stars);
-		ServerPlayNetworking.send(player, new ReviewPayload(villager.getId(), tasted, stars, comment(world.random, stars), hint, coins));
+		com.bakery.network.BakeryNetworking.send(player, new ReviewPayload(villager.getId(), tasted, stars, comment(world.random, stars), hint, coins));
 	}
 }

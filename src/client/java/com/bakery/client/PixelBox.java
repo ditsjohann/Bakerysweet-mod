@@ -1,7 +1,6 @@
 package com.bakery.client;
 
 import com.bakery.Bakery;
-import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
@@ -32,9 +31,7 @@ public final class PixelBox {
 	}
 
 	public static void registerParts() {
-		ModelLoadingPlugin.register(context -> {
-			for (String part : PARTS) context.addModels(Bakery.id("block/part/" + part));
-		});
+		for (String part : PARTS) ClientContent.EXTRA_MODELS.add(Bakery.id("block/part/" + part));
 	}
 
 	public static Sprite sprite(String path) {
@@ -53,7 +50,7 @@ public final class PixelBox {
 	/** Draws a part model; matrices at the block corner as for a block model. */
 	public static void part(String name, BlockState state, MatrixStack matrices, VertexConsumerProvider consumers, int light, int overlay) {
 		MinecraftClient client = MinecraftClient.getInstance();
-		BakedModel model = client.getBakedModelManager().getModel(Bakery.id("block/part/" + name));
+		BakedModel model = ClientContent.extraModel(Bakery.id("block/part/" + name));
 		if (model == null) return;
 		client.getBlockRenderManager().getModelRenderer().render(matrices.peek(), consumers.getBuffer(TexturedRenderLayers.getEntityCutout()),
 				state, model, 1f, 1f, 1f, light, overlay);

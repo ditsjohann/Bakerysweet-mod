@@ -4,7 +4,6 @@ import com.bakery.food.BakeryFoods;
 import com.bakery.oven.CoreBlock;
 import com.bakery.oven.Multiblock;
 import com.bakery.review.BakeryReputation;
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.block.BlockState;
 import net.minecraft.command.argument.BlockPosArgumentType;
 import net.minecraft.server.command.CommandManager;
@@ -21,8 +20,9 @@ public final class BakeryCommands {
 	private BakeryCommands() {
 	}
 
-	public static void register() {
-		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
+	/** Adds /bakery (stats, demo, build); each loader calls this when commands are registered. */
+	public static void register(com.mojang.brigadier.CommandDispatcher<net.minecraft.server.command.ServerCommandSource> dispatcher) {
+		{
 				dispatcher.register(CommandManager.literal("bakery")
 						.then(CommandManager.literal("stats").executes(context -> {
 							ServerPlayerEntity player = context.getSource().getPlayerOrThrow();
@@ -61,6 +61,7 @@ public final class BakeryCommands {
 									}
 									context.getSource().sendError(Text.translatable("command.bakery.build.no_core"));
 									return 0;
-								})))));
+								}))));
+		}
 	}
 }

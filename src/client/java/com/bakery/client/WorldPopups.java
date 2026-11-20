@@ -3,7 +3,6 @@ package com.bakery.client;
 import com.bakery.food.Flavor;
 import com.bakery.network.BakeResultPayload;
 import com.bakery.network.ReviewPayload;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.Camera;
@@ -89,14 +88,10 @@ public final class WorldPopups {
 		POPUPS.add(new Popup(-1, Vec3d.ofBottomCenter(result.pos()).add(0, 1.2, 0), result.cake(), result.stars(), title, lines, ticks));
 	}
 
-	public static void render(WorldRenderContext context) {
+	public static void render(MatrixStack matrices, VertexConsumerProvider consumers, Camera camera, float delta) {
 		MinecraftClient client = MinecraftClient.getInstance();
-		if (client.world == null || POPUPS.isEmpty() || context.consumers() == null) return;
-		Camera camera = context.camera();
+		if (client.world == null || POPUPS.isEmpty() || consumers == null) return;
 		Vec3d cam = camera.getPos();
-		MatrixStack matrices = context.matrixStack();
-		VertexConsumerProvider consumers = context.consumers();
-		float delta = context.tickCounter().getTickDelta(false);
 		TextRenderer text = client.textRenderer;
 
 		Iterator<Popup> it = POPUPS.iterator();

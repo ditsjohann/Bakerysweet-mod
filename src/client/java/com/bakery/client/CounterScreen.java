@@ -8,7 +8,6 @@ import com.bakery.shop.CounterBlock;
 import com.bakery.shop.CounterBlockEntity;
 import com.bakery.shop.Order;
 import com.bakery.shop.Review;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.sound.PositionedSoundInstance;
@@ -329,7 +328,7 @@ public class CounterScreen extends Screen {
 	}
 
 	private void send(int action) {
-		ClientPlayNetworking.send(new SweetPayloads.CounterAction(pos, action));
+		ClientContent.sendToServer(new SweetPayloads.CounterAction(pos, action));
 		if (client != null) client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK.value(), 1.3f, 0.5f));
 	}
 

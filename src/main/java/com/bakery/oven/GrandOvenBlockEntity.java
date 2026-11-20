@@ -8,8 +8,6 @@ import com.bakery.registry.BakeryBlockEntities;
 import com.bakery.registry.BakeryBlocks;
 import com.bakery.registry.BakeryComponents;
 import com.bakery.registry.BakeryItems;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -319,7 +317,7 @@ public class GrandOvenBlockEntity extends BlockEntity implements Multiblock.Mach
 			stack.damage(1, player, hand == Hand.MAIN_HAND ? net.minecraft.entity.EquipmentSlot.MAINHAND : net.minecraft.entity.EquipmentSlot.OFFHAND);
 			return;
 		}
-		Integer burn = FuelRegistry.INSTANCE.get(stack.getItem());
+		Integer burn = com.bakery.platform.Platform.get().fuelTime(stack);
 		if (burn != null && burn > 0 && !onRack) {
 			feed(player, stack, burn);
 			return;
@@ -561,7 +559,7 @@ public class GrandOvenBlockEntity extends BlockEntity implements Multiblock.Mach
 			server.spawnParticles(stars >= 4 ? ParticleTypes.HAPPY_VILLAGER : ParticleTypes.SMOKE, at.x, at.y + 0.3, at.z, 8, 0.15, 0.15, 0.15, 0);
 		}
 		if (player instanceof ServerPlayerEntity serverPlayer) {
-			ServerPlayNetworking.send(serverPlayer, new BakeResultPayload(BlockPos.ofFloored(at), shown, stars, prep, timing, heatStars));
+			com.bakery.network.BakeryNetworking.send(serverPlayer, new BakeResultPayload(BlockPos.ofFloored(at), shown, stars, prep, timing, heatStars));
 			com.bakery.review.BakeryReputation.discover(serverPlayer, shape.name().toLowerCase(), BakeryFoods.flavor(shown), shown.getName());
 		}
 		remove(bake);
@@ -636,7 +634,7 @@ public class GrandOvenBlockEntity extends BlockEntity implements Multiblock.Mach
 			net.minecraft.util.math.Box mouth = new net.minecraft.util.math.Box(oven.rackPos()).expand(0.7, 1.2, 0.7);
 			for (net.minecraft.entity.ItemEntity drop : world.getEntitiesByClass(net.minecraft.entity.ItemEntity.class, mouth, e -> true)) {
 				ItemStack thrown = drop.getStack();
-				Integer burn = FuelRegistry.INSTANCE.get(thrown.getItem());
+				Integer burn = com.bakery.platform.Platform.get().fuelTime(thrown);
 				if (burn == null || burn <= 0 || thrown.getItem().getRecipeRemainder() != null) continue;
 				while (!thrown.isEmpty() && oven.fuel < MAX_FUEL - 200) {
 					oven.fuel = Math.min(MAX_FUEL, oven.fuel + burn);

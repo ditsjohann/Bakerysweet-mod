@@ -1,6 +1,5 @@
 package com.bakery.client.dev;
 
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.ScreenshotRecorder;
 import net.minecraft.server.integrated.IntegratedServer;
@@ -43,8 +42,8 @@ public final class Showcase {
 	public static void init() {
 		String script = System.getProperty("bakery.showcase");
 		if (script == null) return;
-		ClientTickEvents.END_CLIENT_TICK.register(client -> tick(client, script));
-		net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents.GAME.register((message, overlay) ->
+		com.bakery.client.ClientContent.TICK.add(client -> tick(client, script));
+		com.bakery.client.ClientContent.GAME_MESSAGES.add((message, overlay) ->
 				log((overlay ? "[actionbar] " : "[chat] ") + message.getString()));
 	}
 

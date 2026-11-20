@@ -7,8 +7,6 @@ import com.bakery.food.BakeryFoods;
 import com.bakery.network.OrdersPayload;
 import com.bakery.registry.BakeryBlockEntities;
 import com.bakery.review.BakeryReputation;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -186,7 +184,7 @@ public class CounterBlockEntity extends BlockEntity {
 			sync();
 		}
 		if (charm >= 5 && world instanceof ServerWorld server) {
-			for (ServerPlayerEntity player : PlayerLookup.around(server, Vec3d.ofCenter(pos), 12)) {
+			for (ServerPlayerEntity player : com.bakery.network.BakeryNetworking.around(server, Vec3d.ofCenter(pos), 12)) {
 				com.bakery.sweet.Stickers.award(player, com.bakery.sweet.Sticker.COZY_CAFE);
 			}
 		}
@@ -416,8 +414,8 @@ public class CounterBlockEntity extends BlockEntity {
 			}
 		}
 		OrdersPayload payload = new OrdersPayload(pos, views);
-		for (ServerPlayerEntity player : PlayerLookup.around(server, Vec3d.ofCenter(pos), 48)) {
-			ServerPlayNetworking.send(player, payload);
+		for (ServerPlayerEntity player : com.bakery.network.BakeryNetworking.around(server, Vec3d.ofCenter(pos), 48)) {
+			com.bakery.network.BakeryNetworking.send(player, payload);
 		}
 	}
 

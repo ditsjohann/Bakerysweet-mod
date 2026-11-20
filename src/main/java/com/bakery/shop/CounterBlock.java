@@ -128,7 +128,7 @@ public class CounterBlock extends BlockWithEntity {
 		}
 		if (!player.isSneaking()) {
 			if (player instanceof net.minecraft.server.network.ServerPlayerEntity serverPlayer) {
-				net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(serverPlayer, new com.bakery.network.SweetPayloads.OpenCounter(pos));
+				com.bakery.network.BakeryNetworking.send(serverPlayer, new com.bakery.network.SweetPayloads.OpenCounter(pos));
 			}
 			return ActionResult.CONSUME;
 		}

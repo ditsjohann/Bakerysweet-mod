@@ -5,9 +5,10 @@ import com.bakery.food.Topping;
 import com.bakery.registry.BakeryComponents;
 import com.bakery.registry.BakeryItems;
 import com.bakery.review.VillagerCritic;
-import net.fabricmc.fabric.api.event.player.UseEntityCallback;
-import net.fabricmc.fabric.api.event.player.UseItemCallback;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.World;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -26,8 +27,12 @@ public final class BakeryEvents {
 	private BakeryEvents() {
 	}
 
-	public static void register() {
-		UseItemCallback.EVENT.register((player, world, hand) -> {
+	/**
+	 * Right-click with an item in the air or on a block: a topping in the main hand decorates the bake in the off hand.
+	 * Each loader calls this before the item's own use; anything but PASS stops it there.
+	 */
+	public static TypedActionResult<ItemStack> useItem(PlayerEntity player, World world, Hand hand) {
+		{
 			ItemStack topping = player.getStackInHand(hand);
 			ItemStack bake = player.getOffHandStack();
 			if (hand != Hand.MAIN_HAND || !isToppable(bake)) {
@@ -54,10 +59,12 @@ public final class BakeryEvents {
 				player.sendMessage(Text.translatable("message.bakery.decorated", kind.displayName()), true);
 			}
 			return TypedActionResult.success(topping, world.isClient);
-		});
+		}
+	}
 
-		// Villagers are food critics: sneak + right-click one with a bake and they'll taste it.
-		UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
+	/** Villagers are food critics: sneak + right-click one with a bake and they'll taste it. PASS lets the click go on. */
+	public static ActionResult useEntity(PlayerEntity player, World world, Hand hand, Entity entity) {
+		{
 			ItemStack stack = player.getStackInHand(hand);
 			if (!(entity instanceof VillagerEntity villager) || villager.isBaby() || hand != Hand.MAIN_HAND
 					|| !player.isSneaking() || !VillagerCritic.canReview(stack)) {
@@ -67,21 +74,24 @@ public final class BakeryEvents {
 				VillagerCritic.review(serverPlayer, villager, stack);
 			}
 			return ActionResult.SUCCESS;
-		});
+		}
+	}
 
-		// Dressed as a Sweet Baker? Every two seconds is often enough to notice.
-		net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(server -> {
+	/** End of every server tick. Dressed as a Sweet Baker? Every two seconds is often enough to notice. */
+	public static void serverTick(MinecraftServer server) {
+		{
 			if (server.getTicks() % 40 != 0) return;
 			for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
 				if (com.bakery.sweet.Outfit.sweetBaker(player)) {
 					com.bakery.sweet.Stickers.award(player, com.bakery.sweet.Sticker.DRESS_UP);
 				}
 			}
-		});
+		}
+	}
 
-		// Every new baker starts with the Bakery Catalog and a little purse of Sweet Coins.
-		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-			ServerPlayerEntity player = handler.getPlayer();
+	/** A player joined. Every new baker starts with the Bakery Catalog and a little purse of Sweet Coins. */
+	public static void playerJoined(ServerPlayerEntity player) {
+		{
 			if (player.getCommandTags().add("bakery_starter")) {
 				player.getInventory().offerOrDrop(new ItemStack(BakeryItems.BAKERY_CATALOG));
 				player.getInventory().offerOrDrop(new ItemStack(BakeryItems.PATH_RIBBON));
@@ -90,7 +100,7 @@ public final class BakeryEvents {
 				player.getInventory().offerOrDrop(new ItemStack(BakeryItems.SWEET_COIN, STARTING_COINS));
 				player.sendMessage(Text.translatable("message.bakery.welcome").formatted(Formatting.LIGHT_PURPLE), false);
 			}
-		});
+		}
 	}
 
 	private static boolean isToppable(ItemStack stack) {

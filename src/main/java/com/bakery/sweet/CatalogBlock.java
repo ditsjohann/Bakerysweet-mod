@@ -3,7 +3,6 @@ package com.bakery.sweet;
 import com.bakery.deco.DecoBlock;
 import com.bakery.item.GuideItem;
 import com.bakery.network.SweetPayloads;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -33,7 +32,7 @@ public class CatalogBlock extends DecoBlock {
 	protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
 		if (player instanceof ServerPlayerEntity serverPlayer) {
 			world.playSound(null, pos, SoundEvents.ITEM_BOOK_PAGE_TURN, SoundCategory.BLOCKS, 1f, 1.1f);
-			ServerPlayNetworking.send(serverPlayer, new SweetPayloads.OpenCatalog(pos, GuideItem.data(serverPlayer)));
+			com.bakery.network.BakeryNetworking.send(serverPlayer, new SweetPayloads.OpenCatalog(pos, GuideItem.data(serverPlayer)));
 		}
 		return ActionResult.success(world.isClient);
 	}

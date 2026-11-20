@@ -5,7 +5,6 @@ import com.bakery.network.SweetPayloads;
 import com.bakery.registry.BakeryItems;
 import com.bakery.sweet.Catalog;
 import com.bakery.sweet.Coins;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -482,7 +481,7 @@ public class CatalogScreen extends Screen {
 			sound(SoundEvents.BLOCK_NOTE_BLOCK_BASS.value(), 0.8f);
 			return;
 		}
-		ClientPlayNetworking.send(new SweetPayloads.Buy(pos, index));
+		ClientContent.sendToServer(new SweetPayloads.Buy(pos, index));
 		if (left(index) > 0 && coins() >= Catalog.price(index, day())) stock.set(index, left(index) - 1);
 		sound(SoundEvents.UI_BUTTON_CLICK.value(), 1.4f);
 		flash = index;

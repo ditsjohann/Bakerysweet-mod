@@ -14,7 +14,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,16 +46,12 @@ public final class ClientOrders {
 		return list;
 	}
 
-	public static void renderBubbles(WorldRenderContext context) {
+	public static void renderBubbles(MatrixStack matrices, VertexConsumerProvider consumers, Camera camera, float delta) {
 		MinecraftClient client = MinecraftClient.getInstance();
-		if (client.world == null || BATCHES.isEmpty() || context.consumers() == null) {
+		if (client.world == null || BATCHES.isEmpty() || consumers == null) {
 			return;
 		}
-		Camera camera = context.camera();
 		Vec3d cam = camera.getPos();
-		MatrixStack matrices = context.matrixStack();
-		VertexConsumerProvider consumers = context.consumers();
-		float delta = context.tickCounter().getTickDelta(false);
 		TextRenderer text = client.textRenderer;
 
 		for (OrdersPayload.OrderView order : all()) {

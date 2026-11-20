@@ -4,7 +4,6 @@ import com.bakery.baking.BakingRecipes;
 import com.bakery.network.OpenRollingPayload;
 import com.bakery.registry.BakeryItems;
 import com.mojang.serialization.MapCodec;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -124,7 +123,7 @@ public class PastryBoardBlock extends BlockWithEntity {
 				return ItemActionResult.CONSUME;
 			}
 			if (player instanceof ServerPlayerEntity serverPlayer) {
-				ServerPlayNetworking.send(serverPlayer, new OpenRollingPayload(pos, onBoard.ordinal()));
+				com.bakery.network.BakeryNetworking.send(serverPlayer, new OpenRollingPayload(pos, onBoard.ordinal()));
 			}
 			return ItemActionResult.success(world.isClient);
 		}

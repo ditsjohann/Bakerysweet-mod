@@ -4,7 +4,6 @@ import com.bakery.registry.BakeryItems;
 import com.bakery.shop.CounterBlockEntity;
 import com.bakery.shop.CustomerPath;
 import com.bakery.shop.PathRibbonItem;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -33,7 +32,7 @@ public final class PathPreview {
 	}
 
 	public static void init() {
-		ClientTickEvents.END_CLIENT_TICK.register(PathPreview::tick);
+		ClientContent.TICK.add(PathPreview::tick);
 	}
 
 	private static void tick(MinecraftClient client) {

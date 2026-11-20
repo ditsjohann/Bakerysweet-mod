@@ -3,7 +3,6 @@ package com.bakery.shop;
 import com.bakery.deco.DecoBlock;
 import com.bakery.network.SweetPayloads;
 import com.bakery.registry.BakeryBlockEntities;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -45,7 +44,7 @@ public class OrderNotebookBlock extends DecoBlock implements BlockEntityProvider
 	protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
 		if (world.isClient) return ActionResult.SUCCESS;
 		if (world.getBlockEntity(pos) instanceof OrderNotebookBlockEntity notebook) notebook.refresh();
-		if (player instanceof ServerPlayerEntity serverPlayer) ServerPlayNetworking.send(serverPlayer, new SweetPayloads.OpenNotebook(pos));
+		if (player instanceof ServerPlayerEntity serverPlayer) com.bakery.network.BakeryNetworking.send(serverPlayer, new SweetPayloads.OpenNotebook(pos));
 		world.playSound(null, pos, SoundEvents.ITEM_BOOK_PAGE_TURN, SoundCategory.BLOCKS, 0.8f, 1.2f);
 		return ActionResult.CONSUME;
 	}

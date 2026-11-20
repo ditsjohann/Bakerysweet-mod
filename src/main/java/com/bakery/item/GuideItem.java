@@ -2,7 +2,6 @@ package com.bakery.item;
 
 import com.bakery.network.SweetPayloads;
 import com.bakery.review.BakeryReputation;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -23,7 +22,7 @@ public class GuideItem extends Item {
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 		if (user instanceof ServerPlayerEntity player) {
 			// The server sends the player's progress; the client opens the book when it arrives.
-			ServerPlayNetworking.send(player, data(player));
+			com.bakery.network.BakeryNetworking.send(player, data(player));
 		}
 		return TypedActionResult.success(user.getStackInHand(hand), world.isClient);
 	}

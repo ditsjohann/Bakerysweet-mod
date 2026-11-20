@@ -4,8 +4,6 @@ import com.bakery.Bakery;
 import com.bakery.tree.FruitTreeFeature;
 import com.bakery.tree.TreeShapes;
 import com.bakery.tree.WoodSet;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -28,8 +26,8 @@ public final class BakeryWorldgen {
 	@SafeVarargs
 	private static void tree(String name, TreeShapes.Kind kind, Supplier<WoodSet> wood, Supplier<Block> fruit, RegistryKey<Biome>... biomes) {
 		Registry.register(Registries.FEATURE, Bakery.id(name), new FruitTreeFeature(kind, wood, fruit));
-		BiomeModifications.addFeature(BiomeSelectors.includeByKey(biomes), GenerationStep.Feature.VEGETAL_DECORATION,
-				RegistryKey.of(RegistryKeys.PLACED_FEATURE, Bakery.id(name)));
+		// Which biomes it grows in: each loader adds the placed feature bakery:<name> to them its own way.
+		com.bakery.platform.Hooks.WILD_TREES.add(new com.bakery.platform.Hooks.WildTree(Bakery.id(name), java.util.List.of(biomes)));
 	}
 
 	public static void init() {

@@ -2,7 +2,6 @@ package com.bakery.shop;
 
 import com.bakery.deco.DecoBlock;
 import com.bakery.network.SweetPayloads;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -41,7 +40,7 @@ public class MenuBoardBlock extends DecoBlock {
 			if (counter == null) {
 				player.sendMessage(Text.translatable("message.bakery.menu.no_counter"), true);
 			} else {
-				ServerPlayNetworking.send(serverPlayer, new SweetPayloads.OpenMenu(counter));
+				com.bakery.network.BakeryNetworking.send(serverPlayer, new SweetPayloads.OpenMenu(counter));
 			}
 		}
 		return ActionResult.success(world.isClient);

@@ -57,10 +57,12 @@ Sweetheart Bakery runs on **Fabric**, **NeoForge** and **Forge** for Minecraft 1
 
 | Loader | Build | Jar |
 |---|---|---|
-| Fabric (+ Fabric API) | `./gradlew build` | `build/libs/sweetheart-bakery-1.0.0.jar` |
+| Fabric (+ Fabric API) | `./gradlew build` | `build/libs/sweetheart-bakery-fabric-1.0.0.jar` |
 | NeoForge 21.1 | `./gradlew -p neoforge build` | `neoforge/build/libs/sweetheart-bakery-neoforge-1.0.0.jar` |
 | Forge 52.1 | `./gradlew -p forge build` | `forge/build/libs/sweetheart-bakery-forge-1.0.0.jar` |
 
+- Each jar only works on its own loader; the file name says which (a NeoForge or Forge game that is given the
+  Fabric jar says it "is a Fabric mod and cannot be loaded").
 - Shared code and assets live in `src/` and use plain Minecraft. Each loader plugs in through a small adapter:
   `com.bakery.fabric` (in `src/`), `neoforge/src` and `forge/src`. What a loader has to provide is in
   `com.bakery.platform.Platform`; content the loaders wire up their own way is collected in `Hooks` (server) and
